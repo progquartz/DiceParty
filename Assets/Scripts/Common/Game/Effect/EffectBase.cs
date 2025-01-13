@@ -6,7 +6,7 @@ public class EffectBase : MonoBehaviour
     // 타겟 데이터 받아온 다음에, 여기에 기반으로 하는 Effect를 상속받아서 하는 것으로.
     // 타겟을 잡는 부분은, SkillDataSO에서 받아온 다음에, 이를 기반으로 작동.
     // 효과 / 대상으로 나눈 SkillDataSO로 만들 예정.
-    protected void Effect()
+    public virtual void Effect(BaseTarget[] targets)
     {
 
     }

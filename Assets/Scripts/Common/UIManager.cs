@@ -3,22 +3,25 @@ using System.Buffers.Text;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
+    public static GraphicRaycaster graphicRayCaster;
     public Transform CanvasTransform;
     public Transform ClosedUITrasnform;
+
+    
 
     private BaseUI _frontUI;
     private Dictionary<Type, BaseUI> _openUIPool = new();
     private Dictionary<Type, BaseUI> _closeUIPool = new();
 
-    public GameObject CurrencyUI { get; private set; }
 
     protected override void Init()
     {
         base.Init();
-        CurrencyUI = transform.Find("UICanvas/GoodsUI").gameObject;
+        graphicRayCaster = CanvasTransform.GetComponent<GraphicRaycaster>();
     }
 
     private BaseUI GetUI<T>(out bool isAlreadyOpen) where T : BaseUI
@@ -121,5 +124,9 @@ public class UIManager : SingletonBehaviour<UIManager>
         {
             _frontUI.Close();
         }
+    }
+    public static GraphicRaycaster GetRayCaster()
+    {
+        return graphicRayCaster;
     }
 }

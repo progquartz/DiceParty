@@ -3,7 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SkillSlotUI : MonoBehaviour
+public class SkillUI : MonoBehaviour
 {
 
     public SkillDataSO SkillDataSO;
@@ -50,5 +50,10 @@ public class SkillSlotUI : MonoBehaviour
             return false;
         }
         
+    }
+
+    public void UseSkill()
+    {
+
     }
 }
