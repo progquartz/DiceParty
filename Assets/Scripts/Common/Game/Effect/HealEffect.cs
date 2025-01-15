@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HealEffect : BaseEffect
 {
-    public override void Effect(BaseTarget[] targets, int strength)
+    public override void Effect(List<BaseTarget> targets, int strength)
     {
         foreach (var target in targets)
         {
