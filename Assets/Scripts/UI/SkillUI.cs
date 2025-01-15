@@ -54,6 +54,39 @@ public class SkillUI : MonoBehaviour
 
     public void UseSkill()
     {
+        for(int i = 0; i < SkillDataSO.SkillType.Count; i++)
+        {
+
+            // 스킬 타입을 선정.
+            string skillType = SkillDataSO.SkillType[i].ToString();
+            int skillStrength = SkillDataSO.SkillStrength[i];
+
+            Type skillClassType = Type.GetType(skillType);
+            if(skillClassType == null)
+            {
+                Debug.Log("정의되지 않은 이름의 SKill을 사용하려 합니다.");
+                return;
+            }
+
+            
+
+            // 타겟팅 옵션을 선정.
+            string targetOptionType = SkillDataSO.TargetOption[i].ToString();
+
+            Type targetClassType = Type.GetType(targetOptionType);
+            if (targetClassType == null)
+            {
+                Debug.Log("정의되지 않은 TargetOption을 사용하려 합니다.");
+                return;
+            }
+
+            // 인스턴스 제작.
+
+            BaseEffect skillEffect = Activator.CreateInstance(skillClassType) as BaseEffect;
+            BaseTargetOption targetOption = Activator.CreateInstance(targetClassType) as BaseTargetOption;
+
+            skillEffect.Effect(targetOption.GetTarget(), skillStrength);
+        }
 
     }
 }
