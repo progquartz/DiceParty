@@ -33,26 +33,14 @@ public enum TargetType
 public class SkillDataSO : ScriptableObject
 {
     // 스킬 설명
-    [Header("스킬 이름")]
-    public string SkillName;
-    [Header("스킬 설명")]
-    public string SkillLore;
+    [Header("스킬 이름 / 설명")]
+    public string skillName;
+    [TextArea] public string skillLore;
 
-    // 스킬 담당
-    [Header("스킬 담당")]
-    public SkillOwner SkillOwner;
+    [Header("이 스킬이 가지는 여러 (이펙트 - 타겟팅) 조합")]
+    public List<SkillEffectDataSO> skillEffects;
 
-    // 스킬 유형과 강함 정도
-    [Header("스킬 유형")]
-    public List<SkillType> SkillType;
-    public List<int> SkillStrength;
-
-
-    [Header("스킬 타겟")]
-    public List<TargetType> TargetOption;
-
-    [Header("스킬 조건 문자열")]
+    [Header("다이스 조건 설명")]
     public string diceNumLore;
-    [Header("실제 다이스 문자열")]
     public int[] diceNum;
 }

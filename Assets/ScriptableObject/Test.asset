@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  SkillName: Bash2
-  SkillLore: Gives 8 damage to enemy
-  SkillType: 0
+  skillName: 
+  skillLore: 
+  skillEffects: []
   diceNumLore: < 15
   diceNum: 
