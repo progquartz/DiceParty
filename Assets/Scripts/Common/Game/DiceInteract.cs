@@ -74,6 +74,7 @@ public class DiceInteract : MonoBehaviour
 
         if (droppedOnSlot)
         {
+            
             Debug.Log("슬롯에 드롭 성공!");
             
         }

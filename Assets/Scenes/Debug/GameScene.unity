@@ -730,8 +730,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bash
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
+  m_sharedMaterial: {fileID: -2637060265023762783, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.55
+  m_fontSize: 40.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1723,7 +1723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018242381}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Skills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1799,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a71e1c9d221493458be84e08c2dec97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillDataSO: {fileID: 0}
+  skillDataSO: {fileID: 11400000, guid: 3c8b17b4241a5c24d92496a191ba7a04, type: 2}
   diceNeedText: {fileID: 1388870464}
   skillNameText: {fileID: 386704330}
   skillLoreText: {fileID: 1814912675}
@@ -2396,8 +2396,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: < 20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
+  m_sharedMaterial: {fileID: -2637060265023762783, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.4
+  m_fontSize: 37.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3164,8 +3164,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gives 6 damage to enemy
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
+  m_sharedMaterial: {fileID: -2637060265023762783, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3189,7 +3189,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.05
+  m_fontSize: 24.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -12,9 +12,9 @@ public static class TargetOptionFactory
         // »Æ¿Â...
     };
 
-    public static BaseTargetOption CreateTargetOption(string targetKey)
+    public static BaseTargetOption CreateTargetOption(TargetOptionClassName targetKey)
     {
-        if (targetRegistry.TryGetValue(targetKey, out var constructor))
+        if (targetRegistry.TryGetValue(targetKey.ToString(), out var constructor))
         {
             return constructor();
         }

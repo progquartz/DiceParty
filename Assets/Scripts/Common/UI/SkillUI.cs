@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class SkillUI : MonoBehaviour
 {
@@ -44,5 +45,11 @@ public class SkillUI : MonoBehaviour
     public void UseSkill()
     {
         skillExecutor.UseSkill(skillDataSO);
+    }
+
+    [Obsolete("현재 만들어지지 않은 기능")]
+    public bool CheckDiceAvailability(Dice newDice)
+    {
+        return false;
     }
 }

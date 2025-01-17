@@ -4,11 +4,11 @@ using UnityEngine;
 public class DamageEffect : BaseEffect
 {
 
-    public override void Effect(List<BaseTarget> targets, int strength)
+    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
-            int totalDamage = strength + target.AdditionalDamageStack;
+            int totalDamage = strength1 + target.AdditionalDamageStack;
 
             // 방어력이 남아있다면 아머부터 깎고, 남으면 HP 깎기
             if (target.Armour > 0)

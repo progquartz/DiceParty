@@ -1,14 +1,31 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SkillEffectDataSO", menuName = "Scriptable Objects/SkillEffectDataSO")]
-public class SkillEffectDataSO : ScriptableObject
+
+public enum EffectClassName
 {
-    [Header("이펙트 클래스 이름 (예: DamageEffect, HealEffect 등)")]
-    public string effectClassName;
+    DamageEffect,
+    HealEffect,
+
+}
+
+public enum TargetOptionClassName
+{
+    TargetAllEnemy,
+    TargetRandomEnemy,
+}
+
+[System.Serializable]
+public class SkillEffectDataSO
+{
+    [Header("대상 타겟팅 클래스")]
+    public TargetOptionClassName targetClassName;
+
+    [Header("주는 효과")]
+    public EffectClassName effectClassName;
 
     [Header("스킬 강도(혹은 회복량, etc.)")]
-    public int strength;
+    public int strength1;
 
-    [Header("타겟팅 클래스 이름 (예: TargetAllEnemy, TargetRandomEnemy 등)")]
-    public string targetClassName;
+    [Header("스킬 강도2(부가 수치))")]
+    public int strength2;
 }

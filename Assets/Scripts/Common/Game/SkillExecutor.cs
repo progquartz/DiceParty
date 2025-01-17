@@ -29,7 +29,7 @@ public class SkillExecutor
             List<BaseTarget> targets = targetOption.GetTarget();
 
             // 이펙트 적용
-            effect.Effect(targets, effectData.strength);
+            effect.Effect(targets, effectData.strength1, effectData.strength2);
         }
     }
 }

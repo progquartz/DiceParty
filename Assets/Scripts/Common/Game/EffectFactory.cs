@@ -12,9 +12,9 @@ public static class EffectFactory
         { "HealEffect",   () => new HealEffect() },   // 예: 치유 효과 추가 시
     };
 
-    public static BaseEffect CreateEffect(string effectKey)
+    public static BaseEffect CreateEffect(EffectClassName effectKey)
     {
-        if (effectRegistry.TryGetValue(effectKey, out var constructor))
+        if (effectRegistry.TryGetValue(effectKey.ToString(), out var constructor))
         {
             return constructor();
         }

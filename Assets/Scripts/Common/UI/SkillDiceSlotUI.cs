@@ -8,4 +8,9 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         owner.UseSkill();
     }
+
+    public bool CheckAvailability(Dice dice)
+    {
+        return owner.CheckDiceAvailability(dice);
+    }
 }
