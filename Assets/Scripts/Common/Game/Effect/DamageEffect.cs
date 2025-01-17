@@ -4,26 +4,33 @@ using UnityEngine;
 public class DamageEffect : BaseEffect
 {
 
-    public override void Effect(List<BaseTarget> targets, int strength)
+    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
-            int totalHpDelta = strength + target.AdditionalDamageStack;
+            int totalDamage = strength1 + target.AdditionalDamageStack;
 
-
+            // 방어력이 남아있다면 아머부터 깎고, 남으면 HP 깎기
             if (target.Armour > 0)
             {
-                target.Armour -= totalHpDelta;
+                target.Armour -= totalDamage;
                 if (target.Armour < 0)
                 {
-                    totalHpDelta = -target.Armour;
-                    target.Hp -= totalHpDelta;
-                    if (target.Hp < 0)
-                    {
-                        target.Hp = 0;
-                        BattleManager.Instance.DeathCheck();
-                    }
+                    int hpDamage = -target.Armour;
+                    target.Armour = 0;
+                    target.Hp -= hpDamage;
                 }
+            }
+            else
+            {
+                target.Hp -= totalDamage;
+            }
+
+            
+            if (target.Hp <= 0)
+            {
+                target.Hp = 0;
+                target.HandleDead();
             }
         }
     }
