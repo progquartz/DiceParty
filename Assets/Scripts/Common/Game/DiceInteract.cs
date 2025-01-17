@@ -5,34 +5,39 @@ using UnityEngine.UI;
 
 public class DiceInteract : MonoBehaviour
 {
-
     private bool isDragging = false;
     private Vector3 offset;
     private Dice dice;
 
-    // ★ 이 부분을 Inspector에서 연결해야 함 (Canvas에 있는 GraphicRaycaster)
-    public GraphicRaycaster graphicRaycaster;
-    // 마우스 이벤트를 담을 EventSystem (씬에 있어야 함)
-    public EventSystem eventSystem;
+    // 이 주사위가 현재 어떤 슬롯에 붙어 있는지(없다면 null)
+    private SkillDiceSlotUI currentSlot = null;
 
-    public void Init()
-    {
-        graphicRaycaster = UIManager.GetRayCaster();
-        dice = GetComponent<Dice>();
-    }
+    // Canvas에 있는 GraphicRaycaster와 EventSystem
+    public GraphicRaycaster graphicRaycaster;
+    public EventSystem eventSystem;
 
     private void Awake()
     {
         Init();
     }
 
+    public void Init()
+    {
+        if (graphicRaycaster == null)
+        {
+            graphicRaycaster = UIManager.GetRayCaster();
+        }
+
+        if (dice == null)
+            dice = GetComponent<Dice>();
+    }
+
     void Update()
     {
         if (isDragging)
         {
-            // 마우스 위치를 월드 좌표로 변환
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;  // 2D이므로 z는 고정
+            mousePos.z = 0f;
             transform.position = mousePos + offset;
         }
     }
@@ -41,6 +46,14 @@ public class DiceInteract : MonoBehaviour
     void OnMouseDown()
     {
         isDragging = true;
+
+        // 슬롯에 자리잡았을 때에, 마우스를 놓음으로써 Detach
+        if (currentSlot != null)
+        {
+            currentSlot.OnDiceDetach(dice);
+            currentSlot = null;
+        }
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         offset = transform.position - mousePos;
@@ -51,11 +64,11 @@ public class DiceInteract : MonoBehaviour
     {
         isDragging = false;
 
+        // 마우스가 놓인 UI를 Raycast로 확인
         PointerEventData pointerData = new PointerEventData(eventSystem);
         pointerData.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
 
-        // raycast로 resultData 가져오기
+        List<RaycastResult> results = new List<RaycastResult>();
         graphicRaycaster.Raycast(pointerData, results);
 
         bool droppedOnSlot = false;
@@ -65,8 +78,12 @@ public class DiceInteract : MonoBehaviour
             var slot = r.gameObject.GetComponent<SkillDiceSlotUI>();
             if (slot != null)
             {
-                // 슬롯 스크립트가 있다면, 드롭 성공으로 판단
-                slot.OnDiceDropped(dice);
+                // 슬롯 스크립트가 있다면 슬롯에 장착
+                slot.OnDiceAttach(dice);
+
+                // 이제 이 주사위의 currentSlot도 갱신
+                currentSlot = slot;
+
                 droppedOnSlot = true;
                 break;
             }
@@ -74,13 +91,11 @@ public class DiceInteract : MonoBehaviour
 
         if (droppedOnSlot)
         {
-            
-            Debug.Log("슬롯에 드롭 성공!");
-            
+            Debug.Log("[DiceInteract] 슬롯에 드롭 성공!");
         }
         else
         {
-            Debug.Log("슬롯이 없는 곳에 드롭됨.");
+            Debug.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
         }
     }
 }
