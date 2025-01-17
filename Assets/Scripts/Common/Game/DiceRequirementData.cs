@@ -5,5 +5,6 @@ using UnityEngine;
 public class DiceRequirementData
 {
     public string diceNumLore;
-    public int[] diceNum;
+    // 0~20번째 인덱스까지 0또는 1 데이터를 넣어 부여하는 string.
+    public string diceNum;
 }

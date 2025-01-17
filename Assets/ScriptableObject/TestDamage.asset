@@ -19,5 +19,6 @@ MonoBehaviour:
     effectClassName: 0
     strength1: 3
     strength2: 0
-  diceNumLore: <= 15
-  diceNum: 
+  diceRequirements:
+  - diceNumLore: <= 15
+    diceNum: -11111111111111100000
