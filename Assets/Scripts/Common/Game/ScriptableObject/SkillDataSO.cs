@@ -38,9 +38,8 @@ public class SkillDataSO : ScriptableObject
     [TextArea] public string skillLore;
 
     [Header("이 스킬이 가지는 여러 (이펙트 - 타겟팅) 조합")]
-    public List<SkillEffectDataSO> skillEffects;
+    public List<SkillEffectData> skillEffects;
 
     [Header("다이스 조건 설명")]
-    public string diceNumLore;
-    public int[] diceNum;
+    public List<DiceRequirementData> diceRequirements;
 }
