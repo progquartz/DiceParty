@@ -14,6 +14,12 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private TMP_Text skillNameText;
     [SerializeField] private TMP_Text skillLoreText;
 
+
+    [Header("주사위 슬롯 1개짜리")]
+    [SerializeField] private GameObject oneDiceSlot;
+    [Header("주사위 슬롯 2개짜리")]
+    [SerializeField] private GameObject twoDiceSlot;
+
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
 
@@ -27,6 +33,7 @@ public class SkillUI : MonoBehaviour
         // 필요하다면 싱글톤이나 DI 등을 이용해도 됨
         skillExecutor = new SkillExecutor();
         RefreshDiceSlotValidity();
+        CheckDiceSlotCount();
     }
 
     private void RefreshDiceSlotValidity()
@@ -35,6 +42,27 @@ public class SkillUI : MonoBehaviour
         {
             // Dice 조건 맞는지 여부를 초기화.
             diceSlotValidity = new bool[skillDataSO.diceRequirements.Count];
+        }
+    }
+
+    private void CheckDiceSlotCount()
+    {
+        if(skillDataSO != null)
+        {
+            if( skillDataSO.diceRequirements.Count == 1)
+            {
+                oneDiceSlot.SetActive(true);
+                twoDiceSlot.SetActive(false);
+            }
+            else if(skillDataSO.diceRequirements.Count == 2)
+            {
+                oneDiceSlot.SetActive(false);
+                twoDiceSlot.SetActive(true);
+            }
+            else
+            {
+                Logger.LogError($"{skillDataSO.skillName} 이름을 가진 스킬이 비정상적인 개수의 주사위 슬롯 개수를 필요로 합니다.");
+            }
         }
     }
 

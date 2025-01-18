@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: TestDamage
+  m_Name: DamageTwoSlot
   m_EditorClassIdentifier: 
   skillName: DamageSkillTest
   skillLore: "\uB370\uBBF8\uC9C0 \uC2A4\uD0AC \uD14C\uC2A4\uD2B8\uC785\uB2C8\uB2E4."
@@ -22,3 +22,5 @@ MonoBehaviour:
   diceRequirements:
   - diceNumLore: <= 15
     diceNum: -11111111111111100000
+  - diceNumLore: '> 5'
+    diceNum: -00000111111111111111
