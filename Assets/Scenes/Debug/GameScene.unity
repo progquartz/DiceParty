@@ -1056,11 +1056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2ec10efbbf16345a6a9d194a70f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 10
-  maxHp: 10
-  Armour: 0
-  AdditionalDamageStack: 0
-  AdditionalHealStack: 0
+  stat:
+    Hp: 0
+    maxHp: 0
+    Armour: 0
+    AdditionalDamageStack: 0
+    AdditionalHealStack: 0
 --- !u!1 &578967267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3155,11 +3156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db51181775ee3f46940c7944921bec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 10
-  maxHp: 10
-  Armour: 0
-  AdditionalDamageStack: 0
-  AdditionalHealStack: 0
+  stat:
+    Hp: 0
+    maxHp: 0
+    Armour: 0
+    AdditionalDamageStack: 0
+    AdditionalHealStack: 0
 --- !u!1 &1668608190
 GameObject:
   m_ObjectHideFlags: 0

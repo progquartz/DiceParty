@@ -8,28 +8,29 @@ public class DamageEffect : BaseEffect
     {
         foreach (var target in targets)
         {
-            int totalDamage = strength1 + target.AdditionalDamageStack;
+            BaseStat targetStat = target.stat;
+            int totalDamage = strength1 + targetStat.AdditionalDamageStack;
 
             // 방어력이 남아있다면 아머부터 깎고, 남으면 HP 깎기
-            if (target.Armour > 0)
+            if (targetStat.Armour > 0)
             {
-                target.Armour -= totalDamage;
-                if (target.Armour < 0)
+                targetStat.Armour -= totalDamage;
+                if (targetStat.Armour < 0)
                 {
-                    int hpDamage = -target.Armour;
-                    target.Armour = 0;
-                    target.Hp -= hpDamage;
+                    int hpDamage = -targetStat.Armour;
+                    targetStat.Armour = 0;
+                    targetStat.Hp -= hpDamage;
                 }
             }
             else
             {
-                target.Hp -= totalDamage;
+                targetStat.Hp -= totalDamage;
             }
 
             
-            if (target.Hp <= 0)
+            if (targetStat.Hp <= 0)
             {
-                target.Hp = 0;
+                targetStat.Hp = 0;
                 target.HandleDead();
             }
         }

@@ -32,14 +32,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         {
             Debug.Log("플레이어 승리!");
         }
-    }
+    }   
 
     private bool CheckAllEnemiesDead()
     {
         foreach (var t in activeTargets)
         {
             // BaseEnemy를 상속받은 적이 살아 있으면 false
-            if (t is BaseEnemy && t.Hp > 0)
+            if (t is BaseEnemy && t.stat.Hp > 0)
                 return false;
         }
         return true;
