@@ -5,20 +5,35 @@ using System.Collections.Generic;
 public class EnemyAttackNodeSO : ScriptableObject
 {
     [Header("이 노드에서 실행할 공격 리스트(1개 이상 가능)")]
-    public List<EnemyAttackDataSO> attacks;
+    [Header("공격명")]
+    public string attackName;
+
+    // 넣을지는 모르겠다만은...
+    [Header("공격 시 하게 되는 대사")]
+    [TextArea] public string attackText;
+
+    [Header("스킬이 가지게 되는 이펙트")]
+    public List<SkillEffectData> attackEffects;
+
+
+    // 다음 노드 정의
 
     [Header("다음 노드로 가는 방법을 정의")]
     public TransitionType transitionType;
 
     // 순차 이동
-    [Tooltip("transitionType이 Sequence일 때, 다음 노드를 연결")]
+    [Tooltip("순차 조건일 때, 다음 노드를 연결")]
     public EnemyAttackNodeSO nextNode;
 
+
+    [Header("확률 기반 분기 시 사용")]
     // 확률 기반 분기
-    [Tooltip("transitionType이 Probability일 때, 가능한 여러 후보")]
+    [Tooltip("조건이 확률 기반일때 확률")]
     public List<ProbabilityTransition> probabilityTransitions;
 
+    [Header("조건 기반 분기 시 사용")]
     // 조건 기반 분기 (임시로 만듬)
+    [Tooltip("조건 기반 분기 (미완성)")]
     public ConditionalTransitionList conditionalTransitions; 
 }
 

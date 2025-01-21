@@ -7,6 +7,8 @@ public class EnemyPatternExecutor
     private EnemyAttackPatternSO _currentPattern;
     private EnemyAttackNodeSO _currentNode;
 
+    private SkillExecutor _skillExecutor;
+
     // 패턴 실행 시작
     public void StartPattern(EnemyAttackPatternSO pattern)
     {
@@ -23,21 +25,22 @@ public class EnemyPatternExecutor
             Logger.Log($"{_currentPattern.patternName}에서 더 이상 진행할 노드가 없기에, 패턴을 루트로 되돌립니다.");
         }
 
-        // 노드 실행
-        foreach (var attackData in _currentNode.attacks)
-        {
-            ExecuteAttack(attackData);
-        }
+        ExecuteAttack(_currentNode);
 
         // 다음 노드 체크.
         _currentNode = GetNextNode(_currentNode);
     }
 
-    private void ExecuteAttack(EnemyAttackDataSO attackData)
+    private void ExecuteAttack(EnemyAttackNodeSO attackData)
     {
         Debug.Log($"적이 공격 {attackData.attackName}을(를) 사용합니다.");
 
-        //  Skill Executor 재활용해서 사용하기.
+        SkillExecutor skillExecutor = _skillExecutor;
+        foreach(SkillEffectData skillData in attackData.attackEffects) 
+        {
+            skillExecutor.UseSkill(skillData);
+        }
+
     }
 
     private EnemyAttackNodeSO GetNextNode(EnemyAttackNodeSO node)
