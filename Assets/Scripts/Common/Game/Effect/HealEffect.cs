@@ -7,11 +7,12 @@ public class HealEffect : BaseEffect
     {
         foreach (var target in targets)
         {
-            int totalHpDelta = strength1 + target.AdditionalDamageStack;
-            target.Hp += totalHpDelta;
-            if (target.Hp > target.maxHp)
+            BaseStat targetStat = target.stat;
+            int totalHpDelta = strength1 + targetStat.AdditionalDamageStack;
+            targetStat.Hp += totalHpDelta;
+            if (targetStat.Hp > targetStat.maxHp)
             {
-                target.Hp = target.maxHp;
+                targetStat.Hp = targetStat.maxHp;
             }
         }
     }

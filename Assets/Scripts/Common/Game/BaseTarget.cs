@@ -6,16 +6,12 @@ public class BaseTarget : MonoBehaviour
 {
     public event Action<BaseTarget> OnDead;
 
-    public int Hp;
-    public int maxHp;
-    public int Armour;
-    public int AdditionalDamageStack;
-    public int AdditionalHealStack;
+    public BaseStat stat;
 
     public void Init()
     {
-        Hp = maxHp;
-        Armour = 0; 
+        stat.Hp = stat.maxHp;
+        stat.Armour = 0;
     }
 
 

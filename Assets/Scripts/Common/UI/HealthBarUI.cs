@@ -24,13 +24,13 @@ public class HealthBarUI : MonoBehaviour
     private void UpdateHealthBarSize()
     {
         Vector2 originalSize = healthBarOriginalRectSize.sizeDelta;
-        float hpRatio = (float)target.Hp / (float)target.maxHp;
+        float hpRatio = (float)target.stat.Hp / (float)target.stat.maxHp;
 
         healthBarRect.sizeDelta = new Vector2(originalSize.x * hpRatio, originalSize.y);
     }
 
     private void UpdateHealthBarText()
     {
-        healthText.text = target.Hp + "/" + target.maxHp;
+        healthText.text = target.stat.Hp + "/" + target.stat.maxHp;
     }
 }
