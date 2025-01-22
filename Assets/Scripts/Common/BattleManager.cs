@@ -12,20 +12,35 @@ public enum BattleState
 public class BattleManager : SingletonBehaviour<BattleManager>
 {
 
-    public BattleState battleState = BattleState.PlayerTurn;
+    public BattleState battleState = BattleState.BattleEnd;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     private List<BaseTarget> activeTargets = new List<BaseTarget>();
 
 
+    [Obsolete] [SerializeField] private Transform partyParentTransform;
+
+
     public void Init()
     {
+        AddPlayerParty();
+    }
+
+    public void StartBattlePhase()
+    {
+        battleState = BattleState.PlayerTurn;
+        // 이후에 스킬들 락 걸고 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
+
+        // 주사위 사용 가능하게 만들고...
+
+        // 적 로드하기
+
 
     }
 
     public void OnPlayerTurnEnd()
     {
-        if(battleState != BattleState.PlayerTurn)
+        if (battleState != BattleState.PlayerTurn)
         {
             Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 조건이 실행되었습니다.");
             return;
@@ -55,8 +70,40 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         yield break;
     }
 
+
+
+    [Obsolete("파티를 관리해주는 스크립트를 작성해서 이를 개별적으로 관리해줘야만 함.")]
+    private void AddPlayerParty()
+    {
+        BaseCharacter[] targets = partyParentTransform.GetComponentsInChildren<BaseCharacter>();
+        foreach (BaseCharacter target in targets)
+        {
+            RegisterTarget(target);
+        }
+    }
+
+    private void AddEnemyList(List<BaseEnemy> enemyList)
+    {
+        foreach (BaseEnemy target in enemyList)
+        {
+            RegisterTarget(target);
+        }
+    }
+
+    private void AddEnemy(BaseEnemy enemy)
+    {
+        RegisterTarget(enemy);
+    }
+
+
     public void RegisterTarget(BaseTarget target)
     {
+        if (target == null)
+        {
+            Logger.LogWarning("[BattleManager] 비정상적인 null값을 가진 타겟이 등록되려 합니다.");
+            return;
+        }
+
         if (!activeTargets.Contains(target))
         {
             activeTargets.Add(target);

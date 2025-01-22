@@ -8,4 +8,6 @@ public class BaseStat
     public int Armour;
     public int AdditionalDamageStack;
     public int AdditionalHealStack;
+
+    public bool isDead = false;
 }
