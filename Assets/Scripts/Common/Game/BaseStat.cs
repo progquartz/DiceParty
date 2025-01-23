@@ -10,4 +10,15 @@ public class BaseStat
     public int AdditionalHealStack;
 
     public bool isDead = false;
+
+    public void SetStat(BaseStat stat)
+    {
+        this.Hp = stat.Hp;
+        this.maxHp = stat.maxHp;
+        this.Armour = stat.Armour;
+        this.AdditionalDamageStack = stat.AdditionalDamageStack;
+        this.AdditionalHealStack = stat.AdditionalHealStack;
+
+        this.isDead = stat.isDead;
+    }
 }

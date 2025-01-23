@@ -15,11 +15,16 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleState battleState = BattleState.BattleEnd;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
-    private List<BaseTarget> activeTargets = new List<BaseTarget>();
+    [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
 
 
     [Obsolete] [SerializeField] private Transform partyParentTransform;
 
+    private void Awake()
+    {
+        base.Init();
+        Init();
+    }
 
     public void Init()
     {
@@ -55,6 +60,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     private IEnumerator ExecuteEnemyTurn()
     {
         // 적 턴 실행.
+        Logger.Log("적 공격!");
 
         yield return null;
         // 적 턴이 끝났으면 플레이어 턴으로 복귀
