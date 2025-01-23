@@ -10,10 +10,13 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private bool[] diceSlotValidity;
 
     [Header("UI 표시용 텍스트")]
-    [SerializeField] private TMP_Text diceNeedText;
+    
     [SerializeField] private TMP_Text skillNameText;
     [SerializeField] private TMP_Text skillLoreText;
 
+    [Header("주사위 조건 텍스트")]
+    [SerializeField] private List<TMP_Text> diceNeedTextOneSlot;
+    [SerializeField] private List<TMP_Text> diceNeedTextTwoSlot;
 
     [Header("주사위 슬롯 1개짜리")]
     [SerializeField] private GameObject oneDiceSlot;
@@ -78,11 +81,17 @@ public class SkillUI : MonoBehaviour
             skillNameText.text = skillDataSO.skillName;
             skillLoreText.text = skillDataSO.skillLore;
 
-            //diceNeedText.text = skillDataSO.diceRequirements.;
+            if(skillDataSO.diceRequirements.Count == 1)
+            {
+                diceNeedTextOneSlot[0].text = skillDataSO.diceRequirements[0].diceNumLore;
+            }
+            else if( skillDataSO.diceRequirements.Count == 2)
+            {
+                diceNeedTextTwoSlot[0].text = skillDataSO.diceRequirements[0].diceNumLore;
+                diceNeedTextTwoSlot[1].text = skillDataSO.diceRequirements[1].diceNumLore;
+            }
         }
     }
-
-
 
     public bool OnDiceAttach(Dice dice, int slotSiblingIndex)
     {

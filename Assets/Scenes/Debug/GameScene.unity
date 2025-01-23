@@ -1447,7 +1447,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 999
+  m_SortingOrder: 30
   m_TargetDisplay: 0
 --- !u!224 &665176907
 RectTransform:
@@ -1994,9 +1994,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillDataSO: {fileID: 11400000, guid: 3c8b17b4241a5c24d92496a191ba7a04, type: 2}
   diceSlotValidity: 
-  diceNeedText: {fileID: 1388870464}
   skillNameText: {fileID: 386704330}
   skillLoreText: {fileID: 1814912675}
+  diceNeedTextOneSlot:
+  - {fileID: 1388870464}
+  diceNeedTextTwoSlot:
+  - {fileID: 1203908431}
+  - {fileID: 1397972283}
   oneDiceSlot: {fileID: 1764233587}
   twoDiceSlot: {fileID: 1838548729}
 --- !u!1 &1189222071
@@ -3142,8 +3146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat:
-    Hp: 0
-    maxHp: 0
+    Hp: 10
+    maxHp: 10
     Armour: 0
     AdditionalDamageStack: 0
     AdditionalHealStack: 0
