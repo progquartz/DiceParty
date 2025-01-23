@@ -37,6 +37,7 @@ public class BaseEnemy : BaseTarget
     {
         if(enemyDataSO != null) 
         {
+            gameObject.name = enemyDataSO.name;
             enemySprite.sprite = enemyDataSO.enemytempSprite;
             enemyNameText.text = enemyDataSO.enemyName;
             LoadEnemyStat();
