@@ -1062,6 +1062,7 @@ MonoBehaviour:
     Armour: 0
     AdditionalDamageStack: 0
     AdditionalHealStack: 0
+    isDead: 0
 --- !u!1 &578967267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604240768}
   - component: {fileID: 604240769}
+  - component: {fileID: 604240770}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1152,6 +1154,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a76acc7eb2bfb4ba620b1733a9c0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &604240770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604240767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552a08c0c1eb224aadd4a489538615f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleState: 0
+  partyParentTransform: {fileID: 1668608191}
 --- !u!1 &610610649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,6 +3178,7 @@ MonoBehaviour:
     Armour: 0
     AdditionalDamageStack: 0
     AdditionalHealStack: 0
+    isDead: 0
 --- !u!1 &1668608190
 GameObject:
   m_ObjectHideFlags: 0

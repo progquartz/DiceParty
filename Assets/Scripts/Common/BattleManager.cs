@@ -108,13 +108,33 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         {
             activeTargets.Add(target);
             target.OnDead += OnTargetDead; // 사망 이벤트 구독
+            target.OnRemoval += OnTargetRemoval;
         }
     }
 
     private void OnTargetDead(BaseTarget deadTarget)
     {
         // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
-        Debug.Log($"BattleManager: {deadTarget.name} 사망 처리");
+        Debug.Log($"[BattleManager] {deadTarget.name} 사망 처리");
+
+        // 남은 적/아군 체크 후 전투 승리/패배 로직 등
+        if (CheckAllEnemiesDead())
+        {
+            Debug.Log("플레이어 승리!");
+        }
+        
+        if(CheckAllPlayerDead())
+        {
+            Debug.Log("적 승리!");
+        }
+
+    }
+
+    private void OnTargetRemoval(BaseTarget deadTarget)
+    {
+        // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
+        Debug.Log($"[BattleManager] {deadTarget.name} 삭제 처리");
+
 
         if (activeTargets.Contains(deadTarget))
         {
@@ -126,7 +146,15 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         {
             Debug.Log("플레이어 승리!");
         }
-    }   
+
+
+        if (CheckAllPlayerDead())
+        {
+            Debug.Log("적 승리!");
+        }
+
+    }
+
 
     private bool CheckBattleEnd()
     {
