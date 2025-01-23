@@ -20,11 +20,17 @@ public class BaseEnemy : BaseTarget
         Init();
     }
 
-    public void Init()
+    public void Init(EnemyDataSO dataSO)
     {
         base.Init();
         enemyPatternExecutor = new EnemyPatternExecutor();
+        ChangeDataSO(dataSO);
         LoadEnemyData();
+    }
+
+    private void ChangeDataSO(EnemyDataSO enemyDataSO)
+    {
+        this.enemyDataSO = enemyDataSO;
     }
 
     private void LoadEnemyData()
