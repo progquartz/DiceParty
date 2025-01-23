@@ -24,5 +24,4 @@ public class EnemyHordeDataSO : ScriptableObject
 
     // 스폰 비중 (필요할까?)
     public float spawnWeight;
-    // public string hordeDescription;
 }
