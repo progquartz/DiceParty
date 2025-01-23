@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
 {
-    // 전체 HordeDataSO를 보관하는 리스트(또는 Dictionary)
     [SerializeField] private List<EnemyHordeDataSO> _allHordeData = new List<EnemyHordeDataSO>();
 
     private bool _isInitialized = false;
@@ -33,7 +32,6 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
     /// </summary>
     public EnemyHordeDataSO GetTotalRandomHorde(StageType stageType)
     {
-        // 해당 타입에 맞는 Horde 후보 추출
         var filteredList = _allHordeData.Where(h => h.stageType == stageType).ToList();
         if (filteredList.Count == 0)
         {
@@ -41,7 +39,6 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
             return null;
         }
 
-        // 그 중 랜덤 하나 선택
         int randomIndex = Random.Range(0, filteredList.Count);
         return filteredList[randomIndex];
     }
@@ -64,6 +61,7 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
             totalWeight += data.spawnWeight;
         }
 
+        // 비중 계산
         float randomIndex = Random.Range(0, totalWeight);
         float stackingWeight = 0f;
         foreach(EnemyHordeDataSO data in filteredList)

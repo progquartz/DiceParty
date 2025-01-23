@@ -11,14 +11,14 @@ public enum BattleState
 }
 public class BattleManager : SingletonBehaviour<BattleManager>
 {
-
     public BattleState battleState = BattleState.BattleEnd;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
 
-
+    [SerializeField] private EnemySpawner enemySpawner;
     [Obsolete] [SerializeField] private Transform partyParentTransform;
+    [Obsolete][SerializeField] private Transform enemyParentTransform;
 
     private void Awake()
     {
@@ -31,17 +31,44 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         AddPlayerParty();
     }
 
-    public void StartBattlePhase()
+    public void TempBattleStart()
     {
+        StartBattlePhase(StageType.Stage1Normal);
+    }
+
+    public void StartBattlePhase(StageType stageType)
+    {
+        // 플레이어 턴 가정.
         battleState = BattleState.PlayerTurn;
+
         // 이후에 스킬들 락 걸고 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
 
         // 주사위 사용 가능하게 만들고...
 
         // 적 로드하기
-
+        EnemyMobListSetting(stageType);
 
     }
+
+    private void EnemyMobListSetting(StageType stageType)
+    {
+        StageType currentStageType = stageType;
+
+        EnemyHordeDataSO randomHorde = HordeDataLoader.Instance.GetTotalRandomHorde(currentStageType);
+
+        if (randomHorde == null)
+        {
+            Debug.LogWarning("랜덤 호드를 찾지 못했습니다!");
+            return;
+        }
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.SpawnEnemyList(randomHorde.enemyList, enemyParentTransform);
+        }
+    }
+
+
 
     public void OnPlayerTurnEnd()
     {
