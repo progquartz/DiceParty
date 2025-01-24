@@ -6,8 +6,14 @@ using System.Collections.Generic;
 
 public class SkillUI : MonoBehaviour
 {
+    
+    [Header("스킬 데이터")]
     [SerializeField] private SkillDataSO skillDataSO;
+
+    [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
+    [Header("스킬 슬롯에 등록되었는지 여부")]
+    [SerializeField] private bool isAttachedToSkillUISlot;
 
     [Header("UI 표시용 텍스트")]
     
@@ -93,6 +99,38 @@ public class SkillUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 스킬 사용
+    /// </summary>
+    public void UseSkill()
+    {
+        if(!isAttachedToSkillUISlot)
+        {
+            Logger.LogError("[SkillUI]슬롯에 등록되지 않은 스킬이 사용되고 있습니다!");
+            return;
+        }
+        skillExecutor.UseSkill(skillDataSO);
+    }
+
+    // 스킬을 스킬 슬롯에 넣었을때의 처리 부분
+
+    public void OnSkillSlotAttach()
+    {
+        isAttachedToSkillUISlot = true;
+    }
+
+    public void OnSkillSlotDetach()
+    {
+        isAttachedToSkillUISlot = false;
+    }
+
+
+
+    // 주사위 슬롯 내의 주사위 처리 부분
+
+    /// <summary>
+    /// 주사위가 스킬의 슬롯에 들어와 주사위의 조건을 체크.
+    /// </summary>
     public bool OnDiceAttach(Dice dice, int slotSiblingIndex)
     {
         bool isDiceNumValid = DiceCheck(dice, skillDataSO.diceRequirements[slotSiblingIndex]);
@@ -140,6 +178,9 @@ public class SkillUI : MonoBehaviour
         }
     }
 
+
+    // 내부 데이터 처리
+
     public void SetSkillData(SkillDataSO newSkillData)
     {
         skillDataSO = newSkillData;
@@ -147,9 +188,10 @@ public class SkillUI : MonoBehaviour
         UpdateSkillData();
     }
 
-    public void UseSkill()
+    public bool IsAttachedToSkillUISlot()
     {
-        skillExecutor.UseSkill(skillDataSO);
+        return isAttachedToSkillUISlot;
     }
+
 
 }
