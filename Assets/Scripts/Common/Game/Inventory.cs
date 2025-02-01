@@ -10,17 +10,10 @@ public class Inventory : SingletonBehaviour<Inventory>
     public int diceCountLimit = 8;
 
     /// <summary>
-    /// 새로운 주사위를 추가한다.
+    /// 새로운 주사위를 추가한다. 슬롯이 이미 가득 차 있을 경우, 교체를 위해서 교체 콜링을 필요로 한다.
     /// </summary>
-    public void AddDiceToInventory(DiceType diceType)
+    private void AddDiceToInventory(Dice newDice)
     {
-        if(diceList.Count >= diceCountLimit)
-        {
-            // 더 이상 추가할 수 없음.
-            // 교체하는 슬롯 필요.
-        }
-        // 현재 오브젝트 위치에 주사위를 생성한다고 가정
-        Dice newDice = diceRoller.InstantiateNewDice(diceType);
         diceList.Add(newDice);
     }
 
@@ -30,13 +23,51 @@ public class Inventory : SingletonBehaviour<Inventory>
         return diceList;
     }
 
+    private bool CheckInvenAvailability()
+    {
+        if (diceList.Count >= diceCountLimit)
+        {
+            // 더 이상 추가할 수 없음.
+            // 교체하는 슬롯 필요.
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private Dice InstantiateNewDice(DiceType diceType)
+    {
+        Dice newDice = diceRoller.InstantiateNewDice(diceType);
+        return newDice;
+    }
+
     public bool AddDice(DiceType diceType)
     {
-        AddDiceToInventory (diceType);
+        if(CheckInvenAvailability())
+        {
+            Dice newDice = InstantiateNewDice(diceType);
+            AddDiceToInventory(newDice);
+            return true;
+        }
+        else
+        {
+            Logger.Log($"다이스의 인벤토리가 가득 차 교체를 실행합니다.");
+            ReplaceDice();
+            return false;
+        }
+    }
 
+    public void ReplaceDice()
+    {
+        throw new System.NotImplementedException();
+
+        // Replace 될 수 있도록 조건 교체해주고...
+        // 다이스에서 선택 콜이 들어오면... 고체.
     }
     public void AddD6()
     {
-        AddDiceToInventory(DiceType.D6);
+        AddDice(DiceType.D6);
     }
 }
