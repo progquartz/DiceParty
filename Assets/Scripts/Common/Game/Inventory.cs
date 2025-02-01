@@ -7,6 +7,10 @@ public class Inventory : SingletonBehaviour<Inventory>
     [SerializeField] private List<Dice> diceList;
     [SerializeField] private DiceRoller diceRoller;
 
+    [SerializeField] private List<BasePotion> basePotion;
+
+
+    public int potionCountLimit = 3;
     public int diceCountLimit = 8;
 
     /// <summary>
