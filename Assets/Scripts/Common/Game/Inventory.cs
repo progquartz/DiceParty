@@ -7,7 +7,10 @@ public class Inventory : SingletonBehaviour<Inventory>
     [SerializeField] private List<Dice> diceList;
     [SerializeField] private DiceRoller diceRoller;
 
+    [Header("포션 슬롯")]
     [SerializeField] private List<PotionSlot> potionSlots;
+    [Header("스킬 슬롯")]
+    [SerializeField] private List<SkillUISlot> skillUISlots;
 
 
     public int potionCountLimit = 3;
@@ -31,6 +34,21 @@ public class Inventory : SingletonBehaviour<Inventory>
         potionSlots[index].EmptyPotion();
     }
 
+
+    /// Skill 부분
+    
+    public List<SkillUI> GetAllUsingSkill()
+    {
+        List<SkillUI> skillList = new List<SkillUI>();
+        foreach (var skill in skillUISlots)
+        {
+            if(skill.HasSkill())
+            {
+                skillList.Add(skill.GetSkill());
+            }
+        }
+        return skillList;
+    }
 
     /// Dice 부분
 

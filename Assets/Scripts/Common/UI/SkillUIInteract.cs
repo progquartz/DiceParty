@@ -47,66 +47,77 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isDragging = true;
-
-        // 슬롯에 자리잡았을 때에, 마우스를 놓음으로써 Detach
-        if (currentSlot != null)
+        if (BattleManager.Instance.battleState == BattleState.BattleEnd)
         {
-            currentSlot.OnSkillDetach(owner);
-            owner.OnSkillSlotDetach();
-            currentSlot = null;
+            isDragging = true;
+
+            // 슬롯에 자리잡았을 때에, 마우스를 놓음으로써 Detach
+            if (currentSlot != null)
+            {
+                currentSlot.OnSkillDetach(owner);
+                owner.OnSkillSlotDetach();
+                currentSlot = null;
+            }
+
+            Logger.Log("잡기");
+        }
+        else
+        {
+            Logger.Log("스킬 UI를 전투 도중 잡을 수 없습니다.");
         }
 
-        Logger.Log("잡기");
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDragging = false;
-        bool droppedOnSlot = false;
-
-        pointerEventData = new PointerEventData(eventSystem);
-        pointerEventData.position = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
-        //Input.mousePosition;
-        Debug.Log("z값이나 보자" + pointerEventData.position.ToString());
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        graphicRaycaster.Raycast(pointerEventData, results);
-
-        // Raycast 결과로 겹치는 UI 확인 가능
-        foreach (var r in results)
+        if(BattleManager.Instance.battleState == BattleState.BattleEnd)
         {
-            var slot = r.gameObject.GetComponent<SkillUISlot>();
-            if (slot != null)
+            isDragging = false;
+            bool droppedOnSlot = false;
+
+            pointerEventData = new PointerEventData(eventSystem);
+            pointerEventData.position = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+            //Input.mousePosition;
+            Debug.Log("z값이나 보자" + pointerEventData.position.ToString());
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            graphicRaycaster.Raycast(pointerEventData, results);
+
+            // Raycast 결과로 겹치는 UI 확인 가능
+            foreach (var r in results)
             {
-                // 슬롯에 스킬이 없을 경우에
-                if (!slot.HasSkill())
+                var slot = r.gameObject.GetComponent<SkillUISlot>();
+                if (slot != null)
                 {
-                    // 슬롯에 스킬 넣기.   
-                    slot.OnSkillUIAttach(owner);
-                    owner.OnSkillSlotAttach();
+                    // 슬롯에 스킬이 없을 경우에
+                    if (!slot.HasSkill())
+                    {
+                        // 슬롯에 스킬 넣기.   
+                        slot.OnSkillUIAttach(owner);
+                        owner.OnSkillSlotAttach();
 
-                    // 이제 이 주사위의 currentSlot도 갱신
-                    currentSlot = slot;
+                        // 이제 이 주사위의 currentSlot도 갱신
+                        currentSlot = slot;
 
-                    droppedOnSlot = true;
-                    break;
-                }
-                else
-                {
-                    Logger.Log("[SkillUIInteract] 스킬이 이미 찬 스킬 슬롯에 들어가려 합니다.");
+                        droppedOnSlot = true;
+                        break;
+                    }
+                    else
+                    {
+                        Logger.Log("[SkillUIInteract] 스킬이 이미 찬 스킬 슬롯에 들어가려 합니다.");
+                    }
                 }
             }
-        }
 
 
-        if (droppedOnSlot)
-        {
-            Logger.Log("[DiceInteract] 슬롯에 드롭 성공!");
-        }
-        else
-        {
-            Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
+            if (droppedOnSlot)
+            {
+                Logger.Log("[DiceInteract] 슬롯에 드롭 성공!");
+            }
+            else
+            {
+                Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
+            }
         }
     }
 

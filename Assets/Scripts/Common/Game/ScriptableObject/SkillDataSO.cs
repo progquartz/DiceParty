@@ -36,6 +36,7 @@ public class SkillDataSO : ScriptableObject
     [Header("스킬 이름 / 설명")]
     public string skillName;
     [TextArea] public string skillLore;
+    public int skillUseCount; // 0일 경우 무제한, 1일 경우 1회 사용, 그 이상의 경우 여러 회 사용.
 
     [Header("이 스킬이 가지는 여러 (이펙트 - 타겟팅) 조합")]
     public List<SkillEffectData> skillEffects;

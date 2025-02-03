@@ -193,5 +193,10 @@ public class SkillUI : MonoBehaviour
         return isAttachedToSkillUISlot;
     }
 
+    public void DestorySelf()
+    {
+        // 추후에 애니메이션 필요..?
+        Destroy(this.gameObject);
+    }
 
 }
