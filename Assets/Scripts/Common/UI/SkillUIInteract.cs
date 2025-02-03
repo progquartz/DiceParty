@@ -60,10 +60,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Logger.Log("잡기");
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-    }
-
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
@@ -112,5 +108,10 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }

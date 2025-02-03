@@ -7,11 +7,32 @@ public class Inventory : SingletonBehaviour<Inventory>
     [SerializeField] private List<Dice> diceList;
     [SerializeField] private DiceRoller diceRoller;
 
-    [SerializeField] private List<BasePotion> basePotion;
+    [SerializeField] private List<PotionSlot> potionSlots;
 
 
     public int potionCountLimit = 3;
     public int diceCountLimit = 8;
+
+
+
+
+    /// Potion 부분
+    public void UsePotionInSlots(int index)
+    {
+        potionSlots[index].UsePotion();
+    }
+    public PotionDataSO GetPotionData(int index)
+    {
+        return potionSlots[index].GetPotionData();
+    }
+
+    public void EmptyPotionSlot(int index)
+    {
+        potionSlots[index].EmptyPotion();
+    }
+
+
+    /// Dice 부분
 
     /// <summary>
     /// 새로운 주사위를 추가한다. 슬롯이 이미 가득 차 있을 경우, 교체를 위해서 교체 콜링을 필요로 한다.
@@ -19,12 +40,6 @@ public class Inventory : SingletonBehaviour<Inventory>
     private void AddDiceToInventory(Dice newDice)
     {
         diceList.Add(newDice);
-    }
-
-
-    public List<Dice> GetAllDice()
-    {
-        return diceList;
     }
 
     private bool CheckInvenAvailability()
@@ -74,4 +89,11 @@ public class Inventory : SingletonBehaviour<Inventory>
     {
         AddDice(DiceType.D6);
     }
+
+    public List<Dice> GetAllDice()
+    {
+        return diceList;
+    }
+
+
 }
