@@ -57,4 +57,9 @@ public class SkillUISlot : MonoBehaviour
     {
         return storedSkillUI != null;
     }
+
+    public SkillUI GetSkill()
+    {
+        return storedSkillUI;
+    }
 }

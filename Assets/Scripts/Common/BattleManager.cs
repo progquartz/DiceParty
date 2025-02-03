@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum BattleState
@@ -42,12 +43,28 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         battleState = BattleState.PlayerTurn;
 
         // 이후에 스킬들 락 걸고 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
+        EraseAllNonUsingSkill();
 
         // 주사위 사용 가능하게 만들고...
+        
 
         // 적 로드하기
         EnemyMobListSetting(stageType);
 
+    }
+
+    private void EraseAllNonUsingSkill()
+    {
+        // 리소스 감당 되는지 추후에 체크 필요.
+        List<SkillUI> allSkill = UnityEngine.Object.FindObjectsByType<SkillUI>(FindObjectsSortMode.None).ToList();
+
+        foreach (SkillUI skill in allSkill)
+        {
+            if(!skill.IsAttachedToSkillUISlot())
+            {
+                skill.DestorySelf();
+            }
+        }
     }
 
     private void EnemyMobListSetting(StageType stageType)
