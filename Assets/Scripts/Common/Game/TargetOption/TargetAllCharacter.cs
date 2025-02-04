@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetAllEnemy : BaseTargetOption
+public class TargetAllCharacter : BaseTargetOption
 {
     public override List<BaseTarget> GetTarget()
     {
@@ -11,7 +10,7 @@ public class TargetAllEnemy : BaseTargetOption
 
     private List<BaseTarget> FindAllEnemy()
     {
-        List<BaseEnemy> enemies =  BattleManager.Instance.GetAllEnemys();
-        return new List<BaseTarget>(enemies);
+        List<BaseCharacter> characters = BattleManager.Instance.GetAllCharacters();
+        return new List<BaseTarget>(characters);
     }
 }

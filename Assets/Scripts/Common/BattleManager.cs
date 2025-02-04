@@ -90,6 +90,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         StartCoroutine(ExecuteEnemyTurn());
     }
 
+    
 
     public void EndBattlePhase()
     {
@@ -195,6 +196,21 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
         Debug.Log($"[BattleManager] {deadTarget.name} 사망 처리");
 
+
+
+        if (activeTargets.Contains(deadTarget))
+        {
+            activeTargets.Remove(deadTarget);
+            if (enemyList.Contains(deadTarget))
+            {
+                enemyList.Remove(deadTarget as BaseEnemy);
+            }
+            if (characterList.Contains(deadTarget))
+            {
+                characterList.Remove(deadTarget as BaseCharacter);
+            }
+        }
+
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
         {
@@ -217,7 +233,17 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         if (activeTargets.Contains(deadTarget))
         {
             activeTargets.Remove(deadTarget);
+            if (enemyList.Contains(deadTarget))
+            {
+                enemyList.Remove(deadTarget as BaseEnemy);
+            }
+            if(characterList.Contains(deadTarget))
+            {
+                characterList.Remove(deadTarget as BaseCharacter);
+            }
         }
+
+        
 
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
@@ -233,6 +259,15 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     }
 
+    public List<BaseCharacter> GetAllCharacters()
+    {
+        return characterList;
+    }
+
+    public List<BaseEnemy> GetAllEnemys()
+    {
+        return enemyList;
+    }
 
     private bool CheckBattleEnd()
     {
