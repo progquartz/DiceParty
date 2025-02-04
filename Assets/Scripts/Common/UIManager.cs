@@ -20,7 +20,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     protected override void Init()
     {
-        base.Init();
         graphicRayCaster = CanvasTransform.GetComponent<GraphicRaycaster>();
     }
 

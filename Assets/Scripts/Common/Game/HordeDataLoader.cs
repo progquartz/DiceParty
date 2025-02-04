@@ -10,7 +10,6 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
 
     private void Awake()
     {
-        base.Init();
         Init();
     }
 

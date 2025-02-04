@@ -18,17 +18,23 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
 
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private DiceRoller diceRoller;
     [Obsolete] [SerializeField] private Transform partyParentTransform;
     [Obsolete][SerializeField] private Transform enemyParentTransform;
 
+    public event Action OnBattleStart;
+    public event Action OnPlayerTurnStart;
+    public event Action OnPlayerTurnEnd;
+    public event Action OnBattleEnd;
+
     private void Awake()
     {
-        base.Init();
         Init();
     }
 
     public void Init()
     {
+        diceRoller = FindAnyObjectByType<DiceRoller>();
         AddPlayerParty();
     }
 
@@ -39,32 +45,58 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void StartBattlePhase(StageType stageType)
     {
-        // 플레이어 턴 가정.
-        battleState = BattleState.PlayerTurn;
-
-        // 이후에 스킬들 락 걸고 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
-        EraseAllNonUsingSkill();
-
-        // 주사위 사용 가능하게 만들고...
-        
+        // 전투 완료 상태가 아닌데, 호출된 경우
+        if (battleState != BattleState.BattleEnd)
+        {
+            Logger.LogWarning($"[BattleManager] - 전투가 완료되지 않은 상태인데 새 전투가 호출되었습니다.");
+            return;
+        }
+        // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
+        OnBattleStart?.Invoke();
 
         // 적 로드하기
         EnemyMobListSetting(stageType);
 
+        // 그리고 턴 시작할 때에 이뤄지는 것들 추가 진행.
+        PlayerTurnStart();
     }
 
-    private void EraseAllNonUsingSkill()
+    public void PlayerTurnStart()
     {
-        // 리소스 감당 되는지 추후에 체크 필요.
-        List<SkillUI> allSkill = UnityEngine.Object.FindObjectsByType<SkillUI>(FindObjectsSortMode.None).ToList();
+        battleState = BattleState.PlayerTurn;
 
-        foreach (SkillUI skill in allSkill)
+        // 플레이어 턴 가정. (스킬 락 풀림.)
+        OnPlayerTurnStart?.Invoke();
+
+        // 주사위 사용 가능하게 만들고...
+        diceRoller.RollAllDiceNew();
+    }
+
+    public void PlayerTurnEnd()
+    {
+        if (battleState != BattleState.PlayerTurn)
         {
-            if(!skill.IsAttachedToSkillUISlot())
-            {
-                skill.DestorySelf();
-            }
+            Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 조건이 실행되었습니다.");
+            return;
         }
+
+        battleState = BattleState.EnemyTurn;
+        // 적 턴 시작 (스킬 락, 다이스 지우기)
+        OnPlayerTurnEnd?.Invoke();
+
+        StartCoroutine(ExecuteEnemyTurn());
+    }
+
+
+    public void EndBattlePhase()
+    {
+        if(battleState == BattleState.BattleEnd)
+        {
+            Logger.LogWarning($"[BattleManager] - 전투 턴이 종료된 상태에서 전투 종료 ");
+        }
+        battleState = BattleState.BattleEnd;
+        OnBattleEnd?.Invoke();
+
     }
 
     private void EnemyMobListSetting(StageType stageType)
@@ -75,7 +107,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         if (randomHorde == null)
         {
-            Debug.LogWarning("랜덤 호드를 찾지 못했습니다!");
+            Debug.LogWarning("[BattleManager] - 랜덤 호드를 찾지 못했습니다!");
             return;
         }
 
@@ -86,17 +118,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     }
 
 
-
-    public void OnPlayerTurnEnd()
-    {
-        if (battleState != BattleState.PlayerTurn)
-        {
-            Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 조건이 실행되었습니다.");
-            return;
-        }
-        battleState = BattleState.EnemyTurn;
-        StartCoroutine(ExecuteEnemyTurn());
-    }
 
     /// <summary>
     /// 적 턴 실행에 필요한 요소들 코루틴 구성
@@ -111,11 +132,11 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
         if (CheckBattleEnd())
         {
-            battleState = BattleState.BattleEnd;
+            EndBattlePhase();
             yield break;
         }
 
-        battleState = BattleState.PlayerTurn;
+        PlayerTurnStart();
         // 이후 플레이어가 행동할 수 있도록 UI 활성화 등
         yield break;
     }

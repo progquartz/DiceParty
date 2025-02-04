@@ -12,8 +12,11 @@ public class SkillUI : MonoBehaviour
 
     [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
+
     [Header("스킬 슬롯에 등록되었는지 여부")]
     [SerializeField] private bool isAttachedToSkillUISlot;
+    [Header("스킬 사용 가능 여부")]
+    [SerializeField] private bool isSkillUseAvailable = false;
 
     [Header("UI 표시용 텍스트")]
     
@@ -32,6 +35,8 @@ public class SkillUI : MonoBehaviour
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
 
+    
+
     private void Awake()
     {
         Init();
@@ -43,6 +48,24 @@ public class SkillUI : MonoBehaviour
         skillExecutor = new SkillExecutor();
         RefreshDiceSlotValidity();
         CheckDiceSlotCount();
+        RegisterEvents();
+    }
+
+    private void RegisterEvents()
+    {
+        BattleManager.Instance.OnBattleStart += DestroyIfNotAttached;
+        BattleManager.Instance.OnPlayerTurnEnd += LockSkillUI;
+        BattleManager.Instance.OnPlayerTurnStart += UnlockSkillUI;
+    }
+
+    private void LockSkillUI()
+    {
+        isSkillUseAvailable = false;
+    }
+
+    private void UnlockSkillUI()
+    {
+        isSkillUseAvailable = true;
     }
 
     private void RefreshDiceSlotValidity()
@@ -117,12 +140,15 @@ public class SkillUI : MonoBehaviour
     public void OnSkillSlotAttach()
     {
         isAttachedToSkillUISlot = true;
+        CheckSkillAvailability();
     }
 
     public void OnSkillSlotDetach()
     {
         isAttachedToSkillUISlot = false;
+        CheckSkillAvailability();
     }
+
 
 
 
@@ -141,6 +167,12 @@ public class SkillUI : MonoBehaviour
         }
         return isDiceNumValid;
     }
+
+    public void OnDiceDetach(Dice dice, int slotSiblingIndex)
+    {
+        diceSlotValidity[slotSiblingIndex] = false;
+    }
+
 
     private void CheckDiceValidity()
     {
@@ -161,9 +193,17 @@ public class SkillUI : MonoBehaviour
         }
     }
 
-    public void OnDiceDetach(Dice dice, int slotSiblingIndex)
+
+    private void CheckSkillAvailability()
     {
-        diceSlotValidity[slotSiblingIndex] = false;
+        if(isAttachedToSkillUISlot && isSkillUseAvailable)
+        {
+            return;
+        }
+        else
+        {
+            isSkillUseAvailable = false;
+        }
     }
 
     private bool DiceCheck(Dice dice, DiceRequirementData diceData)
@@ -191,6 +231,14 @@ public class SkillUI : MonoBehaviour
     public bool IsAttachedToSkillUISlot()
     {
         return isAttachedToSkillUISlot;
+    }
+
+    private void DestroyIfNotAttached()
+    {
+        if(!isAttachedToSkillUISlot)
+        {
+            DestorySelf();
+        }
     }
 
     public void DestorySelf()

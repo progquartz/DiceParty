@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
 {
-    [SerializeField] private List<Dice> diceList;
-    [SerializeField] private DiceRoller diceRoller;
+    [SerializeField] private List<DiceType> diceList;
 
     [Header("포션 슬롯")]
     [SerializeField] private List<PotionSlot> potionSlots;
@@ -17,6 +16,10 @@ public class Inventory : SingletonBehaviour<Inventory>
     public int diceCountLimit = 8;
 
 
+    protected override void Init()
+    {
+        // 초기화 부분.
+    }
 
 
     /// Potion 부분
@@ -55,7 +58,7 @@ public class Inventory : SingletonBehaviour<Inventory>
     /// <summary>
     /// 새로운 주사위를 추가한다. 슬롯이 이미 가득 차 있을 경우, 교체를 위해서 교체 콜링을 필요로 한다.
     /// </summary>
-    private void AddDiceToInventory(Dice newDice)
+    private void AddDiceToInventory(DiceType newDice)
     {
         diceList.Add(newDice);
     }
@@ -74,18 +77,17 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
     }
 
-    private Dice InstantiateNewDice(DiceType diceType)
+    public List<DiceType> GetDiceList()
     {
-        Dice newDice = diceRoller.InstantiateNewDice(diceType);
-        return newDice;
+        return diceList;
     }
+
 
     public bool AddDice(DiceType diceType)
     {
         if(CheckInvenAvailability())
         {
-            Dice newDice = InstantiateNewDice(diceType);
-            AddDiceToInventory(newDice);
+            AddDiceToInventory(diceType);
             return true;
         }
         else
@@ -108,7 +110,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         AddDice(DiceType.D6);
     }
 
-    public List<Dice> GetAllDice()
+    public List<DiceType> GetAllDice()
     {
         return diceList;
     }

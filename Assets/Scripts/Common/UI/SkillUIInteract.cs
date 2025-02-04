@@ -32,6 +32,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             graphicRaycaster = UIManager.GetRayCaster();
         }
         eventSystem = eventSystem ?? EventSystem.current;
+        
 
     }
 
