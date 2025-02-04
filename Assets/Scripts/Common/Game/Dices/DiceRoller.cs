@@ -23,6 +23,8 @@ public class DiceRoller : MonoBehaviour
 
     public void RollAllDiceNew()
     {
+        diceList.Clear();
+
         List<DiceType> diceTypeList = Inventory.Instance.GetDiceList();
 
         foreach (DiceType type in diceTypeList)
@@ -33,13 +35,7 @@ public class DiceRoller : MonoBehaviour
         ReRollAllDice();
     }
 
-    public void ClearAllDice()
-    {
-        foreach(Dice dice in diceList)
-        {
-            dice.DestroySelf();
-        }
-    }
+    
 
     public void ReRollAllDice()
     {

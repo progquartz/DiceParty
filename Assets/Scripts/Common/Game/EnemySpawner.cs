@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
         BaseEnemy newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
         newEnemy.transform.parent = parentTransform;
         newEnemy.Init(enemyData);
-        BattleManager.Instance.RegisterTarget(newEnemy);
+        BattleManager.Instance.AddEnemy(newEnemy);
         return newEnemy;
     }
 

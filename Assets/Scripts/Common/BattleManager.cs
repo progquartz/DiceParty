@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 using UnityEngine;
 
 public enum BattleState
@@ -16,6 +17,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
+    [SerializeField] private List<BaseEnemy> enemyList = new List<BaseEnemy>();
+    [SerializeField] private List<BaseCharacter> characterList = new List<BaseCharacter>();
 
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private DiceRoller diceRoller;
@@ -127,7 +130,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 적 턴 실행.
         Logger.Log("적 공격!");
 
-        yield return null;
+        // 적 마다... 순서 진행. 적 프레임에 맞춰 초당 대기.
+        foreach(BaseEnemy enemy in enemyList)
+        {
+            enemy.AttackOnPattern();
+            // 여기에 null은 이후에 적 행동 애니메이션 실행 후 대기하는 시간으로 수정.
+            yield return null;
+        }
+
         // 적 턴이 끝났으면 플레이어 턴으로 복귀
         // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
         if (CheckBattleEnd())
@@ -136,12 +146,15 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             yield break;
         }
 
+        // 적 턴 실행.
+        Logger.Log("적 공격 끝.");
         PlayerTurnStart();
         // 이후 플레이어가 행동할 수 있도록 UI 활성화 등
         yield break;
     }
 
 
+    
 
     [Obsolete("파티를 관리해주는 스크립트를 작성해서 이를 개별적으로 관리해줘야만 함.")]
     private void AddPlayerParty()
@@ -149,20 +162,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         BaseCharacter[] targets = partyParentTransform.GetComponentsInChildren<BaseCharacter>();
         foreach (BaseCharacter target in targets)
         {
+            characterList.Add(target);
             RegisterTarget(target);
         }
     }
 
-    private void AddEnemyList(List<BaseEnemy> enemyList)
+    public void AddEnemy(BaseEnemy enemy)
     {
-        foreach (BaseEnemy target in enemyList)
-        {
-            RegisterTarget(target);
-        }
-    }
-
-    private void AddEnemy(BaseEnemy enemy)
-    {
+        enemyList.Add(enemy);
         RegisterTarget(enemy);
     }
 

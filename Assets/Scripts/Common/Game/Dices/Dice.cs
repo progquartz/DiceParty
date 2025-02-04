@@ -42,6 +42,7 @@ public class Dice : MonoBehaviour
 
     public void DestroySelf()
     {
+        BattleManager.Instance.OnPlayerTurnEnd -= DestroySelf;
         Destroy(this.gameObject);
     }
 }
