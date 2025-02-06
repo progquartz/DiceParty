@@ -17,7 +17,7 @@ public class EnemyPatternExecutor
     }
 
     // BattleManager에 있어서 매턴 호출 필요.
-    public void ExecuteNextAttack()
+    public void ExecuteNextAttack(BaseTarget caller)
     {
         if (_currentNode == null)
         {
@@ -25,20 +25,20 @@ public class EnemyPatternExecutor
             Logger.Log($"{_currentPattern.patternName}에서 더 이상 진행할 노드가 없기에, 패턴을 루트로 되돌립니다.");
         }
 
-        ExecuteAttack(_currentNode);
+        ExecuteAttack(_currentNode, caller);
 
         // 다음 노드 체크.
         _currentNode = GetNextNode(_currentNode);
     }
 
-    private void ExecuteAttack(EnemyAttackNodeSO attackData)
+    private void ExecuteAttack(EnemyAttackNodeSO attackData, BaseTarget caller)
     {
         Debug.Log($"적이 공격 {attackData.attackName}을(를) 사용합니다.");
 
         SkillExecutor skillExecutor = _skillExecutor;
         foreach(SkillEffectData skillData in attackData.attackEffects) 
         {
-            skillExecutor.UseSkill(skillData);
+            skillExecutor.UseSkill(skillData, caller);
         }
 
     }

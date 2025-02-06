@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TargetAllCharacter : BaseTargetOption
 {
-    public override List<BaseTarget> GetTarget()
+    public override List<BaseTarget> GetTarget(BaseTarget caller)
     {
         return FindAllEnemy();
     }

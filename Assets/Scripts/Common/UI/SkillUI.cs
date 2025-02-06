@@ -15,8 +15,8 @@ public class SkillUI : MonoBehaviour
     [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
 
-    [Header("스킬 슬롯에 등록되었는지 여부")]
-    [SerializeField] private bool isAttachedToSkillUISlot;
+    [Header("등록된 스킬 슬롯")]
+    [SerializeField] private SkillUISlot skillUISlot;
 
     [Header("UI 표시용 텍스트")]
     
@@ -32,6 +32,7 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private GameObject oneDiceSlot;
     [Header("주사위 슬롯 2개짜리")]
     [SerializeField] private GameObject twoDiceSlot;
+
 
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
@@ -141,9 +142,9 @@ public class SkillUI : MonoBehaviour
     /// <summary>
     /// 스킬 사용
     /// </summary>
-    public void UseSkill()
+    public void UseSkill(BaseTarget caller)
     {
-        if(!isAttachedToSkillUISlot)
+        if(!IsAttachedToSkillUISlot())
         {
             Logger.LogError("[SkillUI]슬롯에 등록되지 않은 스킬이 사용되고 있습니다!");
             return;
@@ -155,7 +156,7 @@ public class SkillUI : MonoBehaviour
         // 사용 개수 차감.
         SkillUseLeftCount--;
 
-        skillExecutor.UseSkill(skillDataSO);
+        skillExecutor.UseSkill(skillDataSO, caller);
         OnSkillUse?.Invoke(SkillUseLeftCount);
         UpdateVisual();
         
@@ -163,14 +164,14 @@ public class SkillUI : MonoBehaviour
 
     // 스킬을 스킬 슬롯에 넣었을때의 처리 부분
 
-    public void OnSkillSlotAttach()
+    public void OnSkillSlotAttach(SkillUISlot attachedSlot)
     {
-        isAttachedToSkillUISlot = true;
+        skillUISlot = attachedSlot;
     }
 
     public void OnSkillSlotDetach()
     {
-        isAttachedToSkillUISlot = false;
+        skillUISlot = null;
     }
 
     // 주사위 슬롯 내의 주사위 처리 부분
@@ -211,7 +212,7 @@ public class SkillUI : MonoBehaviour
         if (isAllDiceValid)
         {
             Logger.Log($"{diceSlotValidity.Length} 개의 슬롯을 가진 {skillDataSO.skillName} 스킬이 조건에 맞아 실행됩니다.");
-            UseSkill();
+            UseSkill(skillUISlot.GetCharacter());
         }
     }
 
@@ -241,12 +242,16 @@ public class SkillUI : MonoBehaviour
 
     public bool IsAttachedToSkillUISlot()
     {
-        return isAttachedToSkillUISlot;
+        if(skillUISlot != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void DestroyIfNotAttached()
     {
-        if(!isAttachedToSkillUISlot)
+        if(!IsAttachedToSkillUISlot())
         {
             DestorySelf();
         }
@@ -255,6 +260,7 @@ public class SkillUI : MonoBehaviour
     public void DestorySelf()
     {
         ReleaseEvents();
+        skillUISlot.OnSkillUIDetach(this);
         // 추후에 애니메이션 필요..?
         Destroy(this.gameObject);
         

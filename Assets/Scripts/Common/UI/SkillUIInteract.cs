@@ -56,7 +56,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // 슬롯에 자리잡았을 때에, 마우스를 놓음으로써 Detach
             if (currentSlot != null)
             {
-                currentSlot.OnSkillDetach(owner);
+                currentSlot.OnSkillUIDetach(owner);
                 owner.OnSkillSlotDetach();
                 currentSlot = null;
             }
@@ -96,7 +96,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     {
                         // 슬롯에 스킬 넣기.   
                         slot.OnSkillUIAttach(owner);
-                        owner.OnSkillSlotAttach();
+                        owner.OnSkillSlotAttach(slot);
 
                         // 이제 이 주사위의 currentSlot도 갱신
                         currentSlot = slot;

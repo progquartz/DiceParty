@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class BaseTargetOption
 {
-    public abstract List<BaseTarget> GetTarget();
+    public abstract List<BaseTarget> GetTarget(BaseTarget caller);
 }
