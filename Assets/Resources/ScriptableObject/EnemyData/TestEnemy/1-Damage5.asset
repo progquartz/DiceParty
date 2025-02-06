@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: 
   attackText: 
   attackEffects:
-  - targetClassName: 1
+  - targetClassName: 2
     effectClassName: 0
     strength1: 5
     strength2: 0

@@ -5,12 +5,15 @@ public class TargetAllCharacter : BaseTargetOption
 {
     public override List<BaseTarget> GetTarget(BaseTarget caller)
     {
-        return FindAllEnemy();
-    }
-
-    private List<BaseTarget> FindAllEnemy()
-    {
         List<BaseCharacter> characters = BattleManager.Instance.GetAllCharacters();
-        return new List<BaseTarget>(characters);
+        List<BaseCharacter> aliveCharacters = new List<BaseCharacter>();
+        foreach (BaseCharacter character in characters)
+        {
+            if (!character.stat.isDead)
+            {
+                aliveCharacters.Add(character);
+            }
+        }
+        return new List<BaseTarget>(aliveCharacters);
     }
 }

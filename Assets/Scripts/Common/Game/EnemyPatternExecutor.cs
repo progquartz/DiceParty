@@ -12,6 +12,7 @@ public class EnemyPatternExecutor
     // 패턴 실행 시작
     public void SetPattern(EnemyAttackPatternSO pattern)
     {
+        _skillExecutor = new SkillExecutor();
         _currentPattern = pattern;
         _currentNode = pattern.rootNode;
     }

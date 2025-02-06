@@ -260,7 +260,10 @@ public class SkillUI : MonoBehaviour
     public void DestorySelf()
     {
         ReleaseEvents();
-        skillUISlot.OnSkillUIDetach(this);
+        if(skillUISlot != null )
+        {
+            skillUISlot.OnSkillUIDetach(this);
+        }
         // 추후에 애니메이션 필요..?
         Destroy(this.gameObject);
         

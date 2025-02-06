@@ -9,6 +9,13 @@ public static class TargetOptionFactory
     {
         { "TargetAllEnemy",   () => new TargetAllEnemy() },
         { "TargetRandomEnemy", () => new TargetRandomEnemy() },
+        { "TargetAllCharacter", () => new TargetAllCharacter() },
+        { "TargetRandomCharacter", () => new TargetRandomCharacter() },
+        { "TargetAllEnemyDead",   () => new TargetAllEnemyDead() },
+        { "TargetRandomEnemyDead", () => new TargetRandomEnemyDead() },
+        { "TargetAllCharacterDead", () => new TargetAllCharacterDead() },
+        { "TargetRandomCharacterDead", () => new TargetRandomCharacterDead() },
+        { "TargetSelf", () => new TargetSelf() }
         // 확장...
     };
 
@@ -19,7 +26,7 @@ public static class TargetOptionFactory
             return constructor();
         }
 
-        Logger.LogWarning($"{targetKey} 에 해당하는 TargetOption 생성자를 찾을 수 없습니다.");
+        Logger.LogWarning($"{targetKey} 의 이름을 가진 해당하는 TargetOption 생성자를 찾을 수 없습니다.");
         return null;
     }
 }

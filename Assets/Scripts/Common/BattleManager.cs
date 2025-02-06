@@ -92,7 +92,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     
 
-    public void EndBattlePhase()
+    public void EndBattlePhase(bool isPlayerWin)
     {
         if(battleState == BattleState.BattleEnd)
         {
@@ -101,6 +101,38 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         battleState = BattleState.BattleEnd;
         OnBattleEnd?.Invoke();
 
+        // 플레이어가 승리일 경우...
+        if(isPlayerWin)
+        {
+            // 모든 적 리스트 제거.
+            foreach (BaseTarget target in activeTargets)
+            {
+                foreach (BaseTarget activeEnemy in enemyList)
+                {
+                    if (target == activeEnemy)
+                    {
+                        activeTargets.Remove(target);
+                        enemyList.Remove(activeEnemy as BaseEnemy);
+                    }
+                }
+            }
+            // 게임오버 UI 송출.
+        }
+        // 적이 승리일 경우
+        else
+        {
+            foreach(BaseTarget target in activeTargets)
+            {
+                foreach(BaseTarget activeCharacter in characterList)
+                {
+                    if (target == activeCharacter)
+                    {
+                        activeTargets.Remove(target);
+                        characterList.Remove(activeCharacter as BaseCharacter);
+                    }
+                }
+            }
+        }
     }
 
     private void EnemyMobListSetting(StageType stageType)
@@ -135,17 +167,29 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         foreach(BaseEnemy enemy in enemyList)
         {
             enemy.AttackOnPattern();
+
+            // 여기에서 애니메이션 수행. 
+
+            // yield return new WaitForSeconds(animationTIme);
             // 여기에 null은 이후에 적 행동 애니메이션 실행 후 대기하는 시간으로 수정.
+
+            if(CheckAllEnemiesDead())
+            {
+                EndBattlePhase(true);
+                yield break;
+            }
+            if(CheckAllPlayerDead())
+            {
+                EndBattlePhase(false);
+                yield break;
+            }
+
             yield return null;
         }
 
         // 적 턴이 끝났으면 플레이어 턴으로 복귀
         // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
-        if (CheckBattleEnd())
-        {
-            EndBattlePhase();
-            yield break;
-        }
+
 
         // 적 턴 실행.
         Logger.Log("적 공격 끝.");
@@ -201,14 +245,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         if (activeTargets.Contains(deadTarget))
         {
             activeTargets.Remove(deadTarget);
-            if (enemyList.Contains(deadTarget))
-            {
-                enemyList.Remove(deadTarget as BaseEnemy);
-            }
-            if (characterList.Contains(deadTarget))
-            {
-                characterList.Remove(deadTarget as BaseCharacter);
-            }
         }
 
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
@@ -233,14 +269,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         if (activeTargets.Contains(deadTarget))
         {
             activeTargets.Remove(deadTarget);
-            if (enemyList.Contains(deadTarget))
-            {
-                enemyList.Remove(deadTarget as BaseEnemy);
-            }
-            if(characterList.Contains(deadTarget))
-            {
-                characterList.Remove(deadTarget as BaseCharacter);
-            }
         }
 
         
@@ -259,6 +287,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     }
 
+    
+
     public List<BaseCharacter> GetAllCharacters()
     {
         return characterList;
@@ -267,16 +297,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public List<BaseEnemy> GetAllEnemys()
     {
         return enemyList;
-    }
-
-    private bool CheckBattleEnd()
-    {
-        // 적이나 캐릭터 모두 사망의 경우
-        if(CheckAllEnemiesDead() || CheckAllPlayerDead())
-        {
-            return true;
-        }
-        return false;
     }
 
     private bool CheckAllEnemiesDead()

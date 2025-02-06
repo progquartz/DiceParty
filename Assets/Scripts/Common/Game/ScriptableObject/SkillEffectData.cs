@@ -14,6 +14,10 @@ public enum TargetOptionClassName
     TargetRandomEnemy,
     TargetRandomCharacter,
     TargetAllCharacter,
+    TargetAllEnemyDead,
+    TargetRandomEnemyDead,
+    TargetRandomCharacterDead,
+    TargetAllCharacterDead,
     TargetSelf
 }
 

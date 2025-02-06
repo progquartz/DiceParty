@@ -1,20 +1,19 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetAllEnemy : BaseTargetOption
+public class TargetAllCharacterDead : BaseTargetOption
 {
     public override List<BaseTarget> GetTarget(BaseTarget caller)
     {
         List<BaseEnemy> enemies = BattleManager.Instance.GetAllEnemys();
-        List<BaseEnemy> aliveEnemies = new List<BaseEnemy>();
+        List<BaseEnemy> deadEnemies = new List<BaseEnemy>();
         foreach (BaseEnemy enemy in enemies)
         {
-            if (!enemy.stat.isDead)
+            if (enemy.stat.isDead)
             {
-                aliveEnemies.Add(enemy);
+                deadEnemies.Add(enemy);
             }
         }
-        return new List<BaseTarget>(aliveEnemies);
+        return new List<BaseTarget>(deadEnemies);
     }
 }
