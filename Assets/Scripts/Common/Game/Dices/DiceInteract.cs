@@ -25,7 +25,7 @@ public class DiceInteract : MonoBehaviour
     {
         if (graphicRaycaster == null)
         {
-            graphicRaycaster = UIManager.GetRayCaster();
+            graphicRaycaster = UIManager.Instance.GetRayCaster();
         }
         eventSystem = eventSystem ?? EventSystem.current;
 
@@ -80,7 +80,7 @@ public class DiceInteract : MonoBehaviour
             if (slot != null)
             {
                 // 슬롯에 등록된 다이스가 없는 경우에만
-                if(!slot.HasDice())
+                if(slot.IsSlotAvailableToDice())
                 {
                     // 슬롯 스크립트가 있다면 슬롯에 장착
                     slot.OnDiceAttach(dice);
@@ -93,7 +93,7 @@ public class DiceInteract : MonoBehaviour
                 }
                 else
                 {
-                    Logger.Log("[DiceInteract] 주사위가 이미 찬 슬롯에 들어가려 합니다.");
+                    Logger.Log("[DiceInteract] 주사위가 사용 불간으한 슬롯에 들어가려고 합니다.");
                 }
 
             }

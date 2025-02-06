@@ -20,6 +20,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     protected override void Init()
     {
+        base.Init();
         graphicRayCaster = CanvasTransform.GetComponent<GraphicRaycaster>();
     }
 
@@ -124,7 +125,7 @@ public class UIManager : SingletonBehaviour<UIManager>
             _frontUI.Close();
         }
     }
-    public static GraphicRaycaster GetRayCaster()
+    public GraphicRaycaster GetRayCaster()
     {
         return graphicRayCaster;
     }

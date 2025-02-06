@@ -20,7 +20,9 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
                 {
                     GameObject singletonObject = new GameObject(typeof(T).Name);
                     s_instance = singletonObject.AddComponent<T>();
+                    
                 }
+                s_instance.GetComponent<T>().Init();
             }
             return s_instance;
         }

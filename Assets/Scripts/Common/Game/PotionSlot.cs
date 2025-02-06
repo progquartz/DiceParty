@@ -4,7 +4,7 @@ public class PotionSlot : MonoBehaviour
 {
     [SerializeField] private PotionDataSO potionData;
 
-    
+
     private SkillExecutor _skillExecutor;
     [SerializeField] private PotionSlotUI potionUI;
 
@@ -25,7 +25,7 @@ public class PotionSlot : MonoBehaviour
 
     public bool UsePotion()
     {
-        if(potionData != null)
+        if (potionData != null)
         {
             SkillExecutor skillExecutor = _skillExecutor;
             foreach (SkillEffectData skillData in potionData.effectData)
