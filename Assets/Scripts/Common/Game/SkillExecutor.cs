@@ -14,21 +14,15 @@ public class SkillExecutor
         }
     }
 
-    public void UseSkill(SkillDataSO skillData)
-    {
-        if (skillData == null) return;
-
-        // 스킬에 등록된 여러 (이펙트 - 타겟팅) 조합을 순회
-        foreach (var effectData in skillData.skillEffects)
-        {
-            ExecuteEffect(effectData);
-        }
-    }
-
 
     public void UseSkill(SkillEffectData skillData, BaseTarget caller)
     {
         ExecuteEffect(skillData, caller);
+    }
+
+    public void UseSkill(SkillEffectData skillData)
+    {
+        ExecuteEffect(skillData);
     }
 
     public void UseSkill(List<SkillEffectData> skillData, BaseTarget caller)
