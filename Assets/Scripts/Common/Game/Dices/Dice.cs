@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Dice : MonoBehaviour
     public int CurNum;
     public DiceType Type;
     private DiceRollUI diceRollUI;
+    
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class Dice : MonoBehaviour
     public void Init()
     {
         diceRollUI = GetComponent<DiceRollUI>();
+        BattleManager.Instance.OnPlayerTurnEnd += DestroySelf;
     }
 
     public void SetDiceType(DiceType type)
@@ -35,5 +38,11 @@ public class Dice : MonoBehaviour
         CurNum = Random.Range(1, (int)Type + 1);
         diceRollUI.UpdateUI(CurNum);
         return CurNum;
+    }
+
+    public void DestroySelf()
+    {
+        BattleManager.Instance.OnPlayerTurnEnd -= DestroySelf;
+        Destroy(this.gameObject);
     }
 }

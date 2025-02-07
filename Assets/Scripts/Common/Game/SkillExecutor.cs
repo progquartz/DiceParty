@@ -3,15 +3,21 @@ using UnityEngine;
 
 public class SkillExecutor
 {
-    public void UseSkill(SkillDataSO skillData)
+    public void UseSkill(SkillDataSO skillData, BaseTarget caller)
     {
         if (skillData == null) return;
 
         // 스킬에 등록된 여러 (이펙트 - 타겟팅) 조합을 순회
         foreach (var effectData in skillData.skillEffects)
         {
-            ExecuteEffect(effectData);
+            ExecuteEffect(effectData, caller);
         }
+    }
+
+
+    public void UseSkill(SkillEffectData skillData, BaseTarget caller)
+    {
+        ExecuteEffect(skillData, caller);
     }
 
     public void UseSkill(SkillEffectData skillData)
@@ -19,17 +25,17 @@ public class SkillExecutor
         ExecuteEffect(skillData);
     }
 
-    public void UseSkill(List<SkillEffectData> skillData)
+    public void UseSkill(List<SkillEffectData> skillData, BaseTarget caller)
     {
         if (skillData == null) return;
 
         foreach(var effData in skillData)
         {
-            ExecuteEffect(effData);
+            ExecuteEffect(effData, caller);
         }
     }
 
-    private void ExecuteEffect(SkillEffectData skillData)
+    private void ExecuteEffect(SkillEffectData skillData, BaseTarget caller = null)
     {
         if (skillData == null) return;
 
@@ -49,7 +55,7 @@ public class SkillExecutor
         }
 
         // 타겟 추출
-        List<BaseTarget> targets = targetOption.GetTarget();
+        List<BaseTarget> targets = targetOption.GetTarget(caller);
 
         // 이펙트 적용
         effect.Effect(targets, skillData.strength1, skillData.strength2);

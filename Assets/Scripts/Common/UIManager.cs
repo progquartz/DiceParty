@@ -125,7 +125,7 @@ public class UIManager : SingletonBehaviour<UIManager>
             _frontUI.Close();
         }
     }
-    public static GraphicRaycaster GetRayCaster()
+    public GraphicRaycaster GetRayCaster()
     {
         return graphicRayCaster;
     }

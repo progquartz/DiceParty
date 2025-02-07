@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 using UnityEngine;
 
 public enum BattleState
@@ -16,19 +17,27 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
+    [SerializeField] private List<BaseEnemy> enemyList = new List<BaseEnemy>();
+    [SerializeField] private List<BaseCharacter> characterList = new List<BaseCharacter>();
 
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private DiceRoller diceRoller;
     [Obsolete] [SerializeField] private Transform partyParentTransform;
     [Obsolete][SerializeField] private Transform enemyParentTransform;
 
+    public event Action OnBattleStart;
+    public event Action OnPlayerTurnStart;
+    public event Action OnPlayerTurnEnd;
+    public event Action OnBattleEnd;
+
     private void Awake()
     {
-        base.Init();
         Init();
     }
 
     public void Init()
     {
+        diceRoller = FindAnyObjectByType<DiceRoller>();
         AddPlayerParty();
     }
 
@@ -39,30 +48,89 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void StartBattlePhase(StageType stageType)
     {
-        // 플레이어 턴 가정.
-        battleState = BattleState.PlayerTurn;
-
-        // 이후에 스킬들 락 걸고 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
-        EraseAllNonUsingSkill();
-
-        // 주사위 사용 가능하게 만들고...
-        
+        // 전투 완료 상태가 아닌데, 호출된 경우
+        if (battleState != BattleState.BattleEnd)
+        {
+            Logger.LogWarning($"[BattleManager] - 전투가 완료되지 않은 상태인데 새 전투가 호출되었습니다.");
+            return;
+        }
+        // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
+        OnBattleStart?.Invoke();
 
         // 적 로드하기
         EnemyMobListSetting(stageType);
 
+        // 그리고 턴 시작할 때에 이뤄지는 것들 추가 진행.
+        PlayerTurnStart();
     }
 
-    private void EraseAllNonUsingSkill()
+    public void PlayerTurnStart()
     {
-        // 리소스 감당 되는지 추후에 체크 필요.
-        List<SkillUI> allSkill = UnityEngine.Object.FindObjectsByType<SkillUI>(FindObjectsSortMode.None).ToList();
+        battleState = BattleState.PlayerTurn;
 
-        foreach (SkillUI skill in allSkill)
+        // 플레이어 턴 가정. (스킬 락 풀림.)
+        OnPlayerTurnStart?.Invoke();
+
+        // 주사위 사용 가능하게 만들고...
+        diceRoller.RollAllDiceNew();
+    }
+
+    public void PlayerTurnEnd()
+    {
+        if (battleState != BattleState.PlayerTurn)
         {
-            if(!skill.IsAttachedToSkillUISlot())
+            Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 조건이 실행되었습니다.");
+            return;
+        }
+
+        battleState = BattleState.EnemyTurn;
+        // 적 턴 시작 (스킬 락, 다이스 지우기)
+        OnPlayerTurnEnd?.Invoke();
+
+        StartCoroutine(ExecuteEnemyTurn());
+    }
+
+    
+
+    public void EndBattlePhase(bool isPlayerWin)
+    {
+        if(battleState == BattleState.BattleEnd)
+        {
+            Logger.LogWarning($"[BattleManager] - 전투 턴이 종료된 상태에서 전투 종료 ");
+        }
+        battleState = BattleState.BattleEnd;
+        OnBattleEnd?.Invoke();
+
+        // 플레이어가 승리일 경우...
+        if(isPlayerWin)
+        {
+            // 모든 적 리스트 제거.
+            foreach (BaseTarget target in activeTargets)
             {
-                skill.DestorySelf();
+                foreach (BaseTarget activeEnemy in enemyList)
+                {
+                    if (target == activeEnemy)
+                    {
+                        activeTargets.Remove(target);
+                        enemyList.Remove(activeEnemy as BaseEnemy);
+                    }
+                }
+            }
+            // 게임오버 UI 송출.
+        }
+        // 적이 승리일 경우
+        else
+        {
+            foreach(BaseTarget target in activeTargets)
+            {
+                foreach(BaseTarget activeCharacter in characterList)
+                {
+                    if (target == activeCharacter)
+                    {
+                        activeTargets.Remove(target);
+                        characterList.Remove(activeCharacter as BaseCharacter);
+                    }
+                }
             }
         }
     }
@@ -75,7 +143,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         if (randomHorde == null)
         {
-            Debug.LogWarning("랜덤 호드를 찾지 못했습니다!");
+            Debug.LogWarning("[BattleManager] - 랜덤 호드를 찾지 못했습니다!");
             return;
         }
 
@@ -87,17 +155,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
 
 
-    public void OnPlayerTurnEnd()
-    {
-        if (battleState != BattleState.PlayerTurn)
-        {
-            Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 조건이 실행되었습니다.");
-            return;
-        }
-        battleState = BattleState.EnemyTurn;
-        StartCoroutine(ExecuteEnemyTurn());
-    }
-
     /// <summary>
     /// 적 턴 실행에 필요한 요소들 코루틴 구성
     /// </summary>
@@ -106,21 +163,43 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 적 턴 실행.
         Logger.Log("적 공격!");
 
-        yield return null;
-        // 적 턴이 끝났으면 플레이어 턴으로 복귀
-        // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
-        if (CheckBattleEnd())
+        // 적 마다... 순서 진행. 적 프레임에 맞춰 초당 대기.
+        foreach(BaseEnemy enemy in enemyList)
         {
-            battleState = BattleState.BattleEnd;
-            yield break;
+            enemy.AttackOnPattern();
+
+            // 여기에서 애니메이션 수행. 
+
+            // yield return new WaitForSeconds(animationTIme);
+            // 여기에 null은 이후에 적 행동 애니메이션 실행 후 대기하는 시간으로 수정.
+
+            if(CheckAllEnemiesDead())
+            {
+                EndBattlePhase(true);
+                yield break;
+            }
+            if(CheckAllPlayerDead())
+            {
+                EndBattlePhase(false);
+                yield break;
+            }
+
+            yield return null;
         }
 
-        battleState = BattleState.PlayerTurn;
+        // 적 턴이 끝났으면 플레이어 턴으로 복귀
+        // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
+
+
+        // 적 턴 실행.
+        Logger.Log("적 공격 끝.");
+        PlayerTurnStart();
         // 이후 플레이어가 행동할 수 있도록 UI 활성화 등
         yield break;
     }
 
 
+    
 
     [Obsolete("파티를 관리해주는 스크립트를 작성해서 이를 개별적으로 관리해줘야만 함.")]
     private void AddPlayerParty()
@@ -128,20 +207,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         BaseCharacter[] targets = partyParentTransform.GetComponentsInChildren<BaseCharacter>();
         foreach (BaseCharacter target in targets)
         {
+            characterList.Add(target);
             RegisterTarget(target);
         }
     }
 
-    private void AddEnemyList(List<BaseEnemy> enemyList)
+    public void AddEnemy(BaseEnemy enemy)
     {
-        foreach (BaseEnemy target in enemyList)
-        {
-            RegisterTarget(target);
-        }
-    }
-
-    private void AddEnemy(BaseEnemy enemy)
-    {
+        enemyList.Add(enemy);
         RegisterTarget(enemy);
     }
 
@@ -167,6 +240,13 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
         Debug.Log($"[BattleManager] {deadTarget.name} 사망 처리");
 
+
+
+        if (activeTargets.Contains(deadTarget))
+        {
+            activeTargets.Remove(deadTarget);
+        }
+
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
         {
@@ -191,6 +271,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             activeTargets.Remove(deadTarget);
         }
 
+        
+
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
         {
@@ -205,15 +287,16 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     }
 
+    
 
-    private bool CheckBattleEnd()
+    public List<BaseCharacter> GetAllCharacters()
     {
-        // 적이나 캐릭터 모두 사망의 경우
-        if(CheckAllEnemiesDead() || CheckAllPlayerDead())
-        {
-            return true;
-        }
-        return false;
+        return characterList;
+    }
+
+    public List<BaseEnemy> GetAllEnemys()
+    {
+        return enemyList;
     }
 
     private bool CheckAllEnemiesDead()

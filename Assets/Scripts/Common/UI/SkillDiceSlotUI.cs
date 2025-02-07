@@ -7,8 +7,58 @@ public class SkillDiceSlotUI : MonoBehaviour
     [SerializeField] private Image diceSlotImage;
 
     // 현재 슬롯에 들어온 Dice (없다면 null)
-    private Dice storedDice;
-    
+    [SerializeField] private Dice storedDice;
+    [SerializeField] private bool isSlotUsed = false;
+    [SerializeField] private bool isDiceSlotActive = false;
+
+    private void Awake()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        RegisterEvents();
+    }
+
+    private void RegisterEvents()
+    {
+        owner.OnSkillUse += OnSkillUse;
+
+        BattleManager.Instance.OnPlayerTurnEnd += RemoveDiceInSlot;
+        BattleManager.Instance.OnPlayerTurnEnd += DeactivateDiceSlot;
+
+        BattleManager.Instance.OnPlayerTurnStart += ActivateDiceSlot;
+    }
+    private void ReleaseEvents()
+    {
+        owner.OnSkillUse -= OnSkillUse;
+
+        BattleManager.Instance.OnPlayerTurnEnd -= RemoveDiceInSlot;
+        BattleManager.Instance.OnPlayerTurnEnd -= DeactivateDiceSlot;
+
+        BattleManager.Instance.OnPlayerTurnStart -= ActivateDiceSlot;
+    }
+
+
+    private void OnSkillUse(int useLeftCount)
+    {
+        if(useLeftCount < 1)
+        {
+            DeactivateDiceSlot();
+        }
+        RemoveDiceInSlot();
+    }
+
+    private void DeactivateDiceSlot()
+    {
+        isDiceSlotActive = false;
+    }
+
+    private void ActivateDiceSlot()
+    {
+        isDiceSlotActive = true;
+    }
 
     /// <summary>
     /// 주사위가 슬롯에 들어올 때(드롭 성공 시) 호출될 함수
@@ -35,15 +85,16 @@ public class SkillDiceSlotUI : MonoBehaviour
         // 원하는 추가 동작 (사운드, 이펙트, UI 색상 변경, etc.)
         bool isDiceValid = owner.OnDiceAttach(dice, transform.GetSiblingIndex());
 
+        // Color Checking
         if (isDiceValid)
-        {
-            // 다이스가 로직이 옳으니 푸르게 점등.
             SetSlotColor(Color.green);
-        }
         else
-        {
-            // 다이스가 옳지 않으니 붉게 점등.
             SetSlotColor(Color.red);
+
+        // 조건이 맞을 경우 스킬 실행.
+        if(isDiceValid)
+        {
+            owner.CheckDiceValidity();
         }
     }
 
@@ -56,6 +107,7 @@ public class SkillDiceSlotUI : MonoBehaviour
         {
             Logger.Log($"{dice.name} 주사위가 슬롯에서 빠져나감.");
             SetSlotColor(Color.grey);
+            owner.OnDiceDetach(dice, transform.GetSiblingIndex());
             storedDice = null;
         }
         else
@@ -68,6 +120,20 @@ public class SkillDiceSlotUI : MonoBehaviour
         // GetComponent<Image>().color = Color.white;
     }
 
+    private void RemoveDiceInSlot()
+    {
+        if(storedDice != null)
+        {
+            storedDice.DestroySelf();
+            OnDiceDetach(storedDice);
+        }
+    }
+
+    public bool IsSlotAvailableToDice()
+    {
+        // 다이스가 없고, 활성화 상태면 사용 가능.
+        return isDiceSlotActive && !HasDice();
+    }
     /// <summary>
     /// 이 슬롯이 현재 주사위를 가지고 있는지
     /// </summary>
@@ -88,4 +154,11 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         diceSlotImage.color = slotColor;
     }
+
+    private void OnDestroy()
+    {
+        ReleaseEvents();
+    }
+
+   
 }

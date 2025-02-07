@@ -54,4 +54,9 @@ public class BaseEnemy : BaseTarget
     {
         enemyPatternExecutor.SetPattern(enemyDataSO.enemyAttackPattern);
     }
+
+    public void AttackOnPattern()
+    {
+        enemyPatternExecutor.ExecuteNextAttack(this);
+    }
 }

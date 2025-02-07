@@ -12,6 +12,13 @@ public enum TargetOptionClassName
 {
     TargetAllEnemy,
     TargetRandomEnemy,
+    TargetRandomCharacter,
+    TargetAllCharacter,
+    TargetAllEnemyDead,
+    TargetRandomEnemyDead,
+    TargetRandomCharacterDead,
+    TargetAllCharacterDead,
+    TargetSelf
 }
 
 [System.Serializable]

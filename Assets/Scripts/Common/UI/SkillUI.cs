@@ -3,6 +3,8 @@ using TMPro;
 using System;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 public class SkillUI : MonoBehaviour
 {
@@ -12,13 +14,15 @@ public class SkillUI : MonoBehaviour
 
     [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
-    [Header("스킬 슬롯에 등록되었는지 여부")]
-    [SerializeField] private bool isAttachedToSkillUISlot;
+
+    [Header("등록된 스킬 슬롯")]
+    [SerializeField] private SkillUISlot skillUISlot;
 
     [Header("UI 표시용 텍스트")]
     
     [SerializeField] private TMP_Text skillNameText;
     [SerializeField] private TMP_Text skillLoreText;
+    [SerializeField] private Image skillBackgroundImage;
 
     [Header("주사위 조건 텍스트")]
     [SerializeField] private List<TMP_Text> diceNeedTextOneSlot;
@@ -29,8 +33,14 @@ public class SkillUI : MonoBehaviour
     [Header("주사위 슬롯 2개짜리")]
     [SerializeField] private GameObject twoDiceSlot;
 
+
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
+
+    public event Action<int> OnSkillUse;
+    public int SkillUseLeftCount;
+
+    
 
     private void Awake()
     {
@@ -43,6 +53,20 @@ public class SkillUI : MonoBehaviour
         skillExecutor = new SkillExecutor();
         RefreshDiceSlotValidity();
         CheckDiceSlotCount();
+        RegisterEvents();
+    }
+
+    private void RegisterEvents()
+    {
+        BattleManager.Instance.OnBattleStart += OnBattleStart;
+        BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
+        BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
+    }
+    private void ReleaseEvents()
+    {
+        BattleManager.Instance.OnBattleStart -= OnBattleStart;
+        BattleManager.Instance.OnPlayerTurnEnd -= OnPlayerTurnEnd;
+        BattleManager.Instance.OnPlayerTurnStart -= OnPlayerTurnStart;
     }
 
     private void RefreshDiceSlotValidity()
@@ -52,6 +76,22 @@ public class SkillUI : MonoBehaviour
             // Dice 조건 맞는지 여부를 초기화.
             diceSlotValidity = new bool[skillDataSO.diceRequirements.Count];
         }
+    }
+
+    public void OnBattleStart()
+    {
+        DestroyIfNotAttached();
+    }
+    public void OnPlayerTurnStart()
+    {
+        // count 초기화
+        SkillUseLeftCount = skillDataSO.skillUseCount;
+        UpdateVisual();
+    }
+
+    public void OnPlayerTurnEnd()
+    {
+        RefreshDiceSlotValidity();
     }
 
     private void CheckDiceSlotCount()
@@ -102,29 +142,37 @@ public class SkillUI : MonoBehaviour
     /// <summary>
     /// 스킬 사용
     /// </summary>
-    public void UseSkill()
+    public void UseSkill(BaseTarget caller)
     {
-        if(!isAttachedToSkillUISlot)
+        if(!IsAttachedToSkillUISlot())
         {
             Logger.LogError("[SkillUI]슬롯에 등록되지 않은 스킬이 사용되고 있습니다!");
             return;
         }
-        skillExecutor.UseSkill(skillDataSO);
+
+        // 주사위 상태 초기화.
+        RefreshDiceSlotValidity();
+
+        // 사용 개수 차감.
+        SkillUseLeftCount--;
+
+        skillExecutor.UseSkill(skillDataSO, caller);
+        OnSkillUse?.Invoke(SkillUseLeftCount);
+        UpdateVisual();
+        
     }
 
     // 스킬을 스킬 슬롯에 넣었을때의 처리 부분
 
-    public void OnSkillSlotAttach()
+    public void OnSkillSlotAttach(SkillUISlot attachedSlot)
     {
-        isAttachedToSkillUISlot = true;
+        skillUISlot = attachedSlot;
     }
 
     public void OnSkillSlotDetach()
     {
-        isAttachedToSkillUISlot = false;
+        skillUISlot = null;
     }
-
-
 
     // 주사위 슬롯 내의 주사위 처리 부분
 
@@ -137,12 +185,19 @@ public class SkillUI : MonoBehaviour
         if (isDiceNumValid)
         {
             diceSlotValidity[slotSiblingIndex] = true;
-            CheckDiceValidity();
         }
         return isDiceNumValid;
     }
 
-    private void CheckDiceValidity()
+
+
+    public void OnDiceDetach(Dice dice, int slotSiblingIndex)
+    {
+        diceSlotValidity[slotSiblingIndex] = false;
+    }
+
+
+    public void CheckDiceValidity()
     {
         bool isAllDiceValid = true;
         foreach (bool data in diceSlotValidity)
@@ -157,14 +212,10 @@ public class SkillUI : MonoBehaviour
         if (isAllDiceValid)
         {
             Logger.Log($"{diceSlotValidity.Length} 개의 슬롯을 가진 {skillDataSO.skillName} 스킬이 조건에 맞아 실행됩니다.");
-            UseSkill();
+            UseSkill(skillUISlot.GetCharacter());
         }
     }
 
-    public void OnDiceDetach(Dice dice, int slotSiblingIndex)
-    {
-        diceSlotValidity[slotSiblingIndex] = false;
-    }
 
     private bool DiceCheck(Dice dice, DiceRequirementData diceData)
     {
@@ -184,19 +235,51 @@ public class SkillUI : MonoBehaviour
     public void SetSkillData(SkillDataSO newSkillData)
     {
         skillDataSO = newSkillData;
+        SkillUseLeftCount = newSkillData.skillUseCount;
         // 필요 시 UI도 갱신
         UpdateSkillData();
     }
 
     public bool IsAttachedToSkillUISlot()
     {
-        return isAttachedToSkillUISlot;
+        if(skillUISlot != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void DestroyIfNotAttached()
+    {
+        if(!IsAttachedToSkillUISlot())
+        {
+            DestorySelf();
+        }
     }
 
     public void DestorySelf()
     {
+        ReleaseEvents();
+        if(skillUISlot != null )
+        {
+            skillUISlot.OnSkillUIDetach(this);
+        }
         // 추후에 애니메이션 필요..?
         Destroy(this.gameObject);
+        
     }
 
+
+
+    private void UpdateVisual()
+    {
+        if(SkillUseLeftCount < 1)
+        {
+            skillBackgroundImage.color = Color.gray;
+        }
+        else
+        {
+            skillBackgroundImage.color = Color.white;
+        }
+    }
 }

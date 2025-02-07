@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: 
   attackText: 
-  attackEffects: []
+  attackEffects:
+  - targetClassName: 1
+    effectClassName: 1
+    strength1: 5
+    strength2: 0
   transitionType: 1
   nextNode: {fileID: 0}
   probabilityTransitions: []

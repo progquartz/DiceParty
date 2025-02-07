@@ -4,9 +4,15 @@ using UnityEngine.UI;
 public class SkillUISlot : MonoBehaviour
 {
     [SerializeField] private Image skillSlotUIImage;
+    [SerializeField] private BaseCharacter skillSlotCharacter;
 
     // 현재 슬롯에 들어온 Dice (없다면 null)
     private SkillUI storedSkillUI;
+
+    private void Awake()
+    {
+    }
+
 
 
     public void OnSkillUIAttach(SkillUI skillDataUI)
@@ -30,7 +36,7 @@ public class SkillUISlot : MonoBehaviour
         SetSlotColor(Color.green);
     }
 
-    public void OnSkillDetach(SkillUI skill)
+    public void OnSkillUIDetach(SkillUI skill)
     {
         if (storedSkillUI == skill)
         {
@@ -62,4 +68,6 @@ public class SkillUISlot : MonoBehaviour
     {
         return storedSkillUI;
     }
+
+    public BaseCharacter GetCharacter() { return skillSlotCharacter; }
 }
