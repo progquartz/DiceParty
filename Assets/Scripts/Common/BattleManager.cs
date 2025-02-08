@@ -143,7 +143,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         if (randomHorde == null)
         {
-            Debug.LogWarning("[BattleManager] - 랜덤 호드를 찾지 못했습니다!");
+            Logger.LogWarning("[BattleManager] - 랜덤 호드를 찾지 못했습니다!");
             return;
         }
 
@@ -238,7 +238,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     private void OnTargetDead(BaseTarget deadTarget)
     {
         // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
-        Debug.Log($"[BattleManager] {deadTarget.name} 사망 처리");
+        Logger.Log($"[BattleManager] {deadTarget.name} 사망 처리");
 
 
 
@@ -250,12 +250,12 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
         {
-            Debug.Log("플레이어 승리!");
+            Logger.Log("플레이어 승리!");
         }
         
         if(CheckAllPlayerDead())
         {
-            Debug.Log("적 승리!");
+            Logger.Log("적 승리!");
         }
 
     }

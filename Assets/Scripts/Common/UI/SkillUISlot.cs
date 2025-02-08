@@ -11,8 +11,30 @@ public class SkillUISlot : MonoBehaviour
 
     private void Awake()
     {
+        RegisterEvents();
     }
 
+    private void RegisterEvents()
+    {
+        if(skillSlotCharacter != null)
+        {
+            skillSlotCharacter.OnDead += OnCharacterDead;
+            skillSlotCharacter.OnRevive += OnCharacterRevive;
+        }
+    }
+
+    private void OnCharacterDead(BaseTarget character)
+    {
+        if(storedSkillUI != null)
+        {
+            storedSkillUI.OnOwnerDead();
+        }
+    }
+
+    private void OnCharacterRevive(BaseTarget character)
+    {
+
+    }
 
 
     public void OnSkillUIAttach(SkillUI skillDataUI)
