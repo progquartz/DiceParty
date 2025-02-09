@@ -11,6 +11,10 @@ public class SkillDiceSlotUI : MonoBehaviour
     [SerializeField] private bool isSlotUsed = false;
     [SerializeField] private bool isDiceSlotActive = false;
 
+    [SerializeField] private Color[] activeColors;
+    [SerializeField] private Color[] deactivatedColors;
+
+
     private void Awake()
     {
         Init();

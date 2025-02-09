@@ -131,6 +131,8 @@ MonoBehaviour:
   storedDice: {fileID: 0}
   isSlotUsed: 0
   isDiceSlotActive: 0
+  activeColors: []
+  deactivatedColors: []
 --- !u!1 &2465996053439405355
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +239,16 @@ MonoBehaviour:
   - {fileID: 2863875472049369096}
   oneDiceSlot: {fileID: 3091848370808861517}
   twoDiceSlot: {fileID: 71751304721065820}
+  activeColors:
+  - {r: 0.8254717, g: 0.9257391, b: 1, a: 1}
+  - {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+  - {r: 1, g: 0.7971698, b: 0.7971698, a: 1}
+  - {r: 0.8349056, g: 1, b: 0.942278, a: 1}
+  deactivatedColors:
+  - {r: 0.62357605, g: 0.7044066, b: 0.764151, a: 1}
+  - {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  - {r: 0.764151, g: 0.6091581, b: 0.6091581, a: 1}
+  - {r: 0.5696867, g: 0.6981132, b: 0.6522466, a: 1}
   SkillUseLeftCount: 0
 --- !u!114 &1398139413152969113
 MonoBehaviour:
@@ -791,6 +803,8 @@ MonoBehaviour:
   storedDice: {fileID: 0}
   isSlotUsed: 0
   isDiceSlotActive: 0
+  activeColors: []
+  deactivatedColors: []
 --- !u!1 &5469410979575239391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1035,8 @@ MonoBehaviour:
   storedDice: {fileID: 0}
   isSlotUsed: 0
   isDiceSlotActive: 0
+  activeColors: []
+  deactivatedColors: []
 --- !u!1 &7718631499370685009
 GameObject:
   m_ObjectHideFlags: 0

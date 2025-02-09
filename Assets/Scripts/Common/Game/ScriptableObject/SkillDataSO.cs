@@ -1,15 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillOwner
-{
-    Warrior = 0,
-    Rogue = 1,
-    Magician = 2,
-    Preist = 3,
-    All = 4
-}
-
 public enum SkillType
 {
     DamageEffect,
@@ -35,6 +26,10 @@ public class SkillDataSO : ScriptableObject
     // 스킬 설명
     [Header("스킬 이름 / 설명")]
     public string skillName;
+
+    [Header("스킬 담당 캐릭터")]
+    public CharacterType CharacterType;
+
     [TextArea] public string skillLore;
     public int skillUseCount; // 0일 경우 무제한, 1일 경우 1회 사용, 그 이상의 경우 여러 회 사용.
 

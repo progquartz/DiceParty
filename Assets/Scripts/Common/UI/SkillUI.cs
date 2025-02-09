@@ -34,6 +34,10 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private GameObject twoDiceSlot;
 
 
+    [SerializeField] private Color[] activeColors;
+    [SerializeField] private Color[] deactivatedColors;
+
+
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
 
@@ -187,6 +191,7 @@ public class SkillUI : MonoBehaviour
     public void OnSkillSlotAttach(SkillUISlot attachedSlot)
     {
         skillUISlot = attachedSlot;
+        UpdateVisual();
     }
 
     public void OnSkillSlotDetach()
@@ -311,11 +316,14 @@ public class SkillUI : MonoBehaviour
     {
         if (CheckSkillActive())
         {
-            skillBackgroundImage.color = Color.white;
+            
+            Color characterColor = activeColors[(int)skillDataSO.CharacterType];
+            skillBackgroundImage.color = characterColor;
         }
         else
         {
-            skillBackgroundImage.color = Color.gray;
+            Color characterColor = deactivatedColors[(int)skillDataSO.CharacterType];
+            skillBackgroundImage.color = characterColor;
         }
     }
 }
