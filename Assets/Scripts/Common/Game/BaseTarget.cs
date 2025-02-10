@@ -6,6 +6,7 @@ public class BaseTarget : MonoBehaviour
 {
     public event Action<BaseTarget> OnDead;
     public event Action<BaseTarget> OnRemoval;
+    public event Action<BaseTarget> OnRevive;
 
     public BaseStat stat;
 
@@ -15,6 +16,12 @@ public class BaseTarget : MonoBehaviour
         stat.Armour = 0;
     }
 
+    public void HandleRevive()
+    {
+        Logger.Log($"{name} 캐릭터를 부활시킵니다.");
+        stat.isDead = false;
+        OnRevive?.Invoke(this);
+    }
 
     // 단순 데미지 기반 죽음(독 / 화염 등등...)은 이 효과를 적용.
     public void HandleDead()

@@ -11,6 +11,7 @@ public class SkillUI : MonoBehaviour
     
     [Header("스킬 데이터")]
     [SerializeField] private SkillDataSO skillDataSO;
+    public CharacterType CharacterType { get { return skillDataSO.CharacterType; } }
 
     [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
@@ -34,10 +35,14 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private GameObject twoDiceSlot;
 
 
+    [SerializeField] private Color[] activeColors;
+    [SerializeField] private Color[] deactivatedColors;
+
+
     // 스킬 실행 클래스
     private SkillExecutor skillExecutor;
 
-    public event Action<int> OnSkillUse;
+    public event Action<bool> OnSkillToggle;
     public int SkillUseLeftCount;
 
     
@@ -54,6 +59,7 @@ public class SkillUI : MonoBehaviour
         RefreshDiceSlotValidity();
         CheckDiceSlotCount();
         RegisterEvents();
+        UpdateVisual();
     }
 
     private void RegisterEvents()
@@ -61,6 +67,7 @@ public class SkillUI : MonoBehaviour
         BattleManager.Instance.OnBattleStart += OnBattleStart;
         BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
+        
     }
     private void ReleaseEvents()
     {
@@ -81,6 +88,7 @@ public class SkillUI : MonoBehaviour
     public void OnBattleStart()
     {
         DestroyIfNotAttached();
+        UpdateVisual();
     }
     public void OnPlayerTurnStart()
     {
@@ -92,6 +100,21 @@ public class SkillUI : MonoBehaviour
     public void OnPlayerTurnEnd()
     {
         RefreshDiceSlotValidity();
+        UpdateVisual();
+    }
+
+    public void OnOwnerDead()
+    {
+        Debug.Log("??");
+        UpdateVisual();
+
+        // 캐릭터의 사망으로 호출.
+        OnSkillToggle?.Invoke(true);
+    }
+
+    public void OnOwnerRevive()
+    {
+        UpdateVisual();
     }
 
     private void CheckDiceSlotCount()
@@ -157,7 +180,10 @@ public class SkillUI : MonoBehaviour
         SkillUseLeftCount--;
 
         skillExecutor.UseSkill(skillDataSO, caller);
-        OnSkillUse?.Invoke(SkillUseLeftCount);
+        
+        // 죽음으로 토글 된 것이 아님
+        OnSkillToggle?.Invoke(false);
+
         UpdateVisual();
         
     }
@@ -167,6 +193,7 @@ public class SkillUI : MonoBehaviour
     public void OnSkillSlotAttach(SkillUISlot attachedSlot)
     {
         skillUISlot = attachedSlot;
+        UpdateVisual();
     }
 
     public void OnSkillSlotDetach()
@@ -214,6 +241,22 @@ public class SkillUI : MonoBehaviour
             Logger.Log($"{diceSlotValidity.Length} 개의 슬롯을 가진 {skillDataSO.skillName} 스킬이 조건에 맞아 실행됩니다.");
             UseSkill(skillUISlot.GetCharacter());
         }
+    }
+
+    public bool CheckSkillActive()
+    {
+        if(skillDataSO != null && IsAttachedToSkillUISlot())
+        {
+            if(SkillUseLeftCount < 1 || skillUISlot.GetCharacter().stat.isDead)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -269,17 +312,22 @@ public class SkillUI : MonoBehaviour
         
     }
 
+    
+
 
 
     private void UpdateVisual()
     {
-        if(SkillUseLeftCount < 1)
+        if (CheckSkillActive())
         {
-            skillBackgroundImage.color = Color.gray;
+            
+            Color characterColor = activeColors[(int)skillDataSO.CharacterType];
+            skillBackgroundImage.color = characterColor;
         }
         else
         {
-            skillBackgroundImage.color = Color.white;
+            Color characterColor = deactivatedColors[(int)skillDataSO.CharacterType];
+            skillBackgroundImage.color = characterColor;
         }
     }
 }

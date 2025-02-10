@@ -11,6 +11,10 @@ public class SkillDiceSlotUI : MonoBehaviour
     [SerializeField] private bool isSlotUsed = false;
     [SerializeField] private bool isDiceSlotActive = false;
 
+    [SerializeField] private Color[] activeColors;
+    [SerializeField] private Color[] deactivatedColors;
+
+
     private void Awake()
     {
         Init();
@@ -23,7 +27,7 @@ public class SkillDiceSlotUI : MonoBehaviour
 
     private void RegisterEvents()
     {
-        owner.OnSkillUse += OnSkillUse;
+        owner.OnSkillToggle += OnSkillSlotToggle;
 
         BattleManager.Instance.OnPlayerTurnEnd += RemoveDiceInSlot;
         BattleManager.Instance.OnPlayerTurnEnd += DeactivateDiceSlot;
@@ -32,7 +36,7 @@ public class SkillDiceSlotUI : MonoBehaviour
     }
     private void ReleaseEvents()
     {
-        owner.OnSkillUse -= OnSkillUse;
+        owner.OnSkillToggle -= OnSkillSlotToggle;
 
         BattleManager.Instance.OnPlayerTurnEnd -= RemoveDiceInSlot;
         BattleManager.Instance.OnPlayerTurnEnd -= DeactivateDiceSlot;
@@ -41,23 +45,44 @@ public class SkillDiceSlotUI : MonoBehaviour
     }
 
 
-    private void OnSkillUse(int useLeftCount)
+    /// <summary>
+    /// 스킬 UI 사용 상태에 변화가 생길 경우에 호출됨.
+    /// </summary>
+    private void OnSkillSlotToggle(bool isTriggeredByDeath)
     {
-        if(useLeftCount < 1)
+        // 캐릭터가 사망 상태이거나, 스킬이 모두 사용되었을 경우 비활성화
+        if (!owner.CheckSkillActive())
         {
+            Debug.Log("스킬이 사망인것 확인됨.");
             DeactivateDiceSlot();
+            if(!isTriggeredByDeath)
+            {
+                RemoveDiceInSlot();
+            }
         }
-        RemoveDiceInSlot();
+        // 단순 스킬 사용으로 토글된 경우...
+        else
+        {
+            // 슬롯에 있는 주사위를 버리고...
+            RemoveDiceInSlot();
+            // 캐릭터 스킬이 열림.
+            ActivateDiceSlot();
+        }
     }
 
     private void DeactivateDiceSlot()
     {
+        //Logger.LogWarning($"{owner.gameObject.name} 비활성화됨.");
         isDiceSlotActive = false;
     }
 
     private void ActivateDiceSlot()
     {
-        isDiceSlotActive = true;
+        if(owner.CheckSkillActive() )
+        {
+            //Logger.LogWarning($"{owner.gameObject.name}/활성화됨/.");
+            isDiceSlotActive = true;
+        }
     }
 
     /// <summary>
@@ -117,7 +142,7 @@ public class SkillDiceSlotUI : MonoBehaviour
         }
 
         // 필요하면 UI나 상태 초기화
-        // GetComponent<Image>().color = Color.white;
+        SetSlotColor(Color.white);
     }
 
     private void RemoveDiceInSlot()

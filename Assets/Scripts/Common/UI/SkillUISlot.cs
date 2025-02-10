@@ -9,10 +9,37 @@ public class SkillUISlot : MonoBehaviour
     // 현재 슬롯에 들어온 Dice (없다면 null)
     private SkillUI storedSkillUI;
 
+    [SerializeField] private Color[] activeColors;
+    [SerializeField] private Color[] deactivatedColors;
+
+
     private void Awake()
     {
+        RegisterEvents();
+        SetSlotColor(deactivatedColors[(int)skillSlotCharacter.CharacterType]);
     }
 
+    private void RegisterEvents()
+    {
+        if(skillSlotCharacter != null)
+        {
+            skillSlotCharacter.OnDead += OnCharacterDead;
+            skillSlotCharacter.OnRevive += OnCharacterRevive;
+        }
+    }
+
+    private void OnCharacterDead(BaseTarget character)
+    {
+        if(storedSkillUI != null)
+        {
+            storedSkillUI.OnOwnerDead();
+        }
+    }
+
+    private void OnCharacterRevive(BaseTarget character)
+    {
+
+    }
 
 
     public void OnSkillUIAttach(SkillUI skillDataUI)
@@ -21,7 +48,12 @@ public class SkillUISlot : MonoBehaviour
         {
             // 튕겨내기 또는 원래 슬롯 자리로 되돌려놓기 필요.
             Logger.Log($"이미 {gameObject.name} 슬롯 자리는 사용되고 있습니다.");
-            SetSlotColor(Color.red);
+            return;
+        }
+
+        if (skillSlotCharacter.CharacterType != skillDataUI.CharacterType)
+        {
+            Logger.Log($"{gameObject.name} 슬롯 담당 캐릭터가 들어온 스킬에 적합하지 않습니다.");
             return;
         }
 
@@ -33,7 +65,7 @@ public class SkillUISlot : MonoBehaviour
         // 주사위를 슬롯의 위치로 이동.
         skillDataUI.transform.position = transform.position;
 
-        SetSlotColor(Color.green);
+        SetSlotColor(activeColors[(int)skillSlotCharacter.CharacterType]);
     }
 
     public void OnSkillUIDetach(SkillUI skill)
@@ -41,7 +73,7 @@ public class SkillUISlot : MonoBehaviour
         if (storedSkillUI == skill)
         {
             Logger.Log($"{skill.name} 스킬이 슬롯에서 빠져나감.");
-            SetSlotColor(Color.grey);
+            SetSlotColor(deactivatedColors[(int)skillSlotCharacter.CharacterType]);
             storedSkillUI = null;
         }
         else
