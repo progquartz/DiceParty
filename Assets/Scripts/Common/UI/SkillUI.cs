@@ -11,6 +11,7 @@ public class SkillUI : MonoBehaviour
     
     [Header("스킬 데이터")]
     [SerializeField] private SkillDataSO skillDataSO;
+    public CharacterType CharacterType { get { return skillDataSO.CharacterType; } }
 
     [Header("주사위 슬롯 증명성 여부")]
     [SerializeField] private bool[] diceSlotValidity;
@@ -58,6 +59,7 @@ public class SkillUI : MonoBehaviour
         RefreshDiceSlotValidity();
         CheckDiceSlotCount();
         RegisterEvents();
+        UpdateVisual();
     }
 
     private void RegisterEvents()
@@ -309,6 +311,8 @@ public class SkillUI : MonoBehaviour
         Destroy(this.gameObject);
         
     }
+
+    
 
 
 
