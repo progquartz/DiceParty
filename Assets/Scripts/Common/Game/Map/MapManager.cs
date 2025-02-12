@@ -225,6 +225,39 @@ public class MapManager : SingletonBehaviour<MapManager>
         return false;
     }
 
+    private void PlaceEventFarest(int count , RoomEvent eventType)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            foreach(GameObject roomObject in rooms)
+            {
+
+            }
+        }
+        for (int i = 0; i < count; i++)
+        {
+            bool isPlacedRight = false;
+            for (int j = rooms.Count - 1; j >= 0; j--)
+            {
+                Room room = rooms[j].GetComponent<Room>();
+                if (room == null) continue;
+
+                if (room.roomEvent == null)
+                {
+                    room.roomEvent = rooms[j].AddComponent(eventType.GetType()) as RoomEvent;
+                    Debug.Log($"{room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+                    isPlacedRight = true;
+                    break;
+                }
+
+            }
+            if (!isPlacedRight)
+            {
+                Logger.LogError($"뒤에서부터 시작하는 방 배정이 끝까지 작동되지 않았습니다.");
+            }
+        }
+    }
+
     // 예시: 모든 방 생성이 완료된 후, 로직에 따라 각 방에 이벤트를 할당한다.
     private void PlaceRandomEvents()
     {
