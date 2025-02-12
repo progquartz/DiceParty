@@ -640,20 +640,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4508908681268250455, guid: 3dcfd78c0f39d864e8a841d1b3de25d3, type: 3}
   m_PrefabInstance: {fileID: 1610736118}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1173013096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173013093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71c95222b533217418e8292f69b56cb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridPos: {x: 0, y: 0}
-  roomEvent: {fileID: 0}
 --- !u!1 &1577412486
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +723,7 @@ MonoBehaviour:
   _roomTemplate: {fileID: 1577412488}
   roomParent: {fileID: 786392278}
   rooms: []
+  startRoom: {fileID: 1173013093}
   maxRooms: 10
   waitTime: 0
   currentPlayerRoom: {x: 0, y: 0}
@@ -797,12 +784,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8629120981839042845, guid: 3dcfd78c0f39d864e8a841d1b3de25d3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4508908681268250455, guid: 3dcfd78c0f39d864e8a841d1b3de25d3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1173013096}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dcfd78c0f39d864e8a841d1b3de25d3, type: 3}
 --- !u!1 &1665580204
 GameObject:

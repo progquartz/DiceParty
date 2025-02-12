@@ -589,6 +589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cd5ec42308dde48b0c1d84d6864160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomSpawners:
+  - {fileID: 1607557527283049017}
+  - {fileID: 7282030141038040267}
+  - {fileID: 3993023361192385193}
+  - {fileID: 6744057824294176617}
 --- !u!61 &5698517603636246371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -675,6 +680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0}
+  connectionDirection: 00000000010000000200000003000000
+  roomEvent: {fileID: 0}
 --- !u!1 &1476785428554506
 GameObject:
   m_ObjectHideFlags: 0

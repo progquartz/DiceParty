@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MapManager : SingletonBehaviour<MapManager>
 {
@@ -14,10 +15,12 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     // 생성된 방 리스트 (AddRoom 스크립트에서 추가)
     public List<GameObject> rooms = new List<GameObject>();
+    public GameObject startRoom;
 
     // 최대 방 개수 (원하는 값으로 설정)
     public int maxRooms = 10;
 
+    private bool isRoomReachedMax;
     public float waitTime;
     private bool spawnedBoss;
     private int currentRoomGenerating = 0;
@@ -50,7 +53,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         // 추가: 모든 방 생성이 완료되면 데이터를 저장하거나 다른 로직 처리 가능
         //음...
         
-        if(!isEventPlaced && rooms.Count > 0)
+        if(!isEventPlaced && isRoomReachedMax)
         {
             PlaceRandomEvents();
             isEventPlaced = true;
@@ -67,6 +70,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     private void InitializeData()
     {
         // 초기화가 필요하다면 여기에 구현
+        //rooms.Add(startRoom);
     }
 
     public Transform RoomParent { get { return roomParent; } }
@@ -95,11 +99,63 @@ public class MapManager : SingletonBehaviour<MapManager>
         if (!mapGenRooms.ContainsKey(pos))
         {
             mapGenRooms.Add(pos, true);
+            CheckConnection(pos);
         }
         else
         {
             Debug.LogWarning($"좌표 {pos}에는 이미 방이 등록되어 있습니다.");
         }
+    }
+
+    public void OnMapRoomCountFull()
+    {
+        isRoomReachedMax = true;
+    }
+
+    private void CheckConnection(Vector2Int pos)
+    {
+        int dx = pos.x;
+        int dy = pos.y;
+        int[] deltaX = { 1, -1, 0, 0 };
+        int[] deltaY = { 0, 0, -1, 1 };
+
+        for(int i = 0; i < deltaX.Length; i++) 
+        { 
+            Vector2Int deltaPos = new Vector2Int(dx + deltaX[i], dy + deltaY[i]);
+            if(mapGenRooms.ContainsKey(deltaPos))
+            {
+                Room deltaPosRoom = GetRoomInPos(deltaPos);
+                if(deltaPosRoom != null)
+                {
+                    foreach(int dir in deltaPosRoom.connectionDirection)
+                    {
+                        if(dir == i)
+                        {
+                            Debug.Log($"연결을 확인해 {pos}와 {deltaPos}사이의 연결을 만듭니다.");
+                            RegisterConnection(pos, deltaPos);
+                            
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private Room GetRoomInPos(Vector2Int pos)
+    {
+        foreach(GameObject roomObject in rooms) 
+        {
+            if(roomObject != null)
+            {
+                if (roomObject.GetComponent<Room>().gridPos == pos)
+                {
+                    return roomObject.GetComponent<Room>();
+                }
+            }
+        }
+        return null;
     }
 
     public void CalcRoomGenCount(int amount)

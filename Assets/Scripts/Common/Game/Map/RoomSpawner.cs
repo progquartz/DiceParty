@@ -11,7 +11,7 @@ public class RoomSpawner : MonoBehaviour
     public bool spawned = false;
     public float waitTime = 4f;
 
-    void Start()
+    public void Init()
     {
         // 일정 시간이 지나면 spawner 오브젝트 자체를 삭제
         Destroy(gameObject, waitTime);
@@ -59,6 +59,7 @@ public class RoomSpawner : MonoBehaviour
         // 최대 방 개수 제한 체크
         if (MapManager.Instance.rooms.Count >= MapManager.Instance.maxRooms)
         {
+            MapManager.Instance.OnMapRoomCountFull();
             // 만약 최대 방 개수에 도달했을 경우, 입구가 1개만 있어서 더 소환이 되지 않는 방 선택.
             if (openingDirection == 1)
             {
@@ -126,6 +127,7 @@ public class RoomSpawner : MonoBehaviour
         spawned = true;
     }
 
+    /*
     // 다른 RoomSpawner와 충돌 시 처리 (중복 생성 방지 및 방 간 연결 정보 등록)
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -142,4 +144,5 @@ public class RoomSpawner : MonoBehaviour
             spawned = true;
         }
     }
+    */
 }

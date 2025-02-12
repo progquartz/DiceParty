@@ -499,6 +499,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5797912509351455669, guid: 947b95015e8c83a44993e36b9b27f20f, type: 3}
+      propertyPath: connectionDirection.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5797912509351455669, guid: 947b95015e8c83a44993e36b9b27f20f, type: 3}
+      propertyPath: 'connectionDirection.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815260764615671537, guid: 947b95015e8c83a44993e36b9b27f20f, type: 3}
+      propertyPath: roomSpawners.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1515077533277418, guid: 947b95015e8c83a44993e36b9b27f20f, type: 3}

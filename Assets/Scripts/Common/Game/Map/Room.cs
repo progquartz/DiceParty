@@ -1,9 +1,13 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
 {
     // 방의 그리드 좌표 등 기본 정보
     public Vector2Int gridPos;
+    // 0 -> left / 1 -> Right / 2 -> top / 3 -> bottom
+    public List<int> connectionDirection; 
 
     // 이 방에서 발생할 이벤트 (없을 수도 있으므로 null 허용)
     public RoomEvent roomEvent;

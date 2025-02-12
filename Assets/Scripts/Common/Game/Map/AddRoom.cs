@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AddRoom : MonoBehaviour
 {
+    [SerializeField] private RoomSpawner[] roomSpawners;
+
     void Start()
     {
         // 방에 Room 컴포넌트가 없다면 추가
@@ -28,5 +31,11 @@ public class AddRoom : MonoBehaviour
         {
             MapManager.Instance.currentPlayerRoom = room.gridPos;
         }
+
+        foreach(var roomSpawner in roomSpawners)
+        {
+            roomSpawner.Init();
+        }
+
     }
 }
