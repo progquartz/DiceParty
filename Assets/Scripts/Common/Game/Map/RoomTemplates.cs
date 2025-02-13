@@ -2,12 +2,15 @@
 
 public class RoomTemplates : MonoBehaviour
 {
-    public GameObject[] bottomRooms;
-    public GameObject[] topRooms;
-    public GameObject[] leftRooms;
-    public GameObject[] rightRooms;
+    public GameObject[] BottomRooms;
+    public GameObject[] TopRooms;
+    public GameObject[] LeftRooms;
+    public GameObject[] RightRooms;
 
-    public GameObject closedRoom;
+    public GameObject ClosedRoom;
 
-    public GameObject boss;
+    public GameObject BossVisual;
+    public GameObject BattleVisual;
+    public GameObject TreatureVisual;
+    public GameObject ShopVisual;
 }

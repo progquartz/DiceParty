@@ -12,6 +12,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     // 각 방의 그리드 좌표를 기록 (Vector2Int 사용)
     private Dictionary<Vector2Int, bool> mapGenRooms = new Dictionary<Vector2Int, bool>();
+    private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
 
     // 생성된 방 리스트 (AddRoom 스크립트에서 추가)
     public List<GameObject> rooms = new List<GameObject>();
@@ -75,7 +76,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     public Transform RoomParent { get { return roomParent; } }
 
-    public RoomTemplates RoomTemplates
+    public RoomTemplates RoomTemplate
     {
         get
         {
@@ -225,39 +226,6 @@ public class MapManager : SingletonBehaviour<MapManager>
         return false;
     }
 
-    private void PlaceEventFarest(int count , RoomEvent eventType)
-    {
-        for(int i = 0; i < count; i++)
-        {
-            foreach(GameObject roomObject in rooms)
-            {
-
-            }
-        }
-        for (int i = 0; i < count; i++)
-        {
-            bool isPlacedRight = false;
-            for (int j = rooms.Count - 1; j >= 0; j--)
-            {
-                Room room = rooms[j].GetComponent<Room>();
-                if (room == null) continue;
-
-                if (room.roomEvent == null)
-                {
-                    room.roomEvent = rooms[j].AddComponent(eventType.GetType()) as RoomEvent;
-                    Debug.Log($"{room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
-                    isPlacedRight = true;
-                    break;
-                }
-
-            }
-            if (!isPlacedRight)
-            {
-                Logger.LogError($"뒤에서부터 시작하는 방 배정이 끝까지 작동되지 않았습니다.");
-            }
-        }
-    }
-
     // 예시: 모든 방 생성이 완료된 후, 로직에 따라 각 방에 이벤트를 할당한다.
     private void PlaceRandomEvents()
     {
@@ -294,8 +262,9 @@ public class MapManager : SingletonBehaviour<MapManager>
                 if (room == null) continue;
                 if(room.roomEvent == null)
                 {
+                    PlaceEventInVisual(rooms[index], room.gridPos, eventType);
                     room.roomEvent = rooms[index].AddComponent(eventType.GetType()) as RoomEvent;
-                    Debug.Log($"{room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+                    Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
                     isPlacedRight = true;
                     break;
                 }
@@ -315,8 +284,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 
                 if(room.roomEvent == null)
                 {
+                    PlaceEventInVisual(rooms[j], room.gridPos, eventType);
                     room.roomEvent = rooms[j].AddComponent(eventType.GetType()) as RoomEvent;
-                    Debug.Log($"{room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+                    Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
                     isPlacedRight = true;
                     break;
                 }
@@ -324,9 +294,56 @@ public class MapManager : SingletonBehaviour<MapManager>
             }
             if(!isPlacedRight)
             {
-                Logger.LogError($"뒤에서부터 시작하는 방 배정이 끝까지 작동되지 않았습니다.");
+                Logger.LogError($"[MapManager] - 뒤에서부터 시작하는 방 배정이 끝까지 작동되지 않았습니다.");
             }
         }
+    }
+
+    private void PlaceEventInVisual(GameObject worldPos, Vector2Int pos, RoomEvent eventType)
+    {
+        if (eventType.GetType() == typeof(BattleEvent))
+        {
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.BattleVisual);
+        }
+        else if (eventType.GetType() == typeof(BossEvent))
+        {
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.BossVisual);
+        }
+        else if(eventType.GetType() == typeof(ShopEvent))
+        {
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.TreatureVisual);
+        }
+        else if(eventType.GetType() == typeof(TreasureEvent))
+        {
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.ShopVisual);
+        }
+        
+    }
+
+    private void PlaceVisualInPos(GameObject worldPos, Vector2Int IntPos, GameObject visual)
+    {
+        if(!mapGenVisuals.ContainsKey(IntPos))
+        {
+            GameObject instanceVisual = Instantiate(visual, worldPos.transform);
+            mapGenVisuals.Add(IntPos, instanceVisual);
+        }
+        else
+        {
+            Logger.LogWarning("[MapManager] - 맵의 비주얼상 이미 있는 이벤트 위치에 배치하려고 합니다.");
+        }
+        
+        
+    }
+
+    private void RemoveVisualInPos(Vector2Int intPos)
+    {
+        GameObject instantiatedVisual = mapGenVisuals[intPos];
+        if (instantiatedVisual != null)
+        {
+            Destroy(instantiatedVisual);
+        }
+        mapGenVisuals.Remove(intPos);
+        Logger.Log($"[MapManager] - {intPos}에 위치한 이벤트를 비주얼상 제거했습니다.");
     }
 
 }

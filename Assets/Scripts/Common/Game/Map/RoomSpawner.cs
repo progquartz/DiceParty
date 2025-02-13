@@ -15,7 +15,7 @@ public class RoomSpawner : MonoBehaviour
     {
         // 일정 시간이 지나면 spawner 오브젝트 자체를 삭제
         Destroy(gameObject, waitTime);
-        templates = MapManager.Instance.RoomTemplates;
+        templates = MapManager.Instance.RoomTemplate;
         Spawn();
     }
 
@@ -63,19 +63,19 @@ public class RoomSpawner : MonoBehaviour
             // 만약 최대 방 개수에 도달했을 경우, 입구가 1개만 있어서 더 소환이 되지 않는 방 선택.
             if (openingDirection == 1)
             {
-                roomPrefab = templates.bottomRooms[0];
+                roomPrefab = templates.BottomRooms[0];
             }
             else if (openingDirection == 2)
             {
-                roomPrefab = templates.topRooms[0];
+                roomPrefab = templates.TopRooms[0];
             }
             else if (openingDirection == 3)
             {
-                roomPrefab = templates.leftRooms[0];
+                roomPrefab = templates.LeftRooms[0];
             }
             else if (openingDirection == 4)
             {
-                roomPrefab = templates.rightRooms[0];
+                roomPrefab = templates.RightRooms[0];
             }
         }
         else
@@ -83,23 +83,23 @@ public class RoomSpawner : MonoBehaviour
             // 배열의 1~마지막 인덱스는 2개 이상의 입구가 있는 경우. 방을 늘려야 할 경우 사용.
             if (openingDirection == 1)
             {
-                rand = Random.Range(1, templates.bottomRooms.Length);
-                roomPrefab = templates.bottomRooms[rand];
+                rand = Random.Range(1, templates.BottomRooms.Length);
+                roomPrefab = templates.BottomRooms[rand];
             }
             else if (openingDirection == 2)
             {
-                rand = Random.Range(1, templates.topRooms.Length);
-                roomPrefab = templates.topRooms[rand];
+                rand = Random.Range(1, templates.TopRooms.Length);
+                roomPrefab = templates.TopRooms[rand];
             }
             else if (openingDirection == 3)
             {
-                rand = Random.Range(1, templates.leftRooms.Length);
-                roomPrefab = templates.leftRooms[rand];
+                rand = Random.Range(1, templates.LeftRooms.Length);
+                roomPrefab = templates.LeftRooms[rand];
             }
             else if (openingDirection == 4)
             {
-                rand = Random.Range(1, templates.rightRooms.Length);
-                roomPrefab = templates.rightRooms[rand];
+                rand = Random.Range(1, templates.RightRooms.Length);
+                roomPrefab = templates.RightRooms[rand];
             }
         }
 
