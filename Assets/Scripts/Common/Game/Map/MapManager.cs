@@ -11,11 +11,10 @@ public class MapManager : SingletonBehaviour<MapManager>
     [SerializeField] private Transform roomParent;
 
     // 각 방의 그리드 좌표를 기록 (Vector2Int 사용)
-    private Dictionary<Vector2Int, bool> mapGenRooms = new Dictionary<Vector2Int, bool>();
+    private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
+    public int RoomCount { get { return mapGenRooms.Count; } }
 
-    // 생성된 방 리스트 (AddRoom 스크립트에서 추가)
-    public List<GameObject> rooms = new List<GameObject>();
     public GameObject startRoom;
 
     // 최대 방 개수 (원하는 값으로 설정)
@@ -95,11 +94,11 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
     // 방 좌표를 등록 (이미 등록되어 있으면 경고)
-    public void RegisterRoom(Vector2Int pos)
+    public void RegisterRoom(Vector2Int pos, GameObject room)
     {
         if (!mapGenRooms.ContainsKey(pos))
         {
-            mapGenRooms.Add(pos, true);
+            mapGenRooms.Add(pos, room);
             CheckConnection(pos);
         }
         else
@@ -146,19 +145,25 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private Room GetRoomInPos(Vector2Int pos)
     {
-        foreach(GameObject roomObject in rooms) 
+        if(mapGenRooms.ContainsKey(pos) == false)
         {
-            if(roomObject != null)
-            {
-                if (roomObject.GetComponent<Room>().gridPos == pos)
-                {
-                    return roomObject.GetComponent<Room>();
-                }
-            }
+            Logger.LogWarning($"[MapManager] - 현재 없는 좌표인 {pos}의 Room에 접근하고 있습니다.");
+            return null;
         }
-        return null;
+
+        return mapGenRooms[pos].GetComponent<Room>();
     }
 
+    public Vector3 GetWorldPositionInPos(Vector2Int pos)
+    {
+        if (mapGenRooms.ContainsKey(pos)  == false)
+        {
+            Debug.LogError($"[MapManager] - 현재 존재하지 않는 맵의 좌표인 {pos}에 접근하려 합니다.");
+            return Vector3.zero;
+        }
+
+        return mapGenRooms[pos].transform.position;
+    }
     public void CalcRoomGenCount(int amount)
     {
         currentRoomGenerating += amount;
@@ -229,41 +234,45 @@ public class MapManager : SingletonBehaviour<MapManager>
     // 예시: 모든 방 생성이 완료된 후, 로직에 따라 각 방에 이벤트를 할당한다.
     private void PlaceRandomEvents()
     {
-        Logger.Log("방의 개수 = " + rooms.Count);
-        if(battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount > rooms.Count)
+        Logger.Log("방의 개수 = " + mapGenRooms.Count);
+        if(battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount > mapGenRooms.Count)
         {
             // 현재 있는 방보다 생성해야 할 방이 많아야 할 경우..?
-            Logger.LogError($"생성해야 할 방이 {battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount} 개지만 현재 있는 방의 개수가 {rooms.Count}로 더 많습니다.");
+            Logger.LogError($"생성해야 할 방이 {battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount} 개지만 현재 있는 방의 개수가 {mapGenRooms.Count}로 더 많습니다.");
             return;
         }
 
         BossEvent bossEvent = new BossEvent();
-        PlaceFromLastIndexEvent(bossRoomCount, bossEvent);
+        PlaceEventInFarest(bossEvent);
 
         BattleEvent battleEvent = new BattleEvent();
-        PlaceRandomEvent(battleRoomCount, battleEvent);
+        PlaceRandomEvents(battleRoomCount, battleEvent);
 
         TreasureEvent treasureEvent = new TreasureEvent();
-        PlaceRandomEvent(treasureRoomCount, treasureEvent);
+        PlaceRandomEvents(treasureRoomCount, treasureEvent);
 
         ShopEvent shopEvent = new ShopEvent();
-        PlaceRandomEvent(shopRoomCount, shopEvent);
+        PlaceRandomEvents(shopRoomCount, shopEvent);
     }
 
-    private void PlaceRandomEvent(int count, RoomEvent eventType)
+    private void PlaceRandomEvents(int count, RoomEvent eventType)
     {
         for(int i = 0; i < count; i++)
         {
             bool isPlacedRight = false;
             while(!isPlacedRight)
             {
-                int index = Random.Range(0, rooms.Count - 1);
-                Room room = rooms[index].GetComponent<Room>();
-                if (room == null) continue;
+                
+                List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
+                int index = Random.Range(0, currentRooms.Count);
+
+                Room room = currentRooms[index].GetComponent<Room>();
+
+                if (room == null || room.gridPos == Vector2Int.zero) continue;
                 if(room.roomEvent == null)
                 {
-                    PlaceEventInVisual(rooms[index], room.gridPos, eventType);
-                    room.roomEvent = rooms[index].AddComponent(eventType.GetType()) as RoomEvent;
+                    PlaceEventInVisual(currentRooms[index], room.gridPos, eventType);
+                    room.roomEvent = currentRooms[index].AddComponent(eventType.GetType()) as RoomEvent;
                     Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
                     isPlacedRight = true;
                     break;
@@ -272,30 +281,37 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
     }
 
-    private void PlaceFromLastIndexEvent(int count, RoomEvent eventType)
+    private void PlaceEventInFarest(RoomEvent eventType)
     {
-        for(int i = 0; i < count;i++)
+        bool isPlacedRight = false;
+        float farestDistance = float.MinValue;
+
+        List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
+        GameObject farestRoomObject = null;
+        foreach(GameObject room in  currentRooms)
         {
-            bool isPlacedRight = false;
-            for(int j = rooms.Count - 1; j >= 0; j--)
+            float distance = room.GetComponent<Room>().gridPos.sqrMagnitude;
+            // 거리가 가장 멀고, 이벤트가 할당되어있지 않으며, 0,0의 위치가 아닌 경우.
+            if(distance >= farestDistance && room.GetComponent<Room>().roomEvent == null && room.GetComponent<Room>().gridPos != Vector2Int.zero)
             {
-                Room room = rooms[j].GetComponent<Room>();
-                if (room == null) continue;
-
-                if(room.roomEvent == null)
-                {
-                    PlaceEventInVisual(rooms[j], room.gridPos, eventType);
-                    room.roomEvent = rooms[j].AddComponent(eventType.GetType()) as RoomEvent;
-                    Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
-                    isPlacedRight = true;
-                    break;
-                }
-
+                farestDistance = distance;
+                farestRoomObject = room;
             }
-            if(!isPlacedRight)
-            {
-                Logger.LogError($"[MapManager] - 뒤에서부터 시작하는 방 배정이 끝까지 작동되지 않았습니다.");
-            }
+        }
+
+        if(farestRoomObject != null)
+        {
+            Room farestRoom = farestRoomObject.GetComponent<Room>();
+
+            PlaceEventInVisual(farestRoomObject, farestRoom.gridPos, eventType);
+            farestRoom.roomEvent = farestRoomObject.AddComponent(eventType.GetType()) as RoomEvent;
+            Logger.Log($"[MapManager] - {farestRoom.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+            isPlacedRight = true;
+        }
+
+        if (!isPlacedRight)
+        {
+            Logger.LogError($"[MapManager] - 가장 먼 방에 배치하는 방 배정이 비정상적으로 작동되었습니다.");
         }
     }
 

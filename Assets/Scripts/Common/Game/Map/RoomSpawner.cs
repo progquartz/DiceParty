@@ -57,7 +57,7 @@ public class RoomSpawner : MonoBehaviour
         GameObject roomPrefab = null;
 
         // 최대 방 개수 제한 체크
-        if (MapManager.Instance.rooms.Count >= MapManager.Instance.maxRooms)
+        if (MapManager.Instance.RoomCount >= MapManager.Instance.maxRooms)
         {
             MapManager.Instance.OnMapRoomCountFull();
             // 만약 최대 방 개수에 도달했을 경우, 입구가 1개만 있어서 더 소환이 되지 않는 방 선택.
@@ -122,7 +122,7 @@ public class RoomSpawner : MonoBehaviour
         newRoomComp.gridPos = spawnPos;
 
         // MapManager에 새 방의 좌표 등록
-        MapManager.Instance.RegisterRoom(spawnPos);
+        MapManager.Instance.RegisterRoom(spawnPos, newRoom);
 
         spawned = true;
     }

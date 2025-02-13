@@ -18,12 +18,15 @@ public class AddRoom : MonoBehaviour
         }
 
         // 방 리스트에 추가
-        MapManager.Instance.rooms.Add(gameObject);
 
         // 좌표가 사전에 등록되어 있지 않다면 등록 (이미 등록되어 있다면 경고)
         if (!MapManager.Instance.IsRoomExistAt(room.gridPos))
         {
-            MapManager.Instance.RegisterRoom(room.gridPos);
+            if(room.gridPos ==  Vector2Int.zero)
+            {
+                MapManager.Instance.RegisterRoom(room.gridPos, this.gameObject);
+            }
+            
         }
 
         // 시작방이면 플레이어의 현재 방 좌표로 등록
