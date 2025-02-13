@@ -6,4 +6,9 @@ public class BattleEvent : RoomEvent
     {
         throw new System.NotImplementedException();
     }
+
+    private void OnMouseDown()
+    {
+        MapManager.Instance.RequestPlayerMoveToEvent(this);
+    }
 }

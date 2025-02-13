@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,12 +8,17 @@ public class MapManager : SingletonBehaviour<MapManager>
 {
     public int currentStageNum = 0;
 
+
     [SerializeField] private RoomTemplates _roomTemplate;
     [SerializeField] private Transform roomParent;
 
     // 각 방의 그리드 좌표를 기록 (Vector2Int 사용)
     private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
+
+    // 키: 해당 방의 gridPos, 값: 연결된 방의 gridPos 목록
+    private Dictionary<Vector2Int, List<Vector2Int>> roomGraph = new Dictionary<Vector2Int, List<Vector2Int>>();
+
     public int RoomCount { get { return mapGenRooms.Count; } }
 
     public GameObject startRoom;
@@ -27,9 +33,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     // 플레이어의 현재 위치 (시작방은 보통 (0,0)으로 설정)
     public Vector2Int currentPlayerRoom = Vector2Int.zero;
+    [SerializeField] private GameObject player;
 
-    // 키: 해당 방의 gridPos, 값: 연결된 방의 gridPos 목록
-    private Dictionary<Vector2Int, List<Vector2Int>> roomGraph = new Dictionary<Vector2Int, List<Vector2Int>>();
+    // 플레이어 이동 속도 (초당 이동 거리)
+    public float playerMoveSpeed = 13f;
 
     [SerializeField] private int battleRoomCount;
     [SerializeField] private int bossRoomCount;
@@ -37,6 +44,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     [SerializeField] private int shopRoomCount;
 
     private bool isEventPlaced = false;
+    private bool isPlayerMoving = false;
     private void Awake()
     {
         // 씬 전환 시 삭제되지 않도록 (원하는 경우)
@@ -110,6 +118,140 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void OnMapRoomCountFull()
     {
         isRoomReachedMax = true;
+    }
+
+    /// <summary>
+    /// bfs 기반 Pathfinding
+    /// </summary>
+    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int target)
+    {
+        // 이미 등록된 방 간 연결 정보 (roomGraph)를 사용
+        if (!roomGraph.ContainsKey(start) || !roomGraph.ContainsKey(target))
+        {
+            Logger.LogWarning("pathfinding중 시작 또는 목표 방의 연결 정보가 없습니다.");
+            return null;
+        }
+
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+        Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
+
+        queue.Enqueue(start);
+        cameFrom[start] = start;  // 시작점을 표시
+
+        while (queue.Count > 0)
+        {
+            Vector2Int current = queue.Dequeue();
+            if (current == target)
+                break;
+
+            if (roomGraph.ContainsKey(current))
+            {
+                foreach (Vector2Int neighbor in roomGraph[current])
+                {
+                    if (!cameFrom.ContainsKey(neighbor))
+                    {
+                        if (neighbor == target ||  mapGenRooms[neighbor].GetComponent<Room>().roomEvent == null)
+                        {
+                            queue.Enqueue(neighbor);
+                            cameFrom[neighbor] = current;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 경로가 없으면 null 리턴
+        if (!cameFrom.ContainsKey(target))
+        {
+            Debug.LogWarning("목표 이벤트까지의 경로를 찾을 수 없습니다.");
+            return null;
+        }
+
+        // 경로 재구성 (뒤에서부터 따라가서 역순으로 만든 후 reverse)
+        List<Vector2Int> path = new List<Vector2Int>();
+        Vector2Int currPos = target;
+        while (currPos != start)
+        {
+            path.Add(currPos);
+            currPos = cameFrom[currPos];
+        }
+        path.Add(start);
+        path.Reverse();
+
+        return path;
+    }
+
+    public void RequestPlayerMoveToEvent(RoomEvent clickedEvent)
+    {
+        if(isPlayerMoving)
+        {
+            Debug.LogError("현재 플레이어가 움직이고 있어 호출을 무시합니다.");
+            return;
+        }
+        // 클릭된 이벤트가 부착된 방의 좌표를 가져옴
+        Room targetRoom = clickedEvent.Room;
+        if (targetRoom == null)
+        {
+            Debug.LogError("클릭된 이벤트에 Room 컴포넌트가 없습니다.");
+            return;
+        }
+        Vector2Int targetPos = targetRoom.gridPos;
+
+        // 플레이어 현재 방 (MapManager.currentPlayerRoom)에서 목표까지의 경로 찾기
+        List<Vector2Int> path = FindPath(currentPlayerRoom, targetPos);
+        if (path == null)
+        {
+            Debug.LogWarning("경로를 찾지 못했습니다.");
+            return;
+        }
+        else
+        {
+            string pathString = "";
+            for(int i = 0; i < path.Count; i++)
+            {
+                pathString += (path[i].ToString() + " ");
+            }
+            Debug.Log($"생각한 경로가 {pathString}입니다.");
+        }
+
+        // 경로의 중간에 다른 이벤트가 있는지 확인 (시작방과 목표방은 제외)
+        // 만약 중간에 roomEvent가 있다면, 이동을 막고 로그 출력
+        for (int i = 1; i < path.Count - 1; i++)
+        {
+            if (mapGenRooms.ContainsKey(path[i]))
+            {
+                Room room = mapGenRooms[path[i]].GetComponent<Room>();
+                if (room != null && room.roomEvent != null)
+                {
+                    Debug.Log("경로에 다른 이벤트가 있어 이동할 수 없습니다.");
+                    return;
+                }
+            }
+        }
+
+        // 경로가 모두 깨끗하면, 코루틴을 시작해서 플레이어 이동
+        StartCoroutine(MovePlayerAlongPath(path));
+    }
+
+    private IEnumerator MovePlayerAlongPath(List<Vector2Int> path)
+    {
+        isPlayerMoving = true;
+        // path의 각 방 좌표를 순서대로 이동합니다.
+        foreach (Vector2Int roomPos in path)
+        {
+            Vector3 targetWorldPos = GetWorldPositionInPos(roomPos);
+            // (예시) 타겟 좌표까지 선형 보간으로 이동
+            while (Vector3.Distance(player.transform.position, targetWorldPos) > 0.01f)
+            {
+                player.transform.position = Vector3.MoveTowards(player.transform.position, targetWorldPos, playerMoveSpeed * Time.deltaTime);
+                yield return null;
+            }
+            // 이동이 끝나면 현재 플레이어 방 좌표 업데이트
+            currentPlayerRoom = roomPos;
+            yield return null;
+        }
+        Debug.Log("플레이어 이동 완료.");
+        isPlayerMoving = false;
     }
 
     private void CheckConnection(Vector2Int pos)
@@ -273,6 +415,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 {
                     PlaceEventInVisual(currentRooms[index], room.gridPos, eventType);
                     room.roomEvent = currentRooms[index].AddComponent(eventType.GetType()) as RoomEvent;
+                    room.roomEvent.Room = room;
                     Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
                     isPlacedRight = true;
                     break;
@@ -301,11 +444,12 @@ public class MapManager : SingletonBehaviour<MapManager>
 
         if(farestRoomObject != null)
         {
-            Room farestRoom = farestRoomObject.GetComponent<Room>();
+            Room room = farestRoomObject.GetComponent<Room>();
 
-            PlaceEventInVisual(farestRoomObject, farestRoom.gridPos, eventType);
-            farestRoom.roomEvent = farestRoomObject.AddComponent(eventType.GetType()) as RoomEvent;
-            Logger.Log($"[MapManager] - {farestRoom.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+            PlaceEventInVisual(farestRoomObject, room.gridPos, eventType);
+            room.roomEvent = farestRoomObject.AddComponent(eventType.GetType()) as RoomEvent;
+            room.roomEvent.Room = room;
+            Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
             isPlacedRight = true;
         }
 

@@ -6,4 +6,9 @@ public class ShopEvent : RoomEvent
     {
         throw new System.NotImplementedException();
     }
+
+    private void OnMouseDown()
+    {
+        MapManager.Instance.RequestPlayerMoveToEvent(this);
+    }
 }
