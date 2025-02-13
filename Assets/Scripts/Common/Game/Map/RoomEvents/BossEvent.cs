@@ -4,7 +4,7 @@ public class BossEvent : RoomEvent
 {
     public override void TriggerEvent()
     {
-        throw new System.NotImplementedException();
+        Logger.Log($"[BossEvent] - 이벤트 활성화");
     }
 
     private void OnMouseDown()

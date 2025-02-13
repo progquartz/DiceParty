@@ -4,7 +4,7 @@ public class BattleEvent : RoomEvent
 {
     public override void TriggerEvent()
     {
-        throw new System.NotImplementedException();
+        Logger.Log($"[BattleEvent] - 이벤트 활성화");
     }
 
     private void OnMouseDown()

@@ -24,4 +24,11 @@ public class Room : MonoBehaviour
             Debug.Log("이 방에는 특별한 이벤트가 없습니다.");
         }
     }
+
+    public void DeactivateRoomEvent()
+    {
+        RoomEvent objectEvent = GetComponent<RoomEvent>();
+        Destroy(objectEvent);
+        roomEvent = null;
+    }
 }

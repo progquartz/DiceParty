@@ -32,7 +32,7 @@ public class AddRoom : MonoBehaviour
         // 시작방이면 플레이어의 현재 방 좌표로 등록
         if (room.gridPos == Vector2Int.zero)
         {
-            MapManager.Instance.currentPlayerRoom = room.gridPos;
+            MapManager.Instance.currentPlayerPos = room.gridPos;
         }
 
         foreach(var roomSpawner in roomSpawners)

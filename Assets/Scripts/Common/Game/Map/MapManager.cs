@@ -32,7 +32,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     private int currentRoomGenerating = 0;
 
     // 플레이어의 현재 위치 (시작방은 보통 (0,0)으로 설정)
-    public Vector2Int currentPlayerRoom = Vector2Int.zero;
+    public Vector2Int currentPlayerPos = Vector2Int.zero;
     [SerializeField] private GameObject player;
 
     // 플레이어 이동 속도 (초당 이동 거리)
@@ -198,7 +198,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         Vector2Int targetPos = targetRoom.gridPos;
 
         // 플레이어 현재 방 (MapManager.currentPlayerRoom)에서 목표까지의 경로 찾기
-        List<Vector2Int> path = FindPath(currentPlayerRoom, targetPos);
+        List<Vector2Int> path = FindPath(currentPlayerPos, targetPos);
         if (path == null)
         {
             Debug.LogWarning("경로를 찾지 못했습니다.");
@@ -247,12 +247,26 @@ public class MapManager : SingletonBehaviour<MapManager>
                 yield return null;
             }
             // 이동이 끝나면 현재 플레이어 방 좌표 업데이트
-            currentPlayerRoom = roomPos;
+            currentPlayerPos = roomPos;
             yield return null;
         }
-        Debug.Log("플레이어 이동 완료.");
+        Debug.Log($"플레이어가 {currentPlayerPos}로 이동 완료. ");
+        ActivateRoomInPos(currentPlayerPos);
         isPlayerMoving = false;
     }
+
+    private void ActivateRoomInPos(Vector2Int pos)
+    {
+        Room eventRoom = GetRoomInPos(pos).GetComponent<Room>();
+        if (eventRoom != null)
+        {
+            eventRoom.ActivateRoom();
+            RemoveVisualInPos(pos);
+            eventRoom.DeactivateRoomEvent();
+        }
+
+    }
+    
 
     private void CheckConnection(Vector2Int pos)
     {
@@ -341,9 +355,9 @@ public class MapManager : SingletonBehaviour<MapManager>
     // 현재 플레이어의 방에서 이동 가능한 (연결된) 방들의 좌표 목록을 리턴
     public List<Vector2Int> GetAvailableMoves()
     {
-        if (roomGraph.ContainsKey(currentPlayerRoom))
+        if (roomGraph.ContainsKey(currentPlayerPos))
         {
-            return roomGraph[currentPlayerRoom];
+            return roomGraph[currentPlayerPos];
         }
         return new List<Vector2Int>();
     }
@@ -351,7 +365,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void DebugCheckCurrentAvailableMoves()
     {
         List<Vector2Int> currentAvailableMove = GetAvailableMoves();
-        Debug.Log($"현재 {currentPlayerRoom}에서 이동가능한 방의 개수 = {currentAvailableMove.Count} ///");
+        Debug.Log($"현재 {currentPlayerPos}에서 이동가능한 방의 개수 = {currentAvailableMove.Count} ///");
         foreach (var move in currentAvailableMove) 
         {
             Debug.Log(move);
@@ -365,7 +379,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         List<Vector2Int> availableMoves = GetAvailableMoves();
         if (availableMoves.Contains(targetRoom))
         {
-            currentPlayerRoom = targetRoom;
+            currentPlayerPos = targetRoom;
             // 추가: 플레이어 오브젝트의 실제 위치 이동 처리 등
             return true;
         }
