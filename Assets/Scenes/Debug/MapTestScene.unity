@@ -685,28 +685,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29472b39b8349414f85bd13ea604f0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottomRooms:
+  BottomRooms:
   - {fileID: 5160244673297745551, guid: 4c285c9e0aed08c4e9d1418847965240, type: 3}
   - {fileID: 1619875097587911193, guid: 2848264f196ed6747b6b4fc28bbf1e96, type: 3}
   - {fileID: 5228349763970616577, guid: db5ae601290c28f42a4ede16e8dfcf8d, type: 3}
   - {fileID: 1712952918844187726, guid: 3e8eef23d938ddb40b9d5f4f776350a0, type: 3}
-  topRooms:
+  TopRooms:
   - {fileID: 1609071596486116645, guid: b0092bff147efac469ea2c0b4e518a41, type: 3}
   - {fileID: 1712952918844187726, guid: 3e8eef23d938ddb40b9d5f4f776350a0, type: 3}
   - {fileID: 8107242267286276522, guid: e5d9cd1f32199b54d99862775b532797, type: 3}
   - {fileID: 769559730089525110, guid: d67cc4984e8cf4c42b4b9a8893b4a962, type: 3}
-  leftRooms:
+  LeftRooms:
   - {fileID: 458307912724994908, guid: 5379fba61daa0234d8c0debdae0c672a, type: 3}
   - {fileID: 1619875097587911193, guid: 2848264f196ed6747b6b4fc28bbf1e96, type: 3}
   - {fileID: 7915543605077568067, guid: 82b66167f0686d249831750aba1a98a0, type: 3}
   - {fileID: 8107242267286276522, guid: e5d9cd1f32199b54d99862775b532797, type: 3}
-  rightRooms:
+  RightRooms:
   - {fileID: 4648310069961702843, guid: 13b97a7cea3583344be336e319a88057, type: 3}
+  - {fileID: 7915543605077568067, guid: 82b66167f0686d249831750aba1a98a0, type: 3}
   - {fileID: 5228349763970616577, guid: db5ae601290c28f42a4ede16e8dfcf8d, type: 3}
   - {fileID: 769559730089525110, guid: d67cc4984e8cf4c42b4b9a8893b4a962, type: 3}
-  - {fileID: 7915543605077568067, guid: 82b66167f0686d249831750aba1a98a0, type: 3}
-  closedRoom: {fileID: 3267448899974638488, guid: cc206d3d1ccef49428c3386c852b07f1, type: 3}
-  boss: {fileID: 1735614057357986186, guid: 5f3fd8d337e31454c89d94bd18a1e0d3, type: 3}
+  ClosedRoom: {fileID: 3267448899974638488, guid: cc206d3d1ccef49428c3386c852b07f1, type: 3}
+  BossVisual: {fileID: 91648587142176805, guid: 0ff612930b833b24097017748e7c8130, type: 3}
+  BattleVisual: {fileID: 2730340604716405841, guid: 02c63be0206e45e408d10b3ad2573100, type: 3}
+  TreatureVisual: {fileID: 1539288022008039595, guid: 7777e7f393254c04f851f31926a646a2, type: 3}
+  ShopVisual: {fileID: 5411998196738632494, guid: 85c973d0ca8d2e148b1ae50aa7547138, type: 3}
 --- !u!114 &1577412489
 MonoBehaviour:
   m_ObjectHideFlags: 0
