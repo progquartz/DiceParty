@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -10,7 +11,11 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 
     [SerializeField] private RoomTemplates _roomTemplate;
+    private MapLoader mapLoader;
     [SerializeField] private Transform roomParent;
+    [SerializeField] private GameObject entryRoomPrefab; // EntryRoom 프리팹 (Inspector에 할당)
+    
+
 
     // 각 방의 그리드 좌표를 기록 (Vector2Int 사용)
     private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
@@ -20,12 +25,10 @@ public class MapManager : SingletonBehaviour<MapManager>
     private Dictionary<Vector2Int, List<Vector2Int>> roomGraph = new Dictionary<Vector2Int, List<Vector2Int>>();
 
     public int RoomCount { get { return mapGenRooms.Count; } }
-
     public GameObject startRoom;
 
     // 최대 방 개수 (원하는 값으로 설정)
     public int maxRooms = 10;
-
     private bool isRoomReachedMax;
     public float waitTime;
     private bool spawnedBoss;
@@ -34,8 +37,6 @@ public class MapManager : SingletonBehaviour<MapManager>
     // 플레이어의 현재 위치 (시작방은 보통 (0,0)으로 설정)
     public Vector2Int currentPlayerPos = Vector2Int.zero;
     [SerializeField] private GameObject player;
-
-    // 플레이어 이동 속도 (초당 이동 거리)
     public float playerMoveSpeed = 13f;
 
     [SerializeField] private int battleRoomCount;
@@ -45,6 +46,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private bool isEventPlaced = false;
     private bool isPlayerMoving = false;
+
+
     private void Awake()
     {
         // 씬 전환 시 삭제되지 않도록 (원하는 경우)
@@ -77,8 +80,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void InitializeData()
     {
-        // 초기화가 필요하다면 여기에 구현
-        //rooms.Add(startRoom);
+        // 필요한 초기화 작업 구현 (예: 기존 방 데이터 초기화)
+        mapLoader = gameObject.AddComponent<MapLoader>();
+        mapLoader.Init(this);
     }
 
     public Transform RoomParent { get { return roomParent; } }
@@ -99,6 +103,97 @@ public class MapManager : SingletonBehaviour<MapManager>
     public bool IsRoomExistAt(Vector2Int pos)
     {
         return mapGenRooms.ContainsKey(pos);
+    }
+
+    // 맵 리셋 기능: 현재 생성된 방들을 삭제하고 내부 데이터를 초기화한 후 시작방(EntryRoom) 생성
+    public void ResetMap()
+    {
+        // roomParent 하위의 모든 방(GameObject) 삭제
+        foreach (Transform child in roomParent)
+        {
+            Destroy(child.gameObject);
+        }
+        mapGenRooms.Clear();
+        // (필요한 다른 데이터들도 초기화)
+        currentPlayerPos = Vector2Int.zero;
+
+        // EntryRoom 프리팹으로 시작방 생성
+        if (entryRoomPrefab != null)
+        {
+            Vector3 startWorldPos = GetWorldPositionForGrid(Vector2Int.zero);
+            GameObject newEntryRoom = Instantiate(entryRoomPrefab, startWorldPos, Quaternion.identity, roomParent);
+            Room roomComp = newEntryRoom.GetComponent<Room>();
+            if (roomComp == null)
+            {
+                roomComp = newEntryRoom.AddComponent<Room>();
+            }
+            roomComp.gridPos = Vector2Int.zero;
+            roomComp.roomName = "EntryRoom"; // 방 이름 지정 (저장/로드를 위해)
+            RegisterRoom(Vector2Int.zero, newEntryRoom);
+            // 시작방 설정
+            currentPlayerPos = Vector2Int.zero;
+        }
+        else
+        {
+            Debug.LogError("EntryRoom 프리팹이 할당되어 있지 않습니다.");
+        }
+    }
+
+    /// <summary>
+    /// 외부에서 MapLoader가 내부 방 데이터를 접근할 수 있도록 Dictionary를 반환합니다.
+    /// </summary>
+    public Dictionary<Vector2Int, GameObject> GetMapRooms()
+    {
+        return mapGenRooms;
+    }
+
+    /// <summary>
+    /// 그리드 좌표를 기준으로 월드 좌표를 계산 (방 크기에 맞게 수정)
+    /// </summary>
+    public Vector3 GetWorldPositionForGrid(Vector2Int gridPos)
+    {
+        float roomWidth = 10f;  // 예시 값
+        float roomHeight = 10f; // 예시 값
+        return new Vector3(gridPos.x * roomWidth, gridPos.y * roomHeight, 0f);
+    }
+
+    /// <summary>
+    /// 저장된 방 이름에 따라 해당 프리팹을 반환합니다.
+    /// (여기서는 RoomTemplates에 있는 배열을 활용하는 예시입니다.)
+    /// </summary>
+    public GameObject GetPrefabForRoomName(string roomName)
+    {
+        // 예시 매핑 (실제 프로젝트 상황에 맞게 수정)
+        switch (roomName)
+        {
+            case "B":
+                return _roomTemplate.BottomRooms.Length > 0 ? _roomTemplate.BottomRooms[0] : null;
+            case "BaseRoom":
+                return _roomTemplate.ClosedRoom;
+            case "EntryRoom":
+                return entryRoomPrefab;
+            case "L":
+                return _roomTemplate.LeftRooms.Length > 0 ? _roomTemplate.LeftRooms[0] : null;
+            case "LB":
+                return _roomTemplate.LeftRooms.Length > 1 ? _roomTemplate.LeftRooms[1] : null;
+            case "LR":
+                return _roomTemplate.LeftRooms.Length > 2 ? _roomTemplate.LeftRooms[2] : null;
+            case "R":
+                return _roomTemplate.RightRooms.Length > 0 ? _roomTemplate.RightRooms[0] : null;
+            case "RB":
+                return _roomTemplate.RightRooms.Length > 1 ? _roomTemplate.RightRooms[1] : null;
+            case "T":
+                return _roomTemplate.TopRooms.Length > 0 ? _roomTemplate.TopRooms[0] : null;
+            case "TB":
+                return _roomTemplate.TopRooms.Length > 1 ? _roomTemplate.TopRooms[1] : null;
+            case "TL":
+                return _roomTemplate.TopRooms.Length > 2 ? _roomTemplate.TopRooms[2] : null;
+            case "TR":
+                return _roomTemplate.TopRooms.Length > 3 ? _roomTemplate.TopRooms[3] : null;
+            default:
+                Debug.LogWarning("알 수 없는 방 이름: " + roomName);
+                return null;
+        }
     }
 
     // 방 좌표를 등록 (이미 등록되어 있으면 경고)
@@ -521,3 +616,5 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
 }
+
+
