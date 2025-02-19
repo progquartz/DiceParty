@@ -43,10 +43,10 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void TempBattleStart()
     {
-        StartBattlePhase(StageType.Stage1Normal);
+        StartBattlePhase(BattleType.Stage1Normal);
     }
 
-    public void StartBattlePhase(StageType stageType)
+    public void StartBattlePhase(BattleType stageType)
     {
         // 전투 완료 상태가 아닌데, 호출된 경우
         if (battleState != BattleState.BattleEnd)
@@ -135,9 +135,9 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         }
     }
 
-    private void EnemyMobListSetting(StageType stageType)
+    private void EnemyMobListSetting(BattleType stageType)
     {
-        StageType currentStageType = stageType;
+        BattleType currentStageType = stageType;
 
         EnemyHordeDataSO randomHorde = HordeDataLoader.Instance.GetTotalRandomHorde(currentStageType);
 
@@ -318,6 +318,18 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                 return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// 스테이지 번호와 전투 유형을 받아와 배틀타입으로 변환.
+    /// </summary>
+    /// <param name="stageNumber">스테이지 번호</param>
+    /// <param name="battleType">전투의 유형 [0 : 일반 전투 / 1 : 엘리트 전투 / 2 : 보스 전투]</param>
+    /// <returns></returns>
+    public static BattleType ConvertToStageType(int stageNumber, int battleType)
+    {
+        int battleNum = stageNumber * 10 + battleType;
+        return (BattleType)battleType;
     }
 
 }

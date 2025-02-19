@@ -28,20 +28,10 @@ public class SkillDiceSlotUI : MonoBehaviour
     private void RegisterEvents()
     {
         owner.OnSkillToggle += OnSkillSlotToggle;
-
-        BattleManager.Instance.OnPlayerTurnEnd += RemoveDiceInSlot;
-        BattleManager.Instance.OnPlayerTurnEnd += DeactivateDiceSlot;
-
-        BattleManager.Instance.OnPlayerTurnStart += ActivateDiceSlot;
     }
     private void ReleaseEvents()
     {
         owner.OnSkillToggle -= OnSkillSlotToggle;
-
-        BattleManager.Instance.OnPlayerTurnEnd -= RemoveDiceInSlot;
-        BattleManager.Instance.OnPlayerTurnEnd -= DeactivateDiceSlot;
-
-        BattleManager.Instance.OnPlayerTurnStart -= ActivateDiceSlot;
     }
 
 
@@ -70,14 +60,15 @@ public class SkillDiceSlotUI : MonoBehaviour
         }
     }
 
-    private void DeactivateDiceSlot()
+    public void DeactivateDiceSlot()
     {
         //Logger.LogWarning($"{owner.gameObject.name} ∫Ò»∞º∫»≠µ .");
         isDiceSlotActive = false;
     }
 
-    private void ActivateDiceSlot()
+    public void ActivateDiceSlot()
     {
+        Debug.LogWarning($"skillUI Count = {owner.SkillUseLeftCount}");
         if(owner.CheckSkillActive() )
         {
             //Logger.LogWarning($"{owner.gameObject.name}/»∞º∫»≠µ /.");
@@ -145,7 +136,7 @@ public class SkillDiceSlotUI : MonoBehaviour
         SetSlotColor(Color.white);
     }
 
-    private void RemoveDiceInSlot()
+    public void RemoveDiceInSlot()
     {
         if(storedDice != null)
         {

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class SkillUI : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class SkillUI : MonoBehaviour
     [Header("주사위 슬롯 2개짜리")]
     [SerializeField] private GameObject twoDiceSlot;
 
+    [Header("주사위 슬롯 UI")]
+    [SerializeField] private SkillDiceSlotUI[] diceSlotUI;
 
     [SerializeField] private Color[] activeColors;
     [SerializeField] private Color[] deactivatedColors;
@@ -94,12 +97,21 @@ public class SkillUI : MonoBehaviour
     {
         // count 초기화
         SkillUseLeftCount = skillDataSO.skillUseCount;
+        foreach(var diceSlot in diceSlotUI)
+        {
+            diceSlot.ActivateDiceSlot();
+        }
         UpdateVisual();
     }
 
     public void OnPlayerTurnEnd()
     {
         RefreshDiceSlotValidity();
+        foreach(var diceSlot in diceSlotUI)
+        {
+            diceSlot.DeactivateDiceSlot();
+            diceSlot.RemoveDiceInSlot();
+        }
         UpdateVisual();
     }
 
@@ -124,12 +136,14 @@ public class SkillUI : MonoBehaviour
             if( skillDataSO.diceRequirements.Count == 1)
             {
                 oneDiceSlot.SetActive(true);
+                diceSlotUI = oneDiceSlot.GetComponentsInChildren<SkillDiceSlotUI>();
                 twoDiceSlot.SetActive(false);
             }
             else if(skillDataSO.diceRequirements.Count == 2)
             {
                 oneDiceSlot.SetActive(false);
                 twoDiceSlot.SetActive(true);
+                diceSlotUI = twoDiceSlot.GetComponentsInChildren<SkillDiceSlotUI>();
             }
             else
             {
