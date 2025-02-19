@@ -68,7 +68,6 @@ public class SkillDiceSlotUI : MonoBehaviour
 
     public void ActivateDiceSlot()
     {
-        Debug.LogWarning($"skillUI Count = {owner.SkillUseLeftCount}");
         if(owner.CheckSkillActive() )
         {
             //Logger.LogWarning($"{owner.gameObject.name}/활성화됨/.");
@@ -121,7 +120,7 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         if (storedDice == dice)
         {
-            Logger.Log($"{dice.name} 주사위가 슬롯에서 빠져나감.");
+            //Logger.Log($"{dice.name} 주사위가 슬롯에서 빠져나감.");
             SetSlotColor(Color.grey);
             owner.OnDiceDetach(dice, transform.GetSiblingIndex());
             storedDice = null;

@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e981a2738c0f68447a2f96e25a5dd743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStageNum: 0
+  currentStageNum: 1
   _roomTemplate: {fileID: 326781765}
   roomParent: {fileID: 662121697}
   startRoom: {fileID: 1097271176}

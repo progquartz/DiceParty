@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class MapManager : SingletonBehaviour<MapManager>
 {
-    public int currentStageNum = 0;
+    public int currentStageNum = 1;
 
 
     [SerializeField] private RoomTemplates _roomTemplate;
@@ -287,7 +287,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     {
                         if(dir == i)
                         {
-                            Debug.Log($"연결을 확인해 {pos}와 {deltaPos}사이의 연결을 만듭니다.");
+                            //Debug.Log($"연결을 확인해 {pos}와 {deltaPos}사이의 연결을 만듭니다.");
                             RegisterConnection(pos, deltaPos);
                             
                         }
@@ -323,7 +323,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void CalcRoomGenCount(int amount)
     {
         currentRoomGenerating += amount;
-        Logger.Log($"현재 {currentRoomGenerating} 개의 방이 생성 중입니다.");
+        //Logger.Log($"현재 {currentRoomGenerating} 개의 방이 생성 중입니다.");
         if (currentRoomGenerating <= 0)
         {
             Logger.LogError("방 생성 개수가 0 이하입니다.");
@@ -390,8 +390,8 @@ public class MapManager : SingletonBehaviour<MapManager>
     // 예시: 모든 방 생성이 완료된 후, 로직에 따라 각 방에 이벤트를 할당한다.
     private void PlaceRandomEvents()
     {
-        Logger.Log("방의 개수 = " + mapGenRooms.Count);
-        if(battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount > mapGenRooms.Count)
+        //Logger.Log("방의 개수 = " + mapGenRooms.Count);
+        if(battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount - 1 > mapGenRooms.Count)
         {
             // 현재 있는 방보다 생성해야 할 방이 많아야 할 경우..?
             Logger.LogError($"생성해야 할 방이 {battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount} 개지만 현재 있는 방의 개수가 {mapGenRooms.Count}로 더 많습니다.");
@@ -430,7 +430,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     PlaceEventInVisual(currentRooms[index], room.gridPos, eventType);
                     room.roomEvent = currentRooms[index].AddComponent(eventType.GetType()) as RoomEvent;
                     room.roomEvent.Room = room;
-                    Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+                    //Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
                     isPlacedRight = true;
                     break;
                 }
@@ -463,7 +463,7 @@ public class MapManager : SingletonBehaviour<MapManager>
             PlaceEventInVisual(farestRoomObject, room.gridPos, eventType);
             room.roomEvent = farestRoomObject.AddComponent(eventType.GetType()) as RoomEvent;
             room.roomEvent.Room = room;
-            Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
+            //Logger.Log($"[MapManager] - {room.gridPos} 에 {eventType.GetType().ToString()} 을 배치합니다.");
             isPlacedRight = true;
         }
 

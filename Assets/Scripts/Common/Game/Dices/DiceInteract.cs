@@ -101,11 +101,11 @@ public class DiceInteract : MonoBehaviour
 
         if (droppedOnSlot)
         {
-            Logger.Log("[DiceInteract] 슬롯에 드롭 성공!");
+            //Logger.Log("[DiceInteract] 슬롯에 드롭 성공!");
         }
         else
         {
-            Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
+            //Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
         }
     }
 }
