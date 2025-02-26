@@ -1025,6 +1025,7 @@ MonoBehaviour:
   bossRoomCount: 1
   treasureRoomCount: 1
   shopRoomCount: 1
+  debugEventPlacingTime: 0
 --- !u!114 &326781765
 MonoBehaviour:
   m_ObjectHideFlags: 0

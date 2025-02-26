@@ -76,6 +76,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 {
                     Debug.LogError($"{i}번째 데이터에 오류 있음.");
                     isObjectDataValid = false;
+                    ResetMap();
                 }
             }
             if(isObjectDataValid)
