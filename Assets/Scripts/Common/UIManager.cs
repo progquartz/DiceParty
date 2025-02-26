@@ -10,6 +10,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public static GraphicRaycaster graphicRayCaster;
     public Transform CanvasTransform;
     public Transform ClosedUITrasnform;
+    public MapUI mapUI;
 
     
 

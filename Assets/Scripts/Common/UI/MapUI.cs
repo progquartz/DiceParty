@@ -7,31 +7,72 @@ public class MapUI : MonoBehaviour
     [SerializeField] private RectTransform MapToggleOffPos;
     [SerializeField] private RectTransform MapMovingPart;
 
-    private float moveSpeed = 1000f;
+    private float openSpeed = 1000f;
+    private float closeSpeed = 1500f;
+    private float openSpeedFast = 2000f;
+    private float closeSpeedFast = 3000f;
 
     // 현재 맵이 열린 상태인지 여부
     private bool isMapUIOpen = false;
     // 이동 중인지 여부 (이동 중일 때는 버튼 입력 무시)
     private bool isMoving = false;
 
-    public void OnToggleMapButton()
+    public void OnTurningOffMapUI()
+    {
+        if (isMoving || !isMapUIOpen)
+            return;
+
+        Vector2 targetPos = MapToggleOffPos.anchoredPosition;
+        StartCoroutine(MoveMapUI(targetPos, true));
+    }
+    public void OnToggleMapUITeleport()
+    {
+        if (isMoving)
+            return;
+        Vector2 targetPos = isMapUIOpen ? MapToggleOffPos.anchoredPosition : MapToggleOnPos.anchoredPosition;
+        MapMovingPart.anchoredPosition = targetPos;
+    }
+
+    public void OnTurningOffMapUITeleport()
+    {
+        if (isMoving)
+            return;
+        Vector2 targetPos = MapToggleOffPos.anchoredPosition;
+        MapMovingPart.anchoredPosition = targetPos;
+    }
+
+    public void OnToggleMapButton(bool isFast)
     {
         if (isMoving)
             return;
 
         Vector2 targetPos = isMapUIOpen ? MapToggleOffPos.anchoredPosition : MapToggleOnPos.anchoredPosition;
-        StartCoroutine(MoveMapUI(targetPos));
+        StartCoroutine(MoveMapUI(targetPos, isFast));
     }
 
-    private IEnumerator MoveMapUI(Vector2 targetPos)
+    private IEnumerator MoveMapUI(Vector2 targetPos, bool isFast)
     {
         isMoving = true;
 
         Vector2 startPos = MapMovingPart.anchoredPosition;
 
         float distance = Vector2.Distance(startPos, targetPos);
-        float duration = (moveSpeed > 0f) ? distance / moveSpeed : 0.5f;
-
+        float duration;
+        if (isFast)
+        {
+            if(isMapUIOpen)
+                duration = (closeSpeed > 0f) ? distance / closeSpeed : 0.5f;
+            else
+                duration = (openSpeed > 0f) ? distance / openSpeed : 0.5f;
+        }
+        else
+        {
+            if(isMapUIOpen)
+                duration = (closeSpeedFast > 0f) ? distance / closeSpeedFast : 0.5f;
+            else
+                duration = (openSpeedFast > 0f) ? distance / openSpeedFast : 0.5f;
+        }
+        
         float elapsed = 0f;
         while (elapsed < duration)
         {

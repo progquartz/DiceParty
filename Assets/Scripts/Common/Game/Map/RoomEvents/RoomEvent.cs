@@ -10,4 +10,9 @@ public abstract class RoomEvent : MonoBehaviour
     {
         MapManager.Instance.RequestPlayerMoveToEvent(this);
     }
+
+    protected void CloseMapUI()
+    {
+        UIManager.Instance.mapUI.OnTurningOffMapUI();
+    }
 }
