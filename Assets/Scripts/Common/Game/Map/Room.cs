@@ -1,5 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+
+[Serializable]
+public class RoomData
+{
+    public string roomName;        // "B", "EntryRoom", "L" 등
+    public Vector2Int gridPosition;  // 방의 그리드 좌표
+    public bool connectLeft;
+    public bool connectRight;
+    public bool connectTop;
+    public bool connectBottom;
+}
 
 public class Room : MonoBehaviour
 {
@@ -33,3 +45,6 @@ public class Room : MonoBehaviour
         roomEvent = null;
     }
 }
+
+
+

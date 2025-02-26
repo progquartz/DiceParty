@@ -18,8 +18,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 
     // 각 방의 그리드 좌표를 기록 (Vector2Int 사용)
-    private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
-    private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
+    [SerializeField]private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
+    [SerializeField] private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
 
     // 키: 해당 방의 gridPos, 값: 연결된 방의 gridPos 목록
     private Dictionary<Vector2Int, List<Vector2Int>> roomGraph = new Dictionary<Vector2Int, List<Vector2Int>>();
@@ -47,7 +47,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     private bool isEventPlaced = false;
     private bool isPlayerMoving = false;
 
-
+    public float debugEventPlacingTime = 0.0f;
     private void Awake()
     {
         // 씬 전환 시 삭제되지 않도록 (원하는 경우)
@@ -63,11 +63,28 @@ public class MapManager : SingletonBehaviour<MapManager>
         // 랜덤한 방에 대애충 다른 방들 넣기.
         // 추가: 모든 방 생성이 완료되면 데이터를 저장하거나 다른 로직 처리 가능
         //음...
-        
+        if(!isEventPlaced)
+        {
+            debugEventPlacingTime += Time.deltaTime;
+        }
         if(!isEventPlaced && isRoomReachedMax)
         {
-            PlaceRandomEvents();
-            isEventPlaced = true;
+            bool isObjectDataValid = true;
+            for(int i = 0 ; i < mapGenRooms.Values.Count; i++)
+            {
+                if (mapGenRooms.Values.ToList()[i] == null)
+                {
+                    Debug.LogError($"{i}번째 데이터에 오류 있음.");
+                    isObjectDataValid = false;
+                }
+            }
+            if(isObjectDataValid)
+            {
+                PlaceRandomEvents();
+                isEventPlaced = true;
+                Debug.Log($"이벤트를 모두 설치하기까지 {debugEventPlacingTime}이 걸립니다.");
+                debugEventPlacingTime = 0f;
+            }
         }
         
     }
@@ -114,6 +131,11 @@ public class MapManager : SingletonBehaviour<MapManager>
             Destroy(child.gameObject);
         }
         mapGenRooms.Clear();
+        mapGenVisuals.Clear();
+        roomGraph.Clear();
+        isEventPlaced = false;
+        isRoomReachedMax = false;
+
         // (필요한 다른 데이터들도 초기화)
         currentPlayerPos = Vector2Int.zero;
 
@@ -121,7 +143,10 @@ public class MapManager : SingletonBehaviour<MapManager>
         if (entryRoomPrefab != null)
         {
             Vector3 startWorldPos = GetWorldPositionForGrid(Vector2Int.zero);
-            GameObject newEntryRoom = Instantiate(entryRoomPrefab, startWorldPos, Quaternion.identity, roomParent);
+
+            GameObject newEntryRoom = Instantiate(entryRoomPrefab, roomParent, false);
+            newEntryRoom.transform.localPosition = startWorldPos;
+            startRoom = newEntryRoom;
             Room roomComp = newEntryRoom.GetComponent<Room>();
             if (roomComp == null)
             {
@@ -129,13 +154,12 @@ public class MapManager : SingletonBehaviour<MapManager>
             }
             roomComp.gridPos = Vector2Int.zero;
             roomComp.roomName = "EntryRoom"; // 방 이름 지정 (저장/로드를 위해)
-            RegisterRoom(Vector2Int.zero, newEntryRoom);
             // 시작방 설정
             currentPlayerPos = Vector2Int.zero;
         }
         else
         {
-            Debug.LogError("EntryRoom 프리팹이 할당되어 있지 않습니다.");
+            Logger.LogError("EntryRoom 프리팹이 할당되어 있지 않습니다.");
         }
     }
 
@@ -539,6 +563,13 @@ public class MapManager : SingletonBehaviour<MapManager>
         float farestDistance = float.MinValue;
 
         List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
+        Debug.Log($"이벤트 설치 중, 현재 있는 방의 개수가 {currentRooms.Count}개임");
+        for(int i = 0; i <  currentRooms.Count; i++) 
+        {
+            Debug.Log($"{i}번째.");
+            Debug.Log(currentRooms[i].name + "임");
+        }
+
         GameObject farestRoomObject = null;
         foreach(GameObject room in  currentRooms)
         {
