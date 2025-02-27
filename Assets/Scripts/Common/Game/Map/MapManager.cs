@@ -118,6 +118,17 @@ public class MapManager : SingletonBehaviour<MapManager>
         return mapGenRooms.ContainsKey(pos);
     }
 
+    public void GoToNextStage()
+    {
+        if(currentStageNum >= 3)
+        {
+            Logger.LogWarning("마지막 스테이지에서 종료되었습니다.");
+            return;
+        }
+        currentStageNum++;
+        ResetMap();
+    }
+
     /// <summary>
     /// 맵 리셋 후 새로 생성 (스테이지 변화)
     /// </summary>
