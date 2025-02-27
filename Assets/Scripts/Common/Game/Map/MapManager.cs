@@ -50,7 +50,6 @@ public class MapManager : SingletonBehaviour<MapManager>
     public float debugEventPlacingTime = 0.0f;
     private void Awake()
     {
-        // 씬 전환 시 삭제되지 않도록 (원하는 경우)
         IsDestroyOnLoad = true;
         Init();
         
@@ -58,11 +57,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     void Update()
     {
-        // 0,0에서 가장 먼 좌표에 보스 방 생성.
-
-        // 랜덤한 방에 대애충 다른 방들 넣기.
-        // 추가: 모든 방 생성이 완료되면 데이터를 저장하거나 다른 로직 처리 가능
-        //음...
         if(!isEventPlaced)
         {
             debugEventPlacingTime += Time.deltaTime;
@@ -76,9 +70,11 @@ public class MapManager : SingletonBehaviour<MapManager>
                 {
                     Debug.LogError($"{i}번째 데이터에 오류 있음.");
                     isObjectDataValid = false;
-                    ResetMap();
+                    ResetMap(); // 맵 생성에 오류가 생겨 재생성.
                 }
             }
+
+            // 모든 방 설치가 완료 될 경우, 랜덤 이벤트 설치.
             if(isObjectDataValid)
             {
                 PlaceRandomEvents();
@@ -98,7 +94,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void InitializeData()
     {
-        // 필요한 초기화 작업 구현 (예: 기존 방 데이터 초기화)
         mapLoader = gameObject.AddComponent<MapLoader>();
         mapLoader.Init(this);
     }
@@ -123,10 +118,11 @@ public class MapManager : SingletonBehaviour<MapManager>
         return mapGenRooms.ContainsKey(pos);
     }
 
-    // 맵 리셋 기능: 현재 생성된 방들을 삭제하고 내부 데이터를 초기화한 후 시작방(EntryRoom) 생성
+    /// <summary>
+    /// 맵 리셋 후 새로 생성 (스테이지 변화)
+    /// </summary>
     public void ResetMap()
     {
-        // roomParent 하위의 모든 방(GameObject) 삭제
         foreach (Transform child in roomParent)
         {
             Destroy(child.gameObject);
@@ -137,10 +133,8 @@ public class MapManager : SingletonBehaviour<MapManager>
         isEventPlaced = false;
         isRoomReachedMax = false;
 
-        // (필요한 다른 데이터들도 초기화)
         currentPlayerPos = Vector2Int.zero;
 
-        // EntryRoom 프리팹으로 시작방 생성
         if (entryRoomPrefab != null)
         {
             Vector3 startWorldPos = GetWorldPositionForGrid(Vector2Int.zero);
@@ -155,7 +149,7 @@ public class MapManager : SingletonBehaviour<MapManager>
             }
             roomComp.gridPos = Vector2Int.zero;
             roomComp.roomName = "EntryRoom"; // 방 이름 지정 (저장/로드를 위해)
-            // 시작방 설정
+
             currentPlayerPos = Vector2Int.zero;
         }
         else
@@ -303,11 +297,13 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     public void RequestPlayerMoveToEvent(RoomEvent clickedEvent)
     {
-        if(isPlayerMoving)
+        // 플레이어가 이동 중 / 전투 상태일 때에는 상호작용 무시
+        if (isPlayerMoving || BattleManager.Instance.battleState != BattleState.BattleEnd)
         {
-            Debug.LogError("현재 플레이어가 움직이고 있어 호출을 무시합니다.");
+            Debug.LogError("현재 플레이어가 이동할 수 없는 상태로 호출을 무시합니다.");
             return;
         }
+
         // 클릭된 이벤트가 부착된 방의 좌표를 가져옴
         Room targetRoom = clickedEvent.Room;
         if (targetRoom == null)
@@ -315,6 +311,7 @@ public class MapManager : SingletonBehaviour<MapManager>
             Debug.LogError("클릭된 이벤트에 Room 컴포넌트가 없습니다.");
             return;
         }
+
         Vector2Int targetPos = targetRoom.gridPos;
 
         // 플레이어 현재 방 (MapManager.currentPlayerRoom)에서 목표까지의 경로 찾기

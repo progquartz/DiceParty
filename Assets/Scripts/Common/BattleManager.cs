@@ -17,6 +17,7 @@ public enum BattleState
 public class BattleManager : SingletonBehaviour<BattleManager>
 {
     public BattleState battleState = BattleState.BattleEnd;
+    public BattleType currentBattleType = BattleType.None;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
@@ -44,12 +45,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         AddPlayerParty();
     }
 
-    public void TempBattleStart()
-    {
-        StartBattlePhase(BattleType.Stage1Normal);
-    }
-
-    public void StartBattlePhase(BattleType stageType)
+    public void StartBattlePhase(BattleType battleType)
     {
         // 전투 완료 상태가 아닌데, 호출된 경우
         if (battleState != BattleState.BattleEnd)
@@ -57,11 +53,12 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogWarning($"[BattleManager] - 전투가 완료되지 않은 상태인데 새 전투가 호출되었습니다.");
             return;
         }
+        currentBattleType = battleType;
         // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
         OnBattleStart?.Invoke();
 
         // 적 로드하기
-        EnemyMobListSetting(stageType);
+        EnemyMobListSetting(battleType);
 
         // 그리고 턴 시작할 때에 이뤄지는 것들 추가 진행.
         PlayerTurnStart();
@@ -104,6 +101,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogWarning($"[BattleManager] - 전투 턴이 종료된 상태에서 전투 종료 ");
         }
         battleState = BattleState.BattleEnd;
+        
         diceRoller.RemoveAllDice();
         OnBattleEnd?.Invoke();
 
@@ -128,8 +126,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     }
                 }
             }
-
-            // 게임오버 UI 송출.
+            // 만약 전투 유형이 보스일 경우...
+            if((int)currentBattleType % 10 == 2)
+            {
+                currentBattleType = BattleType.None;
+                MapManager.Instance.ResetMap();
+                // 스테이지 넘어가기.
+            }
+            
         }
         // 적이 승리일 경우
         else
@@ -145,7 +149,10 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     }
                 }
             }
+            // 게임오버 UI 송출.
+            currentBattleType = BattleType.None;
         }
+        currentBattleType = BattleType.None;
     }
 
     private void EnemyMobListSetting(BattleType stageType)

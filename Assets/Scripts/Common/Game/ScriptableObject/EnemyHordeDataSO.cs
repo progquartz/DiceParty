@@ -11,6 +11,7 @@ using UnityEngine;
 /// </summary>
 public enum BattleType
 {
+    None = 0,
     Stage1Normal = 10,
     Stage1Elite = 11,
     Stage1Boss = 12,
