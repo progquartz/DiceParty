@@ -21,6 +21,15 @@ public class DiceRoller : MonoBehaviour
         return newDice;
     }
 
+    public void RemoveAllDice()
+    {
+        foreach(Dice dice in diceList)
+        {
+            Destroy(dice.gameObject);
+        }
+        diceList.Clear();
+    }
+
     public void RollAllDiceNew()
     {
         diceList.Clear();

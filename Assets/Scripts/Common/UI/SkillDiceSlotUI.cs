@@ -28,20 +28,10 @@ public class SkillDiceSlotUI : MonoBehaviour
     private void RegisterEvents()
     {
         owner.OnSkillToggle += OnSkillSlotToggle;
-
-        BattleManager.Instance.OnPlayerTurnEnd += RemoveDiceInSlot;
-        BattleManager.Instance.OnPlayerTurnEnd += DeactivateDiceSlot;
-
-        BattleManager.Instance.OnPlayerTurnStart += ActivateDiceSlot;
     }
     private void ReleaseEvents()
     {
         owner.OnSkillToggle -= OnSkillSlotToggle;
-
-        BattleManager.Instance.OnPlayerTurnEnd -= RemoveDiceInSlot;
-        BattleManager.Instance.OnPlayerTurnEnd -= DeactivateDiceSlot;
-
-        BattleManager.Instance.OnPlayerTurnStart -= ActivateDiceSlot;
     }
 
 
@@ -70,13 +60,13 @@ public class SkillDiceSlotUI : MonoBehaviour
         }
     }
 
-    private void DeactivateDiceSlot()
+    public void DeactivateDiceSlot()
     {
         //Logger.LogWarning($"{owner.gameObject.name} 비활성화됨.");
         isDiceSlotActive = false;
     }
 
-    private void ActivateDiceSlot()
+    public void ActivateDiceSlot()
     {
         if(owner.CheckSkillActive() )
         {
@@ -130,7 +120,7 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         if (storedDice == dice)
         {
-            Logger.Log($"{dice.name} 주사위가 슬롯에서 빠져나감.");
+            //Logger.Log($"{dice.name} 주사위가 슬롯에서 빠져나감.");
             SetSlotColor(Color.grey);
             owner.OnDiceDetach(dice, transform.GetSiblingIndex());
             storedDice = null;
@@ -145,7 +135,7 @@ public class SkillDiceSlotUI : MonoBehaviour
         SetSlotColor(Color.white);
     }
 
-    private void RemoveDiceInSlot()
+    public void RemoveDiceInSlot()
     {
         if(storedDice != null)
         {

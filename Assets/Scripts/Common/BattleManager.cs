@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Xml.Schema;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum BattleState
 {
@@ -14,6 +17,7 @@ public enum BattleState
 public class BattleManager : SingletonBehaviour<BattleManager>
 {
     public BattleState battleState = BattleState.BattleEnd;
+    public BattleType currentBattleType = BattleType.None;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
@@ -41,12 +45,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         AddPlayerParty();
     }
 
-    public void TempBattleStart()
-    {
-        StartBattlePhase(StageType.Stage1Normal);
-    }
-
-    public void StartBattlePhase(StageType stageType)
+    public void StartBattlePhase(BattleType battleType)
     {
         // 전투 완료 상태가 아닌데, 호출된 경우
         if (battleState != BattleState.BattleEnd)
@@ -54,11 +53,12 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogWarning($"[BattleManager] - 전투가 완료되지 않은 상태인데 새 전투가 호출되었습니다.");
             return;
         }
+        currentBattleType = battleType;
         // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
         OnBattleStart?.Invoke();
 
         // 적 로드하기
-        EnemyMobListSetting(stageType);
+        EnemyMobListSetting(battleType);
 
         // 그리고 턴 시작할 때에 이뤄지는 것들 추가 진행.
         PlayerTurnStart();
@@ -83,6 +83,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             return;
         }
 
+        diceRoller.RemoveAllDice();
+
         battleState = BattleState.EnemyTurn;
         // 적 턴 시작 (스킬 락, 다이스 지우기)
         OnPlayerTurnEnd?.Invoke();
@@ -99,24 +101,39 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogWarning($"[BattleManager] - 전투 턴이 종료된 상태에서 전투 종료 ");
         }
         battleState = BattleState.BattleEnd;
+        
+        diceRoller.RemoveAllDice();
         OnBattleEnd?.Invoke();
 
         // 플레이어가 승리일 경우...
         if(isPlayerWin)
         {
-            // 모든 적 리스트 제거.
-            foreach (BaseTarget target in activeTargets)
+            Debug.LogWarning("적 리스트 제거 시작!");
+            // 모든 적 리스트 제거. 
+            for (int i = activeTargets.Count - 1; i >= 0; i--)
             {
-                foreach (BaseTarget activeEnemy in enemyList)
+                BaseTarget target = activeTargets[i];
+                for (int j = enemyList.Count - 1; j >= 0; j--)
                 {
+                    BaseTarget activeEnemy = enemyList[j];
                     if (target == activeEnemy)
                     {
-                        activeTargets.Remove(target);
-                        enemyList.Remove(activeEnemy as BaseEnemy);
+                        Debug.LogWarning($"적 {target.name}을 리스트에서 제거합니다!");
+                        activeTargets.RemoveAt(i);
+                        enemyList.RemoveAt(j);
+                        Destroy(target.gameObject);
+                        break; 
                     }
                 }
             }
-            // 게임오버 UI 송출.
+            // 만약 전투 유형이 보스일 경우...
+            if((int)currentBattleType % 10 == 2)
+            {
+                currentBattleType = BattleType.None;
+                MapManager.Instance.ResetMap();
+                // 스테이지 넘어가기.
+            }
+            
         }
         // 적이 승리일 경우
         else
@@ -132,12 +149,15 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     }
                 }
             }
+            // 게임오버 UI 송출.
+            currentBattleType = BattleType.None;
         }
+        currentBattleType = BattleType.None;
     }
 
-    private void EnemyMobListSetting(StageType stageType)
+    private void EnemyMobListSetting(BattleType stageType)
     {
-        StageType currentStageType = stageType;
+        BattleType currentStageType = stageType;
 
         EnemyHordeDataSO randomHorde = HordeDataLoader.Instance.GetTotalRandomHorde(currentStageType);
 
@@ -240,22 +260,17 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 실제 전투에서 죽은 대상을 제거하거나, UI 갱신 등
         Logger.Log($"[BattleManager] {deadTarget.name} 사망 처리");
 
-
-
-        if (activeTargets.Contains(deadTarget))
-        {
-            activeTargets.Remove(deadTarget);
-        }
-
         // 남은 적/아군 체크 후 전투 승리/패배 로직 등
         if (CheckAllEnemiesDead())
         {
             Logger.Log("플레이어 승리!");
+            BattleManager.Instance.EndBattlePhase(true);
         }
         
         if(CheckAllPlayerDead())
         {
             Logger.Log("적 승리!");
+            BattleManager.Instance.EndBattlePhase(false);
         }
 
     }
@@ -318,6 +333,29 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                 return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// 스테이지 번호와 전투 유형을 받아와 배틀타입으로 변환.
+    /// </summary>
+    /// <param name="stageNumber">스테이지 번호</param>
+    /// <param name="battleType">전투의 유형 [0 : 일반 전투 / 1 : 엘리트 전투 / 2 : 보스 전투]</param>
+    /// <returns></returns>
+    public static BattleType ConvertToStageType(int stageNumber, int battleType)
+    {
+        int battleNum = stageNumber * 10 + battleType;
+        if (Enum.IsDefined(typeof(BattleType), battleNum))
+        {
+            BattleType enumValue = (BattleType)battleNum;
+            return enumValue;
+        }
+        else
+        {
+            // 값이 정의되지 않은 경우 처리
+            Logger.LogError($"현재 스테이지 단위{battleNum}을 BattleType으로 변환하는 과정에서 찾지 못했습니다.");
+            return BattleType.Stage1Boss;
+            
+        }
     }
 
 }

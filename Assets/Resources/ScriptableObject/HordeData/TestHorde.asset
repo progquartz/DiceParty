@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a5704685a2db746acf37be00dee6e0, type: 3}
   m_Name: TestHorde
   m_EditorClassIdentifier: 
-  stageType: 0
+  stageType: 10
   enemyList:
   - {fileID: 11400000, guid: c8ccd4e4204f1d54f8687381f2d83573, type: 2}
   spawnWeight: 0

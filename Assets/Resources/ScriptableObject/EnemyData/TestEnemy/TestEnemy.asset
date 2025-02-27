@@ -16,9 +16,10 @@ MonoBehaviour:
   enemyLore: "\uD14C\uC2A4\uD2B8 \uBAB9, \uBE44\uC8FC\uC5BC\uC740 \uACE0\uBE14\uB9B0."
   enemytempSprite: {fileID: 2841810842881602290, guid: 052f5ca0b6619004499154a2695483ea, type: 3}
   stat:
-    Hp: 15
-    maxHp: 15
+    Hp: 3
+    maxHp: 3
     Armour: 0
     AdditionalDamageStack: 0
     AdditionalHealStack: 0
+    isDead: 0
   enemyAttackPattern: {fileID: 11400000, guid: ba1e6121f6201244a841d103307262a3, type: 2}

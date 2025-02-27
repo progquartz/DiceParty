@@ -29,7 +29,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (graphicRaycaster == null)
         {
-            Debug.Log("üũ");
             graphicRaycaster = UIManager.Instance.GetRayCaster();
         }
         eventSystem = eventSystem ?? EventSystem.current;

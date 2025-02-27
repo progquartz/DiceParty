@@ -29,7 +29,7 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
     /// <summary>
     /// 특정 StageType조건을 만족하는 HordeDataSO 중 하나 리턴.
     /// </summary>
-    public EnemyHordeDataSO GetTotalRandomHorde(StageType stageType)
+    public EnemyHordeDataSO GetTotalRandomHorde(BattleType stageType)
     {
         var filteredList = _allHordeData.Where(h => h.stageType == stageType).ToList();
         if (filteredList.Count == 0)
@@ -45,7 +45,7 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
     /// <summary>
     /// 스폰 비중을 고려한 Stage 조건을 만족하는 HordeDataSO 중 하나 리턴.
     /// </summary>
-    public EnemyHordeDataSO GetWeightRandomHorde(StageType stageType)
+    public EnemyHordeDataSO GetWeightRandomHorde(BattleType stageType)
     {
         float totalWeight = 0f;
         List<EnemyHordeDataSO> filteredList = _allHordeData.Where(h => h.stageType == stageType).ToList();
