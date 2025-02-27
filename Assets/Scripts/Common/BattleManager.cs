@@ -130,7 +130,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             if((int)currentBattleType % 10 == 2)
             {
                 currentBattleType = BattleType.None;
-                MapManager.Instance.ResetMap();
+                MapManager.Instance.GoToNextStage();
                 // 스테이지 넘어가기.
             }
             
