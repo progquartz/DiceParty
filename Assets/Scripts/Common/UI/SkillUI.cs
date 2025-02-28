@@ -48,15 +48,9 @@ public class SkillUI : MonoBehaviour
     public event Action<bool> OnSkillToggle;
     public int SkillUseLeftCount;
 
-    
-
-    private void Awake()
+    public void Init(SkillDataSO skillData)
     {
-        Init();
-    }
-    
-    private void Init()
-    {
+        SetSkillData(skillData);
         // 필요하다면 싱글톤이나 DI 등을 이용해도 됨
         skillExecutor = new SkillExecutor();
         RefreshDiceSlotValidity();

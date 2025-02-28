@@ -506,9 +506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Battle Start
-
-'
+  m_text: RandomSkill
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1227,7 +1225,7 @@ GameObject:
   - component: {fileID: 487716122}
   - component: {fileID: 487716121}
   m_Layer: 5
-  m_Name: BattlePhaseStart
+  m_Name: AddRandomSkillUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,9 +1295,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 604240770}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: TempBattleStart
+      - m_Target: {fileID: 604240774}
+        m_TargetAssemblyTypeName: SkillUISpawner, Assembly-CSharp
+        m_MethodName: TestSkilUISpawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1518,6 +1516,8 @@ GameObject:
   - component: {fileID: 604240770}
   - component: {fileID: 604240771}
   - component: {fileID: 604240772}
+  - component: {fileID: 604240774}
+  - component: {fileID: 604240773}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1565,6 +1565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleState: 2
+  currentBattleType: 0
   activeTargets: []
   enemyList: []
   characterList: []
@@ -1607,6 +1608,34 @@ MonoBehaviour:
   - {fileID: 0}
   potionCountLimit: 3
   diceCountLimit: 8
+--- !u!114 &604240773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604240767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f0fd5ed7c492b429465ee0aa0554c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillUiSpawner: {fileID: 604240774}
+--- !u!114 &604240774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604240767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294474acefdccbc468fa7575633014ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillUIPrefab: {fileID: 5956109814254687563, guid: ba10237300f83d44dafd28ed0b8839ad, type: 3}
+  skillParent: {fileID: 1370861001}
+  tempSkillData: {fileID: 11400000, guid: 1afb2601c64e13f498bfa6a5025e9018, type: 2}
 --- !u!1001 &610912398
 PrefabInstance:
   m_ObjectHideFlags: 0
