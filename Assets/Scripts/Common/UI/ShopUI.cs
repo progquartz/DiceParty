@@ -25,11 +25,13 @@ public class ShopUI : BaseUI
     private void RegisterEvents()
     {
         BattleManager.Instance.OnBattleStart += FinishShopping;
+        MapManager.Instance.OnMoveRoom += FinishShopping;
     }
 
     private void ReleaseEvents()
     {
         BattleManager.Instance.OnBattleStart -= FinishShopping;
+        MapManager.Instance.OnMoveRoom -= FinishShopping;
     }
 
     private void IntantiateRandomLayout()
@@ -42,7 +44,7 @@ public class ShopUI : BaseUI
     {
         ReleaseEvents();
         Debug.Log("이벤트 연결");
-        Destroy(this.gameObject);
+        Close();
     }
 
 

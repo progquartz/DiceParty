@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,6 +14,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     [SerializeField] private RoomTemplates _roomTemplate;
     private MapLoader mapLoader;
+    public event Action OnMoveRoom;
     [SerializeField] private Transform roomParent;
     [SerializeField] private GameObject entryRoomPrefab; // EntryRoom 프리팹 (Inspector에 할당)
     
@@ -31,7 +34,6 @@ public class MapManager : SingletonBehaviour<MapManager>
     public int maxRooms = 10;
     private bool isRoomReachedMax;
     public float waitTime;
-    private bool spawnedBoss;
     private int currentRoomGenerating = 0;
 
     // 플레이어의 현재 위치 (시작방은 보통 (0,0)으로 설정)
@@ -48,6 +50,8 @@ public class MapManager : SingletonBehaviour<MapManager>
     private bool isPlayerMoving = false;
 
     public float debugEventPlacingTime = 0.0f;
+
+    
     private void Awake()
     {
         IsDestroyOnLoad = true;
@@ -358,6 +362,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
 
         // 경로가 모두 깨끗하면, 코루틴을 시작해서 플레이어 이동
+        OnMoveRoom?.Invoke();
         StartCoroutine(MovePlayerAlongPath(path));
     }
 
@@ -548,7 +553,7 @@ public class MapManager : SingletonBehaviour<MapManager>
             {
                 
                 List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
-                int index = Random.Range(0, currentRooms.Count);
+                int index = UnityEngine.Random.Range(0, currentRooms.Count);
 
                 Room room = currentRooms[index].GetComponent<Room>();
 
@@ -620,11 +625,11 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
         else if(eventType.GetType() == typeof(ShopEvent))
         {
-            PlaceVisualInPos(worldPos, pos, RoomTemplate.TreatureVisual);
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.ShopVisual);
         }
         else if(eventType.GetType() == typeof(TreasureEvent))
         {
-            PlaceVisualInPos(worldPos, pos, RoomTemplate.ShopVisual);
+            PlaceVisualInPos(worldPos, pos, RoomTemplate.TreatureVisual);
         }
         
     }

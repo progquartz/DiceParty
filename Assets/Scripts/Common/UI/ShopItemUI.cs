@@ -34,6 +34,7 @@ public class ShopItemUI : MonoBehaviour
         SkillUI skillUi = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(stageSkillDataSO.lootingSkillDataSO);
         skillUi.transform.SetParent(cardHolder);
         skillUi.transform.localPosition = Vector3.zero;
+        skillUi.transform.localScale = Vector3.one;
         skillUICard = skillUi.transform;
         return stageSkillDataSO.lootPower;
     }
