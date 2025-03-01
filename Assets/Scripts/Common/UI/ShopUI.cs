@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopUI : MonoBehaviour
+public class ShopUI : BaseUI
 {
     // shopitemui 기반의 아이템들을 배치하는 공간 제작.
     // 각각의 객체들은 시작하자마자 이곳에 등록.
