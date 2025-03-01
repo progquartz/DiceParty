@@ -16,6 +16,7 @@ public class ShopItemUI : MonoBehaviour
 
     [SerializeField] private GameObject buyButton;
     [SerializeField] private Transform cardHolder;
+    [SerializeField] private Transform skillUICard;
     [SerializeField] private TMP_Text itemPriceText;
 
 
@@ -33,6 +34,7 @@ public class ShopItemUI : MonoBehaviour
         SkillUI skillUi = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(stageSkillDataSO.lootingSkillDataSO);
         skillUi.transform.SetParent(cardHolder);
         skillUi.transform.localPosition = Vector3.zero;
+        skillUICard = skillUi.transform;
         return stageSkillDataSO.lootPower;
     }
 
@@ -56,7 +58,9 @@ public class ShopItemUI : MonoBehaviour
         {
             buyButton.SetActive(false); // 꺼지기.
             isItemSold = true;
+
             // 카드 부분이라면...
+            skillUICard.transform.SetParent(Inventory.Instance.cardParent);
         }
         else
         {

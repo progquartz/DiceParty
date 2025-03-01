@@ -11,9 +11,40 @@ public class ShopUI : MonoBehaviour
 
 
     // 랜덤하게 하나가 배치 될 아이템 공간.
-    [SerializeField] GameObject[] shopLayoutLists;
+    [SerializeField] private GameObject[] shopLayoutLists;
+    [SerializeField] private GameObject shopLayout;
 
     public event Action OnBuyItem;
+
+    private void Awake()
+    {
+        IntantiateRandomLayout();
+        RegisterEvents();
+    }
+
+    private void RegisterEvents()
+    {
+        BattleManager.Instance.OnBattleStart += FinishShopping;
+    }
+
+    private void ReleaseEvents()
+    {
+        BattleManager.Instance.OnBattleStart -= FinishShopping;
+    }
+
+    private void IntantiateRandomLayout()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, shopLayoutLists.Length);
+        shopLayout = Instantiate(shopLayoutLists[randomIndex], this.transform);
+    }
+
+    public void FinishShopping()
+    {
+        ReleaseEvents();
+        Debug.Log("이벤트 연결");
+        Destroy(this.gameObject);
+    }
+
 
     public bool SellItem(int price)
     {

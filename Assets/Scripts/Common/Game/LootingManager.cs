@@ -33,7 +33,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
             }
         }
 
-        int randomIndex = Random.Range(0, lootingCardList.Count - 1);
+        int randomIndex = Random.Range(0, lootingCardList.Count);
         return lootingCardList[randomIndex];
     }
 
