@@ -61,10 +61,4 @@ public class BaseUI : MonoBehaviour
 
         UIManager.Instance.CloseUI(this);
     }
-
-    public virtual void OnClickCloseButton()
-    {
-        //AudioManager.Instance.Play(AudioType.SFX, "ui_button_click");
-        Close();
-    }
 }

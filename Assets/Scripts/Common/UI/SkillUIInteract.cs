@@ -59,14 +59,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 owner.OnSkillSlotDetach();
                 currentSlot = null;
             }
-
-            Logger.Log("잡기");
         }
-        else
-        {
-            Logger.Log("스킬 UI를 전투 도중 잡을 수 없습니다.");
-        }
-
     }
 
     public void OnEndDrag(PointerEventData eventData)
