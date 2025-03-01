@@ -15,6 +15,9 @@ public class Inventory : SingletonBehaviour<Inventory>
     public int potionCountLimit = 3;
     public int diceCountLimit = 8;
 
+    public int gold = 0;
+    public float salesPercent = 0f;
+
 
     protected override void Init()
     {
@@ -35,6 +38,14 @@ public class Inventory : SingletonBehaviour<Inventory>
     public void EmptyPotionSlot(int index)
     {
         potionSlots[index].EmptyPotion();
+    }
+
+    public void PayPrice(int amount)
+    {
+        if(gold - amount >= 0) 
+        {
+            gold -= amount; 
+        }
     }
 
 
