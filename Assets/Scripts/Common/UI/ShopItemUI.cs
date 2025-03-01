@@ -22,14 +22,21 @@ public class ShopItemUI : MonoBehaviour
     private void Awake()
     {
         owner = GetComponentInParent<ShopUI>();
-        SpawnCard();
+        int price = SpawnCard();
+        OriginalPrice = price;
 
     }
 
-    private void SpawnCard()
+    private int SpawnCard()
     {
-
+        LootingCard stageSkillDataSO = LootingManager.Instance.GetRandomLootingCard(MapManager.Instance.currentStageNum);
+        SkillUI skillUi = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(stageSkillDataSO.lootingSkillDataSO);
+        skillUi.transform.SetParent(cardHolder);
+        skillUi.transform.localPosition = Vector3.zero;
+        return stageSkillDataSO.lootPower;
     }
+
+
     private void Update()
     {
         CalculateSellingPrice();
@@ -62,11 +69,11 @@ public class ShopItemUI : MonoBehaviour
     {
         if (isItemSold)
         {
-
+            itemPriceText.text = "판매 완료";
         }
         else
         {
-
+            itemPriceText.text = SellingPrice.ToString() + "G";
         }
     }
 

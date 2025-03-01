@@ -3,24 +3,14 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum lootingType
-{
-    
-}
 
-[System.Serializable]
-public class LootingData
-{
-    public int lootingStage;
-    public int lootPower; // 1~100;
-    public GameObject lootingItem;
-}
+
 public class LootingManager : SingletonBehaviour<LootingManager>
 {
     public SkillUISpawner SkillUiSpawner;
 
 
-    [SerializeField] private List<LootingData> lootingCards;
+    [SerializeField] private List<LootingCard> lootingCards;
 
     private void Awake()
     {
@@ -31,6 +21,23 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     {
         SkillUiSpawner = GetComponent<SkillUISpawner>();
     }
+
+    public LootingCard GetRandomLootingCard(int stageNum)
+    {
+        List<LootingCard> lootingCardList = new List<LootingCard>();
+        foreach(var card in lootingCards) 
+        {
+            if(card.lootingStage == stageNum)
+            {
+                lootingCardList.Add(card);
+            }
+        }
+
+        int randomIndex = Random.Range(0, lootingCardList.Count - 1);
+        return lootingCardList[randomIndex];
+    }
+
+
 
     
 }
