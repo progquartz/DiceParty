@@ -13,21 +13,41 @@ public class DiceRoller : MonoBehaviour
     
     public Dice InstantiateNewDice(DiceType diceType)
     {
-        Dice newDice = Instantiate(dicePrefab, transform.position + tmpDiceInterval * diceList.Count, Quaternion.identity);
+        Dice newDice = Instantiate(dicePrefab);
         newDice.transform.SetParent(diceParent);
+        newDice.transform.localPosition = transform.position + tmpDiceInterval * diceList.Count;
         newDice.SetDiceType(diceType);
         newDice.name = "Dice_" + diceList.Count;  // 이름을 유니크하게 지정
         diceList.Add(newDice);
         return newDice;
     }
 
+    
+
     public void RemoveAllDice()
     {
-        foreach(Dice dice in diceList)
+        if(diceList  != null)
         {
-            Destroy(dice.gameObject);
+            if(diceList.Count > 0)
+            {
+                foreach (Dice dice in diceList)
+                {
+                    dice.DestroySelf();
+                }
+                diceList.Clear();
+            }
         }
-        diceList.Clear();
+    }
+
+    public void SetAllDiceTextDummy()
+    {
+        if(diceList != null)
+        {
+            foreach(Dice dice in diceList)
+            {
+                dice.ShowDiceDummyText();
+            }
+        }
     }
 
     public void RollAllDiceNew()
@@ -42,8 +62,23 @@ public class DiceRoller : MonoBehaviour
         }
 
         ReRollAllDice();
+        SetDiceInteractable(true);
     }
 
+    public void RollAllDiceDummy()
+    {
+        diceList.Clear();
+
+        List<DiceType> diceTypeList = Inventory.Instance.GetDiceList();
+
+        foreach (DiceType type in diceTypeList)
+        {
+            InstantiateNewDice(type);
+        }
+
+        SetAllDiceTextDummy();
+        SetDiceInteractable(false);
+    }
     
 
     public void ReRollAllDice()
@@ -51,6 +86,14 @@ public class DiceRoller : MonoBehaviour
         foreach (Dice dice in diceList)
         {
             dice.Roll();
+        }
+    }
+
+    public void SetDiceInteractable(bool state)
+    {
+        foreach(Dice dice in diceList)
+        {
+            dice.IsInteractable = state;
         }
     }
 }

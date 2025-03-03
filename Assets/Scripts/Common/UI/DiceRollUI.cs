@@ -14,4 +14,12 @@ public class DiceRollUI : MonoBehaviour
             diceValueText.text = value.ToString();
         }
     }
+
+    public void UpdateUIDummy(int diceMaxValue)
+    {
+        if(diceValueText != null)
+        {
+            diceValueText.text = $"D{diceMaxValue}";
+        }
+    }
 }

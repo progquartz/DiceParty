@@ -15,6 +15,7 @@ public class Dice : MonoBehaviour
     public int CurNum;
     public DiceType Type;
     private DiceRollUI diceRollUI;
+    public bool IsInteractable = false;
     
 
     private void Awake()
@@ -44,5 +45,10 @@ public class Dice : MonoBehaviour
     {
         BattleManager.Instance.OnPlayerTurnEnd -= DestroySelf;
         Destroy(this.gameObject);
+    }
+
+    public void ShowDiceDummyText()
+    {
+        diceRollUI.UpdateUIDummy((int)Type);
     }
 }

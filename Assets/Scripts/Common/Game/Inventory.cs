@@ -16,17 +16,31 @@ public class Inventory : SingletonBehaviour<Inventory>
     
 
     public int potionCountLimit = 3;
-    public int diceCountLimit = 8;
+
+
+    [SerializeField] private int initialDiceCount = 4; // 처음 주는 주사위 개수
+    public int diceCountLimit = 8; // 주사위의 제한
+
+
 
     public int gold = 0;
     public float salesPercent = 0f;
 
-
     protected override void Init()
     {
         // 초기화 부분.
+        InitializingInventory();
+        BattleManager.Instance.ResetDiceToDummy();
     }
 
+    private void InitializingInventory()
+    {
+        for(int i = 0; i < initialDiceCount; i++)
+        {
+            AddDice(DiceType.D6);
+        }
+        // 
+    }
 
     /// Potion 부분
     public void UsePotionInSlots(int index)
@@ -69,13 +83,7 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     /// Dice 부분
 
-    /// <summary>
-    /// 새로운 주사위를 추가한다. 슬롯이 이미 가득 차 있을 경우, 교체를 위해서 교체 콜링을 필요로 한다.
-    /// </summary>
-    private void AddDiceToInventory(DiceType newDice)
-    {
-        diceList.Add(newDice);
-    }
+
 
     private bool CheckInvenAvailability()
     {
@@ -110,6 +118,11 @@ public class Inventory : SingletonBehaviour<Inventory>
             ReplaceDice();
             return false;
         }
+    }
+
+    private void AddDiceToInventory(DiceType newDice)
+    {
+        diceList.Add(newDice);
     }
 
     public void ReplaceDice()
