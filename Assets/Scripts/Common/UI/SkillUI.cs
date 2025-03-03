@@ -18,7 +18,8 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private bool[] diceSlotValidity;
 
     [Header("등록된 스킬 슬롯")]
-    [SerializeField] private SkillUISlot skillUISlot;
+    [SerializeField] public SkillUISlot skillUISlot;
+    private SkillUISlot currentSlot = null;
 
     [Header("UI 표시용 텍스트")]
     
@@ -61,6 +62,7 @@ public class SkillUI : MonoBehaviour
 
     private void RegisterEvents()
     {
+        MapManager.Instance.OnMoveRoom += OnMapMove;
         BattleManager.Instance.OnBattleStart += OnBattleStart;
         BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
@@ -68,6 +70,7 @@ public class SkillUI : MonoBehaviour
     }
     private void ReleaseEvents()
     {
+        MapManager.Instance.OnMoveRoom -= OnMapMove;
         BattleManager.Instance.OnBattleStart -= OnBattleStart;
         BattleManager.Instance.OnPlayerTurnEnd -= OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart -= OnPlayerTurnStart;
@@ -87,6 +90,12 @@ public class SkillUI : MonoBehaviour
         DestroyIfNotAttached();
         UpdateVisual();
     }
+
+    private void OnMapMove()
+    {
+        DestroyIfNotAttached();
+    }
+
     public void OnPlayerTurnStart()
     {
         // count 초기화

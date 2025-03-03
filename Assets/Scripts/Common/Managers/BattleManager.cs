@@ -19,13 +19,15 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleState battleState = BattleState.BattleEnd;
     public BattleType currentBattleType = BattleType.None;
 
+    public DiceRoller DiceRoller;
+
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
     [SerializeField] private List<BaseEnemy> enemyList = new List<BaseEnemy>();
     [SerializeField] private List<BaseCharacter> characterList = new List<BaseCharacter>();
 
     [SerializeField] private EnemySpawner enemySpawner;
-    [SerializeField] private DiceRoller diceRoller;
+    
     [Obsolete] [SerializeField] private Transform partyParentTransform;
     [Obsolete][SerializeField] private Transform enemyParentTransform;
 
@@ -41,8 +43,19 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void Init()
     {
-        diceRoller = FindAnyObjectByType<DiceRoller>();
+        DiceRoller = FindAnyObjectByType<DiceRoller>();
         AddPlayerParty();
+    }
+
+    public void ResetDiceToDummy()
+    {
+        // awake call이 더 느릴 경우를 대비.
+        if(DiceRoller == null)
+        {
+            DiceRoller = FindAnyObjectByType<DiceRoller>();
+        }
+        DiceRoller.RemoveAllDice();
+        DiceRoller.RollAllDiceDummy();
     }
 
     public void StartBattlePhase(BattleType battleType)
@@ -57,6 +70,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
         OnBattleStart?.Invoke();
 
+        DiceRoller.RemoveAllDice();
         // 적 로드하기
         EnemyMobListSetting(battleType);
 
@@ -72,7 +86,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         OnPlayerTurnStart?.Invoke();
 
         // 주사위 사용 가능하게 만들고...
-        diceRoller.RollAllDiceNew();
+        DiceRoller.RollAllDiceNew();
     }
 
     public void PlayerTurnEnd()
@@ -83,10 +97,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             return;
         }
 
-        diceRoller.RemoveAllDice();
-
         battleState = BattleState.EnemyTurn;
-        // 적 턴 시작 (스킬 락, 다이스 지우기)
+        
         OnPlayerTurnEnd?.Invoke();
 
         StartCoroutine(ExecuteEnemyTurn());
@@ -100,9 +112,10 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         {
             Logger.LogWarning($"[BattleManager] - 전투 턴이 종료된 상태에서 전투 종료 ");
         }
+
         battleState = BattleState.BattleEnd;
         
-        diceRoller.RemoveAllDice();
+        ResetDiceToDummy();
         OnBattleEnd?.Invoke();
 
         // 플레이어가 승리일 경우...
@@ -138,14 +151,19 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 적이 승리일 경우
         else
         {
-            foreach(BaseTarget target in activeTargets)
+            for (int i = activeTargets.Count - 1; i >= 0; i--)
             {
-                foreach(BaseTarget activeCharacter in characterList)
+                BaseTarget target = activeTargets[i];
+                for (int j = characterList.Count - 1; j >= 0; j--)
                 {
-                    if (target == activeCharacter)
+                    BaseTarget activeEnemy = enemyList[j];
+                    if (target == activeEnemy)
                     {
-                        activeTargets.Remove(target);
-                        characterList.Remove(activeCharacter as BaseCharacter);
+                        Debug.LogWarning($"아군 캐릭터 {target.name}을 리스트에서 제거합니다!");
+                        activeTargets.RemoveAt(i);
+                        characterList.RemoveAt(j);
+                        Destroy(target.gameObject);
+                        break;
                     }
                 }
             }

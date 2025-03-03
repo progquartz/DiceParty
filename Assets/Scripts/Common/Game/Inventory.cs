@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
@@ -10,23 +11,42 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     [Header("포션 슬롯")]
     [SerializeField] private List<PotionSlot> potionSlots;
+    public int potionCountLimit = 3;
+
     [Header("스킬 슬롯")]
     [SerializeField] private List<SkillUISlot> skillUISlots;
-    
-    
 
-    public int potionCountLimit = 3;
-    public int diceCountLimit = 8;
+
+    [SerializeField] private List<SkillDataSO> initializeSkillDataSO;
+    
+    [SerializeField] private int initialDiceCount = 4; // 처음 주는 주사위 개수
+    public int diceCountLimit = 8; // 주사위의 제한
 
     public int gold = 0;
     public float salesPercent = 0f;
 
-
     protected override void Init()
     {
         // 초기화 부분.
+        InitializingInventory();
+        BattleManager.Instance.ResetDiceToDummy();
     }
 
+    private void InitializingInventory()
+    {
+        // 주사위 추가
+        for(int i = 0; i < initialDiceCount; i++)
+        {
+            AddDice(DiceType.D6);
+        }
+        // 스킬 추가
+        foreach(SkillDataSO skillData in initializeSkillDataSO)
+        {
+            AddNewSkillInSlot(skillData);
+        }
+
+
+    }
 
     /// Potion 부분
     public void UsePotionInSlots(int index)
@@ -67,15 +87,23 @@ public class Inventory : SingletonBehaviour<Inventory>
         return skillList;
     }
 
+    public bool AddNewSkillInSlot(SkillDataSO skillDataSO)
+    {
+        foreach (var slot in skillUISlots)
+        {
+            if(slot.GetCharacter().CharacterType == skillDataSO.CharacterType)
+            {
+                bool isAttached = slot.AttachNewSkillUI(skillDataSO);
+                if (isAttached)
+                    return true;
+            }
+        }
+        return false;
+    }
+
     /// Dice 부분
 
-    /// <summary>
-    /// 새로운 주사위를 추가한다. 슬롯이 이미 가득 차 있을 경우, 교체를 위해서 교체 콜링을 필요로 한다.
-    /// </summary>
-    private void AddDiceToInventory(DiceType newDice)
-    {
-        diceList.Add(newDice);
-    }
+
 
     private bool CheckInvenAvailability()
     {
@@ -110,6 +138,11 @@ public class Inventory : SingletonBehaviour<Inventory>
             ReplaceDice();
             return false;
         }
+    }
+
+    private void AddDiceToInventory(DiceType newDice)
+    {
+        diceList.Add(newDice);
     }
 
     public void ReplaceDice()

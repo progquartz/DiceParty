@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DamageTwoSlot
   m_EditorClassIdentifier: 
   skillName: DamageSkillTest
-  skillLore: "\uB370\uBBF8\uC9C0 \uC2A4\uD0AC \uD14C\uC2A4\uD2B8\uC785\uB2C8\uB2E4."
+  CharacterType: 0
+  skillLore: "2 \uB370\uBBF8\uC9C0 \uC2A4\uD0AC \uD14C\uC2A4\uD2B8\uC785\uB2C8\uB2E4."
   skillUseCount: 2
   skillEffects:
   - targetClassName: 0
