@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
@@ -10,18 +11,16 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     [Header("포션 슬롯")]
     [SerializeField] private List<PotionSlot> potionSlots;
-    [Header("스킬 슬롯")]
-    [SerializeField] private List<SkillUISlot> skillUISlots;
-    
-    
-
     public int potionCountLimit = 3;
 
+    [Header("스킬 슬롯")]
+    [SerializeField] private List<SkillUISlot> skillUISlots;
 
+
+    [SerializeField] private List<SkillDataSO> initializeSkillDataSO;
+    
     [SerializeField] private int initialDiceCount = 4; // 처음 주는 주사위 개수
     public int diceCountLimit = 8; // 주사위의 제한
-
-
 
     public int gold = 0;
     public float salesPercent = 0f;
@@ -35,11 +34,18 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     private void InitializingInventory()
     {
+        // 주사위 추가
         for(int i = 0; i < initialDiceCount; i++)
         {
             AddDice(DiceType.D6);
         }
-        // 
+        // 스킬 추가
+        foreach(SkillDataSO skillData in initializeSkillDataSO)
+        {
+            AddNewSkillInSlot(skillData);
+        }
+
+
     }
 
     /// Potion 부분
@@ -79,6 +85,20 @@ public class Inventory : SingletonBehaviour<Inventory>
             }
         }
         return skillList;
+    }
+
+    public bool AddNewSkillInSlot(SkillDataSO skillDataSO)
+    {
+        foreach (var slot in skillUISlots)
+        {
+            if(slot.GetCharacter().CharacterType == skillDataSO.CharacterType)
+            {
+                bool isAttached = slot.AttachNewSkillUI(skillDataSO);
+                if (isAttached)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /// Dice 부분

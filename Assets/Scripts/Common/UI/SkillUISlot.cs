@@ -41,20 +41,30 @@ public class SkillUISlot : MonoBehaviour
 
     }
 
+    public bool AttachNewSkillUI(SkillDataSO skillDataSO)
+    {
+        SkillUI skillDataUI = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(skillDataSO);
+        bool isAttached = OnSkillUIAttach(skillDataUI);
+        if(isAttached)
+        {
+            skillDataUI.OnSkillSlotAttach(this);
+        }
+        return isAttached;
+    }
 
-    public void OnSkillUIAttach(SkillUI skillDataUI)
+    public bool OnSkillUIAttach(SkillUI skillDataUI)
     {
         if (storedSkillUI != null)
         {
             // 튕겨내기 또는 원래 슬롯 자리로 되돌려놓기 필요.
             Logger.Log($"이미 {gameObject.name} 슬롯 자리는 사용되고 있습니다.");
-            return;
+            return false;
         }
 
         if (skillSlotCharacter.CharacterType != skillDataUI.CharacterType)
         {
             Logger.Log($"{gameObject.name} 슬롯 담당 캐릭터가 들어온 스킬에 적합하지 않습니다.");
-            return;
+            return false;
         }
 
         storedSkillUI = skillDataUI;
@@ -66,6 +76,7 @@ public class SkillUISlot : MonoBehaviour
         skillDataUI.transform.position = transform.position;
 
         SetSlotColor(activeColors[(int)skillSlotCharacter.CharacterType]);
+        return true;
     }
 
     public void OnSkillUIDetach(SkillUI skill)

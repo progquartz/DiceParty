@@ -70,6 +70,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 슬롯에 등록안된 애들(플레이어가 버린것들) 전부 지우고
         OnBattleStart?.Invoke();
 
+        DiceRoller.RemoveAllDice();
         // 적 로드하기
         EnemyMobListSetting(battleType);
 
@@ -150,14 +151,19 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 적이 승리일 경우
         else
         {
-            foreach(BaseTarget target in activeTargets)
+            for (int i = activeTargets.Count - 1; i >= 0; i--)
             {
-                foreach(BaseTarget activeCharacter in characterList)
+                BaseTarget target = activeTargets[i];
+                for (int j = characterList.Count - 1; j >= 0; j--)
                 {
-                    if (target == activeCharacter)
+                    BaseTarget activeEnemy = enemyList[j];
+                    if (target == activeEnemy)
                     {
-                        activeTargets.Remove(target);
-                        characterList.Remove(activeCharacter as BaseCharacter);
+                        Debug.LogWarning($"아군 캐릭터 {target.name}을 리스트에서 제거합니다!");
+                        activeTargets.RemoveAt(i);
+                        characterList.RemoveAt(j);
+                        Destroy(target.gameObject);
+                        break;
                     }
                 }
             }

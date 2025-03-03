@@ -30,11 +30,10 @@ public class DiceRoller : MonoBehaviour
         {
             if(diceList.Count > 0)
             {
-                foreach (Dice dice in diceList)
+                for(int i = diceList.Count - 1; i >= 0; i--)
                 {
-                    dice.DestroySelf();
+                    diceList[i].DestroySelf();
                 }
-                diceList.Clear();
             }
         }
     }
@@ -95,5 +94,10 @@ public class DiceRoller : MonoBehaviour
         {
             dice.IsInteractable = state;
         }
+    }
+
+    public void RemoveDiceInList(Dice dice)
+    {
+        diceList.Remove(dice); 
     }
 }

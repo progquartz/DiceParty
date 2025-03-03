@@ -18,7 +18,8 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private bool[] diceSlotValidity;
 
     [Header("등록된 스킬 슬롯")]
-    [SerializeField] private SkillUISlot skillUISlot;
+    [SerializeField] public SkillUISlot skillUISlot;
+    private SkillUISlot currentSlot = null;
 
     [Header("UI 표시용 텍스트")]
     

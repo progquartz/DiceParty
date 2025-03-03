@@ -27,6 +27,7 @@ public class Dice : MonoBehaviour
     {
         diceRollUI = GetComponent<DiceRollUI>();
         BattleManager.Instance.OnPlayerTurnEnd += DestroySelf;
+        
     }
 
     public void SetDiceType(DiceType type)
@@ -44,7 +45,11 @@ public class Dice : MonoBehaviour
     public void DestroySelf()
     {
         BattleManager.Instance.OnPlayerTurnEnd -= DestroySelf;
-        Destroy(this.gameObject);
+        BattleManager.Instance.DiceRoller.RemoveDiceInList(this);
+        if(this.gameObject != null )
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void ShowDiceDummyText()

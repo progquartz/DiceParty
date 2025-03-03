@@ -17,7 +17,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private Vector3 offset;
 
-    private SkillUISlot currentSlot = null;
+
     
 
     private void Awake()
@@ -53,11 +53,10 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             isDragging = true;
 
             // 슬롯에 자리잡았을 때에, 마우스를 놓음으로써 Detach
-            if (currentSlot != null)
+            if (owner.skillUISlot != null)
             {
-                currentSlot.OnSkillUIDetach(owner);
+                owner.skillUISlot.OnSkillUIDetach(owner);
                 owner.OnSkillSlotDetach();
-                currentSlot = null;
             }
         }
     }
@@ -89,10 +88,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         // 슬롯에 스킬 넣기.   
                         slot.OnSkillUIAttach(owner);
                         owner.OnSkillSlotAttach(slot);
-
-                        // 이제 이 주사위의 currentSlot도 갱신
-                        currentSlot = slot;
-
                         droppedOnSlot = true;
                         break;
                     }
