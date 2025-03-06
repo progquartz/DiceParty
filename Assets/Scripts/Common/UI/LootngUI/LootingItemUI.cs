@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +13,23 @@ public class LootingItemUI : MonoBehaviour
 
     public LootingItem LootingItem;
 
-    public void Init()
+    private LootingUI owner;
+
+    public void OnClickButton()
     {
+        LootingItem.GetItem();
+        owner.OnClickLootingItem();
+        // 애니메이션, 및 효과 등등...
+        Destroy(this.gameObject);
+    }
+
+    public void Init(LootingUI owner)
+    {
+        this.owner = owner;
         lootingImage.sprite = LootingItem.GetImage();
-        lootingName.name = LootingItem.GetName();
-        lootingName2.name = LootingItem.GetName();
+        lootingName.text = LootingItem.GetName();
+        lootingName2.text = LootingItem.GetName();
+        lootingLore.text = LootingItem.GetLore();
         LootingItem.InitializeLoot();
     }
 }
@@ -42,16 +55,21 @@ public class LootingCard : MonoBehaviour, LootingItem
     public void GetItem()
     {
         // 카드 선택
+        UIManager.Instance.OpenUI<CardSelectLootUI>(new BaseUIData
+        {
+            ActionOnShow = () => { Debug.Log("카드 선택 UI 열림."); },
+            ActionOnClose = () => { Debug.Log("카드 선택 UI 닫힘."); }
+        });
     }
 
     public string GetLore()
     {
-        return "무작위 카드를 획득합니다.";
+        return new string("무작위 카드를 획득합니다.");
     }
 
     public string GetName()
     {
-        return "무작위 카드";
+        return new string("무작위 카드");
     }
 
     public void InitializeLoot()

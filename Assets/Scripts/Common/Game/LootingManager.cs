@@ -52,7 +52,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         return null;
     }
 
-    public void OpenLootingTable(BattleType battleType)
+    public void OpenLootingTable(BattleType battleType, bool isBossStage)
     {
         LootingBattleType = battleType;
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData
@@ -61,6 +61,10 @@ public class LootingManager : SingletonBehaviour<LootingManager>
             ActionOnClose = () => 
             {
                 LootingBattleType = BattleType.None;
+                if(isBossStage)
+                {
+                    MapManager.Instance.GoToNextStage();
+                }
                 Debug.Log("·çÆÃ UI ´ÝÈû."); 
             }
         });

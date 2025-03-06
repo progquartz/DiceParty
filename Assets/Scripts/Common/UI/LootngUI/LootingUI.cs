@@ -6,6 +6,7 @@ public class LootingUI : BaseUI
     
     [SerializeField] private GameObject LootingItemPrefab;
 
+    [SerializeField] private int lootingUICount;
 
     private void Awake()
     {
@@ -22,13 +23,20 @@ public class LootingUI : BaseUI
         int potionCount = GetLootCount(lootingProbTable.PotionPercent);
         int diceCount = GetLootCount(lootingProbTable.DicePercent);
 
+        cardCount = 1;
+        Debug.Log($"{cardCount} '' {treasureCount} '' {potionCount} '' {diceCount}");
+        lootingUICount = cardCount + treasureCount + potionCount + diceCount;
+
         for(int i = 0; i < cardCount; i++)
         {
             GameObject spawnedLoot = Instantiate(LootingItemPrefab);
             spawnedLoot.transform.parent = LootingItemParent;
+            spawnedLoot.transform.localScale = Vector3.one; 
             LootingItem item = spawnedLoot.AddComponent<LootingCard>();
             spawnedLoot.GetComponent<LootingItemUI>().LootingItem = item;
-            spawnedLoot.GetComponent<LootingItemUI>().Init();
+            
+            spawnedLoot.GetComponent<LootingItemUI>().Init(this);
+            
         }
 
         for(int i = 0;i < treasureCount; i++)
@@ -81,6 +89,19 @@ public class LootingUI : BaseUI
 
     }
 
+    public void OnClickLootingItem()
+    {
+        lootingUICount--;
+        if(lootingUICount == 0 )
+        {
+            FinishLooting();
+        }
+    }
+
+    public void OnClickSkipButton()
+    {
+        FinishLooting();
+    }
 
     public void FinishLooting()
     {
