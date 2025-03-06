@@ -41,4 +41,9 @@ public class AddRoom : MonoBehaviour
         }
 
     }
+
+    private void OnDestroy()
+    {
+        Debug.Log($"Room 삭제 name: {gameObject.name}");
+    }
 }

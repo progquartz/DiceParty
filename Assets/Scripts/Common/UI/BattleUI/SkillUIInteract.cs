@@ -70,8 +70,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             pointerEventData = new PointerEventData(eventSystem);
             pointerEventData.position = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
-            //Input.mousePosition;
-            Debug.Log("z값이나 보자" + pointerEventData.position.ToString());
 
             List<RaycastResult> results = new List<RaycastResult>();
             graphicRaycaster.Raycast(pointerEventData, results);
@@ -105,7 +103,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
             else
             {
-                Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
+                //Logger.Log("[DiceInteract] 슬롯이 아닌 곳에 드롭됨.");
             }
         }
     }
