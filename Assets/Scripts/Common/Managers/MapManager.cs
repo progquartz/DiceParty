@@ -16,6 +16,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     private MapLoader mapLoader;
     public event Action OnMoveRoom;
     [SerializeField] private Transform roomParent;
+    [SerializeField] private Transform entryRoomParent;
     [SerializeField] private GameObject entryRoomPrefab; // EntryRoom 프리팹 (Inspector에 할당)
     
 
@@ -138,34 +139,30 @@ public class MapManager : SingletonBehaviour<MapManager>
     /// </summary>
     public void ResetMap()
     {
+        Debug.LogWarning("맵 리셋을 시작합니다.");
+
+        mapGenRooms.Clear();
+        mapGenVisuals.Clear();
+        roomGraph.Clear();
+
         foreach (Transform child in roomParent)
         {
             Destroy(child.gameObject);
         }
-        mapGenRooms.Clear();
-        mapGenVisuals.Clear();
-        roomGraph.Clear();
+        Destroy(startRoom.gameObject);
+
         isEventPlaced = false;
         isRoomReachedMax = false;
 
-        currentPlayerPos = Vector2Int.zero;
-
         if (entryRoomPrefab != null)
         {
-            Vector3 startWorldPos = GetWorldPositionForGrid(Vector2Int.zero);
-
+            Vector3 gridZeroWorldPos = entryRoomParent.transform.position;
             GameObject newEntryRoom = Instantiate(entryRoomPrefab, roomParent, false);
-            newEntryRoom.transform.localPosition = startWorldPos;
+            newEntryRoom.transform.localPosition = gridZeroWorldPos;
             startRoom = newEntryRoom;
-            Room roomComp = newEntryRoom.GetComponent<Room>();
-            if (roomComp == null)
-            {
-                roomComp = newEntryRoom.AddComponent<Room>();
-            }
-            roomComp.gridPos = Vector2Int.zero;
-            roomComp.roomName = "EntryRoom"; // 방 이름 지정 (저장/로드를 위해)
-
+            mapGenRooms.Add(Vector2Int.zero, newEntryRoom);
             currentPlayerPos = Vector2Int.zero;
+            player.transform.position = GetWorldPositionInPos(currentPlayerPos);
         }
         else
         {

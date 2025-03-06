@@ -131,7 +131,8 @@ PrefabInstance:
       value: SellingCard (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5221466992914892991, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}
@@ -233,7 +234,8 @@ PrefabInstance:
       value: SellingCard (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5221466992914892991, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}
@@ -335,7 +337,8 @@ PrefabInstance:
       value: SellingCard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5221466992914892991, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce45cf61ff541114e8be2f8708d883e8, type: 3}

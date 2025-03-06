@@ -66,6 +66,7 @@ public class SkillUI : MonoBehaviour
         BattleManager.Instance.OnBattleStart += OnBattleStart;
         BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
+        BattleManager.Instance.OnBattleEnd += OnBattleEnd;
         
     }
     private void ReleaseEvents()
@@ -74,6 +75,7 @@ public class SkillUI : MonoBehaviour
         BattleManager.Instance.OnBattleStart -= OnBattleStart;
         BattleManager.Instance.OnPlayerTurnEnd -= OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart -= OnPlayerTurnStart;
+        BattleManager.Instance.OnBattleEnd -= OnBattleEnd;
     }
 
     private void RefreshDiceSlotValidity()
@@ -88,6 +90,12 @@ public class SkillUI : MonoBehaviour
     public void OnBattleStart()
     {
         DestroyIfNotAttached();
+        UpdateVisual();
+    }
+
+    private void OnBattleEnd()
+    {
+        SkillUseLeftCount = skillDataSO.skillUseCount;
         UpdateVisual();
     }
 

@@ -126,23 +126,4 @@ public class RoomSpawner : MonoBehaviour
 
         spawned = true;
     }
-
-    /*
-    // 다른 RoomSpawner와 충돌 시 처리 (중복 생성 방지 및 방 간 연결 정보 등록)
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // RoomSpawner가 부착된 다른 오브젝트와 충돌했을 때 처리합니다.
-        Room otherRoom = other.GetComponent<Room>();
-        if (otherRoom != null)
-        {
-            Room currentRoom = GetComponentInParent<Room>();
-            if (currentRoom != null && otherRoom != null)
-            {
-                // 두 방이 실제로 충돌하여 연결되었음을 MapManager에 등록합니다.
-                MapManager.Instance.RegisterConnection(currentRoom.gridPos, otherRoom.gridPos);
-            }
-            spawned = true;
-        }
-    }
-    */
 }
