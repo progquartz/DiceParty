@@ -142,9 +142,11 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             // 만약 전투 유형이 보스일 경우...
             if((int)currentBattleType % 10 == 2)
             {
-                currentBattleType = BattleType.None;
-                MapManager.Instance.GoToNextStage();
-                // 스테이지 넘어가기.
+                LootingManager.Instance.OpenLootingTable(currentBattleType, true);
+            }
+            else
+            {
+                LootingManager.Instance.OpenLootingTable(currentBattleType, false);
             }
             
         }

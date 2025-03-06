@@ -3,14 +3,26 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
+[System.Serializable]
+public class LootingProbTable
+{
+    public int CardPercent;
+    public int TreasurePercent;
+    public int PotionPercent;
+    public int DicePercent;
+}
 public class LootingManager : SingletonBehaviour<LootingManager>
 {
     public SkillUISpawner SkillUiSpawner;
 
 
-    [SerializeField] private List<LootingCard> lootingCards;
+
+
+    public BattleType LootingBattleType;
+
+    [SerializeField] private List<LootingCardSO> lootingCards;
+
+    public LootingDataBase LootingDataBase = new LootingDataBase();
 
     private void Awake()
     {
@@ -22,9 +34,45 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         SkillUiSpawner = GetComponent<SkillUISpawner>();
     }
 
-    public LootingCard GetRandomLootingCard(int stageNum)
+    public LootingProbTable GetLootingTable()
     {
-        List<LootingCard> lootingCardList = new List<LootingCard>();
+        switch((int)LootingBattleType % 10)
+        {
+            case 1:
+                return LootingDataBase.NormalBattleLoot;
+            case 2:
+                return LootingDataBase.EliteBattleLoot;
+            case 3:
+                return LootingDataBase.BossBattleLoot;
+            case 0:
+                return LootingDataBase.TreasureLoot;
+        }
+
+        Logger.LogError("정상적인 LootingTable이 발행되지 않았습니다.");
+        return null;
+    }
+
+    public void OpenLootingTable(BattleType battleType, bool isBossStage)
+    {
+        LootingBattleType = battleType;
+        UIManager.Instance.OpenUI<LootingUI>(new BaseUIData
+        {
+            ActionOnShow = () => { Debug.Log("루팅 UI 열림."); },
+            ActionOnClose = () => 
+            {
+                LootingBattleType = BattleType.None;
+                if(isBossStage)
+                {
+                    MapManager.Instance.GoToNextStage();
+                }
+                Debug.Log("루팅 UI 닫힘."); 
+            }
+        });
+    }
+
+    public LootingCardSO GetRandomLootingCard(int stageNum)
+    {
+        List<LootingCardSO> lootingCardList = new List<LootingCardSO>();
         foreach(var card in lootingCards) 
         {
             if(card.lootingStage == stageNum)

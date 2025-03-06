@@ -28,4 +28,10 @@ public class SkillUISpawner : MonoBehaviour
         newSkillUI.Init(skillDataSO);
         return newSkillUI;
     }
+
+    public void SetSkillUIParentToSkillParent(SkillUI skillUI)
+    {
+        skillUI.transform.parent = skillParent;
+        skillUI.transform.localScale = Vector3.one;
+    }
 }
