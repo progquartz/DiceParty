@@ -14,7 +14,7 @@ public class SkillUISpawner : MonoBehaviour
     public SkillUI SpawnSkillUI(SkillDataSO skillDataSO)
     {
         SkillUI newSkillUI = Instantiate(skillUIPrefab, Vector3.zero, Quaternion.identity);
-        newSkillUI.transform.parent = skillParent;
+        newSkillUI.transform.SetParent(skillParent);
         newSkillUI.transform.localScale = Vector3.one;
         newSkillUI.Init(skillDataSO);
         return newSkillUI;
@@ -23,7 +23,7 @@ public class SkillUISpawner : MonoBehaviour
     public SkillUI SpawnSkillUI(SkillDataSO skillDataSO, Transform parentTransform)
     {
         SkillUI newSkillUI = Instantiate(skillUIPrefab, Vector3.zero, Quaternion.identity);
-        newSkillUI.transform.parent = parentTransform;
+        newSkillUI.transform.SetParent(parentTransform);
         newSkillUI.transform.localScale = Vector3.one;
         newSkillUI.Init(skillDataSO);
         return newSkillUI;

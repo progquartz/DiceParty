@@ -68,9 +68,6 @@ public class SkillUISlot : MonoBehaviour
         }
 
         storedSkillUI = skillDataUI;
-        
-        Debug.Log($"[SkillUISlot] {skillDataUI.name} 스킬을 슬롯에 보관.");
-
 
         // 주사위를 슬롯의 위치로 이동.
         skillDataUI.transform.position = transform.position;
