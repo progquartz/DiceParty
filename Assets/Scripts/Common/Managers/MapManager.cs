@@ -575,11 +575,13 @@ public class MapManager : SingletonBehaviour<MapManager>
 
         List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
         Debug.Log($"이벤트 설치 중, 현재 있는 방의 개수가 {currentRooms.Count}개임");
+        /*
         for(int i = 0; i <  currentRooms.Count; i++) 
         {
             Debug.Log($"{i}번째.");
             Debug.Log(currentRooms[i].name + "임");
         }
+        */
 
         GameObject farestRoomObject = null;
         foreach(GameObject room in  currentRooms)

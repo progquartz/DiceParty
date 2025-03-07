@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b38a5a34ed4e2b4b90e0a99c65a5206, type: 3}
+  m_Name: JellyFish
+  m_EditorClassIdentifier: 
+  enemyName: "\uD574\uD30C\uB9AC"
+  enemyLore: "\uD574\uD30C\uB9AC"
+  enemytempSprite: {fileID: -7741223793156979990, guid: 052f5ca0b6619004499154a2695483ea, type: 3}
+  stat:
+    Hp: 15
+    maxHp: 15
+    Armour: 0
+    AdditionalDamageStack: 0
+    AdditionalHealStack: 0
+    isDead: 0
+  enemyAttackPattern: {fileID: 11400000, guid: 2822e219b0b50f44e97be47bd14aafdb, type: 2}

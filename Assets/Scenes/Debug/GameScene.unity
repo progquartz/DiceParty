@@ -686,7 +686,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97f5400ee4087640aee2976f6233cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allHordeData: []
+  _allHordeData:
+  - {fileID: 11400000, guid: 599f8f9a6e41df541aea379fac024694, type: 2}
+  - {fileID: 11400000, guid: 0957c99511f72ad41b04832ddbe2c974, type: 2}
+  - {fileID: 11400000, guid: 6c3e3ad27732a644cab8894161b237c2, type: 2}
+  - {fileID: 11400000, guid: 4985b5b212e840345a0e5a0f3199601d, type: 2}
+  - {fileID: 11400000, guid: ef257be74b777604ca164e7e35b69ac4, type: 2}
+  - {fileID: 11400000, guid: 09f22294cf2fddb49bb458f9c65d6736, type: 2}
+  - {fileID: 11400000, guid: d331bc06a3629ad478adee24eb498515, type: 2}
+  - {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
+  - {fileID: 11400000, guid: 5e03fecbf4265ee4ea79d56b47350a0d, type: 2}
 --- !u!4 &163226455
 Transform:
   m_ObjectHideFlags: 0
