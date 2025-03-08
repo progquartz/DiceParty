@@ -20,6 +20,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleType currentBattleType = BattleType.None;
 
     public DiceRoller DiceRoller;
+    public SkillExecutor SkillExecutor;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
@@ -46,6 +47,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public void Init()
     {
         DiceRoller = FindAnyObjectByType<DiceRoller>();
+        SkillExecutor = new SkillExecutor();
         AddPlayerParty();
     }
 

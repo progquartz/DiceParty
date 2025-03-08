@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,6 +9,18 @@ public class BaseStat
     public int Armour;
     public int AdditionalDamageStack;
     public int AdditionalHealStack;
+
+    // µ¶ / È­¿°
+    public int PoisonStack;
+    public int FireStack;
+
+    // Èû / ¼è¾à
+    public int StrengthStack;
+    public int WeakenStack;
+
+    // ½ºÅÏ
+    public int StunnedStack;
+    
 
     public bool isDead = false;
 

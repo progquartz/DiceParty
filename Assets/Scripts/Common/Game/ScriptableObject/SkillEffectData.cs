@@ -5,6 +5,11 @@ public enum EffectClassName
 {
     DamageEffect,
     HealEffect,
+    PoisonEffect,
+    FireEffect,
+    StunEffect,
+    StrengthEffect,
+    WeakenEffect,
 
 }
 
