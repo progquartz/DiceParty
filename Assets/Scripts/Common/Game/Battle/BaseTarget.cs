@@ -16,6 +16,16 @@ public class BaseTarget : MonoBehaviour
         stat.Armour = 0;
     }
 
+    protected void EffectCalcOnTurnStart()
+    {
+
+    }
+
+    protected void EffectCalcOnTurnEnd()
+    {
+
+    }
+
     public void HandleRevive()
     {
         Logger.Log($"{name} 캐릭터를 부활시킵니다.");
