@@ -14,7 +14,7 @@ public class BaseTarget : MonoBehaviour
     public void Init()
     {
         stat.Hp = stat.maxHp;
-        stat.Armour = 0;
+        stat.ArmourStack = 0;
     }
 
     protected void EffectCalcOnTurnStart()

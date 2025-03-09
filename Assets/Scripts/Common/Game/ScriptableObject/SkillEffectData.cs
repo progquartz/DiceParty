@@ -4,12 +4,22 @@ using UnityEngine;
 public enum EffectClassName
 {
     DamageEffect,
+    DebuffDamageEffect,
+    ArmourEffect,
     HealEffect,
     PoisonEffect,
     FireEffect,
     StunEffect,
     StrengthEffect,
     WeakenEffect,
+    AdditionalDiceEffect,
+    CleanseEffect,
+    ConfuseEffect,
+    FortifyEffect,
+    PassionEffect,
+    TauntEffect,
+    ThornEffect,
+    WitherEffect
 
 }
 
