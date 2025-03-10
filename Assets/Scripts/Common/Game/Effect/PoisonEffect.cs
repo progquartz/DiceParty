@@ -3,13 +3,22 @@ using UnityEngine;
 
 public class PoisonEffect : BaseEffect
 {
-    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
+    public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            int poisonDelta = strength1;
+            if(targetStat.ImmuneStack > 0)
+            {
+                targetStat.ImmuneStack--;
+            }
+            else
+            {
+                targetStat.PoisonStack += poisonDelta;
+            }
+            
 
-            targetStat.PoisonStack += strength1;
         }
     }
 }

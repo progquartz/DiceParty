@@ -19,52 +19,133 @@ public class BaseTarget : MonoBehaviour
 
     protected void EffectCalcOnTurnStart()
     {
-        // 독과 화염은 턴 시작하면서 바로 계산.
+        // 실질 데미지 관련
+        CalcArmour();
         CalcPoison();
         CalcFire();
 
-        // 스턴은 남아있는 경우 해당 턴에 적의 패턴이 사용되지 못하게 만들기.
+        CalcRegen();
+
+        // 간접 버프
+        CalcPassion();
+        CalcWither();
+        CalcThorn();
+
+
+        // 정신계 버프 / 디버프
+        CalcTaunt();
         CalcStun();
+        
     }
 
     protected void EffectCalcOnTurnEnd()
     {
-        // 힘과 쇠약은 턴이 끝나고 감소.
-        CalcStrength();
-        CalcWeaken();
+        CalcConfuse(); // 혼란은 턴이 끝나고 감소.
+        CalcWeaken(); // 쇠약은 턴이 끝나고 감소.
+
+        CalcFortify(); // 방벽(보호막 추가)
     }
 
+    public void CalcEffect(EffectClassName effectClass, int strength1, int strength2 = 0)
+    {
+        SkillEffectData effData = new SkillEffectData();
+        effData.targetClassName = TargetOptionClassName.TargetSelf;
+        effData.effectClassName = effectClass;
+        effData.strength1 = strength1;
+        if(strength2 != 0)
+        {
+            effData.strength2 = strength2;
+        }
+        BattleManager.Instance.SkillExecutor.UseSkill(effData);
+    }
+    /// <summary>
+    /// 독 계산
+    /// </summary>
     private void CalcPoison()
     {
         if(stat.PoisonStack > 0)
         {
-            SkillEffectData effData = new SkillEffectData();
-            effData.targetClassName = TargetOptionClassName.TargetSelf;
-            effData.effectClassName = EffectClassName.DamageEffect;
-            effData.strength1 = stat.PoisonStack;
-            BattleManager.Instance.SkillExecutor.UseSkill(effData);
+            CalcEffect(EffectClassName.DebuffDamageEffect, stat.PoisonStack);
             stat.PoisonStack--;
         }
     }
 
+    /// <summary>
+    /// 불 계산
+    /// </summary>
     private void CalcFire()
     {
         if (stat.FireStack > 0)
         {
-            SkillEffectData effData = new SkillEffectData();
-            effData.targetClassName = TargetOptionClassName.TargetSelf;
-            effData.effectClassName = EffectClassName.DamageEffect;
-            effData.strength1 = stat.FireStack;
-            BattleManager.Instance.SkillExecutor.UseSkill(effData);
+            CalcEffect(EffectClassName.DebuffDamageEffect, stat.FireStack); 
             stat.FireStack--;
         }
     }
 
-    private void CalcStrength()
+    private void CalcRegen()
     {
-        if(stat.StrengthStack > 0)
+        if(stat.RegenStack > 0)
         {
-            stat.StrengthStack--;
+            CalcEffect(EffectClassName.HealEffect, stat.RegenStack);
+            stat.RegenStack--;
+        }
+    }
+
+    private void CalcArmour()
+    {
+        // 턴 시작 시 모든 방어막 삭제.
+        stat.ArmourStack = 0;
+    }
+
+    private void CalcFortify()
+    {
+        if(stat.fortifyStack > 0)
+        {
+            CalcEffect(EffectClassName.ArmourEffect, stat.fortifyStack);
+            stat.fortifyStack--;
+        }
+    }
+
+    private void CalcPassion()
+    {
+        if(stat.PassionStack > 0)
+        {
+            CalcEffect(EffectClassName.StrengthEffect, stat.PassionStack);
+            stat.PassionStack--;
+        }
+    }
+
+    private void CalcConfuse()
+    {
+        if (stat.ConfuseStack > 0)
+        {
+            // Confuse 효과를 내는 효과 발동.
+            stat.ConfuseStack--;
+        }
+    }
+
+    private void CalcTaunt()
+    {
+        if(stat.TauntStack > 0)
+        {
+            // Taunt 효과 발동 처리.
+           stat.TauntStack--;
+        }
+    }
+
+    private void CalcThorn()
+    {
+        if(stat.ThornStack > 0)
+        {
+            stat.ThornStack--;
+        }
+    }
+
+    private void CalcWither()
+    {
+        if(stat.WitherStack > 0)
+        {
+            stat.WitherStack--;
         }
     }
     

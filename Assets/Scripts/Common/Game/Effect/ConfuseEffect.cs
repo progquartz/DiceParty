@@ -3,13 +3,21 @@ using UnityEngine;
 
 public class ConfuseEffect : BaseEffect
 {
-    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
+    public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            int CleanseDelta = strength1;
-            targetStat.CleanseStack += CleanseDelta;
+            
+            if(targetStat.ImmuneStack > 0) // 정화 시 디버프 삭제.
+            {
+                targetStat.ImmuneStack--;
+            }
+            else
+            {
+                int ConfuseDelta = strength1;
+                targetStat.ConfuseStack += ConfuseDelta;
+            }
         }
     }
 }

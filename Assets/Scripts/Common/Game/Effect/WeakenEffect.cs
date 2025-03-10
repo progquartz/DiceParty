@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class WeakenEffect : BaseEffect
 {
-    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
+    public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
-        throw new System.NotImplementedException();
+        foreach (var target in targets)
+        {
+            BaseStat targetStat = target.stat;
+            int weakenDelta = strength1;
+            targetStat.WeakenStack += weakenDelta;
+        }
     }
 }

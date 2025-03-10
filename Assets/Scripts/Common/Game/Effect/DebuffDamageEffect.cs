@@ -4,7 +4,7 @@ using UnityEngine;
 public class DebuffDamageEffect : BaseEffect
 {
 
-    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
+    public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
         foreach (var target in targets)
         {

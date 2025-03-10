@@ -23,7 +23,9 @@ public static class EffectFactory
         { "TauntEffect",   () => new TauntEffect() },   
         { "ThornEffect",   () => new ThornEffect() },   
         { "WeakenEffect",   () => new WeakenEffect() },   
-        { "WitherEffect",   () => new WitherEffect() },   
+        { "WitherEffect",   () => new WitherEffect() },
+        { "RegenEffect",   () => new RegenEffect() },
+        { "ImmuneEffect",   () => new ImmuneEffect() },
     };
 
     public static BaseEffect CreateEffect(EffectClassName effectKey)

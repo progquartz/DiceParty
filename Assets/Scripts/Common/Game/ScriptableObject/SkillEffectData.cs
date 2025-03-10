@@ -17,9 +17,11 @@ public enum EffectClassName
     ConfuseEffect,
     FortifyEffect,
     PassionEffect,
+    RegenEffect,
     TauntEffect,
     ThornEffect,
-    WitherEffect
+    WitherEffect,
+    ImmuneEffect,
 
 }
 

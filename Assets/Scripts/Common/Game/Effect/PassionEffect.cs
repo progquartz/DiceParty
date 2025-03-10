@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class PassionEffect : BaseEffect
 {
-    public override void Effect(List<BaseTarget> targets, int strength1, int strength2)
+    public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
-        throw new System.NotImplementedException();
+        foreach (var target in targets)
+        {
+            BaseStat targetStat = target.stat;
+            int passionDelta = strength1;
+            targetStat.PassionStack += passionDelta;
+        }
     }
 }
