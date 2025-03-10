@@ -9,7 +9,23 @@ public static class EffectFactory
         = new Dictionary<string, Func<BaseEffect>>()
     {
         { "DamageEffect", () => new DamageEffect() },
-        { "HealEffect",   () => new HealEffect() },   // 예: 치유 효과 추가 시
+        { "DebuffDamageEffect",   () => new DebuffDamageEffect() },
+        { "HealEffect",   () => new HealEffect() },   
+        { "AdditionalDiceEffect",   () => new AdditionalDiceEffect() },   
+        { "CleanseEffect",   () => new CleanseEffect() },   
+        { "ConfuseEffect",   () => new ConfuseEffect() },   
+        { "FireEffect",   () => new FireEffect() },   
+        { "FortifyEffect",   () => new FortifyEffect() },   
+        { "PassionEffect",   () => new PassionEffect() },   
+        { "PoisonEffect",   () => new PoisonEffect() },   
+        { "StrengthEffect",   () => new StrengthEffect() },   
+        { "StunEffect",   () => new StunEffect() },   
+        { "TauntEffect",   () => new TauntEffect() },   
+        { "ThornEffect",   () => new ThornEffect() },   
+        { "WeakenEffect",   () => new WeakenEffect() },   
+        { "WitherEffect",   () => new WitherEffect() },
+        { "RegenEffect",   () => new RegenEffect() },
+        { "ImmuneEffect",   () => new ImmuneEffect() },
     };
 
     public static BaseEffect CreateEffect(EffectClassName effectKey)

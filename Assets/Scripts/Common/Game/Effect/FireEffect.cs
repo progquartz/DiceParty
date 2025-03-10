@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealEffect : BaseEffect
+public class FireEffect : BaseEffect
 {
     public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            int totalHpDelta = strength1;
-            targetStat.Hp += totalHpDelta;
-            if (targetStat.Hp > targetStat.maxHp)
+            int fireDelta = strength1;
+            if (targetStat.ImmuneStack > 0) // 정화 시 디버프 삭제.
             {
-                targetStat.Hp = targetStat.maxHp;
+                targetStat.ImmuneStack--;
+            }
+            else
+            {
+                targetStat.FireStack += fireDelta;
             }
         }
     }

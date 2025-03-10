@@ -58,6 +58,6 @@ public class SkillExecutor
         List<BaseTarget> targets = targetOption.GetTarget(caller);
 
         // 이펙트 적용
-        effect.Effect(targets, skillData.strength1, skillData.strength2);
+        effect.Effect(targets, caller, skillData.strength1, skillData.strength2);
     }
 }

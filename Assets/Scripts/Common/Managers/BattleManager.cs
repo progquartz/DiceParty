@@ -20,6 +20,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleType currentBattleType = BattleType.None;
 
     public DiceRoller DiceRoller;
+    public SkillExecutor SkillExecutor;
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
@@ -34,6 +35,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public event Action OnBattleStart;
     public event Action OnPlayerTurnStart;
     public event Action OnPlayerTurnEnd;
+    public event Action OnEnemyTurnStart;
+    public event Action OnEnemyTurnEnd;
     public event Action OnBattleEnd;
 
     private void Awake()
@@ -44,6 +47,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public void Init()
     {
         DiceRoller = FindAnyObjectByType<DiceRoller>();
+        SkillExecutor = new SkillExecutor();
         AddPlayerParty();
     }
 
@@ -200,6 +204,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     /// </summary>
     private IEnumerator ExecuteEnemyTurn()
     {
+        OnEnemyTurnStart?.Invoke();
         // 적 턴 실행.
         Logger.Log("적 공격!");
 
@@ -232,7 +237,9 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
 
         // 적 턴 실행.
+        OnEnemyTurnEnd?.Invoke();
         Logger.Log("적 공격 끝.");
+        
         PlayerTurnStart();
         // 이후 플레이어가 행동할 수 있도록 UI 활성화 등
         yield break;

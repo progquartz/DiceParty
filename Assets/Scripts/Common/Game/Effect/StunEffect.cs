@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealEffect : BaseEffect
+public class StunEffect : BaseEffect
 {
     public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            int totalHpDelta = strength1;
-            targetStat.Hp += totalHpDelta;
-            if (targetStat.Hp > targetStat.maxHp)
+            int stunDelta = strength1;
+            if(targetStat.ImmuneStack > 0)
             {
-                targetStat.Hp = targetStat.maxHp;
+                targetStat.ImmuneStack--;
+            }
+            else
+            {
+                targetStat.StunnedStack += stunDelta;
             }
         }
     }

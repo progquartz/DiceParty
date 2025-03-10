@@ -23,10 +23,45 @@ public class BaseEnemy : BaseTarget
     public void Init(EnemyDataSO dataSO)
     {
         base.Init();
+        RegisterEvents();
         enemyPatternExecutor = new EnemyPatternExecutor();
         ChangeDataSO(dataSO);
         LoadEnemyData();
     }
+
+    /// <summary>
+    /// 적 턴 시작 
+    /// </summary>
+    private void OnEnemyTurnStart()
+    {
+        // 턴 시작 / 끝 시 효과 계산.
+        base.EffectCalcOnTurnStart();
+    }
+
+    /// <summary>
+    /// 적 턴 끝
+    /// </summary>
+    private void OnEnemyTurnEnd()
+    {
+        base.EffectCalcOnTurnEnd();
+    }
+
+
+
+    private void RegisterEvents()
+    {
+        BattleManager.Instance.OnEnemyTurnStart += OnEnemyTurnStart;
+        BattleManager.Instance.OnEnemyTurnEnd += OnEnemyTurnEnd;
+    }
+
+    private void ReleaseEvents()
+    {
+        BattleManager.Instance.OnEnemyTurnStart -= OnEnemyTurnStart;
+        BattleManager.Instance.OnEnemyTurnEnd -= OnEnemyTurnEnd;
+    }
+
+
+    
 
     private void ChangeDataSO(EnemyDataSO enemyDataSO)
     {
@@ -58,5 +93,10 @@ public class BaseEnemy : BaseTarget
     public void AttackOnPattern()
     {
         enemyPatternExecutor.ExecuteNextAttack(this);
+    }
+
+    private void OnDestroy()
+    {
+        ReleaseEvents();
     }
 }

@@ -11,7 +11,13 @@ public enum CharacterType
 
 public class BaseCharacter :BaseTarget
 {
-    public CharacterType CharacterType; 
+    public CharacterType CharacterType;
+
+    private void Awake()
+    {
+        Init();
+    }
+
     public void Init()
     {
         base.Init();
