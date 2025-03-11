@@ -9,7 +9,7 @@ public class WeakenEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int weakenDelta = strength1;
-            targetStat.WeakenStack += weakenDelta;
+            targetStat.CalcEffectStack(EffectKey.WeakenEffect, weakenDelta);
         }
     }
 }

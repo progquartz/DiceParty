@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Android.Types;
 using UnityEngine;
 
 public class StunEffect : BaseEffect
@@ -9,13 +10,13 @@ public class StunEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int stunDelta = strength1;
-            if(targetStat.ImmuneStack > 0)
+            if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {
-                targetStat.ImmuneStack--;
+                targetStat.CalcEffectStack(EffectKey.ImmuneEffect, -1);
             }
             else
             {
-                targetStat.StunnedStack += stunDelta;
+                targetStat.CalcEffectStack(EffectKey.StunEffect, stunDelta);
             }
         }
     }

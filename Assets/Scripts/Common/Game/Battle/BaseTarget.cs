@@ -46,7 +46,7 @@ public class BaseTarget : MonoBehaviour
         CalcFortify(); // 방벽(보호막 추가)
     }
 
-    public void CalcEffect(EffectClassName effectClass, int strength1, int strength2 = 0)
+    public void CalcEffect(EffectKey effectClass, int strength1, int strength2 = 0)
     {
         SkillEffectData effData = new SkillEffectData();
         effData.targetClassName = TargetOptionClassName.TargetSelf;
@@ -63,10 +63,10 @@ public class BaseTarget : MonoBehaviour
     /// </summary>
     private void CalcPoison()
     {
-        if(stat.PoisonStack > 0)
+        if(stat.HasEffect(EffectKey.PoisonEffect))
         {
-            CalcEffect(EffectClassName.DebuffDamageEffect, stat.PoisonStack);
-            stat.PoisonStack--;
+            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffect(EffectKey.PoisonEffect));
+            stat.CalcEffectStack(EffectKey.PoisonEffect, -1);
         }
     }
 
@@ -75,19 +75,19 @@ public class BaseTarget : MonoBehaviour
     /// </summary>
     private void CalcFire()
     {
-        if (stat.FireStack > 0)
+        if(stat.HasEffect(EffectKey.FireEffect))
         {
-            CalcEffect(EffectClassName.DebuffDamageEffect, stat.FireStack); 
-            stat.FireStack--;
+            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffect(EffectKey.FireEffect));
+            stat.CalcEffectStack(EffectKey.FireEffect, -1);
         }
     }
 
     private void CalcRegen()
     {
-        if(stat.RegenStack > 0)
+        if(stat.HasEffect(EffectKey.RegenEffect))
         {
-            CalcEffect(EffectClassName.HealEffect, stat.RegenStack);
-            stat.RegenStack--;
+            CalcEffect(EffectKey.HealEffect, stat.GetEffect(EffectKey.RegenEffect));
+            stat.CalcEffectStack(EffectKey.RegenEffect, -1);
         }
     }
 
@@ -99,69 +99,67 @@ public class BaseTarget : MonoBehaviour
 
     private void CalcFortify()
     {
-        if(stat.fortifyStack > 0)
+        if(stat.HasEffect(EffectKey.FortifyEffect))
         {
-            CalcEffect(EffectClassName.ArmourEffect, stat.fortifyStack);
-            stat.fortifyStack--;
+            CalcEffect(EffectKey.ArmourEffect, stat.GetEffect(EffectKey.FortifyEffect));
+            stat.CalcEffectStack(EffectKey.FortifyEffect, -1);
         }
     }
 
     private void CalcPassion()
     {
-        if(stat.PassionStack > 0)
+        if(stat.HasEffect(EffectKey.PassionEffect))
         {
-            CalcEffect(EffectClassName.StrengthEffect, stat.PassionStack);
-            stat.PassionStack--;
+            CalcEffect(EffectKey.StrengthEffect, stat.GetEffect(EffectKey.PassionEffect));
+            stat.CalcEffectStack(EffectKey.PassionEffect, -1);
         }
     }
 
     private void CalcConfuse()
     {
-        if (stat.ConfuseStack > 0)
+        if(stat.HasEffect(EffectKey.ConfuseEffect))
         {
-            // Confuse 효과를 내는 효과 발동.
-            stat.ConfuseStack--;
+            stat.CalcEffectStack(EffectKey.ConfuseEffect, -1);
         }
     }
 
     private void CalcTaunt()
     {
-        if(stat.TauntStack > 0)
+        if(stat.HasEffect(EffectKey.TauntEffect))
         {
-            // Taunt 효과 발동 처리.
-           stat.TauntStack--;
+            stat.CalcEffectStack(EffectKey.TauntEffect, -1);
         }
     }
 
     private void CalcThorn()
     {
-        if(stat.ThornStack > 0)
+        if(stat.HasEffect(EffectKey.ThornEffect))
         {
-            stat.ThornStack--;
+            stat.CalcEffectStack(EffectKey.ThornEffect, -1);
         }
     }
 
     private void CalcWither()
     {
-        if(stat.WitherStack > 0)
+        if(stat.HasEffect(EffectKey.WitherEffect))
         {
-            stat.WitherStack--;
+            stat.CalcEffectStack(EffectKey.WitherEffect, -1);
         }
     }
     
     private void CalcWeaken()
     {
-        if(stat.WeakenStack > 0)
+        if(stat.HasEffect(EffectKey.WeakenEffect))
         {
-            stat.WeakenStack--;
+            stat.CalcEffectStack(EffectKey.WeakenEffect, -1);
         }
     }
 
     private void CalcStun()
     {
-        if(stat.StunnedStack > 0)
+        if(stat.HasEffect(EffectKey.StunEffect))
         {
-            stat.StunnedStack--;
+            stat.CalcEffectStack(EffectKey.StunEffect, -1);
         }
     }
 

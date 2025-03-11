@@ -1,4 +1,4 @@
-using Unity.VisualScripting.Antlr3.Runtime;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,64 +7,76 @@ public class BaseStat
     public int Hp;
     public int maxHp;
     public int ArmourStack;
-
     public bool isDead = false;
 
+    // 효과 스택을 Dictionary로 관리
+    private Dictionary<EffectKey, int> effectStacks = new Dictionary<EffectKey, int>();
 
-    // 버프 부분.
-    
-    public int StrengthStack; // 힘
-    
-    public int ThornStack; // 가시갑옷
-    public int TauntStack; // 도발
+    public void SetEffectStack(EffectKey effect, int value)
+    {
+        if (value > 0)
+        {
+            effectStacks[effect] = value;
+        }
+        else if (effectStacks.ContainsKey(effect))
+        {
+            effectStacks.Remove(effect); // 0이면 제거
+        }
+    }
 
-    public int ImmuneStack; // 정화
+    public void CalcEffectStack(EffectKey effect, int value)
+    {
+        if(effectStacks.ContainsKey(effect))
+        {
+            if (effectStacks[effect] + value <= 0)
+            {
+                effectStacks.Remove(effect); // 0이면 제거
+            }
+            else
+            {
+                effectStacks[effect] += value;
+            }
+        }
+        else
+        {
+            effectStacks.Add(effect, value);
+        }
+    }
 
-    // 버프 증가 버프
-    public int fortifyStack; // 방벽
-    public int PassionStack; // 열정
-    public int RegenStack;
+    public int GetEffect(EffectKey effect)
+    {
+        return effectStacks.ContainsKey(effect) ? effectStacks[effect] : 0;
+    }
 
-    // 디버프 부분
+    public bool HasEffect(EffectKey effect)
+    {
+        return effectStacks.ContainsKey(effect);
+    }
 
-    // 독 / 화염
-    public int PoisonStack; // 독
-    public int FireStack; // 화염
-
-
-    public int ConfuseStack; // 혼란
-    public int WeakenStack; // 쇠약
-    public int WitherStack; // 부패
-
-    
-    public int StunnedStack; // 스턴
+    public Dictionary<EffectKey, int> GetAllEffects()
+    {
+        return new Dictionary<EffectKey, int>(effectStacks);
+    }
 
     public void SetStat(BaseStat stat)
     {
-        this.Hp = stat.Hp;
-        this.maxHp = stat.maxHp;
-        this.ArmourStack = stat.ArmourStack;
+        Hp = stat.Hp;
+        maxHp = stat.maxHp;
+        ArmourStack = stat.ArmourStack;
+        isDead = stat.isDead;
 
-        this.isDead = stat.isDead;
+        var originalEffects = stat.GetAllEffects();
+        if(originalEffects != null)
+        {
+            if(originalEffects.Count > 0)
+            {
+                Logger.LogError("디버프 / 버프 등이 포함된 오염된 스탯이 로드되려고 합니다.");
+            }
+        }
+    }
 
+    public void Cleanse()
+    {
 
-        this.StrengthStack = stat.StrengthStack;
-
-        this.ThornStack  = stat.ThornStack;
-        this.TauntStack  = stat.TauntStack;
-
-        this.ImmuneStack = stat.ImmuneStack;
-
-        this.fortifyStack = stat.fortifyStack;
-        this.PassionStack = stat.PassionStack;
-        this.RegenStack = stat.RegenStack;  
-
-        this.PoisonStack = stat.PoisonStack;
-        this.FireStack = stat.FireStack;
-
-
-        this.ConfuseStack = stat.ConfuseStack;
-        this.WeakenStack = stat.WeakenStack;
-        this.WitherStack = stat.WitherStack;
     }
 }

@@ -9,13 +9,13 @@ public class FireEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int fireDelta = strength1;
-            if (targetStat.ImmuneStack > 0) // 정화 시 디버프 삭제.
+            if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {
-                targetStat.ImmuneStack--;
+                targetStat.CalcEffectStack(EffectKey.ImmuneEffect, -1);
             }
             else
             {
-                targetStat.FireStack += fireDelta;
+                targetStat.CalcEffectStack(EffectKey.FireEffect, fireDelta);
             }
         }
     }

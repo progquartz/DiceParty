@@ -9,7 +9,7 @@ public class FortifyEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int fortifyDelta = strength1;
-            targetStat.fortifyStack += fortifyDelta;
+            targetStat.CalcEffectStack(EffectKey.FortifyEffect, fortifyDelta);
         }
     }
 }

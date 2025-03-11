@@ -9,7 +9,7 @@ public class ImmuneEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int immuneDelta = strength1;
-            targetStat.ImmuneStack += immuneDelta;
+            targetStat.CalcEffectStack(EffectKey.ImmuneEffect, immuneDelta);
         }
     }
 }

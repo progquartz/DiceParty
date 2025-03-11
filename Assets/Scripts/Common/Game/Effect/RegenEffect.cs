@@ -9,7 +9,7 @@ public class RegenEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int regenDelta = strength1;
-            targetStat.RegenStack += regenDelta;
+            targetStat.CalcEffectStack(EffectKey.RegenEffect, regenDelta);
         }
     }
 }

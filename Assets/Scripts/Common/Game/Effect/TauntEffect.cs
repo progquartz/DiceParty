@@ -9,7 +9,7 @@ public class TauntEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int tauntDelta = strength1;
-            targetStat.TauntStack += tauntDelta;
+            targetStat.CalcEffectStack(EffectKey.TauntEffect, tauntDelta);
         }
     }
 }

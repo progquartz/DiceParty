@@ -6,7 +6,7 @@ public class BuffUIDatas : MonoBehaviour
 
     public List<EffectData> effectDataList;
     
-    private Dictionary<EffectClassName, EffectData> effectDataDict = new Dictionary<EffectClassName, EffectData>();
+    private Dictionary<EffectKey, EffectData> effectDataDict = new Dictionary<EffectKey, EffectData>();
 
     private void Awake()
     {
@@ -16,12 +16,12 @@ public class BuffUIDatas : MonoBehaviour
         }
     }
 
-    public Sprite GetEffectSprite(EffectClassName effect)
+    public Sprite GetEffectSprite(EffectKey effect)
     {
         return effectDataDict.ContainsKey(effect) ? effectDataDict[effect].effectSprite : null;
     }
 
-    public string GetEffectDescription(EffectClassName effect, int strength1, int strength2)
+    public string GetEffectDescription(EffectKey effect, int strength1, int strength2)
     {
         string[] description = effectDataDict.ContainsKey(effect) ? effectDataDict[effect].description : null;
         switch(description.Length)
@@ -37,7 +37,7 @@ public class BuffUIDatas : MonoBehaviour
         return null;
     }
 
-    public string GetEffectName(EffectClassName effect)
+    public string GetEffectName(EffectKey effect)
     {
         return effectDataDict.ContainsKey(effect) ? effectDataDict[effect].name : "Buff_Ui_Name";
     }
@@ -46,7 +46,7 @@ public class BuffUIDatas : MonoBehaviour
 [System.Serializable]
 public class EffectData
 {
-    public EffectClassName effectClass;
+    public EffectKey effectClass;
     public Sprite effectSprite;
     public string name;
     public string[] description;

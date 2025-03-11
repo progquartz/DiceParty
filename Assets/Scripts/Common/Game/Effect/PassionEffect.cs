@@ -9,7 +9,7 @@ public class PassionEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int passionDelta = strength1;
-            targetStat.PassionStack += passionDelta;
+            targetStat.CalcEffectStack(EffectKey.PassionEffect, passionDelta);
         }
     }
 }

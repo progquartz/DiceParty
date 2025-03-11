@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum EffectClassName
+public enum EffectKey
 {
     DamageEffect,
     DebuffDamageEffect,
@@ -45,7 +45,7 @@ public class SkillEffectData
     public TargetOptionClassName targetClassName;
 
     [Header("주는 효과")]
-    public EffectClassName effectClassName;
+    public EffectKey effectClassName;
 
     [Header("스킬 강도(혹은 회복량, etc.)")]
     public int strength1;

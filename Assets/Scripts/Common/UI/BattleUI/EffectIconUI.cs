@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EffectIconUI : MonoBehaviour
 {
-    public EffectClassName effectCode;
+    public EffectKey effectCode;
 
     [SerializeField] private TMP_Text effectIconName;
     [SerializeField] private TMP_Text effectIconLore;
@@ -16,7 +16,7 @@ public class EffectIconUI : MonoBehaviour
         
     }
 
-    private void Init(EffectClassName effect)
+    private void Init(EffectKey effect)
     {
         
     }

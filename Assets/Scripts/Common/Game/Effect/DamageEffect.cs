@@ -10,12 +10,12 @@ public class DamageEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
            
-            float calcDamage = strength1 + caller.stat.StrengthStack;
-            if (caller.stat.WeakenStack > 0) // 호출자 쇠약 체크
+            float calcDamage = strength1 + caller.stat.GetEffect(EffectKey.StrengthEffect);
+            if (caller.stat.HasEffect(EffectKey.WeakenEffect)) // 호출자 쇠약 체크
                 calcDamage *= 0.75f;
 
            
-            if (targetStat.WitherStack > 0) // 타겟 부패 체크
+            if (targetStat.HasEffect(EffectKey.WitherEffect)) // 타겟 부패 체크
                 calcDamage = calcDamage * 1.25f;
 
             // 최종 데미지는 1단위 내림 계산.
@@ -45,9 +45,9 @@ public class DamageEffect : BaseEffect
             }
             else // 사망에 이르지 않는 공격 중, 가시갑옷 데미지 계산.
             {
-                if(targetStat.ThornStack > 0)
+                if(targetStat.HasEffect(EffectKey.ThornEffect))
                 {
-                    caller.CalcEffect(EffectClassName.DebuffDamageEffect, targetStat.ThornStack);   
+                    caller.CalcEffect(EffectKey.DebuffDamageEffect, targetStat.GetEffect(EffectKey.ThornEffect));
                 }
             }
         }

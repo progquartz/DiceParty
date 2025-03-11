@@ -28,7 +28,7 @@ public static class EffectFactory
         { "ImmuneEffect",   () => new ImmuneEffect() },
     };
 
-    public static BaseEffect CreateEffect(EffectClassName effectKey)
+    public static BaseEffect CreateEffect(EffectKey effectKey)
     {
         if (effectRegistry.TryGetValue(effectKey.ToString(), out var constructor))
         {
