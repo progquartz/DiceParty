@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3124843451432811851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2307813014361009070}
+  - component: {fileID: 6340483552442626659}
+  - component: {fileID: 63064072210991193}
+  m_Layer: 0
+  m_Name: Datas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2307813014361009070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124843451432811851}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6340483552442626659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124843451432811851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97f5400ee4087640aee2976f6233cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allHordeData:
+  - {fileID: 11400000, guid: 599f8f9a6e41df541aea379fac024694, type: 2}
+  - {fileID: 11400000, guid: 0957c99511f72ad41b04832ddbe2c974, type: 2}
+  - {fileID: 11400000, guid: 6c3e3ad27732a644cab8894161b237c2, type: 2}
+  - {fileID: 11400000, guid: 4985b5b212e840345a0e5a0f3199601d, type: 2}
+  - {fileID: 11400000, guid: ef257be74b777604ca164e7e35b69ac4, type: 2}
+  - {fileID: 11400000, guid: 09f22294cf2fddb49bb458f9c65d6736, type: 2}
+  - {fileID: 11400000, guid: d331bc06a3629ad478adee24eb498515, type: 2}
+  - {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
+  - {fileID: 11400000, guid: 5e03fecbf4265ee4ea79d56b47350a0d, type: 2}
+--- !u!114 &63064072210991193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124843451432811851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2310ff7b8135b41ad7d7c6cdcb6232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectDataList:
+  - effectClass: 4
+    effectSprite: {fileID: 21300000, guid: ad0d950f5eca3ab47ae8e91feade24e6, type: 3}
+    name: "\uB3C5"
+    description:
+    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
+    - "\uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+  - effectClass: 5
+    effectSprite: {fileID: 21300000, guid: f9436e140d382a545abebf2033d1d4f5, type: 3}
+    name: "\uD654\uC5FC"
+    description:
+    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
+    - "\uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+  - effectClass: 6
+    effectSprite: {fileID: 21300000, guid: d08911fa6c2dd90428b00a1cf4ee6cf8, type: 3}
+    name: "\uAE30\uC808"
+    description:
+    - 
+    - "\uD134\uB3D9\uC548 \uD589\uB3D9\uC774 \uBD88\uAC00\uB2A5\uD569\uB2C8\uB2E4."
+  - effectClass: 7
+    effectSprite: {fileID: 21300000, guid: be023aa6c71f4a646b2110fdaa18c95b, type: 3}
+    name: "\uD798"
+    description:
+    - "\uAC00\uD558\uB294 \uACF5\uACA9 \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0\uAC00 "
+    - "\uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - effectClass: 8
+    effectSprite: {fileID: 21300000, guid: a3b84096f3b41ed47ad7fbf4d848a9bb, type: 3}
+    name: "\uC1E0\uC57D"
+    description:
+    - 
+    - "\uD134\uAC04 \uAC00\uD558\uB294 \uACF5\uACA9 \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0
+      25% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  - effectClass: 9
+    effectSprite: {fileID: 21300000, guid: 88e5fa33e2e310f4fbc3debbab042e53, type: 3}
+    name: "\uCD94\uAC00 \uB2E4\uC774\uC2A4"
+    description:
+    - 
+    - "\uAC1C\uC758 \uB2E4\uC774\uC2A4\uB97C \uD134\uC774 \uC2DC\uC791\uD560 \uB54C\uC5D0
+      \uCD94\uAC00\uB85C \uBC1B\uC2B5\uB2C8\uB2E4."
+  - effectClass: 10
+    effectSprite: {fileID: 21300000, guid: 68b89731720054a4b88547cc29f2b2b6, type: 3}
+    name: "\uC815\uD654"
+    description:
+    - "\uC815\uD654\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    - 
+  - effectClass: 11
+    effectSprite: {fileID: 21300000, guid: 121fe4e382e95ec4a903061969ff3171, type: 3}
+    name: "\uD63C\uB780"
+    description:
+    - 
+    - "\uD134\uAC04 \uB300\uC0C1\uC774 \uBB34\uC791\uC704\uB85C \uC9C0\uC815\uB429\uB2C8\uB2E4."
+  - effectClass: 12
+    effectSprite: {fileID: 21300000, guid: a9545106fcd467e4b9ce44b17be0530e, type: 3}
+    name: "\uBC29\uBCBD"
+    description:
+    - "\uD134\uC774 \uB05D\uB0A0 \uB54C\uC5D0 "
+    - "\uB9CC\uD07C\uC758 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+  - effectClass: 13
+    effectSprite: {fileID: 21300000, guid: 49619b6d93bfe4041974bddfd3e4241a, type: 3}
+    name: "\uC5F4\uC815"
+    description:
+    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C\uC5D0 "
+    - "\uB9CC\uD07C\uC758 \uD798\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+  - effectClass: 14
+    effectSprite: {fileID: 21300000, guid: 285c40d2757e5fb4f8951df1e5e87dfc, type: 3}
+    name: "\uC7AC\uC0DD"
+    description:
+    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
+    - "\uB9CC\uD07C\uC758 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  - effectClass: 15
+    effectSprite: {fileID: 21300000, guid: 83644e68e2bb6bd4d934753dcae088a3, type: 3}
+    name: "\uB3C4\uBC1C"
+    description:
+    - "\uACF5\uACA9 \uB300\uC0C1\uC744 \uC6B0\uC120\uC801\uC73C\uB85C \uC790\uC2E0\uC5D0\uAC8C
+      \uC720\uB3C4\uD569\uB2C8\uB2E4."
+  - effectClass: 16
+    effectSprite: {fileID: 21300000, guid: a17dd2e020cda444ba8aaa32409eed00, type: 3}
+    name: "\uAC00\uC2DC \uAC11\uC637"
+    description:
+    - "\uD53C\uD574\uB97C \uC785\uC744 \uB54C \uB9C8\uB2E4 \uACF5\uACA9 \uB300\uC0C1\uC5D0\uAC8C "
+    - "\uB9CC\uD07C\uC758 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+  - effectClass: 17
+    effectSprite: {fileID: 21300000, guid: 52a8f9197ed082a4ca6d20fa70915c56, type: 3}
+    name: "\uBD80\uD328"
+    description:
+    - "\uBC1B\uB294 \uACF5\uACA9 \uB370\uBBF8\uC9C0\uAC00 50% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - effectClass: 17
+    effectSprite: {fileID: 21300000, guid: f9436e140d382a545abebf2033d1d4f5, type: 3}
+    name: "\uD654\uC5FC"
+    description:
+    - "\uBD80\uC815\uC801\uC778 \uD6A8\uACFC\uB97C "
+    - "\uBC88 \uBB34\uC2DC\uD569\uB2C8\uB2E4."
