@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,18 +12,9 @@ public class BaseStat
 
     // 효과 스택을 Dictionary로 관리
     private Dictionary<EffectKey, int> effectStacks = new Dictionary<EffectKey, int>();
-
-    public void SetEffectStack(EffectKey effect, int value)
-    {
-        if (value > 0)
-        {
-            effectStacks[effect] = value;
-        }
-        else if (effectStacks.ContainsKey(effect))
-        {
-            effectStacks.Remove(effect); // 0이면 제거
-        }
-    }
+    
+    public event Action<EffectKey, int> OnUpdatingEffectStack;
+    public event Action<EffectKey> OnRemovingEffectStack;
 
     public void CalcEffectStack(EffectKey effect, int value)
     {
@@ -31,15 +23,18 @@ public class BaseStat
             if (effectStacks[effect] + value <= 0)
             {
                 effectStacks.Remove(effect); // 0이면 제거
+                OnRemovingEffectStack?.Invoke(effect);
             }
             else
             {
                 effectStacks[effect] += value;
+                OnUpdatingEffectStack?.Invoke(effect, effectStacks[effect]);
             }
         }
         else
         {
             effectStacks.Add(effect, value);
+            OnUpdatingEffectStack?.Invoke(effect, effectStacks[effect]);
         }
     }
 

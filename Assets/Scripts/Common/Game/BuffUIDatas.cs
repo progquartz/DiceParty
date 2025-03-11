@@ -24,6 +24,10 @@ public class BuffUIDatas : MonoBehaviour
     public string GetEffectDescription(EffectKey effect, int strength1, int strength2)
     {
         string[] description = effectDataDict.ContainsKey(effect) ? effectDataDict[effect].description : null;
+        if (description == null)
+        {
+            Logger.LogError($"{effect.ToString()} 효과의 description이 존재하지 않습니다.");
+        }
         switch(description.Length)
         {
             case 1:
