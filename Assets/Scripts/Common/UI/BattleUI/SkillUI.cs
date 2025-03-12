@@ -9,41 +9,38 @@ using System.Linq;
 
 public class SkillUI : MonoBehaviour
 {
-    
-    [Header("½ºÅ³ µ¥ÀÌÅÍ")]
+    [Header("ìŠ¤í‚¬ ë°ì´í„°")]
     [SerializeField] private SkillDataSO skillDataSO;
     public CharacterType CharacterType { get { return skillDataSO.CharacterType; } }
 
-    [Header("ÁÖ»çÀ§ ½½·Ô Áõ¸í¼º ¿©ºÎ")]
+    [Header("ì£¼ì‚¬ìœ„ ì¡°ê±´ ë§Œì¡±ë„ ì²´í¬")]
     [SerializeField] private bool[] diceSlotValidity;
 
-    [Header("µî·ÏµÈ ½ºÅ³ ½½·Ô")]
+    [Header("ë“±ë¡ëœ ìŠ¤í‚¬ ìŠ¬ë¡¯")]
     [SerializeField] public SkillUISlot skillUISlot;
     private SkillUISlot currentSlot = null;
 
-    [Header("UI Ç¥½Ã¿ë ÅØ½ºÆ®")]
-    
+    [Header("UI í‘œì‹œìš© í…ìŠ¤íŠ¸")]
     [SerializeField] private TMP_Text skillNameText;
     [SerializeField] private TMP_Text skillLoreText;
     [SerializeField] private Image skillBackgroundImage;
 
-    [Header("ÁÖ»çÀ§ Á¶°Ç ÅØ½ºÆ®")]
+    [Header("ì£¼ì‚¬ìœ„ ì¡°ê±´ í…ìŠ¤íŠ¸")]
     [SerializeField] private List<TMP_Text> diceNeedTextOneSlot;
     [SerializeField] private List<TMP_Text> diceNeedTextTwoSlot;
 
-    [Header("ÁÖ»çÀ§ ½½·Ô 1°³Â¥¸®")]
+    [Header("ì£¼ì‚¬ìœ„ ìŠ¬ë¡¯ 1ê°œì§œë¦¬")]
     [SerializeField] private GameObject oneDiceSlot;
-    [Header("ÁÖ»çÀ§ ½½·Ô 2°³Â¥¸®")]
+    [Header("ì£¼ì‚¬ìœ„ ìŠ¬ë¡¯ 2ê°œì§œë¦¬")]
     [SerializeField] private GameObject twoDiceSlot;
 
-    [Header("ÁÖ»çÀ§ ½½·Ô UI")]
+    [Header("ì£¼ì‚¬ìœ„ ìŠ¬ë¡¯ UI")]
     [SerializeField] private SkillDiceSlotUI[] diceSlotUI;
 
     [SerializeField] private Color[] activeColors;
     [SerializeField] private Color[] deactivatedColors;
 
-
-    // ½ºÅ³ ½ÇÇà Å¬·¡½º
+    // ìŠ¤í‚¬ ì‹¤í–‰ í´ë˜ìŠ¤
     private SkillExecutor skillExecutor;
 
     public event Action<bool> OnSkillToggle;
@@ -52,7 +49,7 @@ public class SkillUI : MonoBehaviour
     public void Init(SkillDataSO skillData)
     {
         SetSkillData(skillData);
-        // ÇÊ¿äÇÏ´Ù¸é ½Ì±ÛÅæÀÌ³ª DI µîÀ» ÀÌ¿ëÇØµµ µÊ
+        // í•„ìš”í•˜ë‹¤ë©´ ì‹±ê¸€í†¤ì´ë‚˜ DI ë“±ì„ ì´ìš©í•´ë„ ë¨
         skillExecutor = new SkillExecutor();
         RefreshDiceSlotValidity();
         CheckDiceSlotCount();
@@ -67,8 +64,8 @@ public class SkillUI : MonoBehaviour
         BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
         BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
         BattleManager.Instance.OnBattleEnd += OnBattleEnd;
-        
     }
+
     private void ReleaseEvents()
     {
         MapManager.Instance.OnMoveRoom -= OnMapMove;
@@ -82,7 +79,7 @@ public class SkillUI : MonoBehaviour
     {
         if (skillDataSO != null)
         {
-            // Dice Á¶°Ç ¸Â´ÂÁö ¿©ºÎ¸¦ ÃÊ±âÈ­.
+            // Dice ì¡°ê±´ ë§ëŠ”ì§€ ì—¬ë¶€ë¥¼ ì´ˆê¸°í™”
             diceSlotValidity = new bool[skillDataSO.diceRequirements.Count];
         }
     }
@@ -106,7 +103,7 @@ public class SkillUI : MonoBehaviour
 
     public void OnPlayerTurnStart()
     {
-        // count ÃÊ±âÈ­
+        // count ì´ˆê¸°í™”
         SkillUseLeftCount = skillDataSO.skillUseCount;
         foreach(var diceSlot in diceSlotUI)
         {
@@ -131,7 +128,7 @@ public class SkillUI : MonoBehaviour
         Debug.Log("??");
         UpdateVisual();
 
-        // Ä³¸¯ÅÍÀÇ »ç¸ÁÀ¸·Î È£Ãâ.
+        // ìºë¦­í„°ê°€ ì£½ì—ˆìŒì„ í˜¸ì¶œ
         OnSkillToggle?.Invoke(true);
     }
 
@@ -158,7 +155,7 @@ public class SkillUI : MonoBehaviour
             }
             else
             {
-                Logger.LogError($"{skillDataSO.skillName} ÀÌ¸§À» °¡Áø ½ºÅ³ÀÌ ºñÁ¤»óÀûÀÎ °³¼öÀÇ ÁÖ»çÀ§ ½½·Ô °³¼ö¸¦ ÇÊ¿ä·Î ÇÕ´Ï´Ù.");
+                Logger.LogError($"{skillDataSO.skillName} ì´ë¦„ì„ ê°€ì§„ ìŠ¤í‚¬ì€ ë¹„ì •ìƒì ì¸ ê°œìˆ˜ì˜ ì£¼ì‚¬ìœ„ ì¡°ê±´ ì„¤ì •ì´ í•„ìš”ë¡œ í•©ë‹ˆë‹¤.");
             }
         }
     }
@@ -188,32 +185,31 @@ public class SkillUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÅ³ »ç¿ë
+    /// ìŠ¤í‚¬ ë°œë™
     /// </summary>
     public void UseSkill(BaseTarget caller)
     {
         if(!IsAttachedToSkillUISlot())
         {
-            Logger.LogError("[SkillUI]½½·Ô¿¡ µî·ÏµÇÁö ¾ÊÀº ½ºÅ³ÀÌ »ç¿ëµÇ°í ÀÖ½À´Ï´Ù!");
+            Logger.LogError("[SkillUI]ìŠ¬ë¡¯ì— ë“±ë¡ë˜ì§€ ì•Šì€ ìŠ¤í‚¬ì´ ë°œë™ì´ ë©ë‹ˆë‹¤!");
             return;
         }
 
-        // ÁÖ»çÀ§ »óÅÂ ÃÊ±âÈ­.
+        // ì£¼ì‚¬ìœ„ ì¡°ê±´ ì´ˆê¸°í™”
         RefreshDiceSlotValidity();
 
-        // »ç¿ë °³¼ö Â÷°¨.
+        // ì‚¬ìš© íšŸìˆ˜ ê°ì†Œ
         SkillUseLeftCount--;
 
         skillExecutor.UseSkill(skillDataSO, caller);
         
-        // Á×À½À¸·Î Åä±Û µÈ °ÍÀÌ ¾Æ´Ô
+        // í† ê¸€ë§ì€ ì£½ì€ ê²Œ ì•„ë‹˜
         OnSkillToggle?.Invoke(false);
 
         UpdateVisual();
-        
     }
 
-    // ½ºÅ³À» ½ºÅ³ ½½·Ô¿¡ ³Ö¾úÀ»¶§ÀÇ Ã³¸® ºÎºĞ
+    // ìŠ¤í‚¬ì´ ìŠ¤í‚¬ ìŠ¬ë¡¯ì— ë“¤ì–´ê°”ì„ë•Œì˜ ì²˜ë¦¬ ë¶€ë¶„
 
     public void OnSkillSlotAttach(SkillUISlot attachedSlot)
     {
@@ -226,10 +222,10 @@ public class SkillUI : MonoBehaviour
         skillUISlot = null;
     }
 
-    // ÁÖ»çÀ§ ½½·Ô ³»ÀÇ ÁÖ»çÀ§ Ã³¸® ºÎºĞ
+    // ì£¼ì‚¬ìœ„ ì¡°ê±´ ê´€ë ¨ ì£¼ì‚¬ìœ„ ì²˜ë¦¬ ë¶€ë¶„
 
     /// <summary>
-    /// ÁÖ»çÀ§°¡ ½ºÅ³ÀÇ ½½·Ô¿¡ µé¾î¿Í ÁÖ»çÀ§ÀÇ Á¶°ÇÀ» Ã¼Å©.
+    /// ì£¼ì‚¬ìœ„ê°€ ìŠ¤í‚¬ì˜ ìŠ¬ë¡¯ì— ë§ëŠ” ì£¼ì‚¬ìœ„ì¸ì§€ ì²´í¬
     /// </summary>
     public bool OnDiceAttach(Dice dice, int slotSiblingIndex)
     {
@@ -241,13 +237,10 @@ public class SkillUI : MonoBehaviour
         return isDiceNumValid;
     }
 
-
-
     public void OnDiceDetach(Dice dice, int slotSiblingIndex)
     {
         diceSlotValidity[slotSiblingIndex] = false;
     }
-
 
     public void CheckDiceValidity()
     {
@@ -260,10 +253,10 @@ public class SkillUI : MonoBehaviour
             }
         }
 
-        // ¸ğµç ÁÖ»çÀ§ ½½·ÔÀÌ Á¶°Ç¿¡ ¸Â¾Æ ½ºÅ³À» »ç¿ë.
+        // ëª¨ë“  ì£¼ì‚¬ìœ„ê°€ ìœ íš¨í•œì§€ ì²´í¬
         if (isAllDiceValid)
         {
-            Logger.Log($"{diceSlotValidity.Length} °³ÀÇ ½½·ÔÀ» °¡Áø {skillDataSO.skillName} ½ºÅ³ÀÌ Á¶°Ç¿¡ ¸Â¾Æ ½ÇÇàµË´Ï´Ù.");
+            Logger.Log($"{diceSlotValidity.Length} ê°œì˜ ì£¼ì‚¬ìœ„ê°€ ëª¨ë‘ ìœ íš¨í•©ë‹ˆë‹¤. {skillDataSO.skillName} ìŠ¤í‚¬ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.");
             UseSkill(skillUISlot.GetCharacter());
         }
     }
@@ -284,7 +277,6 @@ public class SkillUI : MonoBehaviour
         return false;
     }
 
-
     private bool DiceCheck(Dice dice, DiceRequirementData diceData)
     {
         if(diceData.diceNum[dice.CurNum] == '1')
@@ -297,14 +289,13 @@ public class SkillUI : MonoBehaviour
         }
     }
 
-
-    // ³»ºÎ µ¥ÀÌÅÍ Ã³¸®
+    // ìŠ¤í‚¬ ë°ì´í„° ì„¤ì •
 
     public void SetSkillData(SkillDataSO newSkillData)
     {
         skillDataSO = newSkillData;
         SkillUseLeftCount = newSkillData.skillUseCount;
-        // ÇÊ¿ä ½Ã UIµµ °»½Å
+        // UI ê°±ì‹ 
         UpdateSkillData();
     }
 
@@ -332,20 +323,14 @@ public class SkillUI : MonoBehaviour
         {
             skillUISlot.OnSkillUIDetach(this);
         }
-        // ÃßÈÄ¿¡ ¾Ö´Ï¸ŞÀÌ¼Ç ÇÊ¿ä..?
+        // ëª¨ë“  ì°¸ì¡°ê°€ í•´ì œë˜ì—ˆëŠ”ì§€ í™•ì¸
         Destroy(this.gameObject);
-        
     }
-
-    
-
-
 
     private void UpdateVisual()
     {
         if (CheckSkillActive())
         {
-            
             Color characterColor = activeColors[(int)skillDataSO.CharacterType];
             skillBackgroundImage.color = characterColor;
         }

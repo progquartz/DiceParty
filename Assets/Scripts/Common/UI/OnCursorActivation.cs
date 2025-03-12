@@ -3,18 +3,18 @@ using UnityEngine.EventSystems;
 
 public class OnCursorActivation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("UI Ã¢ ¿ÀºêÁ§Æ® (È°¼ºÈ­/ºñÈ°¼ºÈ­ ´ë»ó)")]
-    public GameObject uiWindow; // Inspector¿¡¼­ È°¼ºÈ­ÇÒ UI Ã¢À» ÇÒ´çÇÕ´Ï´Ù.
+    [Header("UI ì°½ ì˜¤ë¸Œì íŠ¸ (í™œì„±í™”/ë¹„í™œì„±í™” ëŒ€ìƒ)")]
+    public GameObject uiWindow; // Inspectorì—ì„œ í™œì„±í™”í•  UI ì°½ì„ í• ë‹¹í•©ë‹ˆë‹¤.
 
-    [Header("Ä¿¼­°¡ ¸Ó¹«¸¦ ½Ã°£ (ÃÊ)")]
-    public float hoverTime = 1.0f; // Ä¿¼­°¡ ¸Ó¹«¸£´Â ÃÖ¼Ò ½Ã°£À» ÁöÁ¤ÇÕ´Ï´Ù.
+    [Header("ì»¤ì„œì˜ ë¨¸ë¬´ëŠ” ì‹œê°„ (ì´ˆ)")]
+    public float hoverTime = 1.0f; // ì»¤ì„œê°€ ë¨¸ë¬´ë¥´ëŠ” ìµœì†Œ ì‹œê°„ì„ ì„¤ì •í•©ë‹ˆë‹¤.
 
     private bool isHovering = false;
     private float timer = 0f;
 
     private void Update()
     {
-        // Ä¿¼­°¡ ¹öÆ° À§¿¡ ÀÖ´Ù¸é Å¸ÀÌ¸Ó Áõ°¡
+        // ì»¤ì„œê°€ ë²„íŠ¼ ìœ„ì— ìˆë‹¤ë©´ íƒ€ì´ë¨¸ ì‹¤í–‰
         if (isHovering)
         {
             timer += Time.deltaTime;
@@ -25,19 +25,19 @@ public class OnCursorActivation : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
     }
 
-    // ¸¶¿ì½º Ä¿¼­°¡ ¹öÆ° À§¿¡ µé¾î¿ÔÀ» ¶§ È£Ãâ
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œê°€ ë²„íŠ¼ ìœ„ë¡œ ë“¤ì–´ì˜¬ ë•Œ í˜¸ì¶œ
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovering = true;
-        timer = 0f; // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+        timer = 0f; // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
     }
 
-    // ¸¶¿ì½º Ä¿¼­°¡ ¹öÆ°¿¡¼­ ³ª°¬À» ¶§ È£Ãâ
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œê°€ ë²„íŠ¼ì—ì„œ ë‚˜ê°ˆë•Œ ë•Œ í˜¸ì¶œ
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovering = false;
         timer = 0f;
-        // ¸¸¾à ¹öÆ°¿¡¼­ ³ª°¡¸é UI Ã¢µµ ºñÈ°¼ºÈ­ (¿øÇÏ´Â °æ¿ì)
+        // ë§Œì•½ ë²„íŠ¼ì—ì„œ ë‚˜ê°€ë©´ UI ì°½ì„ ë¹„í™œì„±í™” (ì›í•˜ëŠ” ê²½ìš°)
         DeactivateUIWindow();
     }
 

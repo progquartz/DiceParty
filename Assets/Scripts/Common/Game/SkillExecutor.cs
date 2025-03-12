@@ -7,7 +7,7 @@ public class SkillExecutor
     {
         if (skillData == null) return;
 
-        // ½ºÅ³¿¡ µî·ÏµÈ ¿©·¯ (ÀÌÆåÆ® - Å¸°ÙÆÃ) Á¶ÇÕÀ» ¼øÈ¸
+        // ìŠ¤í‚¬ì— ë“±ë¡ëœ ëª¨ë“  (ì´í™íŠ¸ - íƒ€ê²ŸíŒ…) ë°ì´í„° ìˆœíšŒ
         foreach (var effectData in skillData.skillEffects)
         {
             ExecuteEffect(effectData, caller);
@@ -39,25 +39,25 @@ public class SkillExecutor
     {
         if (skillData == null) return;
 
-        // ÆÑÅä¸®¿¡¼­ ÀÌÆåÆ®¿Í Å¸°ÙÆÃ ·ÎÁ÷ »ı¼º.
+        // íŒ©í† ë¦¬ì—ì„œ ì´í™íŠ¸ì™€ íƒ€ê²ŸíŒ… ê°ì²´ ìƒì„±.
         BaseEffect effect = EffectFactory.CreateEffect(skillData.effectClassName);
         if (effect == null)
         {
-            Debug.LogWarning($"Effect »ı¼º ½ÇÆĞ: {skillData.effectClassName}");
+            Debug.LogWarning($"Effect ìƒì„± ì‹¤íŒ¨: {skillData.effectClassName}");
             return;
         }
 
         BaseTargetOption targetOption = TargetOptionFactory.CreateTargetOption(skillData.targetClassName);
         if (targetOption == null)
         {
-            Debug.LogWarning($"TargetOption »ı¼º ½ÇÆĞ: {skillData.targetClassName}");
+            Debug.LogWarning($"TargetOption ìƒì„± ì‹¤íŒ¨: {skillData.targetClassName}");
             return;
         }
 
-        // Å¸°Ù ÃßÃâ
+        // íƒ€ê²Ÿ ì„ íƒ
         List<BaseTarget> targets = targetOption.GetTarget(caller);
 
-        // ÀÌÆåÆ® Àû¿ë
+        // ì´í™íŠ¸ ì ìš©
         effect.Effect(targets, caller, skillData.strength1, skillData.strength2);
     }
 }

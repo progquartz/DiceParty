@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PotionDataSO", menuName = "Scriptable Objects/PotionDataSO")]
 public class PotionDataSO : ScriptableObject
 {
-    [Header("Æ÷¼Ç ÀÌ¸§")]
+    [Header("í¬ì…˜ ì´ë¦„")]
     public string name;
-    [Header("Æ÷¼Ç ¼³¸í")]
+    [Header("í¬ì…˜ ì„¤ëª…")]
     public string lore;
-    [Header("Æ÷¼Ç ½ºÇÁ¶óÀÌÆ®")]
+    [Header("í¬ì…˜ ìŠ¤í”„ë¼ì´íŠ¸")]
     public Sprite sprite;
-    [Header("È¿°ú ¹è¿­")]
+    [Header("íš¨ê³¼ ë°°ì—´")]
     public List<SkillEffectData> effectData;
 }

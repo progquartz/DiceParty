@@ -57,16 +57,16 @@ public class ShopItemUI : MonoBehaviour
         bool isItemAvailableToBuy = owner.SellItem(SellingPrice);
         if (isItemAvailableToBuy)
         {
-            buyButton.SetActive(false); // ²¨Áö±â.
+            buyButton.SetActive(false); // êµ¬ë§¤ ì™„ë£Œ.
             isItemSold = true;
 
-            // Ä«µå ºÎºĞÀÌ¶ó¸é...
+            // ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ë¡œ ì´ë™...
             skillUICard.transform.SetParent(Inventory.Instance.cardParent);
         }
         else
         {
-            // µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù ¸Ş¼¼Áö.
-            Debug.Log("µ· ºÎÁ·À¸·Î ¾ÆÀÌÅÛÀ» ±¸¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            // êµ¬ë§¤ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤ ë©”ì‹œì§€.
+            Debug.Log("ë” ì´ìƒìœ¼ë¡œ ì•„ì´í…œì„ êµ¬ë§¤í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -74,7 +74,7 @@ public class ShopItemUI : MonoBehaviour
     {
         if (isItemSold)
         {
-            itemPriceText.text = "ÆÇ¸Å ¿Ï·á";
+            itemPriceText.text = "íŒë§¤ ì™„ë£Œ";
         }
         else
         {

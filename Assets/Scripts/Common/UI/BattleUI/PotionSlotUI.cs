@@ -10,7 +10,7 @@ public class PotionSlotUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI potionNameText;
     [SerializeField] private TextMeshProUGUI potionLoreText;
-    // ½½·Ô ¹öÆ°°ú ÀÌ¹ÌÁö
+    // í¬ì…˜ ë²„íŠ¼ì˜ ì´ë¯¸ì§€
     [SerializeField] private Button slotButton;
     [SerializeField] private Image slotImage;
     
@@ -20,10 +20,9 @@ public class PotionSlotUI : MonoBehaviour
 
     private void Update()
     {
-
         UpdateInteractable(); 
         
-        // Æ÷¼Ç µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+        // í¬ì…˜ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸
         PotionDataSO potionData = Inventory.Instance.GetPotionData(index);
         UpdateSprite(potionData);
         UpdateLoreTexts(potionData);
@@ -40,7 +39,7 @@ public class PotionSlotUI : MonoBehaviour
 
     private void UpdateInteractable()
     {
-        // BattleManager¿¡¼­ÀÇ ÀüÅõ Áß¿¡¼­¸¸ »ç¿ë °¡´ÉÇÑ °Í°ú ¿¬°üµÈ °ü·Ã ÀÛ¾÷ ÇÊ¿ä.
+        // BattleManagerì—ì„œì˜ ì „íˆ¬ ì¤‘ì¸ì§€ì™€ ê°™ì€ ì¡°ê±´ê³¼ ê°™ì€ ì¶”ê°€ ì‘ì—… í•„ìš”
         if (CheckAvailability())
         {
             slotButton.interactable = true;
@@ -57,19 +56,18 @@ public class PotionSlotUI : MonoBehaviour
 
     private bool CheckAvailability()
     {
-        // ÀüÅõÁßÀÌ ¾Æ´Ò °æ¿ì¿¡´Â Æ÷¼Ç »ç¿ë ºÒ°¡´É.
+        // ì „íˆ¬ì¤‘ì´ ì•„ë‹ ê²½ìš°ì—ëŠ” í¬ì…˜ ì‚¬ìš© ë¶ˆê°€ëŠ¥
         if(BattleManager.Instance.battleState == BattleState.BattleEnd)
         {
             return false;
         }
-        // ÀÎº¥Åä¸®ÀÇ ÀÚ½ÅÀÇ ÀÎµ¦½º¿¡ Æ÷¼ÇÀÌ ¾øÀ» °æ¿ì¿¡´Â »ç¿ë ¸øÇÔ.
+        // ì¸ë²¤í† ë¦¬ì˜ ìì‹ ì˜ ì¸ë±ìŠ¤ì— í¬ì…˜ì´ ì—†ì„ ê²½ìš°ì—ë„ ì‚¬ìš© ë¶ˆê°€
         if (Inventory.Instance.GetPotionData(index) == null)
         {
             return false;
         }
-        // Á¶°Ç Ãß°¡µÉ ¼ö ÀÖÀ½.
+        // ì¶”ê°€ ì¡°ê±´ì„ ë” ë„£ì„ ìˆ˜ ìˆìŒ
         return true;
-
     }
 
     public void OnClickPotionSlotUI()
@@ -108,6 +106,5 @@ public class PotionSlotUI : MonoBehaviour
             slotImage.enabled = false;
             potionSprite.sprite = null;
         }
-
     }
 }

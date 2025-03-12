@@ -3,17 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "Scriptable Objects/EnemyDataSO")]
 public class EnemyDataSO : ScriptableObject
 {
-    [Header("¸÷ ÀÌ¸§")]
+    [Header("ì  ì´ë¦„")]
     public string enemyName;
-    [Header("¸÷ ¼³¸í")]
+    [Header("ì  ì„¤ëª…")]
     [TextArea] public string enemyLore;
 
-    [Header("Àû ½ºÇÁ¶óÀÌÆ®(¾Ö´Ï¸ŞÀÌ¼Ç ±â¹İ ½ºÇÁ¶óÀÌÆ®·Î º¯°æ ÇÊ¿ä)")]
+    [Header("ì  ìŠ¤í”„ë¼ì´íŠ¸(ì• ë‹ˆë©”ì´ì…˜ ì‚¬ìš© ìŠ¤í”„ë¼ì´íŠ¸ë¡œ ë³€ê²½ í•„ìš”)")]
     public Sprite enemytempSprite;
 
-    [Header("¸÷ ½ºÅÈ")]
+    [Header("ì  ìŠ¤íƒ¯")]
     public BaseStat stat;
 
-    [Header("¸÷ ÆĞÅÏ")]
+    [Header("ì  íŒ¨í„´")]
     public EnemyAttackPatternSO enemyAttackPattern;
 }

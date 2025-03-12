@@ -6,7 +6,7 @@ public class EnemyLoreUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text enemyNameText;
 
-    [Obsolete("EnemyDataSO ±â¹İÀ¸·Î »õ·Î Á¦ÀÛ ÇÊ¿ä.")]
+    [Obsolete("EnemyDataSO ë°ì´í„°ë¡œ ë³€ê²½ í•„ìš”.")]
     public void UpdateEnemyLore(string text)
     {
         enemyNameText.text = text;

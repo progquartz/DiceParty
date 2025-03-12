@@ -9,7 +9,7 @@ public class StrengthEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int strengthDelta = strength1;
-            targetStat.StrengthStack += strengthDelta;
+            targetStat.CalcEffectStack(EffectKey.StrengthEffect, strengthDelta);
         }
     }
 }

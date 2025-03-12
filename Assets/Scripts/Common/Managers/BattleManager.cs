@@ -22,7 +22,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public DiceRoller DiceRoller;
     public SkillExecutor SkillExecutor;
 
-    // ÀüÅõ¿¡ Âü¿© ÁßÀÎ Å¸°Ùµé ¸ñ·Ï (Àû, ¾Æ±º ¸ğµÎ)
+    // ì „íˆ¬ì— ì°¸ì—¬ ì¤‘ì¸ íƒ€ê²Ÿë“¤ ëª©ë¡ (ì , ì•„êµ° ëª¨ë‘)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
     [SerializeField] private List<BaseEnemy> enemyList = new List<BaseEnemy>();
     [SerializeField] private List<BaseCharacter> characterList = new List<BaseCharacter>();
@@ -53,7 +53,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void ResetDiceToDummy()
     {
-        // awake callÀÌ ´õ ´À¸± °æ¿ì¸¦ ´ëºñ.
+        // awake callì´ ì•ˆ ëœ ê²½ìš°ë¥¼ ëŒ€ë¹„
         if(DiceRoller == null)
         {
             DiceRoller = FindAnyObjectByType<DiceRoller>();
@@ -64,21 +64,21 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     public void StartBattlePhase(BattleType battleType)
     {
-        // ÀüÅõ ¿Ï·á »óÅÂ°¡ ¾Æ´Ñµ¥, È£ÃâµÈ °æ¿ì
+        // ì „íˆ¬ ì™„ë£Œ ìƒíƒœê°€ ì•„ë‹Œë°, í˜¸ì¶œëœ ê²½ìš°
         if (battleState != BattleState.BattleEnd)
         {
-            Logger.LogWarning($"[BattleManager] - ÀüÅõ°¡ ¿Ï·áµÇÁö ¾ÊÀº »óÅÂÀÎµ¥ »õ ÀüÅõ°¡ È£ÃâµÇ¾ú½À´Ï´Ù.");
+            Logger.LogWarning($"[BattleManager] - ì „íˆ¬ê°€ ì™„ë£Œë˜ì§€ ì•Šì€ ìƒíƒœì¸ë° ìƒˆ ì „íˆ¬ê°€ í˜¸ì¶œë˜ì—ˆìŠµë‹ˆë‹¤.");
             return;
         }
         currentBattleType = battleType;
-        // ½½·Ô¿¡ µî·Ï¾ÈµÈ ¾Öµé(ÇÃ·¹ÀÌ¾î°¡ ¹ö¸°°Íµé) ÀüºÎ Áö¿ì°í
+        // ì „íˆ¬ì— ì°¸ì—¬ì•ˆëœ ê²ƒë“¤(í”Œë ˆì´ì–´ ìºë¦­í„°ë“¤) ëª¨ë‘ ë“±ë¡í•˜ê¸°
         OnBattleStart?.Invoke();
 
         DiceRoller.RemoveAllDice();
-        // Àû ·ÎµåÇÏ±â
+        // ì  ë¡œë“œí•˜ê¸°
         EnemyMobListSetting(battleType);
 
-        // ±×¸®°í ÅÏ ½ÃÀÛÇÒ ¶§¿¡ ÀÌ·ïÁö´Â °Íµé Ãß°¡ ÁøÇà.
+        // ê·¸ë¦¬ê³  ìƒˆ ì „íˆ¬ë¥¼ ìœ„í•´ ì´ë£¨ì–´ì§ˆ ê²ƒë“¤ ì¶”ê°€ ì§„í–‰.
         PlayerTurnStart();
     }
 
@@ -86,10 +86,10 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     {
         battleState = BattleState.PlayerTurn;
 
-        // ÇÃ·¹ÀÌ¾î ÅÏ °¡Á¤. (½ºÅ³ ¶ô Ç®¸².)
+        // í”Œë ˆì´ì–´ í„´ ì‹œì‘. (ìŠ¤í‚¬ í’€ í’€ê¸°.)
         OnPlayerTurnStart?.Invoke();
 
-        // ÁÖ»çÀ§ »ç¿ë °¡´ÉÇÏ°Ô ¸¸µé°í...
+        // ì£¼ì‚¬ìœ„ ëª¨ë‘ í™œì„±í™”ê³  êµ´ë¦¬ê¸°...
         DiceRoller.RollAllDiceNew();
     }
 
@@ -97,7 +97,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     {
         if (battleState != BattleState.PlayerTurn)
         {
-            Logger.LogWarning($"[BattleManager] - ÇÃ·¹ÀÌ¾î ÅÏÀÌ ¾Æ´Ô¿¡µµ ÇÃ·¹ÀÌ¾î ÅÏÀ» Á¾·áÇÏ´Â Á¶°ÇÀÌ ½ÇÇàµÇ¾ú½À´Ï´Ù.");
+            Logger.LogWarning($"[BattleManager] - í”Œë ˆì´ì–´ í„´ì´ ì•„ë‹˜ì—ë„ í”Œë ˆì´ì–´ í„´ì„ ì¢…ë£Œí•˜ëŠ” ëª…ë ¹ì´ ì‹¤í–‰ë˜ì—ˆìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -114,7 +114,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     {
         if(battleState == BattleState.BattleEnd)
         {
-            Logger.LogWarning($"[BattleManager] - ÀüÅõ ÅÏÀÌ Á¾·áµÈ »óÅÂ¿¡¼­ ÀüÅõ Á¾·á ");
+            Logger.LogWarning($"[BattleManager] - ì´ë¯¸ ì „íˆ¬ ì¢…ë£Œëœ ìƒíƒœì—ì„œ ì „íˆ¬ ì¢…ë£Œ ");
         }
 
         battleState = BattleState.BattleEnd;
@@ -122,11 +122,11 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         ResetDiceToDummy();
         OnBattleEnd?.Invoke();
 
-        // ÇÃ·¹ÀÌ¾î°¡ ½Â¸®ÀÏ °æ¿ì...
+        // í”Œë ˆì´ì–´ê°€ ìŠ¹ë¦¬í•œ ê²½ìš°...
         if(isPlayerWin)
         {
-            Debug.LogWarning("Àû ¸®½ºÆ® Á¦°Å ½ÃÀÛ!");
-            // ¸ğµç Àû ¸®½ºÆ® Á¦°Å. 
+            Debug.LogWarning("ì  ë°°í‹€í•„ë“œ ì œê±° ì‹œì‘!");
+            // ëª¨ë“  ì  ë°°í‹€í•„ë“œ ì œê±°. 
             for (int i = activeTargets.Count - 1; i >= 0; i--)
             {
                 BaseTarget target = activeTargets[i];
@@ -135,7 +135,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     BaseTarget activeEnemy = enemyList[j];
                     if (target == activeEnemy)
                     {
-                        Debug.LogWarning($"Àû {target.name}À» ¸®½ºÆ®¿¡¼­ Á¦°ÅÇÕ´Ï´Ù!");
+                        Debug.LogWarning($"ì  {target.name}ì„ ë°°í‹€í•„ë“œì—ì„œ ì œê±°í•©ë‹ˆë‹¤!");
                         activeTargets.RemoveAt(i);
                         enemyList.RemoveAt(j);
                         Destroy(target.gameObject);
@@ -143,7 +143,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     }
                 }
             }
-            // ¸¸¾à ÀüÅõ À¯ÇüÀÌ º¸½ºÀÏ °æ¿ì...
+            // ë³´ìŠ¤ ì „íˆ¬ ìŠ¹ë¦¬í•œ ê²½ìš°ì—ëŠ” ë³´ìƒì´ ë‹¤ë¦„...
             if((int)currentBattleType % 10 == 2)
             {
                 LootingManager.Instance.OpenLootingTable(currentBattleType, true);
@@ -154,7 +154,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             }
             
         }
-        // ÀûÀÌ ½Â¸®ÀÏ °æ¿ì
+        // ì ì´ ìŠ¹ë¦¬í•œ ê²½ìš°
         else
         {
             for (int i = activeTargets.Count - 1; i >= 0; i--)
@@ -165,7 +165,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     BaseTarget activeEnemy = enemyList[j];
                     if (target == activeEnemy)
                     {
-                        Debug.LogWarning($"¾Æ±º Ä³¸¯ÅÍ {target.name}À» ¸®½ºÆ®¿¡¼­ Á¦°ÅÇÕ´Ï´Ù!");
+                        Debug.LogWarning($"ì•„êµ° ìºë¦­í„° {target.name}ì„ ë°°í‹€í•„ë“œì—ì„œ ì œê±°í•©ë‹ˆë‹¤!");
                         activeTargets.RemoveAt(i);
                         characterList.RemoveAt(j);
                         Destroy(target.gameObject);
@@ -173,7 +173,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                     }
                 }
             }
-            // °ÔÀÓ¿À¹ö UI ¼ÛÃâ.
+            // ê²Œì„ì˜¤ë²„ UI ì¶œë ¥.
             currentBattleType = BattleType.None;
         }
         currentBattleType = BattleType.None;
@@ -187,7 +187,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         if (randomHorde == null)
         {
-            Logger.LogWarning("[BattleManager] - ·£´ı È£µå¸¦ Ã£Áö ¸øÇß½À´Ï´Ù!");
+            Logger.LogWarning("[BattleManager] - ì ë‹¹í•œ í˜¸ë“œë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤!");
             return;
         }
 
@@ -200,23 +200,23 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
 
     /// <summary>
-    /// Àû ÅÏ ½ÇÇà¿¡ ÇÊ¿äÇÑ ¿ä¼Òµé ÄÚ·çÆ¾ ±¸¼º
+    /// ì  í„´ ì‹¤í–‰ì— í•„ìš”í•œ ìš”ì†Œë“¤ ì½”ë£¨í‹´ ì‹¤í–‰
     /// </summary>
     private IEnumerator ExecuteEnemyTurn()
     {
         OnEnemyTurnStart?.Invoke();
-        // Àû ÅÏ ½ÇÇà.
-        Logger.Log("Àû °ø°İ!");
+        // ì  í„´ ì‹œì‘.
+        Logger.Log("ì  í„´!");
 
-        // Àû ¸¶´Ù... ¼ø¼­ ÁøÇà. Àû ÇÁ·¹ÀÓ¿¡ ¸ÂÃç ÃÊ´ç ´ë±â.
+        // ì  ê³µê²©... ìˆœì„œ ì‹¤í–‰. í•œ í”„ë ˆì„ì— ëª¨ë‘ í•˜ì§€ ì•ŠëŠ” ê²ƒì„.
         foreach(BaseEnemy enemy in enemyList)
         {
             enemy.AttackOnPattern();
 
-            // ¿©±â¿¡¼­ ¾Ö´Ï¸ŞÀÌ¼Ç ¼öÇà. 
+            // ì—¬ê¸°ì—ì„œ ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰. 
 
             // yield return new WaitForSeconds(animationTIme);
-            // ¿©±â¿¡ nullÀº ÀÌÈÄ¿¡ Àû Çàµ¿ ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà ÈÄ ´ë±âÇÏ´Â ½Ã°£À¸·Î ¼öÁ¤.
+            // ì—¬ê¸°ì— nullì´ ë‚˜ì¤‘ì— ê° í–‰ë™ ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰ í›„ ì¢…ë£Œí•˜ëŠ” ì‹œê°„ê¹Œì§€ ëŒ€ê¸°.
 
             if(CheckAllEnemiesDead())
             {
@@ -232,23 +232,23 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             yield return null;
         }
 
-        // Àû ÅÏÀÌ ³¡³µÀ¸¸é ÇÃ·¹ÀÌ¾î ÅÏÀ¸·Î º¹±Í
-        // ÀüÅõ Á¾·á Á¶°Ç Ã¼Å©(¸ğµç Àû »ç¸Á, ¸ğµç ÇÃ·¹ÀÌ¾î »ç¸Á µî)
+        // ì  ê³µê²© ëë‚¬ìœ¼ë©´ í”Œë ˆì´ì–´ ì°¨ë¡€ë¡œ ì „í™˜
+        // ì „íˆ¬ ì¢…ë£Œ ì¡°ê±´ ì²´í¬(ëª¨ë“  ì  ì‚¬ë§, ëª¨ë“  í”Œë ˆì´ì–´ ì‚¬ë§ ë“±)
 
 
-        // Àû ÅÏ ½ÇÇà.
+        // ì  í„´ ì¢…ë£Œ.
         OnEnemyTurnEnd?.Invoke();
-        Logger.Log("Àû °ø°İ ³¡.");
+        Logger.Log("ì  í„´ì´ ë.");
         
         PlayerTurnStart();
-        // ÀÌÈÄ ÇÃ·¹ÀÌ¾î°¡ Çàµ¿ÇÒ ¼ö ÀÖµµ·Ï UI È°¼ºÈ­ µî
+        // ì´ì œ í”Œë ˆì´ì–´ê°€ í–‰ë™í•  ìˆ˜ ìˆë„ë¡ UI í™œì„±í™” ë“±
         yield break;
     }
 
 
     
 
-    [Obsolete("ÆÄÆ¼¸¦ °ü¸®ÇØÁÖ´Â ½ºÅ©¸³Æ®¸¦ ÀÛ¼ºÇØ¼­ ÀÌ¸¦ °³º°ÀûÀ¸·Î °ü¸®ÇØÁà¾ß¸¸ ÇÔ.")]
+    [Obsolete("ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ø¼ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½.")]
     private void AddPlayerParty()
     {
         BaseCharacter[] targets = partyParentTransform.GetComponentsInChildren<BaseCharacter>();
@@ -270,33 +270,33 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     {
         if (target == null)
         {
-            Logger.LogWarning("[BattleManager] ºñÁ¤»óÀûÀÎ null°ªÀ» °¡Áø Å¸°ÙÀÌ µî·ÏµÇ·Á ÇÕ´Ï´Ù.");
+            Logger.LogWarning("[BattleManager] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÏµÇ·ï¿½ ï¿½Õ´Ï´ï¿½.");
             return;
         }
 
         if (!activeTargets.Contains(target))
         {
             activeTargets.Add(target);
-            target.OnDead += OnTargetDead; // »ç¸Á ÀÌº¥Æ® ±¸µ¶
+            target.OnDead += OnTargetDead; // ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             target.OnRemoval += OnTargetRemoval;
         }
     }
 
     private void OnTargetDead(BaseTarget deadTarget)
     {
-        // ½ÇÁ¦ ÀüÅõ¿¡¼­ Á×Àº ´ë»óÀ» Á¦°ÅÇÏ°Å³ª, UI °»½Å µî
-        Logger.Log($"[BattleManager] {deadTarget.name} »ç¸Á Ã³¸®");
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½, UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        Logger.Log($"[BattleManager] {deadTarget.name} ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
 
-        // ³²Àº Àû/¾Æ±º Ã¼Å© ÈÄ ÀüÅõ ½Â¸®/ÆĞ¹è ·ÎÁ÷ µî
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½/ï¿½Æ±ï¿½ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â¸ï¿½/ï¿½Ğ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (CheckAllEnemiesDead())
         {
-            Logger.Log("ÇÃ·¹ÀÌ¾î ½Â¸®!");
+            Logger.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â¸ï¿½!");
             BattleManager.Instance.EndBattlePhase(true);
         }
         
         if(CheckAllPlayerDead())
         {
-            Logger.Log("Àû ½Â¸®!");
+            Logger.Log("ï¿½ï¿½ ï¿½Â¸ï¿½!");
             BattleManager.Instance.EndBattlePhase(false);
         }
 
@@ -304,8 +304,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     private void OnTargetRemoval(BaseTarget deadTarget)
     {
-        // ½ÇÁ¦ ÀüÅõ¿¡¼­ Á×Àº ´ë»óÀ» Á¦°ÅÇÏ°Å³ª, UI °»½Å µî
-        Debug.Log($"[BattleManager] {deadTarget.name} »èÁ¦ Ã³¸®");
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½, UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        Debug.Log($"[BattleManager] {deadTarget.name} ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
 
 
         if (activeTargets.Contains(deadTarget))
@@ -315,16 +315,16 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         
 
-        // ³²Àº Àû/¾Æ±º Ã¼Å© ÈÄ ÀüÅõ ½Â¸®/ÆĞ¹è ·ÎÁ÷ µî
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½/ï¿½Æ±ï¿½ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â¸ï¿½/ï¿½Ğ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (CheckAllEnemiesDead())
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î ½Â¸®!");
+            Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â¸ï¿½!");
         }
 
 
         if (CheckAllPlayerDead())
         {
-            Debug.Log("Àû ½Â¸®!");
+            Debug.Log("ï¿½ï¿½ ï¿½Â¸ï¿½!");
         }
 
     }
@@ -345,7 +345,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     {
         foreach (var t in activeTargets)
         {
-            // BaseEnemy¸¦ »ó¼Ó¹ŞÀº ÀûÀÌ »ì¾Æ ÀÖÀ¸¸é false
+            // BaseEnemyï¿½ï¿½ ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ false
             if (t is BaseEnemy && t.stat.Hp > 0)
                 return false;
         }
@@ -363,10 +363,10 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     }
 
     /// <summary>
-    /// ½ºÅ×ÀÌÁö ¹øÈ£¿Í ÀüÅõ À¯ÇüÀ» ¹Ş¾Æ¿Í ¹èÆ²Å¸ÀÔÀ¸·Î º¯È¯.
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ ï¿½ï¿½Æ²Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯.
     /// </summary>
-    /// <param name="stageNumber">½ºÅ×ÀÌÁö ¹øÈ£</param>
-    /// <param name="battleType">ÀüÅõÀÇ À¯Çü [0 : ÀÏ¹İ ÀüÅõ / 1 : ¿¤¸®Æ® ÀüÅõ / 2 : º¸½º ÀüÅõ]</param>
+    /// <param name="stageNumber">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£</param>
+    /// <param name="battleType">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ [0 : ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ / 1 : ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ / 2 : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½]</param>
     /// <returns></returns>
     public static BattleType ConvertToStageType(int stageNumber, int battleType)
     {
@@ -378,8 +378,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         }
         else
         {
-            // °ªÀÌ Á¤ÀÇµÇÁö ¾ÊÀº °æ¿ì Ã³¸®
-            Logger.LogError($"ÇöÀç ½ºÅ×ÀÌÁö ´ÜÀ§{battleNum}À» BattleTypeÀ¸·Î º¯È¯ÇÏ´Â °úÁ¤¿¡¼­ Ã£Áö ¸øÇß½À´Ï´Ù.");
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+            Logger.LogError($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½{battleNum}ï¿½ï¿½ BattleTypeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
             return BattleType.Stage1Boss;
             
         }

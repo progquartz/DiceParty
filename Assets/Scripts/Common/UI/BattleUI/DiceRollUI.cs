@@ -6,7 +6,7 @@ public class DiceRollUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text diceValueText;
 
-    // Dice°¡ ±¼·ÁÁú ¶§¸¶´Ù ÀÌ ¸Ş¼­µå°¡ È£Ãâ
+    // Diceì˜ ê°’ì´ ë³€ê²½ë  ë•Œ ë©”ì„œë“œê°€ í˜¸ì¶œë¨
     public void UpdateUI(int value)
     {
         if (diceValueText != null)

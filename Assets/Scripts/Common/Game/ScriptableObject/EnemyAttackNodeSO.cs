@@ -4,66 +4,66 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "EnemyAttackNodeSO", menuName = "Scriptable Objects/EnemyAttackNodeSO")]
 public class EnemyAttackNodeSO : ScriptableObject
 {
-    [Header("ÀÌ ³ëµå¿¡¼­ ½ÇÇàÇÒ °ø°İ ¸®½ºÆ®(1°³ ÀÌ»ó °¡´É)")]
-    [Header("°ø°İ¸í")]
+    [Header("ì´ ë…¸ë“œì—ì„œ ì‚¬ìš©í•  ê³µê²© ë¦¬ìŠ¤íŠ¸(1ê°œ ì´ìƒ í•„ìš”)")]
+    [Header("ê³µê²©ëª…")]
     public string attackName;
 
-    // ³ÖÀ»Áö´Â ¸ğ¸£°Ú´Ù¸¸Àº...
-    [Header("°ø°İ ½Ã ÇÏ°Ô µÇ´Â ´ë»ç")]
+    // ì„¤ëª…í•˜ê¸° ëª¨ë¥´ê² ë‹¤ë©´...
+    [Header("ê³µê²© ì‹œ í•˜ê²Œ ë˜ëŠ” í–‰ë™")]
     [TextArea] public string attackText;
 
-    [Header("½ºÅ³ÀÌ °¡Áö°Ô µÇ´Â ÀÌÆåÆ®")]
+    [Header("ìŠ¤í‚¬ë¡œ ì‚¬ìš©ë  ë˜ëŠ” ì´í™íŠ¸")]
     public List<SkillEffectData> attackEffects;
 
 
-    // ´ÙÀ½ ³ëµå Á¤ÀÇ
+    // ë‹¤ìŒ ë…¸ë“œ ì„¤ì •
 
-    [Header("´ÙÀ½ ³ëµå·Î °¡´Â ¹æ¹ıÀ» Á¤ÀÇ")]
+    [Header("ë‹¤ìŒ ë…¸ë“œ ì„ íƒ ë°©ì‹ì˜ ì¢…ë¥˜")]
     public TransitionType transitionType;
 
-    // ¼øÂ÷ ÀÌµ¿
-    [Tooltip("¼øÂ÷ Á¶°ÇÀÏ ¶§, ´ÙÀ½ ³ëµå¸¦ ¿¬°á")]
+    // ìˆœì°¨ ì´ë™
+    [Tooltip("ìˆœì°¨ ì´ë™ì¼ ë•Œ, ë‹¤ìŒ ë…¸ë“œë¥¼ ì§€ì •")]
     public EnemyAttackNodeSO nextNode;
 
 
-    [Header("È®·ü ±â¹İ ºĞ±â ½Ã »ç¿ë")]
-    // È®·ü ±â¹İ ºĞ±â
-    [Tooltip("Á¶°ÇÀÌ È®·ü ±â¹İÀÏ¶§ È®·ü")]
+    [Header("í™•ë¥  ì„ íƒ ë¶„ê¸° ì‹œ ì‚¬ìš©")]
+    // í™•ë¥  ì„ íƒ ë¶„ê¸°
+    [Tooltip("ì„ íƒì´ í™•ë¥  ê¸°ë°˜ì¼ë•Œ í™•ì¸")]
     public List<ProbabilityTransition> probabilityTransitions;
 
-    [Header("Á¶°Ç ±â¹İ ºĞ±â ½Ã »ç¿ë")]
-    // Á¶°Ç ±â¹İ ºĞ±â (ÀÓ½Ã·Î ¸¸µë)
-    [Tooltip("Á¶°Ç ±â¹İ ºĞ±â (¹Ì¿Ï¼º)")]
+    [Header("ì¡°ê±´ ì„ íƒ ë¶„ê¸° ì‹œ ì‚¬ìš©")]
+    // ì¡°ê±´ ì„ íƒ ë¶„ê¸° (ì„ì‹œë¡œ ì œì‘)
+    [Tooltip("ì¡°ê±´ ì„ íƒ ë¶„ê¸° (ë¯¸ì™„ì„±)")]
     public ConditionalTransitionList conditionalTransitions; 
 }
 
 /// <summary>
-/// ³ëµå ÀüÈ¯ ¹æ½Ä
+/// ë…¸ë“œ ì „í™˜ ë°©ì‹
 /// </summary>
 public enum TransitionType
 {
     None,
-    Sequence,      // ´Ü¼øÈ÷ ´ÙÀ½ ³ëµå·Î ³Ñ¾î°¨(1:1)
-    Probability,   // È®·ü ±â¹İ ºĞ±â.
-    Condition,  // Ã¼·Â Á¶°Ç µî ºĞ±â Á¶°Ç ÇÊ¿ä. -> °í¹ÎÇØº¸±â
+    Sequence,      // ë‹¨ìˆœíˆ ë‹¤ìŒ ë…¸ë“œë¡œ ë„˜ê¹€(1:1)
+    Probability,   // í™•ë¥  ì„ íƒ ë¶„ê¸°.
+    Condition,  // ì²´ë ¥ ë“±ì˜ ê°’ ë¶„ê¸° ë“±ì´ í•„ìš”. -> ê³ ë ¤í•´ë³´ì
 }
 
 /// <summary>
-/// È®·ü ±â¹İ ºĞ±â Á¤º¸
+/// í™•ë¥  ì„ íƒ ë¶„ê¸° ì •ë³´
 /// </summary>
 [System.Serializable]
 public class ProbabilityTransition
 {
-    public EnemyAttackNodeSO nextNode;  // ÀÌµ¿ÇÒ ³ëµå
+    public EnemyAttackNodeSO nextNode;  // ëª©í‘œ ë…¸ë“œ
     [Range(0f, 1f)]
-    public float probability;           // 0~1 »çÀÌ È®·ü
+    public float probability;           // 0~1 ì‚¬ì´ì˜ í™•ë¥ 
 }
 
 public enum ConditionOperator
 {
-    None,            // Á¶°Ç ¾øÀ½ (¹«Á¶°Ç true·Î °£ÁÖ)
-    HpLessThan,      // ´ë»ó HP < threshold
-    HpGreaterThan    // ´ë»ó HP > threshold
+    None,            // ì¡°ê±´ ì—†ìŒ (í•­ìƒ true ë°˜í™˜)
+    HpLessThan,      // HP < threshold
+    HpGreaterThan    // HP > threshold
 }
 
 [System.Serializable]
@@ -71,20 +71,20 @@ public class ConditionalTransitionList
 {
     public List<ConditionalTransition> conditions;
 
-    [Header("Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¾ÊÀ¸¸é ÀÌµ¿ÇÒ ³ëµå")]
+    [Header("ì¡°ê±´ ì¶©ì¡± ì‹œ ëª©í‘œ ë…¸ë“œ")]
     public EnemyAttackNodeSO defaultNextNode;
 }
 
 [System.Serializable]
 public class ConditionalTransition
 {
-    [Header("¾î¶² Á¶°ÇÀ» Ã¼Å©ÇÒÁö")]
+    [Header("í˜„ì¬ ì¡°ê±´ íƒ€ì…")]
     public ConditionOperator conditionType;
 
-    [Header("HP ºñ±³¿¡ »ç¿ëÇÒ ±âÁØ°ª")]
+    [Header("HP ê¸°ì¤€ ê°’ ì…ë ¥")]
     public float thresholdValue;
 
-    [Header("Á¶°ÇÀ» ¸¸Á·ÇÏ¸é ÀÌµ¿ÇÒ ³ëµå")]
+    [Header("ì¡°ê±´ ì¶©ì¡± ì‹œ ëª©í‘œ ë…¸ë“œ")]
     public EnemyAttackNodeSO conditionedNextNode;
 
 }

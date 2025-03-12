@@ -1,4 +1,5 @@
-using Unity.VisualScripting.Antlr3.Runtime;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,64 +8,70 @@ public class BaseStat
     public int Hp;
     public int maxHp;
     public int ArmourStack;
-
     public bool isDead = false;
 
-
-    // ¹öÇÁ ºÎºĞ.
+    // íš¨ê³¼ ìŠ¤íƒì„ Dictionaryë¡œ ê´€ë¦¬
+    private Dictionary<EffectKey, int> effectStacks = new Dictionary<EffectKey, int>();
     
-    public int StrengthStack; // Èû
-    
-    public int ThornStack; // °¡½Ã°©¿Ê
-    public int TauntStack; // µµ¹ß
+    public event Action<EffectKey, int> OnUpdatingEffectStack;
+    public event Action<EffectKey> OnRemovingEffectStack;
 
-    public int ImmuneStack; // Á¤È­
+    public void CalcEffectStack(EffectKey effect, int value)
+    {
+        if(effectStacks.ContainsKey(effect))
+        {
+            if (effectStacks[effect] + value <= 0)
+            {
+                effectStacks.Remove(effect); // 0ì´ë©´ ì œê±°
+                OnRemovingEffectStack?.Invoke(effect);
+            }
+            else
+            {
+                effectStacks[effect] += value;
+                OnUpdatingEffectStack?.Invoke(effect, effectStacks[effect]);
+            }
+        }
+        else
+        {
+            effectStacks.Add(effect, value);
+            OnUpdatingEffectStack?.Invoke(effect, effectStacks[effect]);
+        }
+    }
 
-    // ¹öÇÁ Áõ°¡ ¹öÇÁ
-    public int fortifyStack; // ¹æº®
-    public int PassionStack; // ¿­Á¤
-    public int RegenStack;
+    public int GetEffect(EffectKey effect)
+    {
+        return effectStacks.ContainsKey(effect) ? effectStacks[effect] : 0;
+    }
 
-    // µğ¹öÇÁ ºÎºĞ
+    public bool HasEffect(EffectKey effect)
+    {
+        return effectStacks.ContainsKey(effect);
+    }
 
-    // µ¶ / È­¿°
-    public int PoisonStack; // µ¶
-    public int FireStack; // È­¿°
-
-
-    public int ConfuseStack; // È¥¶õ
-    public int WeakenStack; // ¼è¾à
-    public int WitherStack; // ºÎÆĞ
-
-    
-    public int StunnedStack; // ½ºÅÏ
+    public Dictionary<EffectKey, int> GetAllEffects()
+    {
+        return new Dictionary<EffectKey, int>(effectStacks);
+    }
 
     public void SetStat(BaseStat stat)
     {
-        this.Hp = stat.Hp;
-        this.maxHp = stat.maxHp;
-        this.ArmourStack = stat.ArmourStack;
+        Hp = stat.Hp;
+        maxHp = stat.maxHp;
+        ArmourStack = stat.ArmourStack;
+        isDead = stat.isDead;
 
-        this.isDead = stat.isDead;
+        var originalEffects = stat.GetAllEffects();
+        if(originalEffects != null)
+        {
+            if(originalEffects.Count > 0)
+            {
+                Logger.LogError("ë²„í”„ë‚˜ / ë””ë²„í”„ ë“±ì´ í¬í•¨ëœ ë°ì´í„°ë¥¼ ë³µì‚¬í•˜ë ¤ ì‹œë„í•©ë‹ˆë‹¤.");
+            }
+        }
+    }
 
+    public void Cleanse()
+    {
 
-        this.StrengthStack = stat.StrengthStack;
-
-        this.ThornStack  = stat.ThornStack;
-        this.TauntStack  = stat.TauntStack;
-
-        this.ImmuneStack = stat.ImmuneStack;
-
-        this.fortifyStack = stat.fortifyStack;
-        this.PassionStack = stat.PassionStack;
-        this.RegenStack = stat.RegenStack;  
-
-        this.PoisonStack = stat.PoisonStack;
-        this.FireStack = stat.FireStack;
-
-
-        this.ConfuseStack = stat.ConfuseStack;
-        this.WeakenStack = stat.WeakenStack;
-        this.WitherStack = stat.WitherStack;
     }
 }

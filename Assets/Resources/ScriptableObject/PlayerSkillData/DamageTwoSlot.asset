@@ -18,7 +18,7 @@ MonoBehaviour:
   skillUseCount: 2
   skillEffects:
   - targetClassName: 0
-    effectClassName: 0
+    effectClassName: 10
     strength1: 3
     strength2: 0
   diceRequirements:

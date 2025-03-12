@@ -9,10 +9,10 @@ public class DiceInteract : MonoBehaviour
     private Vector3 offset;
     private Dice dice;
 
-    // ÀÌ ÁÖ»çÀ§°¡ ÇöÀç ¾î¶² ½½·Ô¿¡ ºÙ¾î ÀÖ´ÂÁö(¾ø´Ù¸é null)
+    // ì´ ì£¼ì‚¬ìœ„ê°€ í˜„ì¬ ì–´ë–¤ ìŠ¬ë¡¯ì— ë¶™ì–´ ìˆëŠ”ì§€(ì—†ë‹¤ë©´ null)
     private SkillDiceSlotUI currentSlot = null;
 
-    // Canvas¿¡ ÀÖ´Â GraphicRaycaster¿Í EventSystem
+    // Canvasì— ìˆëŠ” GraphicRaycasterì™€ EventSystem
     public GraphicRaycaster graphicRaycaster;
     public EventSystem eventSystem;
 
@@ -43,14 +43,14 @@ public class DiceInteract : MonoBehaviour
         }
     }
 
-    // ÁÖ»çÀ§ µå·¡±× ½ÃÀÛ
+    // ì£¼ì‚¬ìœ„ ë“œë˜ê·¸ ì‹œì‘
     void OnMouseDown()
     {
         if(dice.IsInteractable)
         {
             isDragging = true;
 
-            // ½½·Ô¿¡ ÀÚ¸®Àâ¾ÒÀ» ¶§¿¡, ¸¶¿ì½º¸¦ ³õÀ½À¸·Î½á Detach
+            // ìŠ¬ë¡¯ì— ìë¦¬ì¡ê³  ìˆë˜ ê²½ìš°, ë§ˆìš°ìŠ¤ë¡œ ë“¤ì–´ì˜¬ë ¤ì„œ Detach
             if (currentSlot != null)
             {
                 currentSlot.OnDiceDetach(dice);
@@ -63,14 +63,14 @@ public class DiceInteract : MonoBehaviour
         }
     }
 
-    // µå·¡±× ÁßÁö
+    // ë“œë˜ê·¸ ì¢…ë£Œ
     void OnMouseUp()
     {
         if(dice.IsInteractable)
         {
             isDragging = false;
 
-            // ¸¶¿ì½º°¡ ³õÀÎ UI¸¦ Raycast·Î È®ÀÎ
+            // ë§ˆìš°ìŠ¤ê°€ ìˆëŠ” UIì— Raycastë¥¼ í™•ì¸
             PointerEventData pointerData = new PointerEventData(eventSystem);
             pointerData.position = Input.mousePosition;
 
@@ -84,13 +84,13 @@ public class DiceInteract : MonoBehaviour
                 var slot = r.gameObject.GetComponent<SkillDiceSlotUI>();
                 if (slot != null)
                 {
-                    // ½½·Ô¿¡ µî·ÏµÈ ´ÙÀÌ½º°¡ ¾ø´Â °æ¿ì¿¡¸¸
+                    // ìŠ¬ë¡¯ì— ë“±ë¡ëœ ë‹¤ì´ìŠ¤ê°€ ì—†ëŠ” ê²½ìš°ì—ë§Œ
                     if (slot.IsSlotAvailableToDice())
                     {
-                        // ½½·Ô ½ºÅ©¸³Æ®°¡ ÀÖ´Ù¸é ½½·Ô¿¡ ÀåÂø
+                        // í˜„ì¬ ìŠ¤í¬ë¦½íŠ¸ê°€ ìˆë‹¤ë©´ ìŠ¬ë¡¯ì— ë¶€ì°©
                         slot.OnDiceAttach(dice);
 
-                        // ÀÌÁ¦ ÀÌ ÁÖ»çÀ§ÀÇ currentSlotµµ °»½Å
+                        // í˜„ì¬ ì´ ì£¼ì‚¬ìœ„ì˜ currentSlotì„ ì„¤ì •
                         currentSlot = slot;
 
                         droppedOnSlot = true;
@@ -98,7 +98,7 @@ public class DiceInteract : MonoBehaviour
                     }
                     else
                     {
-                        Logger.Log("[DiceInteract] ÁÖ»çÀ§°¡ »ç¿ë ºÒ°£À¸ÇÑ ½½·Ô¿¡ µé¾î°¡·Á°í ÇÕ´Ï´Ù.");
+                        Logger.Log("[DiceInteract] ì£¼ì‚¬ìœ„ê°€ ë¶€ì°© ë¶ˆê°€ëŠ¥í•œ ìŠ¬ë¡¯ì— ë†“ìœ¼ë ¤ í•©ë‹ˆë‹¤.");
                     }
 
                 }
@@ -106,11 +106,11 @@ public class DiceInteract : MonoBehaviour
 
             if (droppedOnSlot)
             {
-                //Logger.Log("[DiceInteract] ½½·Ô¿¡ µå·Ó ¼º°ø!");
+                //Logger.Log("[DiceInteract] ìŠ¬ë¡¯ì— ë¶€ì°© ì„±ê³µ!");
             }
             else
             {
-                //Logger.Log("[DiceInteract] ½½·ÔÀÌ ¾Æ´Ñ °÷¿¡ µå·ÓµÊ.");
+                //Logger.Log("[DiceInteract] ìŠ¬ë¡¯ì´ ì•„ë‹Œ ê³³ì— ë†“ì•„ì§.");
             }
         }
         

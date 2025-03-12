@@ -16,7 +16,7 @@ MonoBehaviour:
   attackText: 
   attackEffects:
   - targetClassName: 3
-    effectClassName: 0
+    effectClassName: 10
     strength1: 6
     strength2: 0
   transitionType: 1

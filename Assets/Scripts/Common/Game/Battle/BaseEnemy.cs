@@ -7,14 +7,14 @@ public class BaseEnemy : BaseTarget
     [SerializeField] private EnemyDataSO enemyDataSO;
 
 
-    [Header("Àû UI")]
+    [Header("ì  UI")]
     [SerializeField] private SpriteRenderer enemySprite;
 
     [SerializeField] private TMP_Text enemyNameText;
     
     private EnemyPatternExecutor enemyPatternExecutor;
 
-    [Obsolete("ÀÓ½Ã test")]
+    [Obsolete("ì„ì‹œ test")]
     private void Awake()
     {
         Init();
@@ -30,16 +30,16 @@ public class BaseEnemy : BaseTarget
     }
 
     /// <summary>
-    /// Àû ÅÏ ½ÃÀÛ 
+    /// ì  í„´ ì‹œì‘ 
     /// </summary>
     private void OnEnemyTurnStart()
     {
-        // ÅÏ ½ÃÀÛ / ³¡ ½Ã È¿°ú °è»ê.
+        // í„´ ì‹œì‘ / í„´ ë³„ íš¨ê³¼ ê³„ì‚°.
         base.EffectCalcOnTurnStart();
     }
 
     /// <summary>
-    /// Àû ÅÏ ³¡
+    /// ì  í„´ ë
     /// </summary>
     private void OnEnemyTurnEnd()
     {

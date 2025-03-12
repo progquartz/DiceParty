@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ShopUI : BaseUI
 {
-    // shopitemui ±â¹İÀÇ ¾ÆÀÌÅÛµéÀ» ¹èÄ¡ÇÏ´Â °ø°£ Á¦ÀÛ.
-    // °¢°¢ÀÇ °´Ã¼µéÀº ½ÃÀÛÇÏÀÚ¸¶ÀÚ ÀÌ°÷¿¡ µî·Ï.
-    // ÆÇ¸Å µÉ ¶§¿¡ ShopUI¸¦ È£ÃâÇÏ¿© °è»êÀ» Ã³¸®.
+    // shopitemui ë“¤ì—ì„œ ì•„ì´í…œë“¤ì„ ë°°ì¹˜í•˜ëŠ” ê²ƒì„ ê´€ë¦¬.
+    // ë ˆì´ì•„ì›ƒ ì „ì²´ì ì¸ í”„ë¦¬íŒ¹ìë¦¬ëŠ” ì´ê³³ì— ë‘ .
+    // íŒë§¤ ë“± ê´€ë ¨ ShopUIë¥¼ í˜¸ì¶œí•˜ì—¬ ê²°ê³¼ë¥¼ ì²˜ë¦¬.
 
 
-    // ·£´ıÇÏ°Ô ÇÏ³ª°¡ ¹èÄ¡ µÉ ¾ÆÀÌÅÛ °ø°£.
+    // ëœë¤í•˜ê²Œ í•˜ë‚˜ì˜ ë°°ì¹˜ ì¤‘ ì„ íƒí•´ ìƒì„±.
     [SerializeField] private GameObject[] shopLayoutLists;
     [SerializeField] private GameObject shopLayout;
 
@@ -43,7 +43,7 @@ public class ShopUI : BaseUI
     public void FinishShopping()
     {
         ReleaseEvents();
-        Debug.Log("ÀÌº¥Æ® ¿¬°á");
+        Debug.Log("ì´ë²¤íŠ¸ í•´ì œ");
         Close();
     }
 
@@ -69,5 +69,4 @@ public class ShopUI : BaseUI
             return false;
         }
     }
-
 }

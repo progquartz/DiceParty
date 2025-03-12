@@ -54,7 +54,7 @@ public class LootingUI : BaseUI
 
         }
 
-        /// ¼³Á¤ ³¡³ª¸é...
+        /// ë³´ìƒ ì„¸íŒ…...
     }
 
     private int GetLootCount(int percent)
@@ -106,9 +106,7 @@ public class LootingUI : BaseUI
     public void FinishLooting()
     {
         ReleaseEvents();
-        Debug.Log("ÀÌº¥Æ® ¿¬°á");
+        Debug.Log("ì´ë²¤íŠ¸ í•´ì œ");
         Close();
     }
-
-
 }

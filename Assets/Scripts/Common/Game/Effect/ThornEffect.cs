@@ -9,7 +9,7 @@ public class ThornEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int thornDelta = strength1;
-            targetStat.ThornStack += thornDelta;
+            targetStat.CalcEffectStack(EffectKey.ThornEffect, thornDelta);
         }
     }
 }

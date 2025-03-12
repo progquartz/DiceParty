@@ -9,14 +9,14 @@ public class ConfuseEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             
-            if(targetStat.ImmuneStack > 0) // 정화 시 디버프 삭제.
+            if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {
-                targetStat.ImmuneStack--;
+                targetStat.CalcEffectStack(EffectKey.ImmuneEffect, -1);
             }
             else
             {
                 int ConfuseDelta = strength1;
-                targetStat.ConfuseStack += ConfuseDelta;
+                targetStat.CalcEffectStack(EffectKey.ConfuseEffect, ConfuseDelta);
             }
         }
     }

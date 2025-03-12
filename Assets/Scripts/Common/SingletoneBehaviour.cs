@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
 {
-    // ¾À ÀüÈ¯½Ã ÆÄ±« ¿©ºÎ ¼³Á¤ °¡´É.
+    // ì”¬ ì „í™˜ì‹œ íŒŒê´´ ì—¬ë¶€ ê²°ì • ë³€ìˆ˜.
     protected bool IsDestroyOnLoad { get; set; } = false;
 
     private static T s_instance;
 
     public static T Instance
     {
-        // ´Ê°Ô Ã£À» °æ¿ì È£ÃâµÇ¸ç »ı¼º.
+        // ìµœì´ˆ ì°¾ì„ ë•Œë§Œ í˜¸ì¶œë˜ë©° ìƒì„±.
         get
         {
             if (s_instance == null)
@@ -33,7 +33,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         if (s_instance == null)
         {
             s_instance = this as T;
-            Init();  // »ó¼Ó¹ŞÀº Å¬·¡½º¿¡¼­ ¿øÇÏ´Â ÃÊ±âÈ­ ÀÛ¾÷À» ¼öÇàÇÒ ¼ö ÀÖ°Ô ¸¸µé±â.
+            Init();  // ìƒì†ë°›ì€ í´ë˜ìŠ¤ì—ì„œ ì›í•˜ëŠ” ì´ˆê¸°í™” ì‘ì—…ì„ ì§„í–‰í•  ìˆ˜ ìˆê²Œ ë§Œë“¦.
             if (!IsDestroyOnLoad)
             {
                 DontDestroyOnLoad(gameObject);
@@ -46,11 +46,11 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
     }
 
     /// <summary>
-    /// ½Ì±ÛÅæ ÃÊ±âÈ­¿ë ¸Ş¼­µå.
+    /// ì‹±ê¸€í†¤ ì´ˆê¸°í™”ìš© ë©”ì„œë“œ.
     /// </summary>
     protected virtual void Init()
     {
-        // ±âº» ÃÊ±âÈ­ ·ÎÁ÷(ÇÊ¿ä ½Ã »ó¼Ó¹ŞÀº Å¬·¡½º¿¡¼­ ¿À¹ö¶óÀÌµå)
+        // ê¸°ë³¸ ì´ˆê¸°í™” êµ¬í˜„(í•„ìš” ì‹œ ìƒì†ë°›ì€ í´ë˜ìŠ¤ì—ì„œ ì˜¤ë²„ë¼ì´ë“œ)
     }
 
     protected virtual void OnDestroy()

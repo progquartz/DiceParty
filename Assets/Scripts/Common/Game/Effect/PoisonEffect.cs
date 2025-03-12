@@ -9,13 +9,13 @@ public class PoisonEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int poisonDelta = strength1;
-            if(targetStat.ImmuneStack > 0)
+            if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {
-                targetStat.ImmuneStack--;
+                targetStat.CalcEffectStack(EffectKey.ImmuneEffect, -1);
             }
             else
             {
-                targetStat.PoisonStack += poisonDelta;
+                targetStat.CalcEffectStack(EffectKey.PoisonEffect, poisonDelta);
             }
             
 

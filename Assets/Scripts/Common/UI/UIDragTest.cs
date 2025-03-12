@@ -13,28 +13,28 @@ public class UIDragTest : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
 
-        // ÇöÀç ¿ÀºêÁ§Æ®°¡ ¼ÓÇØÀÖ´Â Canvas¸¦ Ã£½À´Ï´Ù.
-        // Hierarchy ±¸Á¶¿¡ µû¶ó ÀûÀıÈ÷ °¡Á®¿À¸é µË´Ï´Ù.
-        // (Á÷Á¢ Drag&DropÇÏ°Å³ª, È¤Àº »óÀ§ ºÎ¸ğ¿¡¼­ GetComponentInParent<Canvas>() µî)
+        // í˜„ì¬ ì˜¤ë¸Œì íŠ¸ê°€ ì†í•´ìˆëŠ” Canvasë¥¼ ì°¾ìŠµë‹ˆë‹¤.
+        // Hierarchy ìƒì—ì„œ ê°€ì¥ ê°€ê¹Œìš´ ë¶€ëª¨ì—ì„œ ì°¾ìŠµë‹ˆë‹¤.
+        // (ì§ì ‘ Drag&Dropí•˜ê±°ë‚˜, í˜¹ì€ ê°€ì¥ ë¶€ëª¨ì—ì„œ GetComponentInParent<Canvas>() ë“±)
         canvas = GetComponentInParent<Canvas>();
     }
 
-    // µå·¡±× ½ÃÀÛ ½Ã ÇÑ ¹ø È£Ãâ
+    // ë“œë˜ê·¸ ì‹œì‘ í•  ë•Œ í•œ ë²ˆ í˜¸ì¶œ
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // µå·¡±×ÇÏ´Â µ¿¾È Raycast ´ë»ó¿¡¼­ Á¦¿ÜÇÏ±â À§ÇØ
-        // (´Ù¸¥ UI·ÎÀÇ µå·Ó Raycast¸¦ Á¤»óÀûÀ¸·Î ¹Ş±â À§ÇØ)
+        // ë“œë˜ê·¸í•˜ëŠ” ë™ì•ˆ Raycast ê°ì§€ì—ì„œ ì œì™¸í•˜ê¸° ìœ„í•¨
+        // (ë‹¤ë¥¸ UIë“¤ì´ ëª¨ë“  Raycastë¥¼ ì •ìƒì ìœ¼ë¡œ ë°›ê¸° ìœ„í•¨)
         if (canvasGroup != null)
         {
             canvasGroup.blocksRaycasts = false;
         }
     }
 
-    // µå·¡±× Áß ¸Å ÇÁ·¹ÀÓ¸¶´Ù È£Ãâ
+    // ë“œë˜ê·¸ ì¤‘ ë§¤ í”„ë ˆì„ë§ˆë‹¤ í˜¸ì¶œ
     public void OnDrag(PointerEventData eventData)
     {
-        // Screen Space »óÅÂ¿¡ ¸ÂÃç¼­ À§Ä¡¸¦ °»½Å
-        // (UI ÁÂÇ¥ ÀÌµ¿Àº RectTransformUtility¸¦ »ç¿ëÇÏ°Å³ª, Anchor µî¿¡ ¸Â°Ô Á¶Á¤)
+        // Screen Space ìƒíƒœì— ë§ì¶°ì„œ ìœ„ì¹˜ë¥¼ ì¡°ì •
+        // (UI ì¢Œí‘œ ì´ë™ì€ RectTransformUtilityë¥¼ ì‚¬ìš©í•˜ê±°ë‚˜, Anchorì— ë§ê²Œ ì¡°ì •)
         if (canvas == null) return;
 
         Vector2 pos;
@@ -48,16 +48,16 @@ public class UIDragTest : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         rectTransform.anchoredPosition = pos;
     }
 
-    // µå·¡±× Á¾·á ½Ã ÇÑ ¹ø È£Ãâ
+    // ë“œë˜ê·¸ ì¢…ë£Œ í•  ë•Œ í•œ ë²ˆ í˜¸ì¶œ
     public void OnEndDrag(PointerEventData eventData)
     {
-        // ´Ù½Ã Raycast¸¦ ¹Şµµ·Ï ¿ø»ó º¹±Í
+        // ë‹¤ì‹œ Raycastë¥¼ ë°›ë„ë¡ ì„¤ì • ë³µêµ¬
         if (canvasGroup != null)
         {
             canvasGroup.blocksRaycasts = true;
         }
 
-        // ¿©±â¼­ ´Ù¸¥ UI¿Í °ãÃÆ´ÂÁö È®ÀÎÇÏ°Å³ª
-        // RaycastResult µîÀ» ÅëÇØ ½½·Ô¿¡ µå·ÓÇß´ÂÁö µîÀ» Ã¼Å©
+        // ì—¬ê¸°ì„œ ë‹¤ë¥¸ UIì— ë‹¿ì•˜ëŠ”ì§€ í™•ì¸í•˜ê±°ë‚˜
+        // RaycastResult ë“±ì„ í†µí•´ ì–´ë””ì— ë„ë‹¬í–ˆëŠ”ì§€ ë“±ì„ ì²´í¬
     }
 }

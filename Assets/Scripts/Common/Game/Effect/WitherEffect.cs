@@ -9,7 +9,7 @@ public class WitherEffect : BaseEffect
         {
             BaseStat targetStat = target.stat;
             int witherDelta = strength1;
-            targetStat.WitherStack += witherDelta;
+            targetStat.CalcEffectStack(EffectKey.WitherEffect, witherDelta);
         }
     }
 

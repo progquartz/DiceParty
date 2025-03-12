@@ -8,13 +8,7 @@ public class CleanseEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            targetStat.ConfuseStack = 0;
-            targetStat.FireStack = 0;
-            targetStat.PoisonStack = 0;
-            targetStat.StunnedStack = 0;
-            targetStat.TauntStack = 0;
-            targetStat.WeakenStack = 0;
-            targetStat.WitherStack = 0;
+            targetStat.Cleanse();
         }
     }
 }

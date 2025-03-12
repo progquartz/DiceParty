@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyAttackPatternSO", menuName = "Scriptable Objects/EnemyAttackPatternSO")]
 public class EnemyAttackPatternSO : ScriptableObject
 {
-    [Header("°ø°İ ÆĞÅÏ ÀÌ¸§/¼³¸í")]
+    [Header("ì ì˜ ê³µê²© ì´ë¦„/ì„¤ëª…")]
     public string patternName;
     [TextArea] public string patternDescription;
 
-    [Header("°ø°İ ÆĞÅÏÀÇ ½ÃÀÛ ³ëµå(·çÆ®)")]
+    [Header("ì ì˜ ê³µê²©í•˜ëŠ” ë…¸ë“œ(ë£¨íŠ¸)")]
     public EnemyAttackNodeSO rootNode;
 }

@@ -11,33 +11,30 @@ public class MapManager : SingletonBehaviour<MapManager>
 {
     public int currentStageNum = 1;
 
-
     [SerializeField] private RoomTemplates _roomTemplate;
     private MapLoader mapLoader;
     public event Action OnMoveRoom;
     [SerializeField] private Transform roomParent;
     [SerializeField] private Transform entryRoomParent;
-    [SerializeField] private GameObject entryRoomPrefab; // EntryRoom ÇÁ¸®ÆÕ (Inspector¿¡ ÇÒ´ç)
-    
+    [SerializeField] private GameObject entryRoomPrefab; // EntryRoom í”„ë¦¬íŒ¹ (Inspectorì— í• ë‹¹)
 
-
-    // °¢ ¹æÀÇ ±×¸®µå ÁÂÇ¥¸¦ ±â·Ï (Vector2Int »ç¿ë)
+    // ë§µ ìƒì„± ê·¸ë¦¬ë“œ ì¢Œí‘œì™€ ë°©ë“¤ (Vector2Int ê¸°ì¤€)
     [SerializeField]private Dictionary<Vector2Int, GameObject> mapGenRooms = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] private Dictionary<Vector2Int, GameObject> mapGenVisuals = new Dictionary<Vector2Int, GameObject>();
 
-    // Å°: ÇØ´ç ¹æÀÇ gridPos, °ª: ¿¬°áµÈ ¹æÀÇ gridPos ¸ñ·Ï
+    // í‚¤: í•´ë‹¹ ë°©ì˜ gridPos, ê°’: ì—°ê²°ëœ ë°©ì˜ gridPos ëª©ë¡
     private Dictionary<Vector2Int, List<Vector2Int>> roomGraph = new Dictionary<Vector2Int, List<Vector2Int>>();
 
     public int RoomCount { get { return mapGenRooms.Count; } }
     public GameObject startRoom;
 
-    // ÃÖ´ë ¹æ °³¼ö (¿øÇÏ´Â °ªÀ¸·Î ¼³Á¤)
+    // ìµœëŒ€ ë°© ê°œìˆ˜ (ì›í•˜ëŠ” ë§Œí¼ë§Œ ìƒì„±)
     public int maxRooms = 10;
     private bool isRoomReachedMax;
     public float waitTime;
     private int currentRoomGenerating = 0;
 
-    // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡ (½ÃÀÛ¹æÀº º¸Åë (0,0)À¸·Î ¼³Á¤)
+    // í”Œë ˆì´ì–´ì˜ í˜„ì¬ ìœ„ì¹˜ (ì‹œì‘ë°©ì€ í•­ìƒ (0,0)ì—ì„œ ì‹œì‘)
     public Vector2Int currentPlayerPos = Vector2Int.zero;
     [SerializeField] private GameObject player;
     public float playerMoveSpeed = 13f;
@@ -52,12 +49,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     public float debugEventPlacingTime = 0.0f;
 
-    
     private void Awake()
     {
         IsDestroyOnLoad = true;
         Init();
-        
     }
 
     void Update()
@@ -73,22 +68,21 @@ public class MapManager : SingletonBehaviour<MapManager>
             {
                 if (mapGenRooms.Values.ToList()[i] == null)
                 {
-                    Debug.LogError($"{i}¹øÂ° µ¥ÀÌÅÍ¿¡ ¿À·ù ÀÖÀ½.");
+                    Debug.LogError($"{i}ë²ˆì§¸ ë°ì´í„°ì— ë°©ì´ ì—†ìŒ.");
                     isObjectDataValid = false;
-                    ResetMap(); // ¸Ê »ı¼º¿¡ ¿À·ù°¡ »ı°Ü Àç»ı¼º.
+                    ResetMap(); // ë§µ ìƒì„±ì„ ë‹¤ì‹œí•œë²ˆ ì‹œë„í•¨.
                 }
             }
 
-            // ¸ğµç ¹æ ¼³Ä¡°¡ ¿Ï·á µÉ °æ¿ì, ·£´ı ÀÌº¥Æ® ¼³Ä¡.
+            // ëª¨ë“  ë°© ìƒì„±ì´ ì™„ë£Œ ëœ ê²½ìš°, ëœë¤ ì´ë²¤íŠ¸ ë°°ì¹˜.
             if(isObjectDataValid)
             {
                 PlaceRandomEvents();
                 isEventPlaced = true;
-                Debug.Log($"ÀÌº¥Æ®¸¦ ¸ğµÎ ¼³Ä¡ÇÏ±â±îÁö {debugEventPlacingTime}ÀÌ °É¸³´Ï´Ù.");
+                Debug.Log($"ì´ë²¤íŠ¸ë¥¼ ëª¨ë‘ ë°°ì¹˜í•˜ê¸°ê¹Œì§€ {debugEventPlacingTime}ì´ˆ ê±¸ë ¸ìŠµë‹ˆë‹¤.");
                 debugEventPlacingTime = 0f;
             }
         }
-        
     }
 
     protected override void Init()
@@ -117,7 +111,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
     }
 
-    // ÁÖ¾îÁø ÁÂÇ¥¿¡ ¹æÀÌ ÀÌ¹Ì Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+    // ì£¼ì–´ì§„ ì¢Œí‘œì— ë°©ì´ ì´ë¯¸ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
     public bool IsRoomExistAt(Vector2Int pos)
     {
         return mapGenRooms.ContainsKey(pos);
@@ -127,7 +121,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
         if(currentStageNum >= 3)
         {
-            Logger.LogWarning("¸¶Áö¸· ½ºÅ×ÀÌÁö¿¡¼­ Á¾·áµÇ¾ú½À´Ï´Ù.");
+            Logger.LogWarning("ë§ˆì§€ë§‰ ìŠ¤í…Œì´ì§€ê¹Œì§€ í´ë¦¬ì–´ë˜ì—ˆìŠµë‹ˆë‹¤.");
             return;
         }
         currentStageNum++;
@@ -135,11 +129,11 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
     /// <summary>
-    /// ¸Ê ¸®¼Â ÈÄ »õ·Î »ı¼º (½ºÅ×ÀÌÁö º¯È­)
+    /// ë§µ ìƒì„± ë° ê´€ë ¨ ì •ë³´ ì´ˆê¸°í™” (ìŠ¤í…Œì´ì§€ ë³€í™”)
     /// </summary>
     public void ResetMap()
     {
-        Debug.LogWarning("¸Ê ¸®¼ÂÀ» ½ÃÀÛÇÕ´Ï´Ù.");
+        Debug.LogWarning("ë§µ ìƒì„±ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
 
         mapGenRooms.Clear();
         mapGenVisuals.Clear();
@@ -166,12 +160,12 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
         else
         {
-            Logger.LogError("EntryRoom ÇÁ¸®ÆÕÀÌ ÇÒ´çµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.");
+            Logger.LogError("EntryRoom í”„ë¦¬íŒ¹ì´ í• ë‹¹ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
     }
 
     /// <summary>
-    /// ¿ÜºÎ¿¡¼­ MapLoader°¡ ³»ºÎ ¹æ µ¥ÀÌÅÍ¸¦ Á¢±ÙÇÒ ¼ö ÀÖµµ·Ï Dictionary¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+    /// ì™¸ë¶€ì—ì„œ MapLoaderë¥¼ í†µí•´ ë§µ ë°ì´í„°ë¥¼ ì ‘ê·¼í•  ìˆ˜ ìˆë„ë¡ Dictionaryë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     public Dictionary<Vector2Int, GameObject> GetMapRooms()
     {
@@ -179,22 +173,22 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
     /// <summary>
-    /// ±×¸®µå ÁÂÇ¥¸¦ ±âÁØÀ¸·Î ¿ùµå ÁÂÇ¥¸¦ °è»ê (¹æ Å©±â¿¡ ¸Â°Ô ¼öÁ¤)
+    /// ê·¸ë¦¬ë“œ ì¢Œí‘œë¥¼ ì›”ë“œìƒì˜ ì‹¤ì œ ì¢Œí‘œë¡œ ë³€í™˜ (ë°© í¬ê¸°ì— ë§ê²Œ ì¡°ì •)
     /// </summary>
     public Vector3 GetWorldPositionForGrid(Vector2Int gridPos)
     {
-        float roomWidth = 10f;  // ¿¹½Ã °ª
-        float roomHeight = 10f; // ¿¹½Ã °ª
+        float roomWidth = 10f;  // ë°©ì˜ í­
+        float roomHeight = 10f; // ë°©ì˜ ë†’ì´
         return new Vector3(gridPos.x * roomWidth, gridPos.y * roomHeight, 0f);
     }
 
     /// <summary>
-    /// ÀúÀåµÈ ¹æ ÀÌ¸§¿¡ µû¶ó ÇØ´ç ÇÁ¸®ÆÕÀ» ¹İÈ¯ÇÕ´Ï´Ù.
-    /// (¿©±â¼­´Â RoomTemplates¿¡ ÀÖ´Â ¹è¿­À» È°¿ëÇÏ´Â ¿¹½ÃÀÔ´Ï´Ù.)
+    /// ì „ë‹¬ëœ ë°© ì´ë¦„ì— ë”°ë¼ í•´ë‹¹ í”„ë¦¬íŒ¹ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
+    /// (ì—¬ê¸°ì„œëŠ” RoomTemplatesì— ìˆëŠ” ë°°ì—´ì„ í™œìš©í•˜ëŠ” ë°©ì‹ì…ë‹ˆë‹¤.)
     /// </summary>
     public GameObject GetPrefabForRoomName(string roomName)
     {
-        // ¿¹½Ã ¸ÅÇÎ (½ÇÁ¦ ÇÁ·ÎÁ§Æ® »óÈ²¿¡ ¸Â°Ô ¼öÁ¤)
+        // ë°©í–¥ ì²´í¬ (í˜„ì¬ í”„ë¡œì íŠ¸ ìƒí™©ì— ë§ê²Œ ìˆ˜ì •)
         switch (roomName)
         {
             case "B":
@@ -222,12 +216,12 @@ public class MapManager : SingletonBehaviour<MapManager>
             case "TR":
                 return _roomTemplate.TopRooms.Length > 3 ? _roomTemplate.TopRooms[3] : null;
             default:
-                Debug.LogWarning("¾Ë ¼ö ¾ø´Â ¹æ ÀÌ¸§: " + roomName);
+                Debug.LogWarning("ì•Œ ìˆ˜ ì—†ëŠ” ë°© ì´ë¦„: " + roomName);
                 return null;
         }
     }
 
-    // ¹æ ÁÂÇ¥¸¦ µî·Ï (ÀÌ¹Ì µî·ÏµÇ¾î ÀÖÀ¸¸é °æ°í)
+    // ë°© ì¢Œí‘œì™€ ë“±ë¡ (ì´ë¯¸ ë“±ë¡ë˜ì–´ ìˆìœ¼ë©´ ë¬´ì‹œ)
     public void RegisterRoom(Vector2Int pos, GameObject room)
     {
         if (!mapGenRooms.ContainsKey(pos))
@@ -237,7 +231,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
         else
         {
-            Debug.LogWarning($"ÁÂÇ¥ {pos}¿¡´Â ÀÌ¹Ì ¹æÀÌ µî·ÏµÇ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning($"ì¢Œí‘œ {pos}ì—ëŠ” ì´ë¯¸ ë°©ì´ ë“±ë¡ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -247,14 +241,14 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
     /// <summary>
-    /// bfs ±â¹İ Pathfinding
+    /// bfs ê¸°ë°˜ Pathfinding
     /// </summary>
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int target)
     {
-        // ÀÌ¹Ì µî·ÏµÈ ¹æ °£ ¿¬°á Á¤º¸ (roomGraph)¸¦ »ç¿ë
+        // ì´ë¯¸ ë“±ë¡ëœ ë°©ë“¤ì˜ ì—°ê²° ì •ë³´ (roomGraph)ë¥¼ í™œìš©
         if (!roomGraph.ContainsKey(start) || !roomGraph.ContainsKey(target))
         {
-            Logger.LogWarning("pathfindingÁß ½ÃÀÛ ¶Ç´Â ¸ñÇ¥ ¹æÀÇ ¿¬°á Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+            Logger.LogWarning("pathfindingì„ ìœ„í•œ ì¢Œí‘œê°€ ë“±ë¡ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
 
@@ -262,7 +256,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
 
         queue.Enqueue(start);
-        cameFrom[start] = start;  // ½ÃÀÛÁ¡À» Ç¥½Ã
+        cameFrom[start] = start;  // ì‹œì‘ ì¢Œí‘œ ë“±ë¡
 
         while (queue.Count > 0)
         {
@@ -286,14 +280,14 @@ public class MapManager : SingletonBehaviour<MapManager>
             }
         }
 
-        // °æ·Î°¡ ¾øÀ¸¸é null ¸®ÅÏ
+        // ê²°ê³¼ê°€ nullì¸ ê²½ìš°
         if (!cameFrom.ContainsKey(target))
         {
-            Debug.LogWarning("¸ñÇ¥ ÀÌº¥Æ®±îÁöÀÇ °æ·Î¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("ê²½ë¡œ ì°¾ê¸° ì‹¤íŒ¨: ëª©ì ì§€ì— ë„ë‹¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return null;
         }
 
-        // °æ·Î Àç±¸¼º (µÚ¿¡¼­ºÎÅÍ µû¶ó°¡¼­ ¿ª¼øÀ¸·Î ¸¸µç ÈÄ reverse)
+        // ê²°ê³¼ ë°˜í™˜ (ì—­ìˆœìœ¼ë¡œ ë°˜í™˜ëœ ê²½ë¡œë¥¼ ì •ë°©í–¥ìœ¼ë¡œ ë³€í™˜)
         List<Vector2Int> path = new List<Vector2Int>();
         Vector2Int currPos = target;
         while (currPos != start)
@@ -309,28 +303,28 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     public void RequestPlayerMoveToEvent(RoomEvent clickedEvent)
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ Áß / ÀüÅõ »óÅÂÀÏ ¶§¿¡´Â »óÈ£ÀÛ¿ë ¹«½Ã
+        // í”Œë ˆì´ì–´ì˜ ì´ë™ì´ ì§„í–‰ ì¤‘ì´ê±°ë‚˜ ì „íˆ¬ ìƒíƒœê°€ ì§„í–‰ ì¤‘ì¸ ê²½ìš°
         if (isPlayerMoving || BattleManager.Instance.battleState != BattleState.BattleEnd)
         {
-            Debug.LogError("ÇöÀç ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ÇÒ ¼ö ¾ø´Â »óÅÂ·Î È£ÃâÀ» ¹«½ÃÇÕ´Ï´Ù.");
+            Debug.LogError("í”Œë ˆì´ì–´ì˜ ì´ë™ì´ ì§„í–‰ ì¤‘ì´ê±°ë‚˜ ì „íˆ¬ ìƒíƒœê°€ ì§„í–‰ ì¤‘ì´ë¯€ë¡œ ì´ë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // Å¬¸¯µÈ ÀÌº¥Æ®°¡ ºÎÂøµÈ ¹æÀÇ ÁÂÇ¥¸¦ °¡Á®¿È
+        // íƒ€ê²Ÿ ë°© ì„¤ì •
         Room targetRoom = clickedEvent.Room;
         if (targetRoom == null)
         {
-            Debug.LogError("Å¬¸¯µÈ ÀÌº¥Æ®¿¡ Room ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("íƒ€ê²Ÿ ë°©ì´ Room ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
         Vector2Int targetPos = targetRoom.gridPos;
 
-        // ÇÃ·¹ÀÌ¾î ÇöÀç ¹æ (MapManager.currentPlayerRoom)¿¡¼­ ¸ñÇ¥±îÁöÀÇ °æ·Î Ã£±â
+        // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ì°¾ì•„ ê²½ë¡œ ì°¾ê¸°
         List<Vector2Int> path = FindPath(currentPlayerPos, targetPos);
         if (path == null)
         {
-            Debug.LogWarning("°æ·Î¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+            Debug.LogWarning("ê²½ë¡œ ì°¾ê¸° ì‹¤íŒ¨: ëª©ì ì§€ì— ë„ë‹¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
         else
@@ -340,11 +334,11 @@ public class MapManager : SingletonBehaviour<MapManager>
             {
                 pathString += (path[i].ToString() + " ");
             }
-            Debug.Log($"»ı°¢ÇÑ °æ·Î°¡ {pathString}ÀÔ´Ï´Ù.");
+            Debug.Log($"í”Œë ˆì´ì–´ì˜ ì´ë™ ê²½ë¡œëŠ” {pathString}ì…ë‹ˆë‹¤.");
         }
 
-        // °æ·ÎÀÇ Áß°£¿¡ ´Ù¸¥ ÀÌº¥Æ®°¡ ÀÖ´ÂÁö È®ÀÎ (½ÃÀÛ¹æ°ú ¸ñÇ¥¹æÀº Á¦¿Ü)
-        // ¸¸¾à Áß°£¿¡ roomEvent°¡ ÀÖ´Ù¸é, ÀÌµ¿À» ¸·°í ·Î±× Ãâ·Â
+        // ê²½ë¡œ ìƒì˜ ëª¨ë“  ë°©ì— ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸ (ì „íˆ¬ ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸)
+        // ê²½ë¡œ ìƒì˜ ë°©ì— ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆëŠ” ê²½ìš°, í”Œë ˆì´ì–´ì˜ ì´ë™ì„ ì¤‘ì§€
         for (int i = 1; i < path.Count - 1; i++)
         {
             if (mapGenRooms.ContainsKey(path[i]))
@@ -352,13 +346,13 @@ public class MapManager : SingletonBehaviour<MapManager>
                 Room room = mapGenRooms[path[i]].GetComponent<Room>();
                 if (room != null && room.roomEvent != null)
                 {
-                    Debug.Log("°æ·Î¿¡ ´Ù¸¥ ÀÌº¥Æ®°¡ ÀÖ¾î ÀÌµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+                    Debug.Log("ê²½ë¡œ ìƒì— ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ëœ ë°©ì´ ì¡´ì¬í•©ë‹ˆë‹¤.");
                     return;
                 }
             }
         }
 
-        // °æ·Î°¡ ¸ğµÎ ±ú²ıÇÏ¸é, ÄÚ·çÆ¾À» ½ÃÀÛÇØ¼­ ÇÃ·¹ÀÌ¾î ÀÌµ¿
+        // ê²½ë¡œ ìƒì˜ ëª¨ë“  ë°©ì— ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆëŠ” ê²½ìš°, í”Œë ˆì´ì–´ì˜ ì´ë™ì„ í—ˆìš©
         OnMoveRoom?.Invoke();
         StartCoroutine(MovePlayerAlongPath(path));
     }
@@ -366,21 +360,21 @@ public class MapManager : SingletonBehaviour<MapManager>
     private IEnumerator MovePlayerAlongPath(List<Vector2Int> path)
     {
         isPlayerMoving = true;
-        // pathÀÇ °¢ ¹æ ÁÂÇ¥¸¦ ¼ø¼­´ë·Î ÀÌµ¿ÇÕ´Ï´Ù.
+        // pathë¥¼ ë”°ë¼ í”Œë ˆì´ì–´ë¥¼ ì´ë™ì‹œí‚´
         foreach (Vector2Int roomPos in path)
         {
             Vector3 targetWorldPos = GetWorldPositionInPos(roomPos);
-            // (¿¹½Ã) Å¸°Ù ÁÂÇ¥±îÁö ¼±Çü º¸°£À¸·Î ÀÌµ¿
+            // (ë¹„íš¨ìœ¨ì ì¸ ë°©ë²•) í”Œë ˆì´ì–´ë¥¼ ëª©ì ì§€ê¹Œì§€ ì´ë™ì‹œí‚´
             while (Vector3.Distance(player.transform.position, targetWorldPos) > 0.01f)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, targetWorldPos, playerMoveSpeed * Time.deltaTime);
                 yield return null;
             }
-            // ÀÌµ¿ÀÌ ³¡³ª¸é ÇöÀç ÇÃ·¹ÀÌ¾î ¹æ ÁÂÇ¥ ¾÷µ¥ÀÌÆ®
+            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë°©ì˜ ì¢Œí‘œë¡œ ê°±ì‹ 
             currentPlayerPos = roomPos;
             yield return null;
         }
-        Debug.Log($"ÇÃ·¹ÀÌ¾î°¡ {currentPlayerPos}·Î ÀÌµ¿ ¿Ï·á. ");
+        Debug.Log($"í”Œë ˆì´ì–´ê°€ {currentPlayerPos}ë¡œ ì´ë™í–ˆìŠµë‹ˆë‹¤. ");
         ActivateRoomInPos(currentPlayerPos);
         isPlayerMoving = false;
     }
@@ -417,7 +411,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     {
                         if(dir == i)
                         {
-                            //Debug.Log($"¿¬°áÀ» È®ÀÎÇØ {pos}¿Í {deltaPos}»çÀÌÀÇ ¿¬°áÀ» ¸¸µì´Ï´Ù.");
+                            //Debug.Log($"ì—°ê²° í™•ì¸ {pos}ì™€ {deltaPos}ì— ëŒ€í•œ ì—°ê²° í™•ì¸ì…ë‹ˆë‹¤.");
                             RegisterConnection(pos, deltaPos);
                             
                         }
@@ -433,7 +427,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
         if(mapGenRooms.ContainsKey(pos) == false)
         {
-            Logger.LogWarning($"[MapManager] - ÇöÀç ¾ø´Â ÁÂÇ¥ÀÎ {pos}ÀÇ Room¿¡ Á¢±ÙÇÏ°í ÀÖ½À´Ï´Ù.");
+            Logger.LogWarning($"[MapManager] - ì¢Œí‘œ {pos}ì— ë°©ì´ ë“±ë¡ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
 
@@ -444,7 +438,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
         if (mapGenRooms.ContainsKey(pos)  == false)
         {
-            Debug.LogError($"[MapManager] - ÇöÀç Á¸ÀçÇÏÁö ¾Ê´Â ¸ÊÀÇ ÁÂÇ¥ÀÎ {pos}¿¡ Á¢±ÙÇÏ·Á ÇÕ´Ï´Ù.");
+            Debug.LogError($"[MapManager] - ì¢Œí‘œ {pos}ì— ë°©ì´ ë“±ë¡ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return Vector3.zero;
         }
 
@@ -453,14 +447,14 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void CalcRoomGenCount(int amount)
     {
         currentRoomGenerating += amount;
-        //Logger.Log($"ÇöÀç {currentRoomGenerating} °³ÀÇ ¹æÀÌ »ı¼º ÁßÀÔ´Ï´Ù.");
+        //Logger.Log($"ë°© ìƒì„± íšŸìˆ˜ {currentRoomGenerating} ì¤‘ ë‚¨ì€ ë°© ìƒì„± íšŸìˆ˜ëŠ” {currentRoomGenerating}ì…ë‹ˆë‹¤.");
         if (currentRoomGenerating <= 0)
         {
-            Logger.LogError("¹æ »ı¼º °³¼ö°¡ 0 ÀÌÇÏÀÔ´Ï´Ù.");
+            Logger.LogError("ë°© ìƒì„± íšŸìˆ˜ê°€ 0ì´ ë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
     }
 
-    // µÎ ¹æÀÌ ¿¬°áµÇ¾úÀ½À» µî·ÏÇÏ´Â ÇÔ¼ö (¾ç¹æÇâ ¿¬°á)
+    // ë°© ì¢Œí‘œì™€ ì—°ê²° (ì´ë¯¸ ë“±ë¡ë˜ì–´ ìˆìœ¼ë©´ ë¬´ì‹œ)
     public void RegisterConnection(Vector2Int posA, Vector2Int posB)
     {
         if (!roomGraph.ContainsKey(posA))
@@ -482,7 +476,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
     }
 
-    // ÇöÀç ÇÃ·¹ÀÌ¾îÀÇ ¹æ¿¡¼­ ÀÌµ¿ °¡´ÉÇÑ (¿¬°áµÈ) ¹æµéÀÇ ÁÂÇ¥ ¸ñ·ÏÀ» ¸®ÅÏ
+    // í”Œë ˆì´ì–´ì˜ ì´ë™ì„ ìœ„í•œ ê°€ëŠ¥í•œ ì´ë™ ê²½ë¡œ ë°˜í™˜
     public List<Vector2Int> GetAvailableMoves()
     {
         if (roomGraph.ContainsKey(currentPlayerPos))
@@ -495,7 +489,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void DebugCheckCurrentAvailableMoves()
     {
         List<Vector2Int> currentAvailableMove = GetAvailableMoves();
-        Debug.Log($"ÇöÀç {currentPlayerPos}¿¡¼­ ÀÌµ¿°¡´ÉÇÑ ¹æÀÇ °³¼ö = {currentAvailableMove.Count} ///");
+        Debug.Log($"í˜„ì¬ {currentPlayerPos}ìœ„ì¹˜ì—ì„œ ì´ë™ ê°€ëŠ¥í•œ ë°©ë“¤ì˜ ìˆ˜ëŠ” {currentAvailableMove.Count} ///");
         foreach (var move in currentAvailableMove) 
         {
             Debug.Log(move);
@@ -503,28 +497,28 @@ public class MapManager : SingletonBehaviour<MapManager>
     }
 
 
-    // ÇÃ·¹ÀÌ¾î ÀÌµ¿ Ã³¸® ÇÔ¼ö ÀÌµ¿ °¡´ÉÇÑ ¹æÀÎÁö È®ÀÎÇÏ°í, ÀÌµ¿
+    // í”Œë ˆì´ì–´ì˜ ì´ë™ì„ ìœ„í•œ í•¨ìˆ˜ (í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ íƒ€ê²Ÿ ë°©ìœ¼ë¡œ ê°±ì‹ )
     public bool MovePlayerTo(Vector2Int targetRoom)
     {
         List<Vector2Int> availableMoves = GetAvailableMoves();
         if (availableMoves.Contains(targetRoom))
         {
             currentPlayerPos = targetRoom;
-            // Ãß°¡: ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®ÀÇ ½ÇÁ¦ À§Ä¡ ÀÌµ¿ Ã³¸® µî
+            // ì¶”ê°€: í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë°©ì˜ ì¢Œí‘œë¡œ ê°±ì‹ 
             return true;
         }
-        Debug.LogWarning("¸ñÇ¥ ¹æÀ¸·Î ÀÌµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù: " + targetRoom);
+        Debug.LogWarning("ì¢Œí‘œ ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤: " + targetRoom);
         return false;
     }
 
-    // ¿¹½Ã: ¸ğµç ¹æ »ı¼ºÀÌ ¿Ï·áµÈ ÈÄ, ·ÎÁ÷¿¡ µû¶ó °¢ ¹æ¿¡ ÀÌº¥Æ®¸¦ ÇÒ´çÇÑ´Ù.
+    // ì¶”ê°€: ë§µ ìƒì„±ì´ ì™„ë£Œëœ í›„ì— ëœë¤ ì´ë²¤íŠ¸ ë°°ì¹˜
     private void PlaceRandomEvents()
     {
-        //Logger.Log("¹æÀÇ °³¼ö = " + mapGenRooms.Count);
+        //Logger.Log("ë°©ì˜ ìˆ˜ëŠ” " + mapGenRooms.Count);
         if(battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount - 1 > mapGenRooms.Count)
         {
-            // ÇöÀç ÀÖ´Â ¹æº¸´Ù »ı¼ºÇØ¾ß ÇÒ ¹æÀÌ ¸¹¾Æ¾ß ÇÒ °æ¿ì..?
-            Logger.LogError($"»ı¼ºÇØ¾ß ÇÒ ¹æÀÌ {battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount} °³Áö¸¸ ÇöÀç ÀÖ´Â ¹æÀÇ °³¼ö°¡ {mapGenRooms.Count}·Î ´õ ¸¹½À´Ï´Ù.");
+            // ìµœëŒ€ ë°© ê°œìˆ˜ë¥¼ ì´ˆê³¼í•˜ëŠ” ê²½ìš° ì—ëŸ¬ ë¡œê·¸ ì¶œë ¥
+            Logger.LogError($"ë°© ìƒì„±ì´ ì™„ë£Œë˜ì—ˆì§€ë§Œ ë°© ê°œìˆ˜ê°€ {battleRoomCount + bossRoomCount + shopRoomCount + treasureRoomCount}ê°œ ì¤‘ì—ì„œ {mapGenRooms.Count}ê°œë§Œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -560,7 +554,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     PlaceEventInVisual(currentRooms[index], room.gridPos, eventType);
                     room.roomEvent = currentRooms[index].AddComponent(eventType.GetType()) as RoomEvent;
                     room.roomEvent.Room = room;
-                    //Logger.Log($"[MapManager] - {room.gridPos} ¿¡ {eventType.GetType().ToString()} À» ¹èÄ¡ÇÕ´Ï´Ù.");
+                    //Logger.Log($"[MapManager] - {room.gridPos} ì— {eventType.GetType().ToString()} ê°€ ë°°ì¹˜ë˜ì—ˆìŠµë‹ˆë‹¤.");
                     isPlacedRight = true;
                     break;
                 }
@@ -574,12 +568,12 @@ public class MapManager : SingletonBehaviour<MapManager>
         float farestDistance = float.MinValue;
 
         List<GameObject> currentRooms = mapGenRooms.Values.ToList<GameObject>();
-        Debug.Log($"ÀÌº¥Æ® ¼³Ä¡ Áß, ÇöÀç ÀÖ´Â ¹æÀÇ °³¼ö°¡ {currentRooms.Count}°³ÀÓ");
+        Debug.Log($"ì´ë²¤íŠ¸ ë°°ì¹˜ ì‹œì‘, í˜„ì¬ ìƒì„±ëœ ë°©ë“¤ì˜ ìˆ˜ëŠ” {currentRooms.Count}ê°œì…ë‹ˆë‹¤.");
         /*
         for(int i = 0; i <  currentRooms.Count; i++) 
         {
-            Debug.Log($"{i}¹øÂ°.");
-            Debug.Log(currentRooms[i].name + "ÀÓ");
+            Debug.Log($"{i}ë²ˆì§¸.");
+            Debug.Log(currentRooms[i].name + "ì…ë‹ˆë‹¤.");
         }
         */
 
@@ -587,7 +581,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         foreach(GameObject room in  currentRooms)
         {
             float distance = room.GetComponent<Room>().gridPos.sqrMagnitude;
-            // °Å¸®°¡ °¡Àå ¸Ö°í, ÀÌº¥Æ®°¡ ÇÒ´çµÇ¾îÀÖÁö ¾ÊÀ¸¸ç, 0,0ÀÇ À§Ä¡°¡ ¾Æ´Ñ °æ¿ì.
+            // ê±°ë¦¬ ë¹„êµ, ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆì§€ ì•Šê³ , 0,0ì— ë°°ì¹˜ë˜ì–´ ìˆëŠ” ë°©ì€ ì œì™¸
             if(distance >= farestDistance && room.GetComponent<Room>().roomEvent == null && room.GetComponent<Room>().gridPos != Vector2Int.zero)
             {
                 farestDistance = distance;
@@ -602,13 +596,13 @@ public class MapManager : SingletonBehaviour<MapManager>
             PlaceEventInVisual(farestRoomObject, room.gridPos, eventType);
             room.roomEvent = farestRoomObject.AddComponent(eventType.GetType()) as RoomEvent;
             room.roomEvent.Room = room;
-            //Logger.Log($"[MapManager] - {room.gridPos} ¿¡ {eventType.GetType().ToString()} À» ¹èÄ¡ÇÕ´Ï´Ù.");
+            //Logger.Log($"[MapManager] - {room.gridPos} ì— {eventType.GetType().ToString()} ê°€ ë°°ì¹˜ë˜ì—ˆìŠµë‹ˆë‹¤.");
             isPlacedRight = true;
         }
 
         if (!isPlacedRight)
         {
-            Logger.LogError($"[MapManager] - °¡Àå ¸Õ ¹æ¿¡ ¹èÄ¡ÇÏ´Â ¹æ ¹èÁ¤ÀÌ ºñÁ¤»óÀûÀ¸·Î ÀÛµ¿µÇ¾ú½À´Ï´Ù.");
+            Logger.LogError($"[MapManager] - ìµœëŒ€ ê±°ë¦¬ì— ë°°ì¹˜ë˜ì–´ ìˆëŠ” ë°©ì´ ì—†ê±°ë‚˜ ë°°ì¹˜ë˜ì–´ ìˆì§€ ì•Šì€ ë°©ì´ ì¡´ì¬í•©ë‹ˆë‹¤.");
         }
     }
 
@@ -642,7 +636,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         }
         else
         {
-            Logger.LogWarning("[MapManager] - ¸ÊÀÇ ºñÁÖ¾ó»ó ÀÌ¹Ì ÀÖ´Â ÀÌº¥Æ® À§Ä¡¿¡ ¹èÄ¡ÇÏ·Á°í ÇÕ´Ï´Ù.");
+            Logger.LogWarning("[MapManager] - ì´ë¯¸ ë“±ë¡ëœ ë°©ì´ ìˆëŠ” ì¢Œí‘œì— ì´ë²¤íŠ¸ê°€ ë°°ì¹˜ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
         }
         
         
@@ -656,7 +650,7 @@ public class MapManager : SingletonBehaviour<MapManager>
             Destroy(instantiatedVisual);
         }
         mapGenVisuals.Remove(intPos);
-        Logger.Log($"[MapManager] - {intPos}¿¡ À§Ä¡ÇÑ ÀÌº¥Æ®¸¦ ºñÁÖ¾ó»ó Á¦°ÅÇß½À´Ï´Ù.");
+        Logger.Log($"[MapManager] - {intPos}ì— ë°°ì¹˜ëœ ì´ë²¤íŠ¸ê°€ ì œê±°ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
 
 }
