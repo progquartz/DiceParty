@@ -5,7 +5,6 @@ public enum SkillType
 {
     DamageEffect,
     HealEffect,
-
 }
 
 public enum TargetType
@@ -16,26 +15,27 @@ public enum TargetType
     TargetRandomEnemy,
     TargetAllPlayer
 }
-// Å¸°Ù µ¥ÀÌÅÍ ¹Ş¾Æ¿Â ´ÙÀ½¿¡, ¿©±â¿¡ ±â¹İÀ¸·Î ÇÏ´Â Effect¸¦ »ó¼Ó¹Ş¾Æ¼­ ÇÏ´Â °ÍÀ¸·Î.
-// Å¸°ÙÀ» Àâ´Â ºÎºĞÀº, SkillDataSO¿¡¼­ ¹Ş¾Æ¿Â ´ÙÀ½¿¡, ÀÌ¸¦ ±â¹İÀ¸·Î ÀÛµ¿.
-// È¿°ú / ´ë»óÈ¿°ú¸¦ Ãß°¡ÇÑ ´ÙÀ½¿¡ SkillDataSO·Î ¸¸µé ¿¹Á¤.
+
+// íƒ€ê²Ÿ ì •ë³´ë¥¼ ë°›ì•„ì™€ ì‹¤í–‰í•˜ê³ , ì—¬ê¸°ì— ì •ì˜ë˜ì–´ ìˆëŠ” Effectë¥¼ ìƒì†ë°›ì•„ì„œ í•˜ëŠ” ë°©ì‹ì„.
+// íƒ€ê²ŸíŒ… í•˜ëŠ” ë¶€ë¶„ì€, SkillDataSOì—ì„œ ë°›ì•„ì™€ ì‹¤í–‰í•˜ê³ , ì´ë¥¼ ìˆœì°¨ì ìœ¼ë¡œ ì‘ë™.
+// íš¨ê³¼ / ë¶€íš¨ê³¼ë“¤ì€ ì¶”ê°€ì ì¸ ì •ë³´ëŠ” SkillDataSOì— ëª¨ë‘ í¬í•¨.
 
 [CreateAssetMenu(fileName = "SkillDataSO", menuName = "Scriptable Objects/SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
-    // ½ºÅ³ ¼³¸í
-    [Header("½ºÅ³ ÀÌ¸§ / ¼³¸í")]
+    // ìŠ¤í‚¬ ì •ë³´
+    [Header("ìŠ¤í‚¬ ì´ë¦„ / ì„¤ëª…")]
     public string skillName;
 
-    [Header("½ºÅ³ ´ã´ç Ä³¸¯ÅÍ")]
+    [Header("ìŠ¤í‚¬ ì‚¬ìš© ìºë¦­í„°")]
     public CharacterType CharacterType;
 
     [TextArea] public string skillLore;
-    public int skillUseCount; // 0ÀÏ °æ¿ì ¹«Á¦ÇÑ, 1ÀÏ °æ¿ì 1È¸ »ç¿ë, ±× ÀÌ»óÀÇ °æ¿ì ¿©·¯ È¸ »ç¿ë.
+    public int skillUseCount; // 0ì¸ ê²½ìš° ë¬´ì œí•œ, 1ì¸ ê²½ìš° 1íšŒ ì‚¬ìš©, ê·¸ ì´ìƒì¸ ê²½ìš° í•´ë‹¹ íšŒ ì‚¬ìš©.
 
-    [Header("ÀÌ ½ºÅ³ÀÌ °¡Áö´Â ¿©·¯ (ÀÌÆåÆ® - Å¸°ÙÆÃ) Á¶ÇÕ")]
+    [Header("ì´ ìŠ¤í‚¬ì´ ê°€ì§€ëŠ” íš¨ê³¼ (ì´í™íŠ¸ - íƒ€ê²ŸíŒ…) ì •ë³´")]
     public List<SkillEffectData> skillEffects;
 
-    [Header("´ÙÀÌ½º Á¶°Ç ¼³¸í")]
+    [Header("ë‹¤ì´ìŠ¤ ì¡°ê±´ ì •ë³´")]
     public List<DiceRequirementData> diceRequirements;
 }

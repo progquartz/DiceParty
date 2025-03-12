@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class LootingDataBase
 {
-    // ÀÏ¹İ Looting È®·ü
+    // ì¼ë°˜ Looting í™•ë¥ 
     public LootingProbTable NormalBattleLoot;
     public LootingProbTable EliteBattleLoot;
     public LootingProbTable BossBattleLoot;

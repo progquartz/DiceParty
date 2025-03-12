@@ -46,8 +46,8 @@ public class CheesyGrid : MonoBehaviour
                 {
                     string cell = "0";
 
-                    // �ʱ�ȭ �κ�.
-                    // �Ʒ��� ��ũ��Ʈó��, ó������ ��ũ��Ʈ�� �ε��Ͽ��� ���� �̸� ���� ������.
+                    // 초기화 부분.
+                    // 아래의 스크립트처럼, 처음으로 스크립트를 로드하였을 때의 미리 정의 데이터.
                     /*
                     if (x == 0 || y == 0 || x == (across - 1) || y == (down - 1))
                     {

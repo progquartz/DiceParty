@@ -16,7 +16,7 @@ public static class TargetOptionFactory
         { "TargetAllCharacterDead", () => new TargetAllCharacterDead() },
         { "TargetRandomCharacterDead", () => new TargetRandomCharacterDead() },
         { "TargetSelf", () => new TargetSelf() }
-        // È®Àå...
+        // í™•ì¥...
     };
 
     public static BaseTargetOption CreateTargetOption(TargetOptionClassName targetKey)
@@ -26,7 +26,7 @@ public static class TargetOptionFactory
             return constructor();
         }
 
-        Logger.LogWarning($"{targetKey} ÀÇ ÀÌ¸§À» °¡Áø ÇØ´çÇÏ´Â TargetOption »ı¼ºÀÚ¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+        Logger.LogWarning($"{targetKey}ë€ ì´ë¦„ì„ ê°€ì§„ í•´ë‹¹í•˜ëŠ” TargetOption ìƒì„±ìë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         return null;
     }
 }

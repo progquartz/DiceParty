@@ -10,9 +10,9 @@ public class CardSelectLootUI : BaseUI
     private void Awake()
     {
         SpawnCard();
-        // ¹öÆ° ¾Æ·¡·Î »ç¿ëÇÒ ¼ö ¾ø´Â (°¡·ÁÁø) 3°³ÀÇ Ä«µå¸¦ ¼ÒÈ¯.
-        // 3°³ Áß 1°³°¡ Å¬¸¯ÀÌ µÇ¸é, 2°³°¡ »ç¶óÁü.
-        // ±×¸®°í ´İÈû.
+        // ë²„íŠ¼ ì•„ë˜ì˜ ìŠ¤í…Œì´ì§€ ë³„ ë“±ê¸‰ (ëœë¤í•œ) 3ê°œì˜ ì¹´ë“œë¥¼ ìƒì„±.
+        // 3ê°œ ì¤‘ 1ê°œë¥¼ í´ë¦­ì„ í•˜ë©´, 2ê°œëŠ” ì‚¬ë¼ì§.
+        // ê·¸ë¦¬ê³  ì¢…ë£Œ.
     }
 
     private void SpawnCard()
@@ -30,7 +30,7 @@ public class CardSelectLootUI : BaseUI
 
     public void OnClickCardSelection(int  buttonIndex)
     {
-        // SkillParent·Î º¸³½ ´ÙÀ½, ½º½º·Î¸¦ »èÁ¦.
+        // SkillParentë¡œ ë¶€ëª¨ ë³€ê²½, ë‚˜ë¨¸ì§€ëŠ” ì‚­ì œ.
         LootingManager.Instance.SkillUiSpawner.SetSkillUIParentToSkillParent(OpenedSkillUI[buttonIndex]);
         Close();
     }

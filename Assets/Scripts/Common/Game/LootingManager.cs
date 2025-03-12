@@ -48,7 +48,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
                 return LootingDataBase.TreasureLoot;
         }
 
-        Logger.LogError("Á¤»óÀûÀÎ LootingTableÀÌ ¹ßÇàµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+        Logger.LogError("ì ì ˆí•˜ì§€ ì•Šì€ LootingTableì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         return null;
     }
 
@@ -57,7 +57,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         LootingBattleType = battleType;
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData
         {
-            ActionOnShow = () => { Debug.Log("·çÆÃ UI ¿­¸²."); },
+            ActionOnShow = () => { Debug.Log("ì „ë¦¬í’ˆ UI ì—´ë¦¼."); },
             ActionOnClose = () => 
             {
                 LootingBattleType = BattleType.None;
@@ -65,7 +65,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
                 {
                     MapManager.Instance.GoToNextStage();
                 }
-                Debug.Log("·çÆÃ UI ´İÈû."); 
+                Debug.Log("ì „ë¦¬í’ˆ UI ë‹«í˜."); 
             }
         });
     }

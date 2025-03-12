@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
-    // »õ·Î ¸¸µé¾îÁú Ä£±¸ÀÇ ÀÔ±¸°¡ ...
-    // 1: ¾Æ·¡, 2: À§, 3: ¿ŞÂÊ, 4: ¿À¸¥ÂÊ (Ãâ±¸ ¹æÇâ)
+    // ë°©ì˜ ì¶œì…êµ¬ê°€ ì¹œêµ¬ë¥¼ ì°¾ê¸°ë¥¼ ...
+    // 1: ì•„ë˜, 2: ìœ„, 3: ì˜¤ë¥¸ìª½, 4: ì™¼ìª½ (ì¶œêµ¬ ë°©í–¥)
     public int openingDirection;
 
     private RoomTemplates templates;
@@ -13,7 +13,7 @@ public class RoomSpawner : MonoBehaviour
 
     public void Init()
     {
-        // ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é spawner ¿ÀºêÁ§Æ® ÀÚÃ¼¸¦ »èÁ¦
+        // ëŒ€ê¸° ì‹œê°„ì´ ì§€ë‚˜ë©´ spawner ì˜¤ë¸Œì íŠ¸ ìì²´ë¥¼ ì œê±°
         Destroy(gameObject, waitTime);
         templates = MapManager.Instance.RoomTemplate;
         Spawn();
@@ -23,44 +23,44 @@ public class RoomSpawner : MonoBehaviour
     {
         if (spawned) return;
 
-        // ºÎ¸ğ ¹æÀÇ Room ÄÄÆ÷³ÍÆ®¿¡¼­ ÇöÀç ÁÂÇ¥¸¦ °¡Á®¿É´Ï´Ù.
+        // ë¶€ëª¨ ë°©ì˜ Room ì»´í¬ë„ŒíŠ¸ì—ì„œ í˜„ì¬ ì¢Œí‘œë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         Room parentRoom = GetComponentInParent<Room>();
         if (parentRoom == null)
         {
-            Debug.LogError("RoomSpawnerÀÇ ºÎ¸ğ¿¡ Room ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù!");
+            Debug.LogError("RoomSpawnerì˜ ë¶€ëª¨ì— Room ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤!");
             return;
         }
         Vector2Int parentPos = parentRoom.gridPos;
 
-        // Ãâ±¸ ¹æÇâ¿¡ µû¸¥ ÁÂÇ¥ ¿ÀÇÁ¼Â °è»ê
+        // ì¶œêµ¬ ë°©í–¥ì— ë”°ë¥¸ ì¢Œí‘œ ì˜¤í”„ì…‹ ê³„ì‚°
         Vector2Int offset = Vector2Int.zero;
         switch (openingDirection)
         {
-            case 1: // À§
+            case 1: // ìœ„
                 offset = new Vector2Int(0, 1);
                 break;
-            case 2: // ¾Æ·¡
+            case 2: // ì•„ë˜
                 offset = new Vector2Int(0, -1);
                 break;
-            case 3: // ¿À¸¥ÂÊ
+            case 3: // ì˜¤ë¥¸ìª½
                 offset = new Vector2Int(1, 0);
                 break;
-            case 4: // ¿ŞÂÊ
+            case 4: // ì™¼ìª½
                 offset = new Vector2Int(-1, 0);
                 break;
             default:
-                Debug.LogError("¿Ã¹Ù¸£Áö ¾ÊÀº openingDirection °ª!");
+                Debug.LogError("ì˜¬ë°”ë¥´ì§€ ì•Šì€ openingDirection ê°’!");
                 break;
         }
         Vector2Int spawnPos = parentPos + offset;
 
         GameObject roomPrefab = null;
 
-        // ÃÖ´ë ¹æ °³¼ö Á¦ÇÑ Ã¼Å©
+        // ìµœëŒ€ ë°© ê°œìˆ˜ ì œí•œ ì²´í¬
         if (MapManager.Instance.RoomCount >= MapManager.Instance.maxRooms)
         {
             MapManager.Instance.OnMapRoomCountFull();
-            // ¸¸¾à ÃÖ´ë ¹æ °³¼ö¿¡ µµ´ŞÇßÀ» °æ¿ì, ÀÔ±¸°¡ 1°³¸¸ ÀÖ¾î¼­ ´õ ¼ÒÈ¯ÀÌ µÇÁö ¾Ê´Â ¹æ ¼±ÅÃ.
+            // ë§Œì•½ ìµœëŒ€ ë°© ê°œìˆ˜ì— ë„ë‹¬í–ˆì„ ê²½ìš°, ì¶œêµ¬ê°€ 1ê°œë§Œ ìˆì–´ ë” ìƒì„±ë˜ì§€ ì•ŠëŠ” ë°© ìƒì„±.
             if (openingDirection == 1)
             {
                 roomPrefab = templates.BottomRooms[0];
@@ -80,7 +80,7 @@ public class RoomSpawner : MonoBehaviour
         }
         else
         {
-            // ¹è¿­ÀÇ 1~¸¶Áö¸· ÀÎµ¦½º´Â 2°³ ÀÌ»óÀÇ ÀÔ±¸°¡ ÀÖ´Â °æ¿ì. ¹æÀ» ´Ã·Á¾ß ÇÒ °æ¿ì »ç¿ë.
+            // ë°°ì—´ì˜ 1~ëê¹Œì§€ ì¸ë±ìŠ¤ëŠ” 2ê°œ ì´ìƒì˜ ì¶œêµ¬ê°€ ìˆëŠ” ë°©ì„. ë§µì„ í”Œë ˆì´ í•  ìˆ˜ë„ ìˆìŒ.
             if (openingDirection == 1)
             {
                 rand = Random.Range(1, templates.BottomRooms.Length);
@@ -103,17 +103,17 @@ public class RoomSpawner : MonoBehaviour
             }
         }
 
-        // ÀÌ¹Ì ÇØ´ç ÁÂÇ¥¿¡ ¹æÀÌ »ı¼ºµÇ¾ú´ÂÁö È®ÀÎ
+        // ì´ë¯¸ í•´ë‹¹ ì¢Œí‘œì— ë°©ì´ ìƒì„±ë˜ì—ˆëŠ”ì§€ í™•ì¸
         if (MapManager.Instance.IsRoomExistAt(spawnPos))
         {
             spawned = true;
             return;
         }
 
-        // »õ ¹æ »ı¼º
+        // ìƒˆ ë°© ìƒì„±
         GameObject newRoom = Instantiate(roomPrefab, transform.position, roomPrefab.transform.rotation, MapManager.Instance.RoomParent);
 
-        // »õ ¹æ¿¡ Room ÄÄÆ÷³ÍÆ®°¡ ¾ø´Ù¸é Ãß°¡ÇÏ°í, ±×¸®µå ÁÂÇ¥ ¼³Á¤
+        // ìƒˆ ë°©ì— Room ì»´í¬ë„ŒíŠ¸ê°€ ì—†ë‹¤ë©´ ì¶”ê°€í•˜ê³ , ê·¸ë¦¬ë“œ ì¢Œí‘œ ì„¤ì •
         Room newRoomComp = newRoom.GetComponent<Room>();
         if (newRoomComp == null)
         {
@@ -121,7 +121,7 @@ public class RoomSpawner : MonoBehaviour
         }
         newRoomComp.gridPos = spawnPos;
 
-        // MapManager¿¡ »õ ¹æÀÇ ÁÂÇ¥ µî·Ï
+        // MapManagerì— ìƒˆ ë°©ê³¼ ì¢Œí‘œ ë“±ë¡
         MapManager.Instance.RegisterRoom(spawnPos, newRoom);
 
         spawned = true;

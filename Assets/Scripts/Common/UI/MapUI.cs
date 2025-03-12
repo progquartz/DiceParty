@@ -12,9 +12,9 @@ public class MapUI : MonoBehaviour
     private float openSpeedFast = 2000f;
     private float closeSpeedFast = 3000f;
 
-    // ÇöÀç ¸ÊÀÌ ¿­¸° »óÅÂÀÎÁö ¿©ºÎ
+    // í˜„ì¬ ë§µì´ ì—´ë ¤ ìˆëŠ”ì§€ì˜ ì—¬ë¶€
     private bool isMapUIOpen = false;
-    // ÀÌµ¿ ÁßÀÎÁö ¿©ºÎ (ÀÌµ¿ ÁßÀÏ ¶§´Â ¹öÆ° ÀÔ·Â ¹«½Ã)
+    // ì´ë™ ì¤‘ì¸ì§€ ì—¬ë¶€ (ì´ë™ ì¤‘ì¼ ë•ŒëŠ” ë²„íŠ¼ ì…ë ¥ ë¬´ì‹œ)
     private bool isMoving = false;
 
     public void OnTurningOffMapUI()

@@ -3,9 +3,8 @@ using UnityEngine;
 
 public abstract class BaseEffect 
 {
-
-    // Å¸°Ù µ¥ÀÌÅÍ ¹Ş¾Æ¿Â ´ÙÀ½¿¡, ¿©±â¿¡ ±â¹İÀ¸·Î ÇÏ´Â Effect¸¦ »ó¼Ó¹Ş¾Æ¼­ ÇÏ´Â °ÍÀ¸·Î.
-    // Å¸°ÙÀ» Àâ´Â ºÎºĞÀº, SkillDataSO¿¡¼­ ¹Ş¾Æ¿Â ´ÙÀ½¿¡, ÀÌ¸¦ ±â¹İÀ¸·Î ÀÛµ¿.
-    // È¿°ú / ´ë»óÀ¸·Î ³ª´« SkillDataSO·Î ¸¸µé ¿¹Á¤.
+    // íƒ€ê²Ÿ ì •ë³´ë¥¼ ë°›ì•„ì™€ ì‹¤í–‰í•˜ê³ , ì—¬ê¸°ì— êµ¬í˜„í•˜ì§€ ì•ŠëŠ” EffectëŠ” ìƒì†ë°›ì•„ì„œ í•˜ëŠ” êµ¬ì¡°ì„.
+    // íƒ€ê²Ÿì˜ ëª¨ë“  ë¶€ë¶„ì€, SkillDataSOì—ì„œ ë°›ì•„ì™€ ì‹¤í–‰í•¨, ì´ë¦„ ì •ë„ë§Œ ì‘ë™.
+    // íš¨ê³¼ / ë°ë¯¸ì§€ëŠ” ëª¨ë‘ SkillDataSOì— ê°’ì´ ìˆìŒ.
     public abstract void Effect(List<BaseTarget> targets, BaseTarget caller,  int strength1, int strength2);
 }

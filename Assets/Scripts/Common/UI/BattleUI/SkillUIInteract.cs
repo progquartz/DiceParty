@@ -17,9 +17,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private Vector3 offset;
 
-
-    
-
     private void Awake()
     {
         Init();
@@ -32,8 +29,6 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             graphicRaycaster = UIManager.Instance.GetRayCaster();
         }
         eventSystem = eventSystem ?? EventSystem.current;
-        
-
     }
 
     void Update()
@@ -52,7 +47,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             isDragging = true;
 
-            // ½½·Ô¿¡ ÀÚ¸®Àâ¾ÒÀ» ¶§¿¡, ¸¶¿ì½º¸¦ ³õÀ½À¸·Î½á Detach
+            // ìŠ¬ë¡¯ì— ìë¦¬ì¡ê³ ìˆë˜ ìŠ¤í‚¬, ë§ˆìš°ìŠ¤ë¡œ ë“œë˜ê·¸í•¨ìœ¼ë¡œì¨ Detach
             if (owner.skillUISlot != null)
             {
                 owner.skillUISlot.OnSkillUIDetach(owner);
@@ -74,16 +69,16 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             List<RaycastResult> results = new List<RaycastResult>();
             graphicRaycaster.Raycast(pointerEventData, results);
 
-            // Raycast °á°ú·Î °ãÄ¡´Â UI È®ÀÎ °¡´É
+            // Raycast ê²°ê³¼ë¡œ ë¶€ë”ªíŒ UI í™•ì¸ ì‘ì—…
             foreach (var r in results)
             {
                 var slot = r.gameObject.GetComponent<SkillUISlot>();
                 if (slot != null)
                 {
-                    // ½½·Ô¿¡ ½ºÅ³ÀÌ ¾øÀ» °æ¿ì¿¡
+                    // ìŠ¬ë¡¯ì— ìŠ¤í‚¬ì´ ì—†ì„ ê²½ìš°ì—
                     if (!slot.HasSkill())
                     {
-                        // ½½·Ô¿¡ ½ºÅ³ ³Ö±â.   
+                        // ìŠ¬ë¡¯ì— ìŠ¤í‚¬ ë„£ê¸°
                         slot.OnSkillUIAttach(owner);
                         owner.OnSkillSlotAttach(slot);
                         droppedOnSlot = true;
@@ -91,19 +86,18 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     }
                     else
                     {
-                        Logger.Log("[SkillUIInteract] ½ºÅ³ÀÌ ÀÌ¹Ì Âù ½ºÅ³ ½½·Ô¿¡ µé¾î°¡·Á ÇÕ´Ï´Ù.");
+                        Logger.Log("[SkillUIInteract] ìŠ¤í‚¬ì´ ì´ë¯¸ ì°¬ ìŠ¤í‚¬ ìŠ¬ë¡¯ì— ë„£ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
                     }
                 }
             }
 
-
             if (droppedOnSlot)
             {
-                Logger.Log("[DiceInteract] ½½·Ô¿¡ µå·Ó ¼º°ø!");
+                Logger.Log("[DiceInteract] ìŠ¬ë¡¯ì— ë¶€ì°© ì„±ê³µ!");
             }
             else
             {
-                //Logger.Log("[DiceInteract] ½½·ÔÀÌ ¾Æ´Ñ °÷¿¡ µå·ÓµÊ.");
+                //Logger.Log("[DiceInteract] ìŠ¬ë¡¯ì´ ì•„ë‹Œ ê³³ì— ë†“ì•„ì§.");
             }
         }
     }

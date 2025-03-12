@@ -2,9 +2,9 @@ using UnityEngine;
 
 
 /// <summary>
-/// ³ª¸ÓÁöÀÇ °æ¿ì...
-/// 0 = ´Ü¼ø °è»ê À¯Çü
-/// 2 = ¹öÇÁ ÇüÅÂ, ¹öÇÁ È¿°ú°¡ Àû¿ëµÇ´Â ¸ğ½ÀÀÌ º¸¿©¾ß ÇÔ.
+/// ì´í™íŠ¸ì˜ ì¢…ë¥˜...
+/// 0 = ë‹¨ìˆœ íš¨ê³¼ ì—†ìŒ
+/// 2 = ì§€ì† íš¨ê³¼, ì§€ì† íš¨ê³¼ê°€ ì ìš©ë˜ëŠ” ëŒ€ìƒì˜ ì •ë³´ë¥¼ ì¤Œ.
 /// </summary>
 [System.Serializable]
 public enum EffectKey
@@ -29,8 +29,6 @@ public enum EffectKey
     ThornEffect = 122,
     WitherEffect = 132,
     ImmuneEffect = 142,
-    
-
 }
 
 public enum TargetOptionClassName
@@ -49,15 +47,15 @@ public enum TargetOptionClassName
 [System.Serializable]
 public class SkillEffectData
 {
-    [Header("´ë»ó Å¸°ÙÆÃ Å¬·¡½º")]
+    [Header("íš¨ê³¼ íƒ€ê²ŸíŒ… í´ë˜ìŠ¤")]
     public TargetOptionClassName targetClassName;
 
-    [Header("ÁÖ´Â È¿°ú")]
+    [Header("ì£¼ëŠ” íš¨ê³¼")]
     public EffectKey effectClassName;
 
-    [Header("½ºÅ³ °­µµ(È¤Àº È¸º¹·®, etc.)")]
+    [Header("ìŠ¤í‚¬ ìˆ˜ì¹˜(í˜¹ì€ íšŒë³µëŸ‰, etc.)")]
     public int strength1;
 
-    [Header("½ºÅ³ °­µµ2(ºÎ°¡ ¼öÄ¡))")]
+    [Header("ìŠ¤í‚¬ ìˆ˜ì¹˜2(ì´ê²© ê±°ë¦¬))")]
     public int strength2;
 }

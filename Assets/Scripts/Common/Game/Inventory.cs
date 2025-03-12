@@ -9,46 +9,44 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     [SerializeField] private List<DiceType> diceList;
 
-    [Header("Æ÷¼Ç ½½·Ô")]
+    [Header("í¬ì…˜ ìŠ¬ë¡¯")]
     [SerializeField] private List<PotionSlot> potionSlots;
     public int potionCountLimit = 3;
 
-    [Header("½ºÅ³ ½½·Ô")]
+    [Header("ìŠ¤í‚¬ ìŠ¬ë¡¯")]
     [SerializeField] private List<SkillUISlot> skillUISlots;
 
 
     [SerializeField] private List<SkillDataSO> initializeSkillDataSO;
     
-    [SerializeField] private int initialDiceCount = 4; // Ã³À½ ÁÖ´Â ÁÖ»çÀ§ °³¼ö
-    public int diceCountLimit = 8; // ÁÖ»çÀ§ÀÇ Á¦ÇÑ
+    [SerializeField] private int initialDiceCount = 4; // ì²˜ìŒ ê°€ì§„ ì£¼ì‚¬ìœ„ ê°œìˆ˜
+    public int diceCountLimit = 8; // ì£¼ì‚¬ìœ„ ìµœëŒ€ ê°œìˆ˜
 
     public int gold = 0;
     public float salesPercent = 0f;
 
     protected override void Init()
     {
-        // ÃÊ±âÈ­ ºÎºĞ.
+        // ì´ˆê¸°í™” ì‘ì—….
         InitializingInventory();
         BattleManager.Instance.ResetDiceToDummy();
     }
 
     private void InitializingInventory()
     {
-        // ÁÖ»çÀ§ Ãß°¡
+        // ì£¼ì‚¬ìœ„ ì¶”ê°€
         for(int i = 0; i < initialDiceCount; i++)
         {
             AddDice(DiceType.D6);
         }
-        // ½ºÅ³ Ãß°¡
+        // ìŠ¤í‚¬ ì¶”ê°€
         foreach(SkillDataSO skillData in initializeSkillDataSO)
         {
             AddNewSkillInSlot(skillData);
         }
-
-
     }
 
-    /// Potion ºÎºĞ
+    /// í¬ì…˜ ì‚¬ìš©
     public void UsePotionInSlots(int index)
     {
         potionSlots[index].UsePotion();
@@ -72,7 +70,7 @@ public class Inventory : SingletonBehaviour<Inventory>
     }
 
 
-    /// Skill ºÎºĞ
+    /// ìŠ¤í‚¬ ì‚¬ìš©
     
     public List<SkillUI> GetAllUsingSkill()
     {
@@ -101,7 +99,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         return false;
     }
 
-    /// Dice ºÎºĞ
+    /// ì£¼ì‚¬ìœ„ ì‚¬ìš©
 
 
 
@@ -109,8 +107,7 @@ public class Inventory : SingletonBehaviour<Inventory>
     {
         if (diceList.Count >= diceCountLimit)
         {
-            // ´õ ÀÌ»ó Ãß°¡ÇÒ ¼ö ¾øÀ½.
-            // ±³Ã¼ÇÏ´Â ½½·Ô ÇÊ¿ä.
+            // ì£¼ì‚¬ìœ„ ì¶”ê°€ ë¶ˆê°€ëŠ¥.
             return false;
         }
         else
@@ -134,7 +131,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
         else
         {
-            Logger.Log($"´ÙÀÌ½ºÀÇ ÀÎº¥Åä¸®°¡ °¡µæ Â÷ ±³Ã¼¸¦ ½ÇÇàÇÕ´Ï´Ù.");
+            Logger.Log($"ì£¼ì‚¬ìœ„ ì¶”ê°€ ë¶ˆê°€ëŠ¥. ì£¼ì‚¬ìœ„ êµì²´ ì‘ì—… ì§„í–‰.");
             ReplaceDice();
             return false;
         }
@@ -149,8 +146,8 @@ public class Inventory : SingletonBehaviour<Inventory>
     {
         throw new System.NotImplementedException();
 
-        // Replace µÉ ¼ö ÀÖµµ·Ï Á¶°Ç ±³Ã¼ÇØÁÖ°í...
-        // ´ÙÀÌ½º¿¡¼­ ¼±ÅÃ ÄİÀÌ µé¾î¿À¸é... °íÃ¼.
+        // ì£¼ì‚¬ìœ„ êµì²´ ì‘ì—… ì¤‘...
+        // ì£¼ì‚¬ìœ„ êµì²´ ì‘ì—… ì¤‘...
     }
     public void AddD6()
     {

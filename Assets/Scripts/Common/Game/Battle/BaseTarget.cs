@@ -19,20 +19,20 @@ public class BaseTarget : MonoBehaviour
 
     protected void EffectCalcOnTurnStart()
     {
-        // ½ÇÁú µ¥¹ÌÁö °ü·Ã
+        // ë””ë²„í”„ ë°ë¯¸ì§€ ê³„ì‚°
         CalcArmour();
         CalcPoison();
         CalcFire();
 
         CalcRegen();
 
-        // °£Á¢ ¹öÇÁ
+        // ë²„í”„ ê³„ì‚°
         CalcPassion();
         CalcWither();
         CalcThorn();
 
 
-        // Á¤½Å°è ¹öÇÁ / µğ¹öÇÁ
+        // í–‰ë™ì— ê´€í•œ / ì œì–´ê¸°
         CalcTaunt();
         CalcStun();
         
@@ -40,10 +40,10 @@ public class BaseTarget : MonoBehaviour
 
     protected void EffectCalcOnTurnEnd()
     {
-        CalcConfuse(); // È¥¶õÀº ÅÏÀÌ ³¡³ª°í °¨¼Ò.
-        CalcWeaken(); // ¼è¾àÀº ÅÏÀÌ ³¡³ª°í °¨¼Ò.
+        CalcConfuse(); // í˜¼ë€ì€ í„´ì´ ëë‚˜ë©´ ê°ì†Œ.
+        CalcWeaken(); // ì•½í™”ëŠ” í„´ì´ ëë‚˜ë©´ ê°ì†Œ.
 
-        CalcFortify(); // ¹æº®(º¸È£¸· Ãß°¡)
+        CalcFortify(); // ìš”ìƒˆ(ë³´í˜¸ë§‰ ì¶”ê°€)
     }
 
     public void CalcEffect(EffectKey effectClass, int strength1, int strength2 = 0)
@@ -59,7 +59,7 @@ public class BaseTarget : MonoBehaviour
         BattleManager.Instance.SkillExecutor.UseSkill(effData);
     }
     /// <summary>
-    /// µ¶ °è»ê
+    /// ë… ê³„ì‚°
     /// </summary>
     private void CalcPoison()
     {
@@ -71,7 +71,7 @@ public class BaseTarget : MonoBehaviour
     }
 
     /// <summary>
-    /// ºÒ °è»ê
+    /// í™”ì—¼ ê³„ì‚°
     /// </summary>
     private void CalcFire()
     {
@@ -93,7 +93,7 @@ public class BaseTarget : MonoBehaviour
 
     private void CalcArmour()
     {
-        // ÅÏ ½ÃÀÛ ½Ã ¸ğµç ¹æ¾î¸· »èÁ¦.
+        // í„´ ì‹œì‘ ì‹œ ë°©ì–´ë„ ì´ˆê¸°í™”.
         stat.ArmourStack = 0;
     }
 
@@ -165,23 +165,23 @@ public class BaseTarget : MonoBehaviour
 
     public void HandleRevive()
     {
-        Logger.Log($"{name} Ä³¸¯ÅÍ¸¦ ºÎÈ°½ÃÅµ´Ï´Ù.");
+        Logger.Log($"{name} ìºë¦­í„°ë¥¼ ë¶€í™œì‹œí‚µë‹ˆë‹¤.");
         stat.isDead = false;
         OnRevive?.Invoke(this);
     }
 
-    // ´Ü¼ø µ¥¹ÌÁö ±â¹İ Á×À½(µ¶ / È­¿° µîµî...)Àº ÀÌ È¿°ú¸¦ Àû¿ë.
+    // ë‹¨ìˆœ ì‚¬ë§ì‹œ ë°œìƒ ì´ë²¤íŠ¸(ë… / í™”ì—¼ ë“±...)ì— ì˜í•œ íš¨ê³¼ë¥¼ ìœ„í•¨.
     public void HandleDead()
     {
-        Debug.Log($"{name}ÀÌ »ç¸ÁÇß½À´Ï´Ù.");
+        Debug.Log($"{name}ì´ ì‚¬ë§í–ˆìŠµë‹ˆë‹¤.");
         stat.isDead = true;
-        OnDead?.Invoke(this); // ÀÌº¥Æ® ¹ßÇà
+        OnDead?.Invoke(this); // ì´ë²¤íŠ¸ ë°œìƒ
     }
 
-    // Àû º¸½º¿Í ÂÌº´ÀÌ ÀÖÀ» ¶§¿¡, Àû º¸½º°¡ Á×À¸¸é ³ª¸ÓÁö°¡ Á×´Â´Ù´ø°¡, ÀÚÆøÇÑ´Ù´ø°¡ µîÀÇ È¿°ú´Â ÀÌ È¿°ú¸¦ Àû¿ë.
+    // ì´ ì´ë²¤íŠ¸ëŠ” ì´ë²¤íŠ¸ ë°œìƒ ìˆœì„œ, ì¦‰ ì‚¬ë§ì‹œ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ê³  ì£½ëŠ”ë‹¤ë˜ê°€, ì œê±°í•œë‹¤ë˜ê°€ í•˜ëŠ” íš¨ê³¼ë¥¼ ìœ„í•œ íš¨ê³¼ë¥¼ ìœ„í•¨.
     public void HandleRemoval()
     {
-        Debug.Log($"{name}ÀÌ ¹èÆ² ¸®½ºÆ®¿¡¼­ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+        Debug.Log($"{name}ì´ ë°°í‹€ í•„ë“œì—ì„œ ì œê±°ë˜ì—ˆìŠµë‹ˆë‹¤.");
         OnRemoval?.Invoke(this);
     }
 }

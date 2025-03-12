@@ -17,7 +17,7 @@ public class DiceRoller : MonoBehaviour
         newDice.transform.SetParent(diceParent);
         newDice.transform.localPosition = transform.position + tmpDiceInterval * diceList.Count;
         newDice.SetDiceType(diceType);
-        newDice.name = "Dice_" + diceList.Count;  // ÀÌ¸§À» À¯´ÏÅ©ÇÏ°Ô ÁöÁ¤
+        newDice.name = "Dice_" + diceList.Count;  // ì´ë¦„ì„ ìœ ë‹ˆí¬í•˜ê²Œ ì„¤ì •
         diceList.Add(newDice);
         return newDice;
     }

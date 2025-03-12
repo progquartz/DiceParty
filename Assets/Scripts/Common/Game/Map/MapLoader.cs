@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-#region JSON Á÷·ÄÈ­ Å¬·¡½º
+#region JSON ì§ë ¬í™” í´ë˜ìŠ¤
 [System.Serializable]
 public class RoomData
 {
@@ -21,7 +21,7 @@ public class MapData
 
 public class MapLoader : MonoBehaviour
 {
-    // MapManager ÀÎ½ºÅÏ½º (Inspector¿¡¼­ ÇÒ´çÇÏ°Å³ª ½Ì±ÛÅæ ÀÎ½ºÅÏ½º¸¦ »ç¿ë)
+    // MapManager ì¸ìŠ¤í„´ìŠ¤ (Inspectorì—ì„œ í• ë‹¹í•˜ê±°ë‚˜ ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì‚¬ìš©)
     public MapManager mapManager;
 
 
@@ -31,14 +31,14 @@ public class MapLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç MapManagerÀÇ ¹æ µ¥ÀÌÅÍ¸¦ JSON ¹®ÀÚ¿­·Î ÀúÀåÇÕ´Ï´Ù.
+    /// í˜„ì¬ MapManagerì˜ ë§µ ë°ì´í„°ë¥¼ JSON ë¬¸ìì—´ë¡œ ì €ì¥í•©ë‹ˆë‹¤.
     /// </summary>
     public string SaveMapDataToJson()
     {
         MapData data = new MapData();
         data.rooms = new List<RoomData>();
 
-        // MapManager ³»ºÎÀÇ ¹æ µ¥ÀÌÅÍ¸¦ ¼øÈ¸
+        // MapManager ë‚´ë¶€ì˜ ë§µ ë°ì´í„°ë¥¼ ìˆœíšŒ
         foreach (var kvp in mapManager.GetMapRooms())
         {
             Vector2Int pos = kvp.Key;
@@ -54,23 +54,23 @@ public class MapLoader : MonoBehaviour
             }
         }
         string json = JsonUtility.ToJson(data, true);
-        Debug.Log("ÀúÀåµÈ ¸Ê µ¥ÀÌÅÍ: " + json);
+        Debug.Log("ì €ì¥ëœ ë§µ ë°ì´í„°: " + json);
         return json;
     }
 
     /// <summary>
-    /// JSON ¹®ÀÚ¿­·Î ÀúÀåµÈ ¸Ê µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Í¼­ ¸ÊÀ» Àç»ı¼ºÇÕ´Ï´Ù.
-    /// ±âÁ¸ ¸ÊÀº MapManagerÀÇ ResetMap()À» È£ÃâÇØ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+    /// JSON ë¬¸ìì—´ë¡œ ì €ì¥ëœ ë§µ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì™€ì„œ ë§µì„ ì¬êµ¬ì„±í•©ë‹ˆë‹¤.
+    /// ë¨¼ì € í˜„ì¬ MapManagerì˜ ResetMap()ì„ í˜¸ì¶œí•´ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
     /// </summary>
     public void LoadMapDataFromJson(string json)
     {
-        // ¸ÕÀú ±âÁ¸ ¸ÊÀ» ¸®¼ÂÇÕ´Ï´Ù.
+        // í˜„ì¬ ë§µì„ ë¨¼ì € ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
         mapManager.ResetMap();
 
         MapData data = JsonUtility.FromJson<MapData>(json);
         if (data == null || data.rooms == null)
         {
-            Debug.LogError("¸Ê µ¥ÀÌÅÍ¸¦ ·ÎµåÇÏ´Â µ¥ ½ÇÆĞÇß½À´Ï´Ù. JSON Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+            Debug.LogError("ë§µ ë°ì´í„°ë¥¼ ë¡œë“œí•˜ëŠ” ì¤‘ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. JSON í˜•ì‹ì´ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -92,7 +92,7 @@ public class MapLoader : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("¾Ë ¼ö ¾ø´Â ¹æ ÀÌ¸§ÀÔ´Ï´Ù: " + rd.roomName);
+                Debug.LogWarning("ì•Œ ìˆ˜ ì—†ëŠ” ë°© ì´ë¦„ì…ë‹ˆë‹¤: " + rd.roomName);
             }
         }
     }

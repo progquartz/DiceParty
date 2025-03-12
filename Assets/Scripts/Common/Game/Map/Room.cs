@@ -4,15 +4,15 @@ using System;
 
 public class Room : MonoBehaviour
 {
-    // ¹æÀÇ ±×¸®µå ÁÂÇ¥ µî ±âº» Á¤º¸
+    // ë°©ì˜ ê·¸ë¦¬ë“œ ì¢Œí‘œ ë° ê¸°ë³¸ ì •ë³´
     public Vector2Int gridPos;
     // 0 -> left / 1 -> Right / 2 -> top / 3 -> bottom
     public List<int> connectionDirection;
 
-    // ¹æ ÀÌ¸§ µ¥ÀÌÅÍ (JSON ÀúÀå/·Îµå¸¦ À§ÇØ Ãß°¡)
+    // ë°© ì´ë¦„ ì •ë³´ (JSON ì €ì¥/ë¡œë“œë¥¼ ìœ„í•´ ì¶”ê°€)
     public string roomName;
 
-    // ÀÌ ¹æ¿¡¼­ ¹ß»ıÇÒ ÀÌº¥Æ® (¾øÀ» ¼öµµ ÀÖÀ¸¹Ç·Î null Çã¿ë)
+    // ì´ ë°©ì—ì„œ ë°œìƒí•  ì´ë²¤íŠ¸ (ì „íˆ¬ ë“±ì´ ì—†ìœ¼ë©´ null ê°’)
     public RoomEvent roomEvent;
 
     public void ActivateRoom()
@@ -23,7 +23,7 @@ public class Room : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÀÌ ¹æ¿¡´Â Æ¯º°ÇÑ ÀÌº¥Æ®°¡ ¾ø½À´Ï´Ù.");
+            Debug.Log("ì´ ë°©ì—ëŠ” íŠ¹ë³„í•œ ì´ë²¤íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 

@@ -4,11 +4,11 @@ public class ShopEvent : RoomEvent
 {
     public override void TriggerEvent()
     {
-        Logger.Log($"[ShopEvent] - ÀÌº¥Æ® È°¼ºÈ­");
+        Logger.Log($"[ShopEvent] - ì´ë²¤íŠ¸ í™œì„±í™”");
         UIManager.Instance.OpenUI<ShopUI>(new BaseUIData
         {
-            ActionOnShow = () => { Debug.Log("»óÁ¡ UI ¿­¸²."); },
-            ActionOnClose = () => { Debug.Log("»óÁ¡ UI ´İÈû."); }
+            ActionOnShow = () => { Debug.Log("ìƒì  UI ì—´ë¦¼."); },
+            ActionOnClose = () => { Debug.Log("ìƒì  UI ë‹«í˜."); }
         });
     }
 

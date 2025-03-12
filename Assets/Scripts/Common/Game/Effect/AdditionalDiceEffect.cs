@@ -5,6 +5,6 @@ public class AdditionalDiceEffect : BaseEffect
 {
     public override void Effect(List<BaseTarget> targets, BaseTarget caller, int strength1, int strength2)
     {
-        Logger.LogWarning("¾ÆÁ÷ °³¹ßµÇÁö ¾ÊÀº AdditionalDice¿¡ Á¢±ÙÇØ ÀÌ¸¦ »ç¿ëÇß½À´Ï´Ù.");
+        Logger.LogWarning("ì•„ì§ êµ¬í˜„ë˜ì§€ ì•Šì€ AdditionalDiceì˜ ê¸°ëŠ¥ì„ ì´ë¦„ ì§€ì—ˆìŠµë‹ˆë‹¤.");
     }
 }

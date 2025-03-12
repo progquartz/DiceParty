@@ -5,6 +5,6 @@ using UnityEngine;
 public class DiceRequirementData
 {
     public string diceNumLore;
-    // 0~20¹øÂ° ÀÎµ¦½º±îÁö 0¶Ç´Â 1 µ¥ÀÌÅÍ¸¦ ³Ö¾î ºÎ¿©ÇÏ´Â string.
+    // 0~20ë²ˆì§¸ ì¸ë±ìŠ¤ê¹Œì§€ 0ë˜ëŠ” 1 ë°ì´í„°ë¥¼ ë„£ì–´ íŒì •í•˜ëŠ” string.
     public string diceNum;
 }

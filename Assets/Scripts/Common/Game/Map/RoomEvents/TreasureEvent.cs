@@ -4,7 +4,7 @@ public class TreasureEvent : RoomEvent
 {
     public override void TriggerEvent()
     {
-        Logger.Log($"[TreasureEvent] - �̺�Ʈ Ȱ��ȭ");
+        Logger.Log($"[TreasureEvent] - 이벤트 활성화");
     }
 
     private void OnMouseDown()

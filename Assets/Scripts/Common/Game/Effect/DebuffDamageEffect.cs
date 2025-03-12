@@ -11,7 +11,7 @@ public class DebuffDamageEffect : BaseEffect
             BaseStat targetStat = target.stat;
             int totalDamage = strength1;
 
-            // ¹æ¾î·ÂÀÌ ³²¾ÆÀÖ´Ù¸é ¾Æ¸ÓºÎÅÍ ±ð°í, ³²À¸¸é HP ±ð±â
+            // ë°©ì–´ë„ê°€ ë‚¨ì•„ìžˆë‹¤ë©´ ì•„ë¨¸ë¶€í„° ê¹Žê³ , ë‚˜ë¨¸ì§€ HP ê¹ŽìŒ
             if (targetStat.ArmourStack > 0)
             {
                 targetStat.ArmourStack -= totalDamage;

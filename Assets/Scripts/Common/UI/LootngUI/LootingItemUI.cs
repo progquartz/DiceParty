@@ -19,7 +19,7 @@ public class LootingItemUI : MonoBehaviour
     {
         LootingItem.GetItem();
         owner.OnClickLootingItem();
-        // ¾Ö´Ï¸ŞÀÌ¼Ç, ¹× È¿°ú µîµî...
+        // ì• ë‹ˆë©”ì´ì…˜, ê° íš¨ê³¼ ë“±...
         Destroy(this.gameObject);
     }
 
@@ -54,22 +54,22 @@ public class LootingCard : MonoBehaviour, LootingItem
 
     public void GetItem()
     {
-        // Ä«µå ¼±ÅÃ
+        // ì¹´ë“œ ì„ íƒ
         UIManager.Instance.OpenUI<CardSelectLootUI>(new BaseUIData
         {
-            ActionOnShow = () => { Debug.Log("Ä«µå ¼±ÅÃ UI ¿­¸²."); },
-            ActionOnClose = () => { Debug.Log("Ä«µå ¼±ÅÃ UI ´İÈû."); }
+            ActionOnShow = () => { Debug.Log("ì¹´ë“œ ì„ íƒ UI ì—´ë¦¼."); },
+            ActionOnClose = () => { Debug.Log("ì¹´ë“œ ì„ íƒ UI ë‹«í˜."); }
         });
     }
 
     public string GetLore()
     {
-        return new string("¹«ÀÛÀ§ Ä«µå¸¦ È¹µæÇÕ´Ï´Ù.");
+        return new string("ìƒˆë¡œìš´ ì¹´ë“œë¥¼ íšë“í•©ë‹ˆë‹¤.");
     }
 
     public string GetName()
     {
-        return new string("¹«ÀÛÀ§ Ä«µå");
+        return new string("ìƒˆë¡œìš´ ì¹´ë“œ");
     }
 
     public void InitializeLoot()

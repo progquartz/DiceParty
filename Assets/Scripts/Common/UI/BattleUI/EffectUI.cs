@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-
 public class EffectUI : MonoBehaviour
 {
-    public GameObject effectIconPrefab; // ¹öÇÁ ¾ÆÀÌÄÜ ÇÁ¸®ÆÕ
-    public Transform effectGrid; // GridLayoutGroupÀÌ Àû¿ëµÈ UI ÆĞ³Î
+    public GameObject effectIconPrefab; // ì´í™íŠ¸ ì•„ì´ì½˜ í”„ë¦¬íŒ¹
+    public Transform effectGrid; // GridLayoutGroupì´ ì ìš©ëœ UI íŒ¨ë„
 
     [SerializeField] private BaseTarget target;
     private Dictionary<EffectKey, EffectIconUI> activeEffects = new Dictionary<EffectKey, EffectIconUI>();
@@ -22,10 +21,10 @@ public class EffectUI : MonoBehaviour
         if(target == null)
         {
             target = GetComponentInParent<BaseTarget>();
-            Debug.Log("EffectUIÀÇ ÁÖÀÎÀ» Ã£Áö ¸øÇØ °Ë»öÇØº¾´Ï´Ù.");
+            Debug.Log("EffectUIì˜ íƒ€ê²Ÿì„ ì°¾ì•„ ì§ì ‘ ê²€ìƒ‰í•´ë´…ë‹ˆë‹¤.");
             if(target == null ) 
             {
-                Debug.Log("¼º°ø!");
+                Debug.Log("ì‹¤íŒ¨!");
             }
         }
         RegisterEvent();

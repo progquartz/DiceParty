@@ -12,8 +12,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     public Transform ClosedUITrasnform;
     public MapUI mapUI;
 
-    
-
     private BaseUI _frontUI;
     private Dictionary<Type, BaseUI> _openUIPool = new();
     private Dictionary<Type, BaseUI> _closeUIPool = new();
@@ -70,7 +68,6 @@ public class UIManager : SingletonBehaviour<UIManager>
         }
 
         ui.Init(CanvasTransform);
-        // NOTE : CurrencyUI 앞에 위치해야 한다.
         ui.transform.SetSiblingIndex(CanvasTransform.childCount - 1);
         ui.gameObject.SetActive(true);
         ui.SetData(data);

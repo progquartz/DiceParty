@@ -26,7 +26,7 @@ public class BuffUIDatas : MonoBehaviour
         string[] description = effectDataDict.ContainsKey(effect) ? effectDataDict[effect].description : null;
         if (description == null)
         {
-            Logger.LogError($"{effect.ToString()} È¿°úÀÇ descriptionÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            Logger.LogError($"{effect.ToString()} íš¨ê³¼ì˜ descriptionì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
         switch(description.Length)
         {
@@ -37,7 +37,7 @@ public class BuffUIDatas : MonoBehaviour
             case 3:
                 return description[0] + strength1.ToString() + description[1] + strength2.ToString() + description[2];
         }
-        Logger.LogWarning("ºñÁ¤»óÀûÀÎ µ¥ÀÌÅÍ¸¦ ÀÔ·Â¹Ş¾Æ stringÀÌ ¸¸µé¾îÁöÁö ¸øÇß½À´Ï´Ù.");
+        Logger.LogWarning("ë¹„ì •ìƒì ì¸ ë°ì´í„°ë¥¼ ì…ë ¥ë°›ì•„ stringì„ ìƒì„±í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
         return null;
     }
 

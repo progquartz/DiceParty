@@ -10,7 +10,7 @@ public class BaseStat
     public int ArmourStack;
     public bool isDead = false;
 
-    // È¿°ú ½ºÅÃÀ» Dictionary·Î °ü¸®
+    // íš¨ê³¼ ìŠ¤íƒì„ Dictionaryë¡œ ê´€ë¦¬
     private Dictionary<EffectKey, int> effectStacks = new Dictionary<EffectKey, int>();
     
     public event Action<EffectKey, int> OnUpdatingEffectStack;
@@ -22,7 +22,7 @@ public class BaseStat
         {
             if (effectStacks[effect] + value <= 0)
             {
-                effectStacks.Remove(effect); // 0ÀÌ¸é Á¦°Å
+                effectStacks.Remove(effect); // 0ì´ë©´ ì œê±°
                 OnRemovingEffectStack?.Invoke(effect);
             }
             else
@@ -65,7 +65,7 @@ public class BaseStat
         {
             if(originalEffects.Count > 0)
             {
-                Logger.LogError("µğ¹öÇÁ / ¹öÇÁ µîÀÌ Æ÷ÇÔµÈ ¿À¿°µÈ ½ºÅÈÀÌ ·ÎµåµÇ·Á°í ÇÕ´Ï´Ù.");
+                Logger.LogError("ë²„í”„ë‚˜ / ë””ë²„í”„ ë“±ì´ í¬í•¨ëœ ë°ì´í„°ë¥¼ ë³µì‚¬í•˜ë ¤ ì‹œë„í•©ë‹ˆë‹¤.");
             }
         }
     }

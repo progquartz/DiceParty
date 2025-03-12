@@ -6,7 +6,7 @@ public class SkillDiceSlotUI : MonoBehaviour
     [SerializeField] private SkillUI owner;
     [SerializeField] private Image diceSlotImage;
 
-    // ÇöÀç ½½·Ô¿¡ µé¾î¿Â Dice (¾ø´Ù¸é null)
+    // í˜„ì¬ ìŠ¬ë¡¯ì— ìˆëŠ” Dice (ì—†ë‹¤ë©´ null)
     [SerializeField] private Dice storedDice;
     [SerializeField] private bool isSlotUsed = false;
     [SerializeField] private bool isDiceSlotActive = false;
@@ -36,33 +36,33 @@ public class SkillDiceSlotUI : MonoBehaviour
 
 
     /// <summary>
-    /// ½ºÅ³ UI »ç¿ë »óÅÂ¿¡ º¯È­°¡ »ı±æ °æ¿ì¿¡ È£ÃâµÊ.
+    /// ìŠ¤í‚¬ UI í™œì„± ìƒíƒœì— ë³€í™”ê°€ ìˆì„ ê²½ìš°ì— í˜¸ì¶œë¨.
     /// </summary>
     private void OnSkillSlotToggle(bool isTriggeredByDeath)
     {
-        // Ä³¸¯ÅÍ°¡ »ç¸Á »óÅÂÀÌ°Å³ª, ½ºÅ³ÀÌ ¸ğµÎ »ç¿ëµÇ¾úÀ» °æ¿ì ºñÈ°¼ºÈ­
+        // ìºë¦­í„°ê°€ ì£½ì–´ ìˆê±°ë‚˜, ìŠ¤í‚¬ì´ ë¹„í™œì„±í™”ë˜ì–´ ìˆì„ ê²½ìš° ë¹„í™œì„±í™”
         if (!owner.CheckSkillActive())
         {
-            Debug.Log("½ºÅ³ÀÌ »ç¸ÁÀÎ°Í È®ÀÎµÊ.");
+            Debug.Log("ìŠ¤í‚¬ì´ ë¹„í™œì„±ì¸ê°€ í™•ì¸ë¨.");
             DeactivateDiceSlot();
             if(!isTriggeredByDeath)
             {
                 RemoveDiceInSlot();
             }
         }
-        // ´Ü¼ø ½ºÅ³ »ç¿ëÀ¸·Î Åä±ÛµÈ °æ¿ì...
+        // ë‹¨ìˆœ ìŠ¤í‚¬ í† ê¸€ë§ì´ ë°œìƒëœ ê²½ìš°...
         else
         {
-            // ½½·Ô¿¡ ÀÖ´Â ÁÖ»çÀ§¸¦ ¹ö¸®°í...
+            // ìŠ¬ë¡¯ì— ìˆëŠ” ì£¼ì‚¬ìœ„ëŠ” ì œê±°í•˜ê³ ...
             RemoveDiceInSlot();
-            // Ä³¸¯ÅÍ ½ºÅ³ÀÌ ¿­¸².
+            // ìºë¦­í„° ìŠ¤í‚¬ì€ ì¼œì¤Œ.
             ActivateDiceSlot();
         }
     }
 
     public void DeactivateDiceSlot()
     {
-        //Logger.LogWarning($"{owner.gameObject.name} ºñÈ°¼ºÈ­µÊ.");
+        //Logger.LogWarning($"{owner.gameObject.name} ë¹„í™œì„±í™”ë¨.");
         isDiceSlotActive = false;
     }
 
@@ -70,34 +70,34 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         if(owner.CheckSkillActive() )
         {
-            //Logger.LogWarning($"{owner.gameObject.name}/È°¼ºÈ­µÊ/.");
+            //Logger.LogWarning($"{owner.gameObject.name}/í™œì„±í™”ë¨/.");
             isDiceSlotActive = true;
         }
     }
 
     /// <summary>
-    /// ÁÖ»çÀ§°¡ ½½·Ô¿¡ µé¾î¿Ã ¶§(µå·Ó ¼º°ø ½Ã) È£ÃâµÉ ÇÔ¼ö
+    /// ì£¼ì‚¬ìœ„ê°€ ìŠ¬ë¡¯ì— ë“¤ì–´ì˜¬ ë•Œ(ë¶€ì°© ì‹œë„ ì‹œ) í˜¸ì¶œë  í•¨ìˆ˜
     /// </summary>
     public void OnDiceAttach(Dice dice)
     {
-        // ÀÌ¹Ì ´Ù¸¥ ÁÖ»çÀ§°¡ µé¾îÀÖ´Ù¸é ¾î¶»°Ô ÇÒÁö °áÁ¤
+        // ì´ë¯¸ ë‹¤ë¥¸ ì£¼ì‚¬ìœ„ê°€ ë“¤ì–´ìˆë‹¤ë©´ ë¶€ì°© ì‹œë„ ì‹¤íŒ¨
         if (storedDice != null)
         {
-            // Æ¨°Ü³»±â ¶Ç´Â ¿ø·¡ ½½·Ô ÀÚ¸®·Î µÇµ¹·Á³õ±â ÇÊ¿ä.
-            Logger.Log($"ÀÌ¹Ì {gameObject.name} ½½·Ô ÀÚ¸®´Â »ç¿ëµÇ°í ÀÖ½À´Ï´Ù.");
+            // íŠ•ê²¨ë‚´ëŠ” íŒì • ë“±ì€ ì›ë˜ ìë¦¬ë¡œ ë˜ëŒë¦¬ê¸°ë§Œ í•˜ë©´ ë¨.
+            Logger.Log($"ì´ë¯¸ {gameObject.name} ìŠ¬ë¡¯ì— ìë¦¬ê°€ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
         storedDice = dice;
         
-        Debug.Log($"[SkillDiceSlotUI] {dice.name} ÁÖ»çÀ§¸¦ ÀÌ ½½·Ô¿¡ º¸°ü.");
+        Debug.Log($"[SkillDiceSlotUI] {dice.name} ì£¼ì‚¬ìœ„ê°€ ì´ ìŠ¬ë¡¯ì— ë¶€ì°©ë¨.");
 
 
-        // ÁÖ»çÀ§¸¦ ½½·ÔÀÇ À§Ä¡·Î ÀÌµ¿.
+        // ì£¼ì‚¬ìœ„ë¥¼ ìŠ¬ë¡¯ì˜ ìœ„ì¹˜ë¡œ ì´ë™.
         dice.transform.position = transform.position;
 
-        // ÁÖ»çÀ§ÀÇ Á¦¾à Á¶°Ç ¿©ºÎ Ã¼Å©
-        // ¿øÇÏ´Â Ãß°¡ µ¿ÀÛ (»ç¿îµå, ÀÌÆåÆ®, UI »ö»ó º¯°æ, etc.)
+        // ì£¼ì‚¬ìœ„ì˜ ê°’ì´ ìœ íš¨ ì¡°ê±´ ì²´í¬
+        // ì›í•˜ëŠ” ì¶”ê°€ ì¡°ê±´ (ìˆ«ì, ì´í™íŠ¸, UI ë³€ê²½ ë“±ë“±, etc.)
         bool isDiceValid = owner.OnDiceAttach(dice, transform.GetSiblingIndex());
 
         // Color Checking
@@ -106,7 +106,7 @@ public class SkillDiceSlotUI : MonoBehaviour
         else
             SetSlotColor(Color.red);
 
-        // Á¶°ÇÀÌ ¸ÂÀ» °æ¿ì ½ºÅ³ ½ÇÇà.
+        // ì¡°ê±´ì´ ë§ì„ ê²½ìš° ìŠ¤í‚¬ ë°œë™.
         if(isDiceValid)
         {
             owner.CheckDiceValidity();
@@ -114,24 +114,24 @@ public class SkillDiceSlotUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ½½·Ô¿¡¼­ ÁÖ»çÀ§°¡ ³ª°¥ ¶§ È£Ãâ
+    /// ìŠ¬ë¡¯ì—ì„œ ì£¼ì‚¬ìœ„ê°€ ë‚˜ê°ˆ ë•Œ í˜¸ì¶œë¨
     /// </summary>
     public void OnDiceDetach(Dice dice)
     {
         if (storedDice == dice)
         {
-            //Logger.Log($"{dice.name} ÁÖ»çÀ§°¡ ½½·Ô¿¡¼­ ºüÁ®³ª°¨.");
+            //Logger.Log($"{dice.name} ì£¼ì‚¬ìœ„ê°€ ìŠ¬ë¡¯ì—ì„œ ì œê±°ë˜ì—ˆìŒ.");
             SetSlotColor(Color.grey);
             owner.OnDiceDetach(dice, transform.GetSiblingIndex());
             storedDice = null;
         }
         else
         {
-            // È¤Àº ¹«½Ã
-            Debug.Log($"[SkillDiceSlotUI] ÀÌ ½½·Ô¿¡´Â {dice.name}°¡ ¾ø°Å³ª ´Ù¸¥ ÁÖ»çÀ§°¡ µé¾îÀÖÀ½.");
+            // í˜¹ì‹œ ëª¨ë¦„
+            Debug.Log($"[SkillDiceSlotUI] ì´ ìŠ¬ë¡¯ì—ëŠ” {dice.name}ê°€ ì—†ê±°ë‚˜ ë‹¤ë¥¸ ì£¼ì‚¬ìœ„ê°€ ìˆìŠµë‹ˆë‹¤.");
         }
 
-        // ÇÊ¿äÇÏ¸é UI³ª »óÅÂ ÃÊ±âÈ­
+        // í•„ìš”í•˜ë©´ UIë„ ê°™ì´ ì´ˆê¸°í™”
         SetSlotColor(Color.white);
     }
 
@@ -146,11 +146,11 @@ public class SkillDiceSlotUI : MonoBehaviour
 
     public bool IsSlotAvailableToDice()
     {
-        // ´ÙÀÌ½º°¡ ¾ø°í, È°¼ºÈ­ »óÅÂ¸é »ç¿ë °¡´É.
+        // ë‹¤ì´ìŠ¤ëŠ” í™œì„±, í™œì„±í™” ìƒíƒœë§Œ ë°›ì„ ìˆ˜ ìˆìŒ.
         return isDiceSlotActive && !HasDice();
     }
     /// <summary>
-    /// ÀÌ ½½·ÔÀÌ ÇöÀç ÁÖ»çÀ§¸¦ °¡Áö°í ÀÖ´ÂÁö
+    /// ì´ ìŠ¬ë¡¯ì— í˜„ì¬ ì£¼ì‚¬ìœ„ê°€ ë“¤ì–´ê°€ ìˆëŠ”ì§€
     /// </summary>
     public bool HasDice()
     {
@@ -158,7 +158,7 @@ public class SkillDiceSlotUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ½½·Ô¿¡ µé¾îÀÖ´Â ÁÖ»çÀ§ ¹İÈ¯ (¾øÀ¸¸é null)
+    /// í˜„ì¬ ìŠ¬ë¡¯ì— ë“¤ì–´ìˆëŠ” ì£¼ì‚¬ìœ„ ë°˜í™˜ (ì—†ìœ¼ë©´ null)
     /// </summary>
     public Dice GetStoredDice()
     {
@@ -174,6 +174,4 @@ public class SkillDiceSlotUI : MonoBehaviour
     {
         ReleaseEvents();
     }
-
-   
 }

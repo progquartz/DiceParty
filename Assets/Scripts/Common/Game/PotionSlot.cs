@@ -4,7 +4,6 @@ public class PotionSlot : MonoBehaviour
 {
     [SerializeField] private PotionDataSO potionData;
 
-
     private SkillExecutor _skillExecutor;
     [SerializeField] private PotionSlotUI potionUI;
 
@@ -37,7 +36,7 @@ public class PotionSlot : MonoBehaviour
         }
         else
         {
-            Logger.LogError($"Æ÷¼ÇÀÌ ¾ø´Âµ¥ È£ÃâµÇ¾ú½À´Ï´Ù.");
+            Logger.LogError($"í¬ì…˜ì´ ì—†ëŠ”ë° í˜¸ì¶œë˜ì—ˆìŠµë‹ˆë‹¤.");
             return false;
         }
     }

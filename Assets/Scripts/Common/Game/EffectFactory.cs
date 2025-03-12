@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class EffectFactory
 {
-    // string(Å¬·¡½º ÀÌ¸§) -> Func<BaseEffect> »ı¼ºÀÚ
+    // string(í´ë˜ìŠ¤ ì´ë¦„) -> Func<BaseEffect> ë§¤í•‘ìš©
     private static Dictionary<string, Func<BaseEffect>> effectRegistry
         = new Dictionary<string, Func<BaseEffect>>()
     {
@@ -35,7 +35,7 @@ public static class EffectFactory
             return constructor();
         }
 
-        Logger.LogWarning($"{effectKey} ¿¡ ÇØ´çÇÏ´Â ÀÌÆåÆ® »ı¼ºÀÚ¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+        Logger.LogWarning($"{effectKey}ì— í•´ë‹¹í•˜ëŠ” ì´í™íŠ¸ ìƒì„±ìë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         return null;
     }
 }

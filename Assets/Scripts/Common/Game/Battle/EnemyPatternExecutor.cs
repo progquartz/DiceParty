@@ -9,7 +9,7 @@ public class EnemyPatternExecutor
 
     private SkillExecutor _skillExecutor;
 
-    // ÆĞÅÏ ½ÇÇà ½ÃÀÛ
+    // íŒ¨í„´ ì„¤ì • í•¨ìˆ˜
     public void SetPattern(EnemyAttackPatternSO pattern)
     {
         _skillExecutor = new SkillExecutor();
@@ -17,24 +17,24 @@ public class EnemyPatternExecutor
         _currentNode = pattern.rootNode;
     }
 
-    // BattleManager¿¡ ÀÖ¾î¼­ ¸ÅÅÏ È£Ãâ ÇÊ¿ä.
+    // BattleManagerì— ë„£ì–´ ì§ì ‘ í˜¸ì¶œ í•„ìš”.
     public void ExecuteNextAttack(BaseTarget caller)
     {
         if (_currentNode == null)
         {
             _currentNode = _currentPattern.rootNode;
-            Logger.Log($"{_currentPattern.patternName}¿¡¼­ ´õ ÀÌ»ó ÁøÇàÇÒ ³ëµå°¡ ¾ø±â¿¡, ÆĞÅÏÀ» ·çÆ®·Î µÇµ¹¸³´Ï´Ù.");
+            Logger.Log($"{_currentPattern.patternName}ì—ì„œ ë” ì´ìƒ ì‹¤í–‰í•  ë…¸ë“œê°€ ì—†ì–´ì„œ, ë‹¤ì‹œ ë£¨íŠ¸ë¡œ ë˜ëŒë¦½ë‹ˆë‹¤.");
         }
 
         ExecuteAttack(_currentNode, caller);
 
-        // ´ÙÀ½ ³ëµå Ã¼Å©.
+        // ë‹¤ìŒ ë…¸ë“œ ì²´í¬.
         _currentNode = GetNextNode(_currentNode);
     }
 
     private void ExecuteAttack(EnemyAttackNodeSO attackData, BaseTarget caller)
     {
-        Debug.Log($"ÀûÀÌ °ø°İ {attackData.attackName}À»(¸¦) »ç¿ëÇÕ´Ï´Ù.");
+        Debug.Log($"ì ì´ ê³µê²© {attackData.attackName}ì„(ë¥¼) ì‚¬ìš©í•©ë‹ˆë‹¤.");
 
         SkillExecutor skillExecutor = _skillExecutor;
         foreach(SkillEffectData skillData in attackData.attackEffects) 
@@ -61,7 +61,7 @@ public class EnemyPatternExecutor
         }
     }
 
-    // È®·ü ºĞ±â Ã³¸®
+    // í™•ë¥  ë¶„ê¸° ì²˜ë¦¬
     private EnemyAttackNodeSO GetNextNodeByProbability(List<ProbabilityTransition> transitions)
     {
         float rand = UnityEngine.Random.value; // 0~1
@@ -74,11 +74,11 @@ public class EnemyPatternExecutor
                 return t.nextNode;
             }
         }
-        // ¸¸¾à È®·ü ÇÕÀÌ 1.0 ¹Ì¸¸ÀÌ¸é, ¸¶Áö¸· ³ëµå¸¦ default·Î ¹İÈ¯
+        // ë§Œì•½ í™•ë¥  ì´í•© 1.0 ì´í•˜ì´ë©´, ë§ˆì§€ë§‰ ë…¸ë“œë¥¼ defaultë¡œ ë°˜í™˜
         return transitions.Count > 0 ? transitions[transitions.Count - 1].nextNode : null;
     }
 
-    [Obsolete("³»ºÎ ±¸Çö ¾ÈµÊ!")]
+    [Obsolete("ì•„ì§ êµ¬í˜„ ì•ˆë¨!")]
     private EnemyAttackNodeSO GetNextNodeByCondition(EnemyAttackNodeSO node)
     {
         EnemyAttackNodeSO nextAttackNode = node.conditionalTransitions.defaultNextNode;

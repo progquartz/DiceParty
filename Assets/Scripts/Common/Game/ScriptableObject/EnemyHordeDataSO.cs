@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// BatteType = 10 * StageNum + BattleType
 /// BattleType
-/// 0 - ÀÏ¹İ ÀüÅõ
-/// 1 - ¿¤¸®Æ® ÀüÅõ
-/// 2 - º¸½º ÀüÅõ
+/// 0 - ì¼ë°˜ ì „íˆ¬
+/// 1 - ì—˜ë¦¬íŠ¸ ì „íˆ¬
+/// 2 - ë³´ìŠ¤ ì „íˆ¬
 /// </summary>
 public enum BattleType
 {
@@ -28,12 +28,12 @@ public enum BattleType
 [CreateAssetMenu(fileName = "EnemyHordeDataSO", menuName = "Scriptable Objects/EnemyHordeDataSO")]
 public class EnemyHordeDataSO : ScriptableObject
 {
-    [Header("ÀÌ È£µå°¡ µîÀåÇÒ ½ºÅ×ÀÌÁö Å¸ÀÔ")]
+    [Header("ì´ í˜¸ë“œê°€ ë“±ì¥í•  ìŠ¤í…Œì´ì§€ íƒ€ì…")]
     public BattleType stageType;
 
-    [Header("ÀÌ È£µå°¡ ¹èÄ¡µÉ ¶§ ÇÔ²² µîÀåÇÒ Àû ¸ñ·Ï")] 
+    [Header("ì´ í˜¸ë“œê°€ ë“±ì¹˜ë  ë•Œ í•¨ê»˜ ë“±ì¥í•  ì  ëª©ë¡")] 
     public List<EnemyDataSO> enemyList;
 
-    // ½ºÆù ºñÁß (ÇÊ¿äÇÒ±î?)
+    // ë“±ì¥ ê°€ì¤‘ì¹˜ (í•„ìš”í• ê¹Œ?)
     public float spawnWeight;
 }

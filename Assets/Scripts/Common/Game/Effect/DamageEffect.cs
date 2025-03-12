@@ -11,17 +11,17 @@ public class DamageEffect : BaseEffect
             BaseStat targetStat = target.stat;
            
             float calcDamage = strength1 + caller.stat.GetEffect(EffectKey.StrengthEffect);
-            if (caller.stat.HasEffect(EffectKey.WeakenEffect)) // È£ÃâÀÚ ¼è¾à Ã¼Å©
+            if (caller.stat.HasEffect(EffectKey.WeakenEffect)) // í˜¸ì¶œì ì•½í™” ì²´í¬
                 calcDamage *= 0.75f;
 
            
-            if (targetStat.HasEffect(EffectKey.WitherEffect)) // Å¸°Ù ºÎÆĞ Ã¼Å©
+            if (targetStat.HasEffect(EffectKey.WitherEffect)) // íƒ€ê²Ÿ ì‹œë“¦ ì²´í¬
                 calcDamage = calcDamage * 1.25f;
 
-            // ÃÖÁ¾ µ¥¹ÌÁö´Â 1´ÜÀ§ ³»¸² °è»ê.
+            // ìµœì¢… ë°ë¯¸ì§€ëŠ” 1ë³´ë‹¤ ì‘ì§€ ì•ŠìŒ.
             int totalDamage = (int)calcDamage;
 
-            // ¹æ¾î·ÂÀÌ ³²¾ÆÀÖ´Ù¸é ¾Æ¸ÓºÎÅÍ ±ğ°í, ³²À¸¸é HP ±ğ±â
+            // ë°©ì–´ë„ê°€ ë‚¨ì•„ìˆë‹¤ë©´ ì•„ë¨¸ë¶€í„° ê¹ê³ , ë‚˜ë¨¸ì§€ HP ê¹ìŒ
             if (targetStat.ArmourStack > 0)
             {
                 targetStat.ArmourStack -= totalDamage;
@@ -43,7 +43,7 @@ public class DamageEffect : BaseEffect
                 targetStat.Hp = 0;
                 target.HandleDead();
             }
-            else // »ç¸Á¿¡ ÀÌ¸£Áö ¾Ê´Â °ø°İ Áß, °¡½Ã°©¿Ê µ¥¹ÌÁö °è»ê.
+            else // ë°ë¯¸ì§€ ì´í›„ì— ì£½ì§€ ì•Šì€ ê²½ìš° ì¤‘, ê°€ì‹œê°€ì‹œ ë°ë¯¸ì§€ ê³„ì‚°.
             {
                 if(targetStat.HasEffect(EffectKey.ThornEffect))
                 {

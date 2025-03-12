@@ -4,7 +4,7 @@ public class BattleEvent : RoomEvent
 {
     public override void TriggerEvent()
     {
-        Logger.Log($"[BattleEvent] - ÀÌº¥Æ® È°¼ºÈ­");
+        Logger.Log($"[BattleEvent] - ì´ë²¤íŠ¸ í™œì„±í™”");
         base.CloseMapUI();
         LoadBattleEvent();
     }
@@ -12,7 +12,7 @@ public class BattleEvent : RoomEvent
     private void LoadBattleEvent()
     {
         BattleManager.Instance.StartBattlePhase(BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 0));
-        Debug.Log($"{BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 0).ToString()}ÀÇ ÀüÅõ °¡Á®¿É´Ï´Ù.");
+        Debug.Log($"{BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 0).ToString()}ë¡œ ì „íˆ¬ ì‹œì‘ë©ë‹ˆë‹¤.");
     }
 
     private void OnMouseDown()

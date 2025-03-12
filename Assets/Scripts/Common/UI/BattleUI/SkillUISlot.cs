@@ -6,7 +6,7 @@ public class SkillUISlot : MonoBehaviour
     [SerializeField] private Image skillSlotUIImage;
     [SerializeField] private BaseCharacter skillSlotCharacter;
 
-    // ÇöÀç ½½·Ô¿¡ µé¾î¿Â Dice (¾ø´Ù¸é null)
+    // ìŠ¬ë¡¯ì— ì €ì¥ëœ ìŠ¤í‚¬ (ìµœëŒ€ í•˜ë‚˜, nullì¼ ìˆ˜ë„ ìˆìŒ)
     private SkillUI storedSkillUI;
 
     [SerializeField] private Color[] activeColors;
@@ -56,20 +56,20 @@ public class SkillUISlot : MonoBehaviour
     {
         if (storedSkillUI != null)
         {
-            // Æ¨°Ü³»±â ¶Ç´Â ¿ø·¡ ½½·Ô ÀÚ¸®·Î µÇµ¹·Á³õ±â ÇÊ¿ä.
-            Logger.Log($"ÀÌ¹Ì {gameObject.name} ½½·Ô ÀÚ¸®´Â »ç¿ëµÇ°í ÀÖ½À´Ï´Ù.");
+            // ìŠ¬ë¡¯ì— ì´ë¯¸ ìŠ¤í‚¬ì´ ìˆëŠ” ê²½ìš° ì˜¤ë¥˜ ë¡œê·¸ ì¶œë ¥
+            Logger.Log($"{gameObject.name} ìŠ¬ë¡¯ì—ëŠ” ì´ë¯¸ ìŠ¤í‚¬ì´ ìˆìŠµë‹ˆë‹¤.");
             return false;
         }
 
         if (skillSlotCharacter.CharacterType != skillDataUI.CharacterType)
         {
-            Logger.Log($"{gameObject.name} ½½·Ô ´ã´ç Ä³¸¯ÅÍ°¡ µé¾î¿Â ½ºÅ³¿¡ ÀûÇÕÇÏÁö ¾Ê½À´Ï´Ù.");
+            Logger.Log($"{gameObject.name} ìŠ¬ë¡¯ì˜ ìºë¦­í„°ê°€ ê°€ì§„ ìŠ¤í‚¬ì´ ì•„ë‹™ë‹ˆë‹¤.");
             return false;
         }
 
         storedSkillUI = skillDataUI;
 
-        // ÁÖ»çÀ§¸¦ ½½·ÔÀÇ À§Ä¡·Î ÀÌµ¿.
+        // ì£¼ì‚¬ìœ„ê°€ ìˆìœ¼ë©´ ìœ„ì¹˜ë¡œ ì´ë™.
         skillDataUI.transform.position = transform.position;
 
         SetSlotColor(activeColors[(int)skillSlotCharacter.CharacterType]);
@@ -80,14 +80,14 @@ public class SkillUISlot : MonoBehaviour
     {
         if (storedSkillUI == skill)
         {
-            Logger.Log($"{skill.name} ½ºÅ³ÀÌ ½½·Ô¿¡¼­ ºüÁ®³ª°¨.");
+            Logger.Log($"{skill.name} ìŠ¤í‚¬ì´ ìŠ¬ë¡¯ì—ì„œ ì œê±°ë¨.");
             SetSlotColor(deactivatedColors[(int)skillSlotCharacter.CharacterType]);
             storedSkillUI = null;
         }
         else
         {
-            // È¤Àº ¹«½Ã
-            Debug.Log($"[SkillUISlot] ÀÌ ½½·Ô¿¡´Â {skill.name}½ºÅ³ÀÌ ¾ø°Å³ª ´Ù¸¥ ½ºÅ³ÀÌ ÀÌ¹Ì ÁöÁ¤µÇ¾îÀÖ½À´Ï´Ù.");
+            // í˜¹ì‹œ ëª¨ë¦„
+            Debug.Log($"[SkillUISlot] ì´ ìŠ¬ë¡¯ì—ëŠ” {skill.name}ìŠ¤í‚¬ì´ ì—†ê±°ë‚˜ ë‹¤ë¥¸ ìŠ¤í‚¬ì´ ì´ë¯¸ ì €ì¥ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -97,7 +97,7 @@ public class SkillUISlot : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌ ½½·ÔÀÌ ÇöÀç ½ºÅ³À» °¡Áö°í ÀÖ´ÂÁö.
+    /// ì´ ìŠ¬ë¡¯ì— ì €ì¥ëœ ìŠ¤í‚¬ì´ ìˆëŠ”ì§€.
     /// </summary>
     public bool HasSkill()
     {
