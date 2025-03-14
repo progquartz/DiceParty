@@ -8,6 +8,8 @@ public class HealEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int totalHpDelta = strength1;
             targetStat.Hp += totalHpDelta;
             if (targetStat.Hp > targetStat.maxHp)

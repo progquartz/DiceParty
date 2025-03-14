@@ -8,6 +8,8 @@ public class StrengthEffect : BaseEffect
         foreach( var target in targets ) 
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int strengthDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.StrengthEffect, strengthDelta);
         }

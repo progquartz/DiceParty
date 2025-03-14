@@ -21,6 +21,35 @@ public class BaseCharacter :BaseTarget
     public void Init()
     {
         base.Init();
+        RegisterEvents();
+    }
 
+    private void RegisterEvents()
+    {
+        BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
+        BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
+    }
+
+    private void ReleaseEvents()
+    {
+        BattleManager.Instance.OnPlayerTurnStart -= OnPlayerTurnStart;
+        BattleManager.Instance.OnPlayerTurnEnd -= OnPlayerTurnEnd;
+    }
+
+    /// <summary>
+    /// 적 턴 시작 
+    /// </summary>
+    private void OnPlayerTurnStart()
+    {
+        // 턴 시작 / 턴 별 효과 계산.
+        base.EffectCalcOnTurnStart();
+    }
+
+    /// <summary>
+    /// 적 턴 끝
+    /// </summary>
+    private void OnPlayerTurnEnd()
+    {
+        base.EffectCalcOnTurnEnd();
     }
 }

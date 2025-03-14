@@ -8,7 +8,8 @@ public class ConfuseEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            
+            if(targetStat.isDead) continue;
+
             if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {
                 targetStat.CalcEffectStack(EffectKey.ImmuneEffect, -1);

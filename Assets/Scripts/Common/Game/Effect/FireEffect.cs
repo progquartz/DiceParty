@@ -8,6 +8,8 @@ public class FireEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int fireDelta = strength1;
             if(targetStat.HasEffect(EffectKey.ImmuneEffect))
             {

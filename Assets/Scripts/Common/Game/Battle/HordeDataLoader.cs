@@ -32,6 +32,11 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
     public EnemyHordeDataSO GetTotalRandomHorde(BattleType stageType)
     {
         var filteredList = _allHordeData.Where(h => h.stageType == stageType).ToList();
+        Debug.Log($"{filteredList.Count}개의 스테이지 타입 중 하나가 선택됩니다. 각각");
+        foreach(EnemyHordeDataSO h in filteredList)
+        {
+            Debug.Log($"{h.name}의 이름을 가지고 있습니다.");
+        }
         if (filteredList.Count == 0)
         {
             Logger.LogWarning($"[HordeDataLoader] {stageType}에 해당하는 HordeDataSO가 없습니다!");
@@ -39,6 +44,11 @@ public class HordeDataLoader : SingletonBehaviour<HordeDataLoader>
         }
 
         int randomIndex = Random.Range(0, filteredList.Count);
+        if (filteredList[randomIndex] == null)
+        {
+            Debug.LogError("Horde List에서 무작위 호드를 꺼내왔지만 값이 null입니다.");
+            return null;
+        }
         return filteredList[randomIndex];
     }
 

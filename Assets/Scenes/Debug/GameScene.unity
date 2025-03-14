@@ -5876,6 +5876,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Datas
       objectReference: {fileID: 0}
+    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
+      propertyPath: _allHordeData.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
+      propertyPath: '_allHordeData.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
+    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
+      propertyPath: '_allHordeData.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e03fecbf4265ee4ea79d56b47350a0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5940,6 +5952,14 @@ PrefabInstance:
     - target: {fileID: 5635122823714197891, guid: 7f36e1fa07f16994c8d177eedea43498, type: 3}
       propertyPath: m_Name
       value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631491613267474998, guid: 7f36e1fa07f16994c8d177eedea43498, type: 3}
+      propertyPath: stat.Hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631491613267474998, guid: 7f36e1fa07f16994c8d177eedea43498, type: 3}
+      propertyPath: stat.maxHp
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7936795128881999938, guid: 7f36e1fa07f16994c8d177eedea43498, type: 3}
       propertyPath: m_Camera
