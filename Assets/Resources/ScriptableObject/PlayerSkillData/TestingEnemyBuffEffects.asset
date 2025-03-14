@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
+  m_Name: TestingEnemyBuffEffects
+  m_EditorClassIdentifier: 
+  skillName: EnemyBuffTestSkill
+  CharacterType: 1
+  skillLore: "\uC0C1\uB300 \uBC84\uD504 \uD655\uC778\uC6A9 \uCC3D\uC785\uB2C8\uB2E4."
+  skillUseCount: 1
+  skillEffects:
+  - targetClassName: 0
+    effectClassName: 12
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 22
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 42
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 32
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 52
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 72
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 82
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 92
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 102
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 112
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 122
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 132
+    strength1: 3
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 142
+    strength1: 3
+    strength2: 0
+  diceRequirements:
+  - diceNumLore: <= 15
+    diceNum: -11111111111111100000

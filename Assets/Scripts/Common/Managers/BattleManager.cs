@@ -80,6 +80,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         // 그리고 새 전투를 위해 이루어질 것들 추가 진행.
         PlayerTurnStart();
+        Logger.Log($"전투 시작");
     }
 
     public void PlayerTurnStart()
@@ -91,6 +92,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
         // 주사위 모두 활성화고 굴리기...
         DiceRoller.RollAllDiceNew();
+        Logger.Log($"플레이어 턴 시작.");
     }
 
     public void PlayerTurnEnd()
@@ -100,12 +102,14 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 명령이 실행되었습니다.");
             return;
         }
-
+        Logger.Log($"플레이어 턴 끝");
         battleState = BattleState.EnemyTurn;
 
         OnPlayerTurnEnd?.Invoke();
-
+        
+        Logger.Log($"적 턴 시작");
         StartCoroutine(ExecuteEnemyTurn());
+        
     }
 
 
@@ -157,22 +161,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 적이 승리한 경우
         else
         {
-            for (int i = activeTargets.Count - 1; i >= 0; i--)
-            {
-                BaseTarget target = activeTargets[i];
-                for (int j = characterList.Count - 1; j >= 0; j--)
-                {
-                    BaseTarget activeEnemy = enemyList[j];
-                    if (target == activeEnemy)
-                    {
-                        Debug.LogWarning($"아군 캐릭터 {target.name}을 배틀필드에서 제거합니다!");
-                        activeTargets.RemoveAt(i);
-                        characterList.RemoveAt(j);
-                        Destroy(target.gameObject);
-                        break;
-                    }
-                }
-            }
+            Logger.LogWarning($"게임 오버!");
             // 게임오버 UI 출력.
             currentBattleType = BattleType.None;
         }

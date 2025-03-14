@@ -1745,9 +1745,8 @@ MonoBehaviour:
   lootingCards:
   - {fileID: 11400000, guid: a09acce7df355bc4f97ec7f6177e0980, type: 2}
   - {fileID: 11400000, guid: 6b32ed23cb1ce2748ae0b42f8da59a85, type: 2}
-  - {fileID: 11400000, guid: e0ce47578ad95834abfc28a5e63d7bb6, type: 2}
-  - {fileID: 11400000, guid: de7700c42e691e34f9b7687e75012b87, type: 2}
   - {fileID: 11400000, guid: 516255d4b60add440938c26d6785e9d1, type: 2}
+  - {fileID: 11400000, guid: 445371269c038db4db6857eab7f99143, type: 2}
   LootingDataBase:
     NormalBattleLoot:
       CardPercent: 100
