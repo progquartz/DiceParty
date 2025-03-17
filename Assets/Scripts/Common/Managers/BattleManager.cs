@@ -167,8 +167,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                 ActionOnShow = () => 
                 {
                     CenterLinePopup centerLineUI = UIManager.Instance.GetActiveUI<CenterLinePopup>() as CenterLinePopup;
-                    centerLineUI.InitializeTexts("GAME OVER!");
-                    centerLineUI.InitializeTimer(5.0f);
+                    centerLineUI.Init("GAME OVER!", 5.0f);
                     Debug.Log("게임 오버 팝업 열림."); 
                 },
                 ActionOnClose = () => { Debug.Log("게임 오버 팝업 닫힘."); }
