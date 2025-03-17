@@ -101,7 +101,19 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     /// 주사위 사용
 
-
+    public bool CheckPriceAvailable(int price)
+    {
+        if(gold >= price)
+        {
+            return true;
+        }
+        else
+        {
+            UIManager.Instance.OpenUI<CenterLinePopup>(new BaseUIData { });
+            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("돈이 모자랍니다.", 1.0f);
+            return false;
+        }
+    }
 
     private bool CheckInvenAvailability()
     {

@@ -9,6 +9,8 @@ public class DebuffDamageEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int totalDamage = strength1;
 
             // 방어도가 남아있다면 아머부터 깎고, 나머지 HP 깎음

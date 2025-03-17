@@ -50,23 +50,11 @@ public class ShopUI : BaseUI
 
     public bool SellItem(int price)
     {
-        if(CheckPriceAvailable(price))
+        if(Inventory.Instance.CheckPriceAvailable(price))
         {
             OnBuyItem?.Invoke();
             return true;
         }
         return false;
-    }
-
-    private bool CheckPriceAvailable(int price)
-    {
-        if (Inventory.Instance.gold >= price)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

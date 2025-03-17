@@ -9,8 +9,9 @@ public class DamageEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-           
-            float calcDamage = strength1 + caller.stat.GetEffect(EffectKey.StrengthEffect);
+            if (targetStat.isDead) continue;
+
+            float calcDamage = strength1 + caller.stat.GetEffectStack(EffectKey.StrengthEffect);
             if (caller.stat.HasEffect(EffectKey.WeakenEffect)) // 호출자 약화 체크
                 calcDamage *= 0.75f;
 
@@ -47,7 +48,7 @@ public class DamageEffect : BaseEffect
             {
                 if(targetStat.HasEffect(EffectKey.ThornEffect))
                 {
-                    caller.CalcEffect(EffectKey.DebuffDamageEffect, targetStat.GetEffect(EffectKey.ThornEffect));
+                    caller.CalcEffect(EffectKey.DebuffDamageEffect, targetStat.GetEffectStack(EffectKey.ThornEffect));
                 }
             }
         }

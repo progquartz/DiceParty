@@ -8,6 +8,8 @@ public class ThornEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int thornDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.ThornEffect, thornDelta);
         }

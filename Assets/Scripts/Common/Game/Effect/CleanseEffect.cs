@@ -8,7 +8,9 @@ public class CleanseEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
-            targetStat.Cleanse();
+            if (targetStat.isDead) continue;
+
+            targetStat.Cleanse();           
         }
     }
 }

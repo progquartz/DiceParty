@@ -8,6 +8,8 @@ public class WeakenEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int weakenDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.WeakenEffect, weakenDelta);
         }

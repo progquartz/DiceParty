@@ -14,13 +14,12 @@ public class SkillExecutor
         }
     }
 
-
     public void UseSkill(SkillEffectData skillData, BaseTarget caller)
     {
         ExecuteEffect(skillData, caller);
     }
 
-    public void UseSkill(SkillEffectData skillData)
+    public void UsePotion(SkillEffectData skillData)
     {
         ExecuteEffect(skillData);
     }
@@ -41,6 +40,7 @@ public class SkillExecutor
 
         // 팩토리에서 이펙트와 타겟팅 객체 생성.
         BaseEffect effect = EffectFactory.CreateEffect(skillData.effectClassName);
+        Logger.Log($"{skillData.effectClassName.ToString()} 효과를 {skillData.targetClassName.ToString()}에게 {skillData.strength1}세기로 시전.");
         if (effect == null)
         {
             Debug.LogWarning($"Effect 생성 실패: {skillData.effectClassName}");

@@ -56,7 +56,11 @@ public class BaseTarget : MonoBehaviour
         {
             effData.strength2 = strength2;
         }
-        BattleManager.Instance.SkillExecutor.UseSkill(effData);
+        else
+        {
+            effData.strength2 = 0;
+        }
+        BattleManager.Instance.SkillExecutor.UseSkill(effData, this);
     }
     /// <summary>
     /// 독 계산
@@ -65,7 +69,8 @@ public class BaseTarget : MonoBehaviour
     {
         if(stat.HasEffect(EffectKey.PoisonEffect))
         {
-            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffect(EffectKey.PoisonEffect));
+            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffectStack(EffectKey.PoisonEffect));
+            Debug.Log($"Poison Effect를 {stat.GetEffectStack(EffectKey.PoisonEffect)} 에서 -1합니다.");
             stat.CalcEffectStack(EffectKey.PoisonEffect, -1);
         }
     }
@@ -77,7 +82,8 @@ public class BaseTarget : MonoBehaviour
     {
         if(stat.HasEffect(EffectKey.FireEffect))
         {
-            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffect(EffectKey.FireEffect));
+            CalcEffect(EffectKey.DebuffDamageEffect, stat.GetEffectStack(EffectKey.FireEffect));
+            Debug.Log($"Fire Effect를 {stat.GetEffectStack(EffectKey.FireEffect)} 에서 -1합니다.");
             stat.CalcEffectStack(EffectKey.FireEffect, -1);
         }
     }
@@ -86,7 +92,7 @@ public class BaseTarget : MonoBehaviour
     {
         if(stat.HasEffect(EffectKey.RegenEffect))
         {
-            CalcEffect(EffectKey.HealEffect, stat.GetEffect(EffectKey.RegenEffect));
+            CalcEffect(EffectKey.HealEffect, stat.GetEffectStack(EffectKey.RegenEffect));
             stat.CalcEffectStack(EffectKey.RegenEffect, -1);
         }
     }
@@ -101,7 +107,7 @@ public class BaseTarget : MonoBehaviour
     {
         if(stat.HasEffect(EffectKey.FortifyEffect))
         {
-            CalcEffect(EffectKey.ArmourEffect, stat.GetEffect(EffectKey.FortifyEffect));
+            CalcEffect(EffectKey.ArmourEffect, stat.GetEffectStack(EffectKey.FortifyEffect));
             stat.CalcEffectStack(EffectKey.FortifyEffect, -1);
         }
     }
@@ -110,7 +116,7 @@ public class BaseTarget : MonoBehaviour
     {
         if(stat.HasEffect(EffectKey.PassionEffect))
         {
-            CalcEffect(EffectKey.StrengthEffect, stat.GetEffect(EffectKey.PassionEffect));
+            CalcEffect(EffectKey.StrengthEffect, stat.GetEffectStack(EffectKey.PassionEffect));
             stat.CalcEffectStack(EffectKey.PassionEffect, -1);
         }
     }
@@ -174,7 +180,7 @@ public class BaseTarget : MonoBehaviour
     public void HandleDead()
     {
         Debug.Log($"{name}이 사망했습니다.");
-        stat.isDead = true;
+        stat.OnDead();
         OnDead?.Invoke(this); // 이벤트 발생
     }
 

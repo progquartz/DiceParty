@@ -8,6 +8,8 @@ public class WitherEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int witherDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.WitherEffect, witherDelta);
         }

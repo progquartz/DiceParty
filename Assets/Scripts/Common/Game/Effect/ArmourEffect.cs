@@ -8,6 +8,8 @@ public class ArmourEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int ArmourDelta = strength1;
             targetStat.ArmourStack += ArmourDelta;
         }

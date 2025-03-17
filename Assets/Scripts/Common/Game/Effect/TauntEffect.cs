@@ -8,6 +8,8 @@ public class TauntEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int tauntDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.TauntEffect, tauntDelta);
         }

@@ -29,7 +29,7 @@ public class PotionSlot : MonoBehaviour
             SkillExecutor skillExecutor = _skillExecutor;
             foreach (SkillEffectData skillData in potionData.effectData)
             {
-                skillExecutor.UseSkill(skillData);
+                skillExecutor.UsePotion(skillData);
             }
             potionData = null;
             return true;

@@ -7,9 +7,13 @@ public class EnemySpawner : MonoBehaviour
 
     public BaseEnemy SpawnEnemy(EnemyDataSO enemyData, Transform parentTransform)
     {
+        if (enemyData == null)
+            Debug.LogError("enemyData가 null로 입력되었습니다.");
         BaseEnemy newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
         newEnemy.transform.parent = parentTransform;
+        newEnemy.gameObject.name = enemyData.name;
         newEnemy.Init(enemyData);
+        Logger.Log($"{enemyData.enemyName} 의 이름의 적을 스폰합니다.");
         BattleManager.Instance.AddEnemy(newEnemy);
         return newEnemy;
     }
@@ -22,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < enemyDataList.Count; i++)
         {
             // 조절 가능하게 만들기
-            Vector3 spawnPos = Vector3.zero; 
+            Vector3 spawnPos = Vector3.zero;
             BaseEnemy newEnemy = SpawnEnemy(enemyDataList[i], parentTransform);
             spawnedEnemies.Add(newEnemy);
         }

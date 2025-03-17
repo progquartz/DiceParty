@@ -8,6 +8,8 @@ public class ImmuneEffect : BaseEffect
         foreach (var target in targets)
         {
             BaseStat targetStat = target.stat;
+            if (targetStat.isDead) continue;
+
             int immuneDelta = strength1;
             targetStat.CalcEffectStack(EffectKey.ImmuneEffect, immuneDelta);
         }
