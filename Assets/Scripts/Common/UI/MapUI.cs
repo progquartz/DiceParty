@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class MapUI : MonoBehaviour
 {
+    [Header("맵 부분")]
     [SerializeField] private RectTransform MapToggleOnPos;
     [SerializeField] private RectTransform MapToggleOffPos;
     [SerializeField] private RectTransform MapMovingPart;
-
     private float openSpeed = 1000f;
     private float closeSpeed = 1500f;
     private float openSpeedFast = 2000f;
@@ -16,6 +17,26 @@ public class MapUI : MonoBehaviour
     private bool isMapUIOpen = false;
     // 이동 중인지 여부 (이동 중일 때는 버튼 입력 무시)
     private bool isMoving = false;
+
+
+    [Header("맵 팝업 부분")]
+    [SerializeField] private RectTransform MapCantReachUITransform;
+    [SerializeField] private TMP_Text MapCantReachUIText;
+
+    private float mapCantReachUIDuration = 1.5f;
+    private bool isToggleOpened = false;
+
+
+    public void OnToggleReachUI(string toggleCallString)
+    {
+        if(isToggleOpened)
+        {
+            Logger.Log("이미 맵 팝업이 열려있는 상태입니다.");
+            return;
+        }
+        MapCantReachUIText.text = toggleCallString;
+        StartCoroutine(OpenMapCantReachUI());
+    }
 
     public void OnTurningOffMapUI()
     {
@@ -85,4 +106,20 @@ public class MapUI : MonoBehaviour
         isMapUIOpen = !isMapUIOpen;
         isMoving = false;
     }
+
+    private IEnumerator OpenMapCantReachUI()
+    {
+        isToggleOpened = true;
+        MapCantReachUITransform.gameObject.SetActive(true);
+        float elapsed = 0f;
+        while(elapsed < mapCantReachUIDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        MapCantReachUITransform.gameObject.SetActive(false);
+        isToggleOpened = false;
+    }
+
+
 }
