@@ -104,6 +104,12 @@ public class BaseStat
         }
     }
 
+    public void OnBattleEnd()
+    {
+        ArmourStack = 0;
+        RemoveAllEffects();
+    }
+
     public void Cleanse()
     {
 
