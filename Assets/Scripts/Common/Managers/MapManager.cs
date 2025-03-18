@@ -10,7 +10,7 @@ using UnityEngine.Rendering;
 public class MapManager : SingletonBehaviour<MapManager>
 {
     public int currentStageNum = 1;
-
+    [SerializeField] private MapUI mapUI;
     [SerializeField] private RoomTemplates _roomTemplate;
     private MapLoader mapLoader;
     public event Action OnMoveRoom;
@@ -125,6 +125,13 @@ public class MapManager : SingletonBehaviour<MapManager>
             return;
         }
         currentStageNum++;
+        
+        // 스테이지 팝업 호출.
+        UIManager.Instance.OpenUI<FullScreenPopup>(new BaseUIData { });
+        FullScreenPopup nextStagePopup = UIManager.Instance.GetActiveUI<FullScreenPopup>().GetComponent<FullScreenPopup>();
+        nextStagePopup.StartFade($"- Stage {currentStageNum} -", 0.5f, 1.0f, 1.0f);
+
+
         ResetMap();
     }
 
@@ -306,7 +313,8 @@ public class MapManager : SingletonBehaviour<MapManager>
         // 플레이어의 이동이 진행 중이거나 전투 상태가 진행 중인 경우
         if (isPlayerMoving || BattleManager.Instance.battleState != BattleState.BattleEnd)
         {
-            Debug.LogError("플레이어의 이동이 진행 중이거나 전투 상태가 진행 중이므로 이동할 수 없습니다.");
+            mapUI.OnToggleReachUI("파티가 이동할 수 없는 상태입니다");
+            //Debug.LogError("플레이어의 이동이 진행 중이거나 전투 상태가 진행 중이므로 이동할 수 없습니다.");
             return;
         }
 
@@ -324,7 +332,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         List<Vector2Int> path = FindPath(currentPlayerPos, targetPos);
         if (path == null)
         {
-            Debug.LogWarning("경로 찾기 실패: 목적지에 도달할 수 없습니다.");
+            mapUI.OnToggleReachUI("목적지에 도달할 수 없습니다");
             return;
         }
         else
@@ -346,7 +354,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 Room room = mapGenRooms[path[i]].GetComponent<Room>();
                 if (room != null && room.roomEvent != null)
                 {
-                    Debug.Log("경로 상에 이벤트가 배치된 방이 존재합니다.");
+                    mapUI.OnToggleReachUI("경로에 이벤트가 배치된 방이 존재합니다.");
                     return;
                 }
             }

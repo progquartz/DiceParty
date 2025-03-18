@@ -63,6 +63,10 @@ public class LootingManager : SingletonBehaviour<LootingManager>
                 LootingBattleType = BattleType.None;
                 if(isBossStage)
                 {
+                    if(MapManager.Instance == null)
+                    {
+                        Debug.LogError("ㅈ 되ㅏㅆ다!");
+                    }
                     MapManager.Instance.GoToNextStage();
                 }
                 Debug.Log("전리품 UI 닫힘."); 

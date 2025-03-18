@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootingStage: 1
   lootPower: 10
-  lootingSkillDataSO: {fileID: 11400000, guid: 3c8b17b4241a5c24d92496a191ba7a04, type: 2}
+  lootingSkillDataSO: {fileID: 11400000, guid: 165d5e10030ef214ca71bb31fdf4a103, type: 2}
