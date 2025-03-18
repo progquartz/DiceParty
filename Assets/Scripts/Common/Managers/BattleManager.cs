@@ -162,16 +162,6 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         else
         {
             Logger.LogWarning($"게임 오버!");
-            UIManager.Instance.OpenUI<CenterLinePopup>(new BaseUIData
-            {
-                ActionOnShow = () => 
-                {
-                    CenterLinePopup centerLineUI = UIManager.Instance.GetActiveUI<CenterLinePopup>() as CenterLinePopup;
-                    centerLineUI.Init("GAME OVER!", 5.0f);
-                    Debug.Log("게임 오버 팝업 열림."); 
-                },
-                ActionOnClose = () => { Debug.Log("게임 오버 팝업 닫힘."); }
-            });
             // 게임오버 UI 출력.
             currentBattleType = BattleType.None;
         }

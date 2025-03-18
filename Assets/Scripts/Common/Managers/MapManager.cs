@@ -125,6 +125,13 @@ public class MapManager : SingletonBehaviour<MapManager>
             return;
         }
         currentStageNum++;
+        
+        // 스테이지 팝업 호출.
+        UIManager.Instance.OpenUI<FullScreenPopup>(new BaseUIData { });
+        FullScreenPopup nextStagePopup = UIManager.Instance.GetActiveUI<FullScreenPopup>().GetComponent<FullScreenPopup>();
+        nextStagePopup.StartFade($"- Stage {currentStageNum} -", 0.5f, 1.0f, 1.0f);
+
+
         ResetMap();
     }
 
