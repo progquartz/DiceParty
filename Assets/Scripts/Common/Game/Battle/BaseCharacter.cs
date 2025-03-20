@@ -28,12 +28,14 @@ public class BaseCharacter :BaseTarget
     {
         BattleManager.Instance.OnPlayerTurnStart += OnPlayerTurnStart;
         BattleManager.Instance.OnPlayerTurnEnd += OnPlayerTurnEnd;
+        BattleManager.Instance.OnBattleEnd += stat.OnBattleEnd;
     }
 
     private void ReleaseEvents()
     {
         BattleManager.Instance.OnPlayerTurnStart -= OnPlayerTurnStart;
         BattleManager.Instance.OnPlayerTurnEnd -= OnPlayerTurnEnd;
+        BattleManager.Instance.OnBattleEnd -= stat.OnBattleEnd;
     }
 
     /// <summary>
