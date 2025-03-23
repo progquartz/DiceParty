@@ -43,7 +43,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (BattleManager.Instance.battleState == BattleState.BattleEnd)
+        if (BattleManager.Instance.battleState == BattleStateType.BattleEnd)
         {
             isDragging = true;
 
@@ -58,7 +58,7 @@ public class SkillUIInteract : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(BattleManager.Instance.battleState == BattleState.BattleEnd)
+        if(BattleManager.Instance.battleState == BattleStateType.BattleEnd)
         {
             isDragging = false;
             bool droppedOnSlot = false;

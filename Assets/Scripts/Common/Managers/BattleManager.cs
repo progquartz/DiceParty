@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public enum BattleState
+public enum BattleStateType
 {
     PlayerTurn,
     EnemyTurn,
@@ -16,11 +16,15 @@ public enum BattleState
 }
 public class BattleManager : SingletonBehaviour<BattleManager>
 {
-    public BattleState battleState = BattleState.BattleEnd;
+    [Header("전투의 상태")]
+    public BattleStateType battleState = BattleStateType.BattleEnd;
+    [Header("전투의 유형")]
     public BattleType currentBattleType = BattleType.None;
 
-    public DiceRoller DiceRoller;
-    public SkillExecutor SkillExecutor;
+    private BattleState currentState;
+
+    public DiceRoller DiceRoller {  get; private set; }
+    public SkillExecutor SkillExecutor { get; private set; }
 
     // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
     [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
@@ -39,13 +43,9 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public event Action OnEnemyTurnEnd;
     public event Action OnBattleEnd;
 
-    private void Awake()
+    protected override void Init()
     {
-        Init();
-    }
-
-    public void Init()
-    {
+        base.Init();
         DiceRoller = FindAnyObjectByType<DiceRoller>();
         SkillExecutor = new SkillExecutor();
         AddPlayerParty();
@@ -65,107 +65,106 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public void StartBattlePhase(BattleType battleType)
     {
         // 전투 완료 상태가 아닌데, 호출된 경우
-        if (battleState != BattleState.BattleEnd)
+        if (battleState != BattleStateType.BattleEnd)
         {
             Logger.LogWarning($"[BattleManager] - 전투가 완료되지 않은 상태인데 새 전투가 호출되었습니다.");
             return;
         }
+
         currentBattleType = battleType;
-        // 전투에 참여안된 것들(플레이어 캐릭터들) 모두 등록하기
         OnBattleStart?.Invoke();
 
         DiceRoller.RemoveAllDice();
-        // 적 로드하기
         EnemyMobListSetting(battleType);
 
-        // 그리고 새 전투를 위해 이루어질 것들 추가 진행.
-        PlayerTurnStart();
         Logger.Log($"전투 시작");
+        ChangeState(new PlayerTurnState(this));
     }
 
-    public void PlayerTurnStart()
+    public void StartPlayerTurn()
     {
-        battleState = BattleState.PlayerTurn;
-
-        // 플레이어 턴 시작. (스킬 풀 풀기.)
+        battleState = BattleStateType.PlayerTurn;
         OnPlayerTurnStart?.Invoke();
-
-        // 주사위 모두 활성화고 굴리기...
-        DiceRoller.RollAllDiceNew();
-        Logger.Log($"플레이어 턴 시작.");
     }
 
-    public void PlayerTurnEnd()
+    public void OnPushTurnEndButton()
     {
-        if (battleState != BattleState.PlayerTurn)
+        if(battleState == BattleStateType.PlayerTurn)
         {
-            Logger.LogWarning($"[BattleManager] - 플레이어 턴이 아님에도 플레이어 턴을 종료하는 명령이 실행되었습니다.");
-            return;
+            ChangeState(new EnemyTurnState(this));
         }
-        Logger.Log($"플레이어 턴 끝");
-        battleState = BattleState.EnemyTurn;
-
+        else
+        {
+            Logger.Log("플레이어의 턴이 아니기 때문에 턴을 넘길 수 없습니다.");
+        }
+    }
+    public void EndPlayerTurn()
+    {
         OnPlayerTurnEnd?.Invoke();
-        
-        Logger.Log($"적 턴 시작");
-        StartCoroutine(ExecuteEnemyTurn());
-        
+    }
+
+    public void StartEnemyTurn()
+    {
+        battleState = BattleStateType.EnemyTurn;
+        OnEnemyTurnStart?.Invoke();
+    }
+
+    public void EndEnemyTurn()
+    {
+        OnEnemyTurnEnd?.Invoke();
+    }
+
+    public void ClearEnemyBattlefield()
+    {
+        for (int i = activeTargets.Count - 1; i >= 0; i--)
+        {
+            BaseTarget target = activeTargets[i];
+            for (int j = enemyList.Count - 1; j >= 0; j--)
+            {
+                BaseTarget activeEnemy = enemyList[j];
+                if (target == activeEnemy)
+                {
+                    Debug.LogWarning($"적 {target.name}을 배틀필드에서 제거합니다!");
+                    activeTargets.RemoveAt(i);
+                    enemyList.RemoveAt(j);
+                    Destroy(target.gameObject);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void ClearPlayerBattlefield()
+    {
+        for (int i = activeTargets.Count - 1; i >= 0; i--)
+        {
+            BaseTarget target = activeTargets[i];
+            for (int j = characterList.Count - 1; j >= 0; j--)
+            {
+                BaseTarget activeCharacter = characterList[j];
+                if (target == activeCharacter)
+                {
+                    Debug.LogWarning($"캐릭터 {target.name}을 배틀필드에서 제거합니다!");
+                    activeTargets.RemoveAt(i);
+                    characterList.RemoveAt(j);
+                    Destroy(target.gameObject);
+                    break;
+                }
+            }
+        }
     }
 
 
 
     public void EndBattlePhase(bool isPlayerWin)
     {
-        if (battleState == BattleState.BattleEnd)
+        if (battleState == BattleStateType.BattleEnd)
         {
             Logger.LogWarning($"[BattleManager] - 이미 전투 종료된 상태에서 전투 종료 ");
+            return;
         }
 
-        battleState = BattleState.BattleEnd;
-
-        ResetDiceToDummy();
-        OnBattleEnd?.Invoke();
-
-        // 플레이어가 승리한 경우...
-        if (isPlayerWin)
-        {
-            Debug.LogWarning("적 배틀필드 제거 시작!");
-            // 모든 적 배틀필드 제거. 
-            for (int i = activeTargets.Count - 1; i >= 0; i--)
-            {
-                BaseTarget target = activeTargets[i];
-                for (int j = enemyList.Count - 1; j >= 0; j--)
-                {
-                    BaseTarget activeEnemy = enemyList[j];
-                    if (target == activeEnemy)
-                    {
-                        Debug.LogWarning($"적 {target.name}을 배틀필드에서 제거합니다!");
-                        activeTargets.RemoveAt(i);
-                        enemyList.RemoveAt(j);
-                        Destroy(target.gameObject);
-                        break;
-                    }
-                }
-            }
-            // 보스 전투 승리한 경우에는 보상이 다름...
-            if ((int)currentBattleType % 10 == 2)
-            {
-                LootingManager.Instance.OpenLootingTable(currentBattleType, true);
-            }
-            else
-            {
-                LootingManager.Instance.OpenLootingTable(currentBattleType, false);
-            }
-
-        }
-        // 적이 승리한 경우
-        else
-        {
-            Logger.LogWarning($"게임 오버!");
-            // 게임오버 UI 출력.
-            currentBattleType = BattleType.None;
-        }
-        currentBattleType = BattleType.None;
+        ChangeState(new BattleEndState(this, isPlayerWin));
     }
 
     private void EnemyMobListSetting(BattleType stageType)
@@ -180,69 +179,12 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             return;
         }
 
-        foreach(EnemyDataSO enemyDataSO in randomHorde.enemyList)
-        {
-            if(enemyDataSO == null)
-            {
-                Debug.LogError($"{randomHorde.name}의 데이터가 null로 나옴.");
-            }
-        }
-
         if (enemySpawner != null)
         {
             Logger.Log($"{randomHorde.name} Horde로 소환합니다."); 
             enemySpawner.SpawnEnemyList(randomHorde.enemyList, enemyParentTransform);
         }
     }
-
-
-
-    /// <summary>
-    /// 적 턴 실행에 필요한 요소들 코루틴 실행
-    /// </summary>
-    private IEnumerator ExecuteEnemyTurn()
-    {
-        OnEnemyTurnStart?.Invoke();
-        // 적 턴 시작.
-        Logger.Log("적 턴!");
-
-        // 적 공격... 순서 실행. 한 프레임에 모두 하지 않는 것임.
-        foreach (BaseEnemy enemy in enemyList)
-        {
-            enemy.AttackOnPattern();
-
-            // 여기에서 애니메이션 실행. 
-
-            // yield return new WaitForSeconds(animationTIme);
-            // 여기에 null이 나중에 각 행동 애니메이션 실행 후 종료하는 시간까지 대기.
-
-            if (CheckAllEnemiesDead())
-            {
-                EndBattlePhase(true);
-                yield break;
-            }
-            if (CheckAllPlayerDead())
-            {
-                EndBattlePhase(false);
-                yield break;
-            }
-
-            yield return null;
-        }
-
-        // 적 공격 끝났으면 플레이어 차례로 전환
-        // 전투 종료 조건 체크(모든 적 사망, 모든 플레이어 사망 등)
-
-
-        // 적 턴 종료.
-        OnEnemyTurnEnd?.Invoke();
-        Logger.Log("적 턴이 끝.");
-
-        PlayerTurnStart();
-        // 이제 플레이어가 행동할 수 있도록 UI 활성화 등
-        yield break;
-    }
-
 
 
 
@@ -288,19 +230,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         // 죽은 타겟에 대한 처리를 수행하거나, UI 갱신 등
         Logger.Log($"[BattleManager] {deadTarget.name} 죽음 처리");
 
-        // 죽음 후/이전 체크 후 승리/패배 처리 하기
-        if (CheckAllEnemiesDead())
-        {
-            Logger.Log("플레이어 승리!");
-            BattleManager.Instance.EndBattlePhase(true);
-        }
-
-        if (CheckAllPlayerDead())
-        {
-            Logger.Log("적 승리!");
-            BattleManager.Instance.EndBattlePhase(false);
-        }
-
+        currentState?.OnTargetDied(deadTarget);
     }
 
     private void OnTargetRemoval(BaseTarget deadTarget)
@@ -314,15 +244,11 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             activeTargets.Remove(deadTarget);
         }
 
-
-
         // 죽음 후/이전 체크 후 승리/패배 처리 하기
         if (CheckAllEnemiesDead())
         {
             Debug.Log("플레이어 승리!");
         }
-
-
         if (CheckAllPlayerDead())
         {
             Debug.Log("적 승리!");
@@ -332,17 +258,17 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
 
 
-    public List<BaseCharacter> GetAllCharacters()
+    public List<BaseCharacter> GetCharacterList()
     {
         return characterList;
     }
 
-    public List<BaseEnemy> GetAllEnemys()
+    public List<BaseEnemy> GetEnemyList()
     {
         return enemyList;
     }
 
-    private bool CheckAllEnemiesDead()
+    public bool CheckAllEnemiesDead()
     {
         foreach (var t in activeTargets)
         {
@@ -353,7 +279,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         return true;
     }
 
-    private bool CheckAllPlayerDead()
+    public bool CheckAllPlayerDead()
     {
         foreach (var t in activeTargets)
         {
@@ -383,6 +309,19 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             Logger.LogError($"잘못된 전투 번호 {battleNum}를 BattleType으로 변환할 수 없습니다.");
             return BattleType.Stage1Boss;
 
+        }
+    }
+
+    public void ChangeState(BattleState newState)
+    {
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
+
+        // 상태가 BattleEndState로 변경될 때 OnBattleEnd 이벤트 발생
+        if (currentState is BattleEndState)
+        {
+            OnBattleEnd?.Invoke();
         }
     }
 

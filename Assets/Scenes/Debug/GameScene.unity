@@ -1814,7 +1814,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleState: 2
   currentBattleType: 0
-  DiceRoller: {fileID: 0}
   activeTargets: []
   enemyList: []
   characterList: []
@@ -2781,7 +2780,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 604240770}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: PlayerTurnEnd
+        m_MethodName: OnPushTurnEndButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

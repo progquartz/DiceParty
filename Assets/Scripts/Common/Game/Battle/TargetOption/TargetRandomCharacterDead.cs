@@ -5,7 +5,7 @@ public class TargetRandomCharacterDead : BaseTargetOption
 {
     public override List<BaseTarget> GetTarget(BaseTarget caller)
     {
-        List<BaseCharacter> characters = BattleManager.Instance.GetAllCharacters();
+        List<BaseCharacter> characters = BattleManager.Instance.GetCharacterList();
         List<BaseCharacter> deadCharacters = new List<BaseCharacter>();
         foreach (BaseCharacter character in characters)
         {

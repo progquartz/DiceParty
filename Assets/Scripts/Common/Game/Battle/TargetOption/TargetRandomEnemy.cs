@@ -5,7 +5,7 @@ public class TargetRandomEnemy : BaseTargetOption
 {
     public override List<BaseTarget> GetTarget(BaseTarget caller)
     {
-        List<BaseEnemy> enemies = BattleManager.Instance.GetAllEnemys();
+        List<BaseEnemy> enemies = BattleManager.Instance.GetEnemyList();
         List<BaseEnemy> aliveEnemies = new List<BaseEnemy>();
         foreach (BaseEnemy enemy in enemies)
         {
