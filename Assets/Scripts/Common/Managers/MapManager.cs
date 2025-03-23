@@ -311,7 +311,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     public void RequestPlayerMoveToEvent(RoomEvent clickedEvent)
     {
         // 플레이어의 이동이 진행 중이거나 전투 상태가 진행 중인 경우
-        if (isPlayerMoving || BattleManager.Instance.battleState != BattleState.BattleEnd)
+        if (isPlayerMoving || BattleManager.Instance.battleState != BattleStateType.BattleEnd)
         {
             mapUI.OnToggleReachUI("파티가 이동할 수 없는 상태입니다");
             //Debug.LogError("플레이어의 이동이 진행 중이거나 전투 상태가 진행 중이므로 이동할 수 없습니다.");

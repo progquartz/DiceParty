@@ -57,7 +57,7 @@ public class PotionSlotUI : MonoBehaviour
     private bool CheckAvailability()
     {
         // 전투중이 아닐 경우에는 포션 사용 불가능
-        if(BattleManager.Instance.battleState == BattleState.BattleEnd)
+        if(BattleManager.Instance.battleState == BattleStateType.BattleEnd)
         {
             return false;
         }
