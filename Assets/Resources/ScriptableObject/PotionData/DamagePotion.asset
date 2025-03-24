@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29c7fa3fd0546fb479784fc4c6edb7b8, type: 3}
-  m_Name: TestDamagePotion 1
+  m_Name: DamagePotion
   m_EditorClassIdentifier: 
-  name: TestHealPotion
-  lore: Heal potion. Heals all party member 3.
-  sprite: {fileID: 3994805371664618572, guid: 1e8436b3c80a5714587b4b2555e1088f, type: 3}
-  isPotionOnlyUsedInBattle: 0
+  name: DamagePotion
+  lore: Damage potion. Damages All Enemy 10. Can be only used in Battle
+  sprite: {fileID: 3156651111650854973, guid: 1e8436b3c80a5714587b4b2555e1088f, type: 3}
+  isPotionOnlyUsedInBattle: 1
   effectData:
-  - targetClassName: 3
-    effectClassName: 40
-    strength1: 3
+  - targetClassName: 0
+    effectClassName: 20
+    strength1: 10
     strength2: 0

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: Cure
+  m_Name: Magician-Flame
   m_EditorClassIdentifier: 
-  skillName: "\uCE58\uC720"
-  CharacterType: 3
-  skillLore: "\uBAA8\uB4E0 \uC544\uAD70 \uD68C\uBCF5 3"
+  skillName: "\uD654\uC5FC\uD3EC"
+  CharacterType: 2
+  skillLore: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C 4 \uD53C\uD574"
   skillUseCount: 1
   skillEffects:
-  - targetClassName: 3
-    effectClassName: 40
+  - targetClassName: 0
+    effectClassName: 10
     strength1: 3
     strength2: 0
   diceRequirements:
-  - diceNumLore: '> 3'
-    diceNum: -00011111111111111111
+  - diceNumLore: '> 4'
+    diceNum: -00001111111111111111

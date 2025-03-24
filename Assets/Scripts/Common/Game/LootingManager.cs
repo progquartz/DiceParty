@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,12 +16,10 @@ public class LootingManager : SingletonBehaviour<LootingManager>
 {
     public SkillUISpawner SkillUiSpawner;
 
-
-
-
     public BattleType LootingBattleType;
 
     [SerializeField] private List<LootingCardSO> lootingCards;
+    [SerializeField] private List<LootingPotionSO> lootingPotions;
 
     public LootingDataBase LootingDataBase = new LootingDataBase();
 
@@ -63,10 +62,6 @@ public class LootingManager : SingletonBehaviour<LootingManager>
                 LootingBattleType = BattleType.None;
                 if(isBossStage)
                 {
-                    if(MapManager.Instance == null)
-                    {
-                        Debug.LogError("ㅈ 되ㅏㅆ다!");
-                    }
                     MapManager.Instance.GoToNextStage();
                 }
                 Debug.Log("전리품 UI 닫힘."); 
@@ -74,19 +69,33 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         });
     }
 
-    public LootingCardSO GetRandomLootingCard(int stageNum)
+    public LootingCardData GetRandomLootingCard()
     {
-        List<LootingCardSO> lootingCardList = new List<LootingCardSO>();
-        foreach(var card in lootingCards) 
+        
+        int stageNum = MapManager.Instance.currentStageNum;
+        foreach (var card in lootingCards)
         {
-            if(card.lootingStage == stageNum)
+            if (card.lootingStage == stageNum)
             {
-                lootingCardList.Add(card);
+                return card.GetRandomLootSkill();
             }
         }
+        Logger.LogError($"{stageNum}에 해당되는 LootingCardData가 없습니다.");
+        return null;
+    }
 
-        int randomIndex = Random.Range(0, lootingCardList.Count);
-        return lootingCardList[randomIndex];
+    public PotionDataSO GetRandomLootingPotion()
+    {
+        int stageNum = MapManager.Instance.currentStageNum;
+        foreach (var potion in lootingPotions)
+        { 
+            if(potion.lootingStage == stageNum)
+            {
+                return potion.GetRandomPotionData();
+            }
+        }
+        Logger.LogError($"{stageNum}에 해당되는 LootingPotionData가 없습니다.");
+        return null;
     }
 
 

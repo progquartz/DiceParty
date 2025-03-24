@@ -19,8 +19,8 @@ public class CardSelectLootUI : BaseUI
     {
         for(int i = 0; i < CardPos.Count; i++) 
         {
-            LootingCardSO skillData = LootingManager.Instance.GetRandomLootingCard(MapManager.Instance.currentStageNum);
-            SkillUI spawnedUI = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(skillData.lootingSkillDataSO);
+            LootingCardData skillData = LootingManager.Instance.GetRandomLootingCard();
+            SkillUI spawnedUI = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(skillData.skillDataSO);
             spawnedUI.transform.parent = CardPos[i].transform;
             spawnedUI.transform.localPosition = Vector3.zero;
             spawnedUI.transform.localScale = Vector3.one;

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: Holy Strike
+  m_Name: Preist-Flash
   m_EditorClassIdentifier: 
-  skillName: "\uC2E0\uC131\uD55C \uAC15\uD0C0"
-  CharacterType: 0
-  skillLore: "\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C 6 \uB370\uBBF8\uC9C0"
+  skillName: "\uC12C\uAD11"
+  CharacterType: 3
+  skillLore: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uD53C\uD574 2"
   skillUseCount: 1
   skillEffects:
-  - targetClassName: 1
+  - targetClassName: 0
     effectClassName: 10
-    strength1: 6
+    strength1: 2
     strength2: 0
   diceRequirements:
-  - diceNumLore: '> 3'
-    diceNum: -00011111111111111111
+  - diceNumLore: < 5
+    diceNum: -11110000000000000000

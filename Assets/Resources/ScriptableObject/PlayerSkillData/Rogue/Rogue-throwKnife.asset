@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: FireTouch
+  m_Name: Rogue-throwKnife
   m_EditorClassIdentifier: 
-  skillName: "\uBD88\uC758 \uC190\uAE38"
-  CharacterType: 2
-  skillLore: "\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C 5 \uB370\uBBF8\uC9C0"
+  skillName: "\uB2E8\uB3C4 \uD22C\uCC99"
+  CharacterType: 1
+  skillLore: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C 2 \uD53C\uD574"
   skillUseCount: 1
   skillEffects:
-  - targetClassName: 1
+  - targetClassName: 0
     effectClassName: 10
-    strength1: 5
+    strength1: 2
     strength2: 0
   diceRequirements:
   - diceNumLore: '> 2'

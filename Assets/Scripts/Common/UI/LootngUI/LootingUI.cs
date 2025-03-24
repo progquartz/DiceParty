@@ -45,8 +45,14 @@ public class LootingUI : BaseUI
         }
 
         for (int i = 0;i < potionCount ; i++) 
-        { 
-
+        {
+            GameObject spawnedLoot = Instantiate(LootingItemPrefab);
+            spawnedLoot.transform.parent = LootingItemParent;
+            spawnedLoot.transform.localScale = Vector3.one;
+            LootingItem potion = spawnedLoot.AddComponent<LootingPotion>();
+            potion.LoadData();
+            spawnedLoot.GetComponent<LootingItemUI>().LootingItem = potion;
+            spawnedLoot.GetComponent<LootingItemUI>().Init(this);
         }
 
         for(int i = 0; i < diceCount ; i++)

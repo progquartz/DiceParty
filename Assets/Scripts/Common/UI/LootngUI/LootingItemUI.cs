@@ -36,6 +36,7 @@ public class LootingItemUI : MonoBehaviour
 
 public interface LootingItem
 {
+    public void LoadData();
     public void GetItem();
     public string GetName();
     public string GetLore();
@@ -76,35 +77,47 @@ public class LootingCard : MonoBehaviour, LootingItem
     {
 
     }
+
+    public void LoadData()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
 public class LootingPotion : MonoBehaviour, LootingItem
 {
+    private PotionDataSO potionDataSO;
+    public void LoadData()
+    {
+        potionDataSO = LootingManager.Instance.GetRandomLootingPotion();
+    }
+
     public Sprite GetImage()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.sprite;
     }
 
     public void GetItem()
     {
-        throw new System.NotImplementedException();
+        Inventory.Instance.LootNewPotion(potionDataSO);
     }
 
     public string GetLore()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.lore;
     }
 
     public string GetName()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.name;
     }
 
     public void InitializeLoot()
     {
         throw new System.NotImplementedException();
     }
+
 }
 
 public class LootingTreasure : MonoBehaviour, LootingItem
@@ -132,5 +145,10 @@ public class LootingTreasure : MonoBehaviour, LootingItem
     public void InitializeLoot()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void LoadData()
+    {
+        throw new NotImplementedException();
     }
 }

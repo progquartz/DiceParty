@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f60f2c06a23724b9b12d7947b93eaa, type: 3}
+  m_Name: Stage3
+  m_EditorClassIdentifier: 
+  lootingStage: 3
+  lootingPotionData:
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 25200ae196c29e3469aa1477bb1bbb5a, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 75bbc99773fcb02448e0471796587aa4, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: c6e6e6949108add488ef37ab23353bb2, type: 2}

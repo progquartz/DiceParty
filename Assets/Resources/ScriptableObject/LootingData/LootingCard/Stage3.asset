@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6945d2996041c884087a04b15642d958, type: 3}
+  m_Name: Stage3
+  m_EditorClassIdentifier: 
+  lootingStage: 3
+  lootingCardData:
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 9d5adfb5abe94ac48958a02288875622, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: 860a65334ddcba143993f5aa13f37b33, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 675be114227553e4f912e7b4744fb4ff, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: ba619682dce15d645b2ce0c275408463, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 3b4f64f70b6425e4da783228c0778064, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: 7fd3c7b7e6d1d6f4d800708a8d8e4b31, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: baae0400e5f741742a4a030caaa8609e, type: 2}

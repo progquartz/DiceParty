@@ -1939,9 +1939,13 @@ MonoBehaviour:
   SkillUiSpawner: {fileID: 604240774}
   LootingBattleType: 0
   lootingCards:
-  - {fileID: 11400000, guid: 6b32ed23cb1ce2748ae0b42f8da59a85, type: 2}
-  - {fileID: 11400000, guid: 516255d4b60add440938c26d6785e9d1, type: 2}
-  - {fileID: 11400000, guid: 445371269c038db4db6857eab7f99143, type: 2}
+  - {fileID: 11400000, guid: b6f95d7937f8b5e4c93191457d9785f5, type: 2}
+  - {fileID: 11400000, guid: f874e1a10a8ab87428a6963c67ce368d, type: 2}
+  - {fileID: 11400000, guid: f6489bc5f6fc69448aae49ea414721d4, type: 2}
+  lootingPotions:
+  - {fileID: 11400000, guid: d6f249048705e6f4a90e65944b6812dc, type: 2}
+  - {fileID: 11400000, guid: 22145caa0a4655c42a3732767e1e5b0a, type: 2}
+  - {fileID: 11400000, guid: 7f5cdbac266073e4d9b40d7b17a5c401, type: 2}
   LootingDataBase:
     NormalBattleLoot:
       CardPercent: 100
