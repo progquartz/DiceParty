@@ -1919,6 +1919,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 78dc81c1574e06543bda57958993fb9e, type: 2}
   - {fileID: 11400000, guid: 3b4f64f70b6425e4da783228c0778064, type: 2}
   - {fileID: 11400000, guid: daee82a8c61ec084e882d7d6941f0452, type: 2}
+  testPotionData: {fileID: 11400000, guid: 75bbc99773fcb02448e0471796587aa4, type: 2}
   initialDiceCount: 4
   diceCountLimit: 8
   gold: 100
@@ -2762,7 +2763,7 @@ GameObject:
   - component: {fileID: 732549018}
   - component: {fileID: 732549017}
   m_Layer: 5
-  m_Name: TurnEnd
+  m_Name: PotionTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2832,9 +2833,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 604240770}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: OnPushTurnEndButton
+      - m_Target: {fileID: 604240772}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: LootNewPotionTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3706,6 +3707,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6466651266350084284, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680229622018860539, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4069,7 +4078,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.199997, y: 4.299999}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097251243
@@ -4094,8 +4103,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Turn End
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
-  m_sharedMaterial: {fileID: -2637060265023762783, guid: c17c8ab4842cd66459a63b7716aa9809, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b2c596160c2321f499c8830c7409e2a9, type: 2}
+  m_sharedMaterial: {fileID: 5252833176980087603, guid: b2c596160c2321f499c8830c7409e2a9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4126,7 +4135,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 43.58
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 32
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -4157,7 +4166,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 16.674515, y: 24.456028, z: 16.674568, w: 16.674568}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5551,9 +5560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Turn End
-
-'
+  m_text: Potion Test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5666,7 +5673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 131.5, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539087581
@@ -5723,7 +5730,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -6609,6 +6616,18 @@ PrefabInstance:
     - target: {fileID: 3852411765031715044, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466651266350084284, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466651266350084284, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680229622018860539, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7625,6 +7644,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1436890930}
     m_Modifications:
+    - target: {fileID: 2240109338109807403, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: index
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3212885075646984662, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
       propertyPath: m_Name
       value: PotionSlot
@@ -7708,6 +7731,18 @@ PrefabInstance:
     - target: {fileID: 3852411765031715044, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466651266350084284, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466651266350084284, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680229622018860539, guid: 4a0268f4182ae75408dfb227c9212116, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
