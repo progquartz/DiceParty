@@ -148,7 +148,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         else
         {
             UIManager.Instance.OpenUI<CenterLinePopup>(new BaseUIData { });
-            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("돈이 모자랍니다.", 1.0f);
+            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("Not Enough Gold", 1.0f, 0.5f);
             return false;
         }
     }

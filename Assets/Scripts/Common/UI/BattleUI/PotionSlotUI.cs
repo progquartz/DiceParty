@@ -49,8 +49,19 @@ public class PotionSlotUI : MonoBehaviour
 
     private bool IsPotionUseAvailable()
     {
+        PotionDataSO data = Inventory.Instance.GetPotionData(index);
         // 인벤토리의 자신의 인덱스에 포션이 없을 경우에도 사용 불가
-        if (Inventory.Instance.GetPotionData(index) == null)
+        if (data == null)
+        {
+            return false;
+        }
+        // 전투 중 사용이 가능한 경우, 플레이어의 턴에만 사용 가능.
+        if(data.isPotionOnlyUsedInBattle && BattleManager.Instance.battleState != BattleStateType.PlayerTurn)
+        {
+            return false;
+        }
+        // 비전투 중 사용이 가능한 경우라도, 적 턴 도중에는 사용할 수 없음.
+        if(!data.isPotionOnlyUsedInBattle && BattleManager.Instance.battleState == BattleStateType.EnemyTurn)
         {
             return false;
         }
@@ -71,8 +82,17 @@ public class PotionSlotUI : MonoBehaviour
 
     public void OnClickPotionUseUI()
     {
-        Inventory.Instance.UsePotionInSlots(index);
-        TogglePotionUseUI();
+        if(IsPotionUseAvailable())
+        {
+            Inventory.Instance.UsePotionInSlots(index);
+            TogglePotionUseUI();
+        }
+        else
+        {
+            // 포션을 사용할 수 없는 상태입니다 표시.
+            UIManager.Instance.OpenUI<CenterLinePopup>(new BaseUIData { });
+            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("You can't use potions right now", 1.0f, 0.5f);
+        }
     }
 
     public void OnClickPotionTrashUI()
