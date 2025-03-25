@@ -313,7 +313,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         // 플레이어의 이동이 진행 중이거나 전투 상태가 진행 중인 경우
         if (isPlayerMoving || BattleManager.Instance.battleState != BattleStateType.BattleEnd)
         {
-            mapUI.OnToggleReachUI("파티가 이동할 수 없는 상태입니다");
+            mapUI.OnToggleReachUI("Party Can't move now.");
             //Debug.LogError("플레이어의 이동이 진행 중이거나 전투 상태가 진행 중이므로 이동할 수 없습니다.");
             return;
         }
@@ -332,7 +332,7 @@ public class MapManager : SingletonBehaviour<MapManager>
         List<Vector2Int> path = FindPath(currentPlayerPos, targetPos);
         if (path == null)
         {
-            mapUI.OnToggleReachUI("목적지에 도달할 수 없습니다");
+            mapUI.OnToggleReachUI("Cannot reach destination.");
             return;
         }
         else
@@ -354,7 +354,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 Room room = mapGenRooms[path[i]].GetComponent<Room>();
                 if (room != null && room.roomEvent != null)
                 {
-                    mapUI.OnToggleReachUI("경로에 이벤트가 배치된 방이 존재합니다.");
+                    mapUI.OnToggleReachUI("There is Event room placed in path.");
                     return;
                 }
             }

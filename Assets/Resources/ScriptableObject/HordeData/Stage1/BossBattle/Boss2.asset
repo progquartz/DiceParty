@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageType: 12
   enemyList:
-  - {fileID: 11400000, guid: 42c9a83cc6b9ed44c8ff7aed3fbd906f, type: 2}
   - {fileID: 11400000, guid: e7561895d2225f64ca251b549e98820b, type: 2}
+  - {fileID: 11400000, guid: f4ec6f4cbee220148b423fd1ac27c147, type: 2}
   spawnWeight: 0

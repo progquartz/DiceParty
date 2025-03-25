@@ -15,5 +15,5 @@ MonoBehaviour:
   stageType: 12
   enemyList:
   - {fileID: 11400000, guid: 34c1a434399c1bf498d291587afa52d3, type: 2}
-  - {fileID: 11400000, guid: f4ec6f4cbee220148b423fd1ac27c147, type: 2}
+  - {fileID: 11400000, guid: 08aade18269ed2a4e93352b07b2dca5b, type: 2}
   spawnWeight: 0

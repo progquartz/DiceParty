@@ -28,3 +28,7 @@ MonoBehaviour:
     skillDataSO: {fileID: 11400000, guid: 7fd3c7b7e6d1d6f4d800708a8d8e4b31, type: 2}
   - lootPower: 10
     skillDataSO: {fileID: 11400000, guid: baae0400e5f741742a4a030caaa8609e, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: a0f5e01114361d240ab924c8aeaedf0f, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 3ea2ee6d14d04b04cafd7fe1f291343a, type: 2}

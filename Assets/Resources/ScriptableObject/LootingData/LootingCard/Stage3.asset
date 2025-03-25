@@ -21,10 +21,22 @@ MonoBehaviour:
   - lootPower: 10
     skillDataSO: {fileID: 11400000, guid: 675be114227553e4f912e7b4744fb4ff, type: 2}
   - lootPower: 15
-    skillDataSO: {fileID: 11400000, guid: ba619682dce15d645b2ce0c275408463, type: 2}
+    skillDataSO: {fileID: 11400000, guid: 78dc81c1574e06543bda57958993fb9e, type: 2}
   - lootPower: 10
-    skillDataSO: {fileID: 11400000, guid: 3b4f64f70b6425e4da783228c0778064, type: 2}
+    skillDataSO: {fileID: 11400000, guid: a0f5e01114361d240ab924c8aeaedf0f, type: 2}
   - lootPower: 15
-    skillDataSO: {fileID: 11400000, guid: 7fd3c7b7e6d1d6f4d800708a8d8e4b31, type: 2}
+    skillDataSO: {fileID: 11400000, guid: 680f32714c573294d865daa8f65423ff, type: 2}
   - lootPower: 10
-    skillDataSO: {fileID: 11400000, guid: baae0400e5f741742a4a030caaa8609e, type: 2}
+    skillDataSO: {fileID: 11400000, guid: d24cee4720aa92246a7562f62039dbb0, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 3b367bac5a0d64640a8a6a341ea97217, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 60d8271b3e59cec47b3439f7513cbf88, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 14a03084b8c94eb48ae71901dbede0e0, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 66a84c899611df349abe483aec0ed629, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 576854cd81d424d42b56e1f0a7b7c14b, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: b01f8106cd465fe449fb048cee1c5e43, type: 2}
