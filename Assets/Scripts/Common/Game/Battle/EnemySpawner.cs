@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private BaseEnemy enemyPrefab;
+    private float deltaX = 3f;
 
     public BaseEnemy SpawnEnemy(EnemyDataSO enemyData, Transform parentTransform)
     {
@@ -31,6 +34,22 @@ public class EnemySpawner : MonoBehaviour
             spawnedEnemies.Add(newEnemy);
         }
 
+        
+
         return spawnedEnemies;
+    }
+
+    public void RearrangeEnemyTransform(Transform parentTransform, List<BaseEnemy> enemies)
+    {
+        if(enemies.Count == 1)
+        {
+            return;
+        }
+
+        float startPosX = -(enemies.Count - 1) * deltaX / 2;
+        for(int i = 0; i < enemies.Count; i++) 
+        {
+            enemies[i].transform.localPosition = new Vector3(enemies[i].transform.localPosition.x + startPosX + (deltaX * i), enemies[i].transform.localPosition.y, enemies[i].transform.localPosition.z);
+        }
     }
 }

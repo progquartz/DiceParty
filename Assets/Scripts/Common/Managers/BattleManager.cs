@@ -185,6 +185,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         {
             Logger.Log($"{randomHorde.name} Horde로 소환합니다."); 
             enemySpawner.SpawnEnemyList(randomHorde.enemyList, enemyParentTransform);
+            enemySpawner.RearrangeEnemyTransform(enemyParentTransform, enemyList);
         }
     }
 

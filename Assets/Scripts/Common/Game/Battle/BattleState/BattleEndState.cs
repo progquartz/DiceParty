@@ -58,6 +58,9 @@ public class BattleEndState : BattleState
         // 플레이어 캐릭터 제거
         battleManager.ClearPlayerBattlefield();
 
+        UIManager.Instance.OpenUI<FullScreenPopup>(new BaseUIData { });
+        FullScreenPopup nextStagePopup = UIManager.Instance.GetActiveUI<FullScreenPopup>().GetComponent<FullScreenPopup>();
+        nextStagePopup.StartFade($"- Game Over -", 0.5f, 1000f, 1.0f);
         // 게임오버 UI 표시 등의 처리
         // TODO: 게임오버 처리 추가
     }
