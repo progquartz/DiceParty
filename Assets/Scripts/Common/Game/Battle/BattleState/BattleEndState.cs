@@ -13,6 +13,7 @@ public class BattleEndState : BattleState
     {
         Debug.Log($"전투 종료 - {(isPlayerWin ? "플레이어 승리" : "플레이어 패배")}");
         battleManager.battleState = BattleStateType.BattleEnd;
+        
 
         // 주사위 초기화
         battleManager.ResetDiceToDummy();
@@ -26,6 +27,7 @@ public class BattleEndState : BattleState
             HandlePlayerDefeat();
         }
 
+        battleManager.prevBattleType = battleManager.currentBattleType;
         battleManager.currentBattleType = BattleType.None;
     }
 

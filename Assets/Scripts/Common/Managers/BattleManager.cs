@@ -2,11 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Xml.Schema;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public enum BattleStateType
 {
@@ -20,18 +17,24 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleStateType battleState = BattleStateType.BattleEnd;
     [Header("전투의 유형")]
     public BattleType currentBattleType = BattleType.None;
+    [Header("마지막 전투 유형")]
+    public BattleType prevBattleType = BattleType.None;
 
     private BattleState currentState;
 
-    public DiceRoller DiceRoller {  get; private set; }
-    public SkillExecutor SkillExecutor { get; private set; }
-
-    // 전투에 참여 중인 타겟들 목록 (적, 아군 모두)
-    [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>();
+    [Header("전투 참여 타겟 목록")] // (적, 아군 모두)
+    [SerializeField] private List<BaseTarget> activeTargets = new List<BaseTarget>(); 
     [SerializeField] private List<BaseEnemy> enemyList = new List<BaseEnemy>();
     [SerializeField] private List<BaseCharacter> characterList = new List<BaseCharacter>();
 
+    [Header("enemySpawner 객체")]
     [SerializeField] private EnemySpawner enemySpawner;
+    public DiceRoller DiceRoller {  get; private set; }
+    public SkillExecutor SkillExecutor { get; private set; }
+
+    // 추후 리펙토링 때에 다른 코드에 배정.
+    [Header("전투 관련 UI")]
+    [SerializeField] private Button turnEndButton;
 
     [Obsolete][SerializeField] private Transform partyParentTransform;
     [Obsolete][SerializeField] private Transform enemyParentTransform;
@@ -48,19 +51,24 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         base.Init();
         DiceRoller = FindAnyObjectByType<DiceRoller>();
         SkillExecutor = new SkillExecutor();
+        InitUI();
         AddPlayerParty();
     }
 
-    public void ResetDiceToDummy()
+    public void ChangeState(BattleState newState)
     {
-        // awake call이 안 된 경우를 대비
-        if (DiceRoller == null)
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
+
+        // 상태가 BattleEndState로 변경될 때 OnBattleEnd 이벤트 발생
+        if (currentState is BattleEndState)
         {
-            DiceRoller = FindAnyObjectByType<DiceRoller>();
+            OnBattleEnd?.Invoke();
         }
-        DiceRoller.RemoveAllDice();
-        DiceRoller.RollAllDiceDummy();
     }
+
+
 
     public void StartBattlePhase(BattleType battleType)
     {
@@ -77,6 +85,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         DiceRoller.RemoveAllDice();
         EnemyMobListSetting(battleType);
 
+        turnEndButton.gameObject.SetActive(true);
+
         Logger.Log($"전투 시작");
         ChangeState(new PlayerTurnState(this));
     }
@@ -87,17 +97,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         OnPlayerTurnStart?.Invoke();
     }
 
-    public void OnPushTurnEndButton()
-    {
-        if(battleState == BattleStateType.PlayerTurn)
-        {
-            ChangeState(new EnemyTurnState(this));
-        }
-        else
-        {
-            Logger.Log("플레이어의 턴이 아니기 때문에 턴을 넘길 수 없습니다.");
-        }
-    }
+
     public void EndPlayerTurn()
     {
         OnPlayerTurnEnd?.Invoke();
@@ -164,6 +164,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             return;
         }
 
+        turnEndButton.gameObject.SetActive(false);
+
         ChangeState(new BattleEndState(this, isPlayerWin));
     }
 
@@ -200,6 +202,12 @@ public class BattleManager : SingletonBehaviour<BattleManager>
                 RegisterTarget(target);
             }
         }
+    }
+
+    private void InitUI()
+    {
+        turnEndButton.onClick.AddListener(OnPushTurnEndButton);
+        turnEndButton.gameObject.SetActive(false);
     }
 
     public void AddEnemy(BaseEnemy enemy)
@@ -256,7 +264,28 @@ public class BattleManager : SingletonBehaviour<BattleManager>
 
     }
 
+    public void ResetDiceToDummy()
+    {
+        // awake call이 안 된 경우를 대비
+        if (DiceRoller == null)
+        {
+            DiceRoller = FindAnyObjectByType<DiceRoller>();
+        }
+        DiceRoller.RemoveAllDice();
+        DiceRoller.RollAllDiceDummy();
+    }
 
+    public void OnPushTurnEndButton()
+    {
+        if (battleState == BattleStateType.PlayerTurn)
+        {
+            ChangeState(new EnemyTurnState(this));
+        }
+        else
+        {
+            Logger.Log("플레이어의 턴이 아니기 때문에 턴을 넘길 수 없습니다.");
+        }
+    }
 
     public List<BaseCharacter> GetCharacterList()
     {
@@ -295,7 +324,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     /// <param name="stageNumber">스테이지 번호</param>
     /// <param name="battleType">전투 타입 [0 : 일반 전투 / 1 : 테스트 전투 / 2 : 보스 전투]</param>
     /// <returns></returns>
-    public static BattleType ConvertToStageType(int stageNumber, int battleType)
+    public static BattleType ConvertToBattleType(int stageNumber, int battleType)
     {
         int battleNum = stageNumber * 10 + battleType;
         if (Enum.IsDefined(typeof(BattleType), battleNum))
@@ -312,17 +341,9 @@ public class BattleManager : SingletonBehaviour<BattleManager>
         }
     }
 
-    public void ChangeState(BattleState newState)
+    public static int ConvertTobattleTypeInt(BattleType battleType)
     {
-        currentState?.Exit();
-        currentState = newState;
-        currentState.Enter();
-
-        // 상태가 BattleEndState로 변경될 때 OnBattleEnd 이벤트 발생
-        if (currentState is BattleEndState)
-        {
-            OnBattleEnd?.Invoke();
-        }
+        return (int)battleType % 10;
     }
 
 }

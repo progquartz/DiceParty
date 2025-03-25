@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,12 +16,11 @@ public class LootingManager : SingletonBehaviour<LootingManager>
 {
     public SkillUISpawner SkillUiSpawner;
 
-
-
-
     public BattleType LootingBattleType;
 
     [SerializeField] private List<LootingCardSO> lootingCards;
+    [SerializeField] private List<LootingPotionSO> lootingPotions;
+    [SerializeField] private LootingGoldSO lootingGolds;
 
     public LootingDataBase LootingDataBase = new LootingDataBase();
 
@@ -57,16 +57,12 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         LootingBattleType = battleType;
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData
         {
-            ActionOnShow = () => { Debug.Log("전리품 UI 열림."); },
+            ActionOnShow = () => { Debug.Log($"{battleType.ToString()}의 전리품 UI 열림."); },
             ActionOnClose = () => 
             {
                 LootingBattleType = BattleType.None;
                 if(isBossStage)
                 {
-                    if(MapManager.Instance == null)
-                    {
-                        Debug.LogError("ㅈ 되ㅏㅆ다!");
-                    }
                     MapManager.Instance.GoToNextStage();
                 }
                 Debug.Log("전리품 UI 닫힘."); 
@@ -74,21 +70,50 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         });
     }
 
-    public LootingCardSO GetRandomLootingCard(int stageNum)
+    public LootingCardData GetRandomLootingCard()
     {
-        List<LootingCardSO> lootingCardList = new List<LootingCardSO>();
-        foreach(var card in lootingCards) 
+        
+        int stageNum = MapManager.Instance.currentStageNum;
+        foreach (var card in lootingCards)
         {
-            if(card.lootingStage == stageNum)
+            if (card.lootingStage == stageNum)
             {
-                lootingCardList.Add(card);
+                return card.GetRandomLootSkill();
             }
         }
-
-        int randomIndex = Random.Range(0, lootingCardList.Count);
-        return lootingCardList[randomIndex];
+        Logger.LogError($"{stageNum}에 해당되는 LootingCardData가 없습니다.");
+        return null;
     }
 
+    public PotionDataSO GetRandomLootingPotion()
+    {
+        int stageNum = MapManager.Instance.currentStageNum;
+        foreach (var potion in lootingPotions)
+        { 
+            if(potion.lootingStage == stageNum)
+            {
+                return potion.GetRandomPotionData();
+            }
+        }
+        Logger.LogError($"{stageNum}에 해당되는 LootingPotionData가 없습니다.");
+        return null;
+    }
+
+    public int GetRandomGold()
+    {
+        int stageNum = MapManager.Instance.currentStageNum;
+        BattleType prevBattleType = BattleManager.Instance.prevBattleType;
+        foreach(var gold in lootingGolds.lootingGoldDatas)
+        {
+            if(gold.LootingStage == stageNum)
+            {
+                int goldAmount = gold.GetGoldValue(prevBattleType);
+                return goldAmount;
+            }
+        }
+        Logger.LogWarning($"{stageNum}애서의 맞는 goldData가 없습니다.");
+        return 0;
+    }
 
 
     

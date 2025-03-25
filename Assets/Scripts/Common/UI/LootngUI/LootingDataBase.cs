@@ -10,4 +10,5 @@ public class LootingDataBase
     public LootingProbTable TreasureLoot;
 
     public Sprite LootingCardImage;
+    public Sprite LootingGoldImage;
 }

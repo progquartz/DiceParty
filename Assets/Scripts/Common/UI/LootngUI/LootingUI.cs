@@ -8,8 +8,9 @@ public class LootingUI : BaseUI
 
     [SerializeField] private int lootingUICount;
 
-    private void Awake()
+    public override void Init(Transform canvas)
     {
+        base.Init(canvas);
         RegisterEvents();
         LootingSetup();
     }
@@ -25,9 +26,19 @@ public class LootingUI : BaseUI
 
         cardCount = 1;
         Debug.Log($"{cardCount} '' {treasureCount} '' {potionCount} '' {diceCount}");
-        lootingUICount = cardCount + treasureCount + potionCount + diceCount;
+        lootingUICount = 1 + cardCount + treasureCount + potionCount + diceCount;
 
-        for(int i = 0; i < cardCount; i++)
+        // 골드.
+        GameObject spawnedGold = Instantiate(LootingItemPrefab);
+        spawnedGold.transform.parent = LootingItemParent;
+        spawnedGold.transform.localScale = Vector3.one;
+        LootingItem gold = spawnedGold.AddComponent<LootingGold>();
+        gold.LoadData();
+        spawnedGold.GetComponent<LootingItemUI>().LootingItem = gold;
+        spawnedGold.GetComponent<LootingItemUI>().Init(this);
+
+        // 카드
+        for (int i = 0; i < cardCount; i++)
         {
             GameObject spawnedLoot = Instantiate(LootingItemPrefab);
             spawnedLoot.transform.parent = LootingItemParent;
@@ -45,8 +56,14 @@ public class LootingUI : BaseUI
         }
 
         for (int i = 0;i < potionCount ; i++) 
-        { 
-
+        {
+            GameObject spawnedLoot = Instantiate(LootingItemPrefab);
+            spawnedLoot.transform.parent = LootingItemParent;
+            spawnedLoot.transform.localScale = Vector3.one;
+            LootingItem potion = spawnedLoot.AddComponent<LootingPotion>();
+            potion.LoadData();
+            spawnedLoot.GetComponent<LootingItemUI>().LootingItem = potion;
+            spawnedLoot.GetComponent<LootingItemUI>().Init(this);
         }
 
         for(int i = 0; i < diceCount ; i++)
@@ -92,7 +109,7 @@ public class LootingUI : BaseUI
     public void OnClickLootingItem()
     {
         lootingUICount--;
-        if(lootingUICount == 0 )
+        if(lootingUICount == 0)
         {
             FinishLooting();
         }

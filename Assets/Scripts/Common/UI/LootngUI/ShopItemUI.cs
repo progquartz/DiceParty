@@ -30,8 +30,8 @@ public class ShopItemUI : MonoBehaviour
 
     private int SpawnCard()
     {
-        LootingCardSO stageSkillDataSO = LootingManager.Instance.GetRandomLootingCard(MapManager.Instance.currentStageNum);
-        SkillUI skillUi = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(stageSkillDataSO.lootingSkillDataSO);
+        LootingCardData stageSkillDataSO = LootingManager.Instance.GetRandomLootingCard();
+        SkillUI skillUi = LootingManager.Instance.SkillUiSpawner.SpawnSkillUI(stageSkillDataSO.skillDataSO);
         skillUi.transform.SetParent(cardHolder);
         skillUi.transform.localPosition = Vector3.zero;
         skillUi.transform.localScale = Vector3.one;

@@ -15,13 +15,9 @@ MonoBehaviour:
   attackName: 
   attackText: 
   attackEffects:
-  - targetClassName: 8
+  - targetClassName: 2
     effectClassName: 10
-    strength1: 1
-    strength2: 0
-  - targetClassName: 8
-    effectClassName: 40
-    strength1: 1
+    strength1: 3
     strength2: 0
   transitionType: 1
   nextNode: {fileID: 0}

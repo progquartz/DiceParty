@@ -18,6 +18,8 @@ public class Inventory : SingletonBehaviour<Inventory>
 
 
     [SerializeField] private List<SkillDataSO> initializeSkillDataSO;
+
+    [SerializeField] private PotionDataSO testPotionData;
     
     [SerializeField] private int initialDiceCount = 4; // 처음 가진 주사위 개수
     public int diceCountLimit = 8; // 주사위 최대 개수
@@ -43,6 +45,47 @@ public class Inventory : SingletonBehaviour<Inventory>
         foreach(SkillDataSO skillData in initializeSkillDataSO)
         {
             AddNewSkillInSlot(skillData);
+        }
+    }
+
+    public void LootGold(int amount)
+    {
+        gold += amount;
+    }
+
+    public void LootNewPotionTest()
+    {
+        if(LootNewPotion(testPotionData))
+        {
+            Debug.Log("제대로 들어감.");
+        }
+        else
+        {
+            Debug.Log("안들어감!");
+        }
+        
+    }
+    public bool LootNewPotion(PotionDataSO potionData)
+    {
+        int potionEmptyIndex = -1;
+        for(int i = 0; i < potionSlots.Count; i++)
+        {
+            if (!potionSlots[i].GetPotionAvailability())
+            {
+                potionEmptyIndex = i;
+                break;
+            }
+        }
+        Debug.Log($"{potionEmptyIndex} 번째 인덱스.");
+        if(potionEmptyIndex == -1)
+        {
+            // 포션 슬롯 가득 찼다 메시지 보여주기.
+            return false;
+        }
+        else
+        {
+            potionSlots[potionEmptyIndex].SetPotion(potionData);
+            return true;
         }
     }
 
@@ -110,7 +153,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         else
         {
             UIManager.Instance.OpenUI<CenterLinePopup>(new BaseUIData { });
-            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("돈이 모자랍니다.", 1.0f);
+            UIManager.Instance.GetActiveUI<CenterLinePopup>().GetComponent<CenterLinePopup>().Init("Not Enough Gold", 1.0f, 0.5f);
             return false;
         }
     }

@@ -15,16 +15,20 @@ public class PotionSlot : MonoBehaviour
     public void SetPotion(PotionDataSO potionData)
     {
         this.potionData = potionData;
+        potionUI.UpdateSprite(potionData);
+        potionUI.UpdateLoreTexts(potionData);
     }
 
     public void EmptyPotion()
     {
         this.potionData = null;
+        potionUI.OnPotionSlotClear();
     }
 
     public bool UsePotion()
     {
-        if (potionData != null)
+        Debug.Log($"{gameObject.name}오브젝트의 포션 슬롯을 사용합니다.");
+        if (this.potionData != null)
         {
             SkillExecutor skillExecutor = _skillExecutor;
             foreach (SkillEffectData skillData in potionData.effectData)
@@ -32,6 +36,7 @@ public class PotionSlot : MonoBehaviour
                 skillExecutor.UsePotion(skillData);
             }
             potionData = null;
+            potionUI.OnPotionSlotClear();
             return true;
         }
         else

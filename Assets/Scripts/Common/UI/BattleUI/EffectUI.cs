@@ -1,5 +1,6 @@
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +11,9 @@ public class EffectUI : MonoBehaviour
 
     [SerializeField] private BaseTarget target;
     private Dictionary<EffectKey, EffectIconUI> activeEffects = new Dictionary<EffectKey, EffectIconUI>();
+
+    [SerializeField] private RectTransform armourImageTransform;
+    [SerializeField] private TMP_Text armourText;
 
     private void Awake()
     {
@@ -28,6 +32,24 @@ public class EffectUI : MonoBehaviour
             }
         }
         RegisterEvent();
+    }
+
+    private void Update()
+    {
+        UpdateArmourUI();
+    }
+
+    private void UpdateArmourUI()
+    {
+        if (target != null && target.stat.ArmourStack > 0)
+        {
+            armourImageTransform.gameObject.SetActive(true);
+            armourText.text = target.stat.ArmourStack.ToString();
+        }
+        else
+        {
+            armourImageTransform.gameObject.SetActive(false);
+        }
     }
 
     private void RegisterEvent()

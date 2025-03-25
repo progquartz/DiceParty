@@ -36,6 +36,7 @@ public class LootingItemUI : MonoBehaviour
 
 public interface LootingItem
 {
+    public void LoadData();
     public void GetItem();
     public string GetName();
     public string GetLore();
@@ -43,6 +44,40 @@ public interface LootingItem
     public void InitializeLoot();
 
     public Sprite GetImage();
+}
+
+public class LootingGold : MonoBehaviour, LootingItem
+{
+    public int GoldAmount;
+    public Sprite GetImage()
+    {
+        return LootingManager.Instance.LootingDataBase.LootingGoldImage;
+    }
+
+    public void GetItem()
+    {
+        Inventory.Instance.LootGold(GoldAmount);
+    }
+
+    public string GetLore()
+    {
+        return new string("골드를 획득합니다.");
+    }
+
+    public string GetName()
+    {
+        return new string($"{GoldAmount}G");
+    }
+
+    public void InitializeLoot()
+    {
+        
+    }
+
+    public void LoadData()
+    {
+        GoldAmount = LootingManager.Instance.GetRandomGold();
+    }
 }
 
 public class LootingCard : MonoBehaviour, LootingItem
@@ -76,35 +111,47 @@ public class LootingCard : MonoBehaviour, LootingItem
     {
 
     }
+
+    public void LoadData()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
 public class LootingPotion : MonoBehaviour, LootingItem
 {
+    private PotionDataSO potionDataSO;
+    public void LoadData()
+    {
+        potionDataSO = LootingManager.Instance.GetRandomLootingPotion();
+    }
+
     public Sprite GetImage()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.sprite;
     }
 
     public void GetItem()
     {
-        throw new System.NotImplementedException();
+        Inventory.Instance.LootNewPotion(potionDataSO);
     }
 
     public string GetLore()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.lore;
     }
 
     public string GetName()
     {
-        throw new System.NotImplementedException();
+        return potionDataSO.name;
     }
 
     public void InitializeLoot()
     {
-        throw new System.NotImplementedException();
+        
     }
+
 }
 
 public class LootingTreasure : MonoBehaviour, LootingItem
@@ -132,5 +179,10 @@ public class LootingTreasure : MonoBehaviour, LootingItem
     public void InitializeLoot()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void LoadData()
+    {
+        throw new NotImplementedException();
     }
 }

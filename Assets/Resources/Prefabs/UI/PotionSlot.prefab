@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3852411765031715044}
   - component: {fileID: 4640597871486580726}
   - component: {fileID: 6499642833868780154}
-  - component: {fileID: 5198395859860121762}
   - component: {fileID: 7866648146960617446}
   - component: {fileID: 2240109338109807403}
   m_Layer: 5
@@ -71,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5509758069719216628, guid: effccb6d4c9ccdb4c9d58c82d9a4508b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: effccb6d4c9ccdb4c9d58c82d9a4508b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -81,20 +80,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5198395859860121762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3212885075646984662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d8dd1ba6fe4ae42a1f879ae302344b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiWindow: {fileID: 4511830489250687078}
-  hoverTime: 1
 --- !u!114 &7866648146960617446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,13 +1090,14 @@ GameObject:
   - component: {fileID: 2670665715517806389}
   - component: {fileID: 6466651266350084284}
   - component: {fileID: 321728499067880601}
+  - component: {fileID: 3867949185607390690}
   m_Layer: 5
   m_Name: PotionImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6381835984149105839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1159,7 +1145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5959207977718311317, guid: 1e8436b3c80a5714587b4b2555e1088f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1225,3 +1211,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3867949185607390690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680229622018860539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d8dd1ba6fe4ae42a1f879ae302344b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiWindow: {fileID: 4511830489250687078}
+  hoverTime: 1

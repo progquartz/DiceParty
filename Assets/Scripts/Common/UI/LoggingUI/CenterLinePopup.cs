@@ -6,11 +6,11 @@ public class CenterLinePopup : BaseUI
     [SerializeField] private SelfDestructFader timer;
     [SerializeField] private TMP_Text centerLineText;
 
-    public void Init(string text, float time)
+    public void Init(string text, float appearTime, float fadeTime)
     {
         RegisterEvents();
         InitializeTexts(text);
-        InitializeTimer(time);
+        InitializeTimer(appearTime,fadeTime);
     }
 
     private void RegisterEvents()
@@ -23,9 +23,9 @@ public class CenterLinePopup : BaseUI
         centerLineText.text = text;
     }
 
-    public void InitializeTimer(float time)
+    public void InitializeTimer(float appearTime, float fadeTime)
     {
-        timer.Init(time);
+        timer.Init(appearTime, fadeTime);
     }
 
     private void ReleaseEvents()

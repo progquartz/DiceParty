@@ -11,6 +11,9 @@ public class PotionDataSO : ScriptableObject
     public string lore;
     [Header("포션 스프라이트")]
     public Sprite sprite;
+    [Header("전투 중에만 사용 가능 여부")]
+    public bool isPotionOnlyUsedInBattle;
     [Header("효과 배열")]
     public List<SkillEffectData> effectData;
+    
 }
