@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
+  m_Name: Knight-RaiseShield
+  m_EditorClassIdentifier: 
+  skillName: Raise Shield
+  CharacterType: 0
+  skillLore: Gives 5 Armour to self
+  skillUseCount: 1
+  skillEffects:
+  - targetClassName: 8
+    effectClassName: 30
+    strength1: 5
+    strength2: 0
+  diceRequirements:
+  - diceNumLore: '> 1'
+    diceNum: -01111111111111111111

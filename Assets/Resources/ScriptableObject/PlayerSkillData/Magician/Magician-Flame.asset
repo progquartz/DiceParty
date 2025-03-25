@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
+  m_Name: Magician-Flame
+  m_EditorClassIdentifier: 
+  skillName: Flame
+  CharacterType: 2
+  skillLore: Damage 2, fire 1 to all enemy
+  skillUseCount: 1
+  skillEffects:
+  - targetClassName: 0
+    effectClassName: 10
+    strength1: 2
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 22
+    strength1: 1
+    strength2: 0
+  diceRequirements:
+  - diceNumLore: '> 4'
+    diceNum: -00001111111111111111

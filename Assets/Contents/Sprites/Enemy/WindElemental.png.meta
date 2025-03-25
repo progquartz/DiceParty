@@ -1,0 +1,1612 @@
+fileFormatVersion: 2
+guid: 441533618951cb3449140836f5e8e42b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3779420353340960863
+    second: WindElemental_0
+  - first:
+      213: -2947312912425139274
+    second: WindElemental_1
+  - first:
+      213: -6930019323033230780
+    second: WindElemental_2
+  - first:
+      213: -8981798894285675419
+    second: WindElemental_3
+  - first:
+      213: -7307422041974373423
+    second: WindElemental_4
+  - first:
+      213: -8940345344352065698
+    second: WindElemental_5
+  - first:
+      213: -2175010523816091666
+    second: WindElemental_6
+  - first:
+      213: 4721941450448163820
+    second: WindElemental_7
+  - first:
+      213: -831326441792811572
+    second: WindElemental_8
+  - first:
+      213: -3103606099868122133
+    second: WindElemental_9
+  - first:
+      213: -8795974781733761804
+    second: WindElemental_10
+  - first:
+      213: 3959280032708936054
+    second: WindElemental_11
+  - first:
+      213: -78301638532703564
+    second: WindElemental_12
+  - first:
+      213: 6514188317846799711
+    second: WindElemental_13
+  - first:
+      213: 6755239615996659717
+    second: WindElemental_14
+  - first:
+      213: -811688068332731664
+    second: WindElemental_15
+  - first:
+      213: 3984861104289812364
+    second: WindElemental_16
+  - first:
+      213: 2247742315666687768
+    second: WindElemental_17
+  - first:
+      213: 5376556479496599571
+    second: WindElemental_18
+  - first:
+      213: -8748709927743419481
+    second: WindElemental_19
+  - first:
+      213: 5018010531374752018
+    second: WindElemental_20
+  - first:
+      213: 5818040004653914161
+    second: WindElemental_21
+  - first:
+      213: 548581662076424686
+    second: WindElemental_22
+  - first:
+      213: 2826165791513699496
+    second: WindElemental_23
+  - first:
+      213: -7559471418112927238
+    second: WindElemental_24
+  - first:
+      213: -5796820312313847162
+    second: WindElemental_25
+  - first:
+      213: -6158694660980281982
+    second: WindElemental_26
+  - first:
+      213: -3147981603223058555
+    second: WindElemental_27
+  - first:
+      213: -1189457230565393406
+    second: WindElemental_28
+  - first:
+      213: -7798517801478802156
+    second: WindElemental_29
+  - first:
+      213: 1712374045949365298
+    second: WindElemental_30
+  - first:
+      213: 4492956743827808750
+    second: WindElemental_31
+  - first:
+      213: -1394422755219896669
+    second: WindElemental_32
+  - first:
+      213: 1609575519880984537
+    second: WindElemental_33
+  - first:
+      213: -1085199605143448608
+    second: WindElemental_34
+  - first:
+      213: -2483927822180932345
+    second: WindElemental_35
+  - first:
+      213: -1395698279449096835
+    second: WindElemental_36
+  - first:
+      213: -977590771353572697
+    second: WindElemental_37
+  - first:
+      213: 8243612287373641915
+    second: WindElemental_38
+  - first:
+      213: -6517972211051615558
+    second: WindElemental_39
+  - first:
+      213: 3339352504831091395
+    second: WindElemental_40
+  - first:
+      213: 57801807932286653
+    second: WindElemental_41
+  - first:
+      213: 5507489196685142438
+    second: WindElemental_42
+  - first:
+      213: -8801384594099143897
+    second: WindElemental_43
+  - first:
+      213: -890955599343136450
+    second: WindElemental_44
+  - first:
+      213: 7231837307068163162
+    second: WindElemental_45
+  - first:
+      213: 4817886538015396627
+    second: WindElemental_46
+  - first:
+      213: 472140027741815555
+    second: WindElemental_47
+  - first:
+      213: -1347999718989007280
+    second: WindElemental_48
+  - first:
+      213: -4631298449285681148
+    second: WindElemental_49
+  - first:
+      213: -7333484830876279902
+    second: WindElemental_50
+  - first:
+      213: 5520891568016429235
+    second: WindElemental_51
+  - first:
+      213: 2630822689338582710
+    second: WindElemental_52
+  - first:
+      213: -157574169150128936
+    second: WindElemental_53
+  - first:
+      213: 9063986774027835368
+    second: WindElemental_54
+  - first:
+      213: -4484886258965000730
+    second: WindElemental_55
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WindElemental_0
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 107
+        width: 561
+        height: 552
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1af0b3e763dcc8bc0800000000000000
+      internalID: -3779420353340960863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_1
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 623
+        width: 26
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b34afc858a0917d0800000000000000
+      internalID: -2947312912425139274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_2
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 255
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 442e20c7420a3df90800000000000000
+      internalID: -6930019323033230780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_3
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 229
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5642b164e7d3a5380800000000000000
+      internalID: -8981798894285675419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_4
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 198
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d302448e52d69a90800000000000000
+      internalID: -7307422041974373423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_5
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 204
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e57e39cf6438de380800000000000000
+      internalID: -8940345344352065698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_6
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 199
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eef9439c37fc0d1e0800000000000000
+      internalID: -2175010523816091666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_7
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 197
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3d7243bb4b78140800000000000000
+      internalID: 4721941450448163820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_8
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 187
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccdcc8871098674f0800000000000000
+      internalID: -831326441792811572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_9
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 182
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be300ae12b6cde4d0800000000000000
+      internalID: -3103606099868122133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_10
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 169
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fc07710a8b6ee580800000000000000
+      internalID: -8795974781733761804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_11
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 171
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 671c9eb663032f630800000000000000
+      internalID: 3959280032708936054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_12
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 169
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba5de91311d9eef0800000000000000
+      internalID: -78301638532703564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_13
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 162
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f55024de2cb076a50800000000000000
+      internalID: 6514188317846799711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_14
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 138
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5088024d3ae6fbd50800000000000000
+      internalID: 6755239615996659717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_15
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 124
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2ca9a900e4cb4f0800000000000000
+      internalID: -811688068332731664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_16
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 133
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f0778cf021d4730800000000000000
+      internalID: 3984861104289812364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_17
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 119
+        width: 39
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8174def1ab5913f10800000000000000
+      internalID: 2247742315666687768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_18
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 138
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3183833c1ad5d9a40800000000000000
+      internalID: 5376556479496599571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_19
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 108
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ab8be16ca6569680800000000000000
+      internalID: -8748709927743419481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_20
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 88
+        width: 22
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 211e2c1edfd83a540800000000000000
+      internalID: 5018010531374752018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 112
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13898661f84ddb050800000000000000
+      internalID: 5818040004653914161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_22
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 114
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee1db5a7d14fc9700800000000000000
+      internalID: 548581662076424686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_23
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 100
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4e88f40de883720800000000000000
+      internalID: 2826165791513699496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_24
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 119
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af919a90ccc571790800000000000000
+      internalID: -7559471418112927238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_25
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 106
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 682a3c983ae8d8fa0800000000000000
+      internalID: -5796820312313847162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_26
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 104
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28dec2406dbe78aa0800000000000000
+      internalID: -6158694660980281982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_27
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 108
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 587cc6c196f1054d0800000000000000
+      internalID: -3147981603223058555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_28
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 106
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c31a863f23e7fe0800000000000000
+      internalID: -1189457230565393406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_29
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 47
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415bb4cb06916c390800000000000000
+      internalID: -7798517801478802156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_30
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 73
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c096b4f1393c710800000000000000
+      internalID: 1712374045949365298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_31
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 74
+        width: 23
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee16d039a503a5e30800000000000000
+      internalID: 4492956743827808750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_32
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 75
+        width: 35
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a6856064e306ace0800000000000000
+      internalID: -1394422755219896669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_33
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 81
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7bbad486c565610800000000000000
+      internalID: 1609575519880984537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_34
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 79
+        width: 47
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e3d70175b890f0f0800000000000000
+      internalID: -1085199605143448608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_35
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 68
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 705223f5ec0578dd0800000000000000
+      internalID: -2483927822180932345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_36
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 67
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d00df3fcb71ace0800000000000000
+      internalID: -1395698279449096835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_37
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 78
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa25c97f56ee62f0800000000000000
+      internalID: -977590771353572697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_38
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 62
+        width: 27
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb883f6e2b1376270800000000000000
+      internalID: 8243612287373641915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_39
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 28
+        width: 343
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abaa668cec28b85a0800000000000000
+      internalID: -6517972211051615558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_40
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 68
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c2a4461963c75e20800000000000000
+      internalID: 3339352504831091395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_41
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 56
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db6ed25207a5dc000800000000000000
+      internalID: 57801807932286653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_42
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 69
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a928b49e388e6c40800000000000000
+      internalID: 5507489196685142438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_43
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 38
+        width: 38
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72bff19e7533bd580800000000000000
+      internalID: -8801384594099143897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_44
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 49
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e31d1865a90b2a3f0800000000000000
+      internalID: -890955599343136450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_45
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 45
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a54273107b5ac5460800000000000000
+      internalID: 7231837307068163162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_46
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 37
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3135b82b7429cd240800000000000000
+      internalID: 4817886538015396627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_47
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 32
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3034bcd8ad06d8600800000000000000
+      internalID: 472140027741815555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_48
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 31
+        width: 21
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0567558c561fa4de0800000000000000
+      internalID: -1347999718989007280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_49
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 33
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 400728919925abfb0800000000000000
+      internalID: -4631298449285681148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_50
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 34
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ab57e9966a3a3a90800000000000000
+      internalID: -7333484830876279902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_51
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 28
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b0911351a52e9c40800000000000000
+      internalID: 5520891568016429235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_52
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 29
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b660191c4f828420800000000000000
+      internalID: 2630822689338582710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_53
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 29
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dc7706c02f20ddf0800000000000000
+      internalID: -157574169150128936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_54
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 20
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e794caa2ffb9cd70800000000000000
+      internalID: 9063986774027835368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WindElemental_55
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 18
+        width: 18
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed4c5c95bb72c1c0800000000000000
+      internalID: -4484886258965000730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      WindElemental_0: -3779420353340960863
+      WindElemental_1: -2947312912425139274
+      WindElemental_10: -8795974781733761804
+      WindElemental_11: 3959280032708936054
+      WindElemental_12: -78301638532703564
+      WindElemental_13: 6514188317846799711
+      WindElemental_14: 6755239615996659717
+      WindElemental_15: -811688068332731664
+      WindElemental_16: 3984861104289812364
+      WindElemental_17: 2247742315666687768
+      WindElemental_18: 5376556479496599571
+      WindElemental_19: -8748709927743419481
+      WindElemental_2: -6930019323033230780
+      WindElemental_20: 5018010531374752018
+      WindElemental_21: 5818040004653914161
+      WindElemental_22: 548581662076424686
+      WindElemental_23: 2826165791513699496
+      WindElemental_24: -7559471418112927238
+      WindElemental_25: -5796820312313847162
+      WindElemental_26: -6158694660980281982
+      WindElemental_27: -3147981603223058555
+      WindElemental_28: -1189457230565393406
+      WindElemental_29: -7798517801478802156
+      WindElemental_3: -8981798894285675419
+      WindElemental_30: 1712374045949365298
+      WindElemental_31: 4492956743827808750
+      WindElemental_32: -1394422755219896669
+      WindElemental_33: 1609575519880984537
+      WindElemental_34: -1085199605143448608
+      WindElemental_35: -2483927822180932345
+      WindElemental_36: -1395698279449096835
+      WindElemental_37: -977590771353572697
+      WindElemental_38: 8243612287373641915
+      WindElemental_39: -6517972211051615558
+      WindElemental_4: -7307422041974373423
+      WindElemental_40: 3339352504831091395
+      WindElemental_41: 57801807932286653
+      WindElemental_42: 5507489196685142438
+      WindElemental_43: -8801384594099143897
+      WindElemental_44: -890955599343136450
+      WindElemental_45: 7231837307068163162
+      WindElemental_46: 4817886538015396627
+      WindElemental_47: 472140027741815555
+      WindElemental_48: -1347999718989007280
+      WindElemental_49: -4631298449285681148
+      WindElemental_5: -8940345344352065698
+      WindElemental_50: -7333484830876279902
+      WindElemental_51: 5520891568016429235
+      WindElemental_52: 2630822689338582710
+      WindElemental_53: -157574169150128936
+      WindElemental_54: 9063986774027835368
+      WindElemental_55: -4484886258965000730
+      WindElemental_6: -2175010523816091666
+      WindElemental_7: 4721941450448163820
+      WindElemental_8: -831326441792811572
+      WindElemental_9: -3103606099868122133
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
