@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Knight-SacredHeal
   m_EditorClassIdentifier: 
-  skillName: "\uC131\uC2A4\uB7EC\uC6B4 \uD68C\uBCF5"
+  skillName: Sacred Heal
   CharacterType: 0
-  skillLore: "\uBB34\uC791\uC704 \uC544\uAD70 3\n"
+  skillLore: Heals 3 to Random Character
   skillUseCount: 1
   skillEffects:
   - targetClassName: 2

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: Knight-Smite
+  m_Name: Magician-Pulse
   m_EditorClassIdentifier: 
-  skillName: Smite
-  CharacterType: 0
-  skillLore: Damage 3 to random enemy.
+  skillName: Pulse
+  CharacterType: 2
+  skillLore: Damage 2 to all enemy
   skillUseCount: 1
   skillEffects:
   - targetClassName: 1
     effectClassName: 10
-    strength1: 3
+    strength1: 5
     strength2: 0
   diceRequirements:
-  - diceNumLore: '> 2'
-    diceNum: -00111111111111111111
+  - diceNumLore: < 10
+    diceNum: -111111111100000000000

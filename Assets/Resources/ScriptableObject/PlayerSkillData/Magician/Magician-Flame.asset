@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Magician-Flame
   m_EditorClassIdentifier: 
-  skillName: "\uD654\uC5FC\uD3EC"
+  skillName: Flame
   CharacterType: 2
-  skillLore: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C 4 \uD53C\uD574"
+  skillLore: Damage 2, fire 1 to all enemy
   skillUseCount: 1
   skillEffects:
   - targetClassName: 0
     effectClassName: 10
-    strength1: 3
+    strength1: 2
+    strength2: 0
+  - targetClassName: 0
+    effectClassName: 22
+    strength1: 1
     strength2: 0
   diceRequirements:
   - diceNumLore: '> 4'

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Rogue-throwKnife
   m_EditorClassIdentifier: 
-  skillName: "\uB2E8\uB3C4 \uD22C\uCC99"
+  skillName: Throw Knives
   CharacterType: 1
-  skillLore: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C 2 \uD53C\uD574"
+  skillLore: damage 2 to all enemy
   skillUseCount: 1
   skillEffects:
   - targetClassName: 0

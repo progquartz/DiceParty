@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: Knight-Smite
+  m_Name: Magician-ChainBolt
   m_EditorClassIdentifier: 
-  skillName: Smite
-  CharacterType: 0
-  skillLore: Damage 3 to random enemy.
+  skillName: Chain Bolt
+  CharacterType: 2
+  skillLore: Damage 4 to all enemy
   skillUseCount: 1
   skillEffects:
-  - targetClassName: 1
+  - targetClassName: 0
     effectClassName: 10
-    strength1: 3
+    strength1: 4
     strength2: 0
   diceRequirements:
-  - diceNumLore: '> 2'
-    diceNum: -00111111111111111111
+  - diceNumLore: '> 4'
+    diceNum: -00001111111111111111

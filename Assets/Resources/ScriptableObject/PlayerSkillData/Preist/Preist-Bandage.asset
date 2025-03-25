@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
-  m_Name: Knight-Smite
+  m_Name: Preist-Bandage
   m_EditorClassIdentifier: 
-  skillName: Smite
-  CharacterType: 0
-  skillLore: Damage 3 to random enemy.
+  skillName: Bandage
+  CharacterType: 3
+  skillLore: heals 4 to random party
   skillUseCount: 1
   skillEffects:
-  - targetClassName: 1
-    effectClassName: 10
-    strength1: 3
+  - targetClassName: 2
+    effectClassName: 40
+    strength1: 4
     strength2: 0
   diceRequirements:
-  - diceNumLore: '> 2'
-    diceNum: -00111111111111111111
+  - diceNumLore: '> 3'
+    diceNum: -00011111111111111111
