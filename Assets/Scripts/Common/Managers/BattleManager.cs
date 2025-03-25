@@ -17,6 +17,8 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     public BattleStateType battleState = BattleStateType.BattleEnd;
     [Header("전투의 유형")]
     public BattleType currentBattleType = BattleType.None;
+    [Header("마지막 전투 유형")]
+    public BattleType prevBattleType = BattleType.None;
 
     private BattleState currentState;
 
@@ -322,7 +324,7 @@ public class BattleManager : SingletonBehaviour<BattleManager>
     /// <param name="stageNumber">스테이지 번호</param>
     /// <param name="battleType">전투 타입 [0 : 일반 전투 / 1 : 테스트 전투 / 2 : 보스 전투]</param>
     /// <returns></returns>
-    public static BattleType ConvertToStageType(int stageNumber, int battleType)
+    public static BattleType ConvertToBattleType(int stageNumber, int battleType)
     {
         int battleNum = stageNumber * 10 + battleType;
         if (Enum.IsDefined(typeof(BattleType), battleNum))
@@ -337,6 +339,11 @@ public class BattleManager : SingletonBehaviour<BattleManager>
             return BattleType.Stage1Boss;
 
         }
+    }
+
+    public static int ConvertTobattleTypeInt(BattleType battleType)
+    {
+        return (int)battleType % 10;
     }
 
 }

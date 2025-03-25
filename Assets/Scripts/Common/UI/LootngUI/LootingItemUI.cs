@@ -46,6 +46,40 @@ public interface LootingItem
     public Sprite GetImage();
 }
 
+public class LootingGold : MonoBehaviour, LootingItem
+{
+    public int GoldAmount;
+    public Sprite GetImage()
+    {
+        return LootingManager.Instance.LootingDataBase.LootingGoldImage;
+    }
+
+    public void GetItem()
+    {
+        Inventory.Instance.LootGold(GoldAmount);
+    }
+
+    public string GetLore()
+    {
+        return new string("골드를 획득합니다.");
+    }
+
+    public string GetName()
+    {
+        return new string($"{GoldAmount}G");
+    }
+
+    public void InitializeLoot()
+    {
+        
+    }
+
+    public void LoadData()
+    {
+        GoldAmount = LootingManager.Instance.GetRandomGold();
+    }
+}
+
 public class LootingCard : MonoBehaviour, LootingItem
 {
     public Sprite GetImage()
@@ -115,7 +149,7 @@ public class LootingPotion : MonoBehaviour, LootingItem
 
     public void InitializeLoot()
     {
-        throw new System.NotImplementedException();
+        
     }
 
 }

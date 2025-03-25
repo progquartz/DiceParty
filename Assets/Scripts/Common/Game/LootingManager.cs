@@ -20,6 +20,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
 
     [SerializeField] private List<LootingCardSO> lootingCards;
     [SerializeField] private List<LootingPotionSO> lootingPotions;
+    [SerializeField] private LootingGoldSO lootingGolds;
 
     public LootingDataBase LootingDataBase = new LootingDataBase();
 
@@ -56,7 +57,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         LootingBattleType = battleType;
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData
         {
-            ActionOnShow = () => { Debug.Log("전리품 UI 열림."); },
+            ActionOnShow = () => { Debug.Log($"{battleType.ToString()}의 전리품 UI 열림."); },
             ActionOnClose = () => 
             {
                 LootingBattleType = BattleType.None;
@@ -98,6 +99,21 @@ public class LootingManager : SingletonBehaviour<LootingManager>
         return null;
     }
 
+    public int GetRandomGold()
+    {
+        int stageNum = MapManager.Instance.currentStageNum;
+        BattleType prevBattleType = BattleManager.Instance.prevBattleType;
+        foreach(var gold in lootingGolds.lootingGoldDatas)
+        {
+            if(gold.LootingStage == stageNum)
+            {
+                int goldAmount = gold.GetGoldValue(prevBattleType);
+                return goldAmount;
+            }
+        }
+        Logger.LogWarning($"{stageNum}애서의 맞는 goldData가 없습니다.");
+        return 0;
+    }
 
 
     

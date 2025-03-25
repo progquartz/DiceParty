@@ -1866,6 +1866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleState: 2
   currentBattleType: 0
+  prevBattleType: 0
   activeTargets: []
   enemyList: []
   characterList: []
@@ -1946,6 +1947,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d6f249048705e6f4a90e65944b6812dc, type: 2}
   - {fileID: 11400000, guid: 22145caa0a4655c42a3732767e1e5b0a, type: 2}
   - {fileID: 11400000, guid: 7f5cdbac266073e4d9b40d7b17a5c401, type: 2}
+  lootingGolds: {fileID: 11400000, guid: 0d83a74a4da9add438e6908c6e5487b7, type: 2}
   LootingDataBase:
     NormalBattleLoot:
       CardPercent: 100
@@ -1956,18 +1958,19 @@ MonoBehaviour:
       CardPercent: 150
       TreasurePercent: 100
       PotionPercent: 100
-      DicePercent: 30
+      DicePercent: 0
     BossBattleLoot:
       CardPercent: 200
       TreasurePercent: 100
       PotionPercent: 100
-      DicePercent: 100
+      DicePercent: 0
     TreasureLoot:
       CardPercent: 0
       TreasurePercent: 0
       PotionPercent: 0
       DicePercent: 0
     LootingCardImage: {fileID: -4457850898058260020, guid: a5c772d0977bb76469714cc603c4c907, type: 3}
+    LootingGoldImage: {fileID: 1133410264010472436, guid: 1e8436b3c80a5714587b4b2555e1088f, type: 3}
 --- !u!114 &604240774
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,8 +11,8 @@ public class BattleEvent : RoomEvent
 
     private void LoadBattleEvent()
     {
-        BattleManager.Instance.StartBattlePhase(BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 0));
-        Debug.Log($"{BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 0).ToString()}로 전투 시작됩니다.");
+        BattleManager.Instance.StartBattlePhase(BattleManager.ConvertToBattleType(MapManager.Instance.currentStageNum, 0));
+        Debug.Log($"{BattleManager.ConvertToBattleType(MapManager.Instance.currentStageNum, 0).ToString()}로 전투 시작됩니다.");
     }
 
     private void OnMouseDown()

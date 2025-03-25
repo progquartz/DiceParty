@@ -48,6 +48,11 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
     }
 
+    public void LootGold(int amount)
+    {
+        gold += amount;
+    }
+
     public void LootNewPotionTest()
     {
         if(LootNewPotion(testPotionData))

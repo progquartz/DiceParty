@@ -11,7 +11,7 @@ public class BossEvent : RoomEvent
 
     private void LoadBossBattleEvent()
     {
-        BattleManager.Instance.StartBattlePhase(BattleManager.ConvertToStageType(MapManager.Instance.currentStageNum, 2));
+        BattleManager.Instance.StartBattlePhase(BattleManager.ConvertToBattleType(MapManager.Instance.currentStageNum, 2));
     }
 
     private void OnMouseDown()
