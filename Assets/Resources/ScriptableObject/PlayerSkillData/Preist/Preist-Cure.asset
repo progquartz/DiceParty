@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Preist-Cure
   m_EditorClassIdentifier: 
-  skillName: "\uCE58\uC720"
+  skillName: Cure
   CharacterType: 3
-  skillLore: "\uBAA8\uB4E0 \uC544\uAD70 \uD68C\uBCF5 3"
+  skillLore: Heals 3 All party
   skillUseCount: 1
   skillEffects:
   - targetClassName: 3

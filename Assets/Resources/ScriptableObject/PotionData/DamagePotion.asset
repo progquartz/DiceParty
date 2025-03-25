@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DamagePotion
   m_EditorClassIdentifier: 
   name: DamagePotion
-  lore: Damage potion. Damages All Enemy 10. Can be only used in Battle
+  lore: Damage 7 to random enemy. Can be only used in Battlee
   sprite: {fileID: 3156651111650854973, guid: 1e8436b3c80a5714587b4b2555e1088f, type: 3}
   isPotionOnlyUsedInBattle: 1
   effectData:
-  - targetClassName: 0
-    effectClassName: 20
-    strength1: 10
+  - targetClassName: 1
+    effectClassName: 10
+    strength1: 7
     strength2: 0

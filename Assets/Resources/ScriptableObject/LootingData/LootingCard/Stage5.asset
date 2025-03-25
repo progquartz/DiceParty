@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6945d2996041c884087a04b15642d958, type: 3}
+  m_Name: Stage5
+  m_EditorClassIdentifier: 
+  lootingStage: 5
+  lootingCardData:
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 9d5adfb5abe94ac48958a02288875622, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: 860a65334ddcba143993f5aa13f37b33, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 9781e4f03f419e84aa24e40aca37846d, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: 78dc81c1574e06543bda57958993fb9e, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: a0f5e01114361d240ab924c8aeaedf0f, type: 2}
+  - lootPower: 15
+    skillDataSO: {fileID: 11400000, guid: 680f32714c573294d865daa8f65423ff, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: d24cee4720aa92246a7562f62039dbb0, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 3b367bac5a0d64640a8a6a341ea97217, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 60d8271b3e59cec47b3439f7513cbf88, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 14a03084b8c94eb48ae71901dbede0e0, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 66a84c899611df349abe483aec0ed629, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: 576854cd81d424d42b56e1f0a7b7c14b, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: b01f8106cd465fe449fb048cee1c5e43, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: b01f8106cd465fe449fb048cee1c5e43, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: b01f8106cd465fe449fb048cee1c5e43, type: 2}
+  - lootPower: 10
+    skillDataSO: {fileID: 11400000, guid: b01f8106cd465fe449fb048cee1c5e43, type: 2}

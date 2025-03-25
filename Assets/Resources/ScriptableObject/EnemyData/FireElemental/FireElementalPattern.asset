@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a70b4d189e38284cb87aa774187d9a2, type: 3}
+  m_Name: FireElementalPattern
+  m_EditorClassIdentifier: 
+  patternName: FireElemental
+  patternDescription: 
+  rootNode: {fileID: 11400000, guid: be05456c7f434a54994354dfe985c30d, type: 2}

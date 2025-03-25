@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6dc75968ee4e3438457894c9ac7906, type: 3}
   m_Name: Magician-FireTouch
   m_EditorClassIdentifier: 
-  skillName: "\uBD88\uC758 \uC190\uAE38"
+  skillName: Flame Touch
   CharacterType: 2
-  skillLore: "\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C 5 \uB370\uBBF8\uC9C0"
+  skillLore: gives 3 fire to random enemy
   skillUseCount: 1
   skillEffects:
   - targetClassName: 1
-    effectClassName: 10
-    strength1: 5
+    effectClassName: 22
+    strength1: 3
     strength2: 0
   diceRequirements:
   - diceNumLore: '> 2'

@@ -15,7 +15,7 @@ MonoBehaviour:
   lootingStage: 1
   lootingPotionData:
   - lootPower: 10
-    skillDataSO: {fileID: 11400000, guid: 25200ae196c29e3469aa1477bb1bbb5a, type: 2}
+    skillDataSO: {fileID: 11400000, guid: e66e750851e22ef458b01652450f8eb5, type: 2}
   - lootPower: 10
     skillDataSO: {fileID: 11400000, guid: 75bbc99773fcb02448e0471796587aa4, type: 2}
   - lootPower: 10

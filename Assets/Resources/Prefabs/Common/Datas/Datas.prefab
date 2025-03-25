@@ -46,15 +46,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allHordeData:
+  - {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
+  - {fileID: 11400000, guid: 54b42000405b42b49810698bd223b20d, type: 2}
+  - {fileID: 11400000, guid: 37b9e11691ad3ce41be6c4ce0053d6e3, type: 2}
   - {fileID: 11400000, guid: 599f8f9a6e41df541aea379fac024694, type: 2}
   - {fileID: 11400000, guid: 0957c99511f72ad41b04832ddbe2c974, type: 2}
   - {fileID: 11400000, guid: 6c3e3ad27732a644cab8894161b237c2, type: 2}
-  - {fileID: 11400000, guid: 4985b5b212e840345a0e5a0f3199601d, type: 2}
-  - {fileID: 11400000, guid: ef257be74b777604ca164e7e35b69ac4, type: 2}
-  - {fileID: 11400000, guid: 09f22294cf2fddb49bb458f9c65d6736, type: 2}
-  - {fileID: 11400000, guid: d331bc06a3629ad478adee24eb498515, type: 2}
-  - {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
-  - {fileID: 11400000, guid: 5e03fecbf4265ee4ea79d56b47350a0d, type: 2}
+  - {fileID: 11400000, guid: 5d6f3c698ddaae1408a13928c339f8ba, type: 2}
+  - {fileID: 11400000, guid: 638770bee35b04441865971fc09236bb, type: 2}
+  - {fileID: 11400000, guid: b19c5e31b03c170448a09fff2599deb9, type: 2}
+  - {fileID: 11400000, guid: 33417a40767e6804296b008c7569729c, type: 2}
+  - {fileID: 11400000, guid: f1ae825ed84f1b943873005942b09849, type: 2}
+  - {fileID: 11400000, guid: 5724dea3f0222814da08537285173191, type: 2}
+  - {fileID: 11400000, guid: 676bbfed34e7ce84fad038eb787a8b66, type: 2}
+  - {fileID: 11400000, guid: 3b233840e51e31a43aac7fcc6d3ee5a5, type: 2}
+  - {fileID: 11400000, guid: 94f4b1bd91ad5754ea1ce918a4157235, type: 2}
+  - {fileID: 11400000, guid: 2624c721a4c55414ba61d69a0251eed7, type: 2}
+  - {fileID: 11400000, guid: 7bbc910c2bf2e4f45ab9fc19cfe91a52, type: 2}
+  - {fileID: 11400000, guid: 0b828eb6310bde047b96447c7b4c409d, type: 2}
+  - {fileID: 11400000, guid: e313134c3af9df44081dd8fe8fc31b34, type: 2}
+  - {fileID: 11400000, guid: 2495dbcbf74f1a6478224cbb7bf35116, type: 2}
+  - {fileID: 11400000, guid: 04a6049d51924ea41a0a3981ae8efafb, type: 2}
+  - {fileID: 11400000, guid: 40f802ee155607647be399802b5aac8d, type: 2}
+  - {fileID: 11400000, guid: 0fa3b0da28def42449cf4252f7c46108, type: 2}
+  - {fileID: 11400000, guid: b9af4c93b314af642904d14a3a703a29, type: 2}
+  - {fileID: 11400000, guid: c8b87a481023ce049b90c10e22713e4a, type: 2}
+  - {fileID: 11400000, guid: bcf3980c040484149984dd612f1356fc, type: 2}
+  - {fileID: 11400000, guid: a9f38f07cf0b5f74787b8538c0d2415c, type: 2}
+  - {fileID: 11400000, guid: beba32789ed71764fbb29cb53bc5f87d, type: 2}
+  - {fileID: 11400000, guid: 5866dd2ab412cd24a8e271517d406dd4, type: 2}
+  - {fileID: 11400000, guid: 440206c15e6be4d4191676646f9dfcc8, type: 2}
+  - {fileID: 11400000, guid: d64f3fb7a8426704f84825b01815f88c, type: 2}
+  - {fileID: 11400000, guid: e76c5777c5a64dc47a6b2657a4d5d927, type: 2}
+  - {fileID: 11400000, guid: 34b4cde64ebec834d99e750a58e5fbce, type: 2}
+  - {fileID: 11400000, guid: dff918992b643f6459766f4288a25306, type: 2}
 --- !u!114 &63064072210991193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,86 +95,84 @@ MonoBehaviour:
   effectDataList:
   - effectClass: 12
     effectSprite: {fileID: 21300000, guid: ad0d950f5eca3ab47ae8e91feade24e6, type: 3}
-    name: "\uB3C5"
+    name: Poison
     description:
-    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
-    - "\uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    - 'Gets '
+    - damage on start of turn
   - effectClass: 22
     effectSprite: {fileID: 21300000, guid: f9436e140d382a545abebf2033d1d4f5, type: 3}
-    name: "\uD654\uC5FC"
+    name: Fire
     description:
-    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
-    - "\uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    - 'Gets '
+    - damage on start of turn
   - effectClass: 32
     effectSprite: {fileID: 21300000, guid: d08911fa6c2dd90428b00a1cf4ee6cf8, type: 3}
-    name: "\uAE30\uC808"
+    name: Stun
     description:
-    - 
-    - "\uD134\uB3D9\uC548 \uD589\uB3D9\uC774 \uBD88\uAC00\uB2A5\uD569\uB2C8\uB2E4."
+    - 'Cannot act for '
+    - turn
   - effectClass: 42
     effectSprite: {fileID: 21300000, guid: be023aa6c71f4a646b2110fdaa18c95b, type: 3}
-    name: "\uD798"
+    name: Strength
     description:
-    - "\uAC00\uD558\uB294 \uACF5\uACA9 \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0\uAC00 "
-    - "\uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - 'Skill Damage increases '
+    - .
   - effectClass: 52
     effectSprite: {fileID: 21300000, guid: a3b84096f3b41ed47ad7fbf4d848a9bb, type: 3}
-    name: "\uC1E0\uC57D"
+    name: Weaken
     description:
-    - 
-    - "\uD134\uAC04 \uAC00\uD558\uB294 \uACF5\uACA9 \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0
-      25% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - 'Reduces Attack Damage 25% for '
+    - turn
   - effectClass: 62
     effectSprite: {fileID: 21300000, guid: 88e5fa33e2e310f4fbc3debbab042e53, type: 3}
-    name: "\uCD94\uAC00 \uB2E4\uC774\uC2A4"
+    name: AdditionalDice
     description:
-    - 
-    - "\uAC1C\uC758 \uB2E4\uC774\uC2A4\uB97C \uD134\uC774 \uC2DC\uC791\uD560 \uB54C\uC5D0
-      \uCD94\uAC00\uB85C \uBC1B\uC2B5\uB2C8\uB2E4."
-  - effectClass: 11
+    - 'Gets '
+    - dice more in start of turn.
+  - effectClass: 72
     effectSprite: {fileID: 21300000, guid: 121fe4e382e95ec4a903061969ff3171, type: 3}
-    name: "\uD63C\uB780"
+    name: Confuse
     description:
-    - 
-    - "\uD134\uAC04 \uB300\uC0C1\uC774 \uBB34\uC791\uC704\uB85C \uC9C0\uC815\uB429\uB2C8\uB2E4."
+    - 'Targets are randomize for '
+    - turns.
   - effectClass: 82
     effectSprite: {fileID: 21300000, guid: a9545106fcd467e4b9ce44b17be0530e, type: 3}
-    name: "\uBC29\uBCBD"
+    name: Fortify
     description:
-    - "\uD134\uC774 \uB05D\uB0A0 \uB54C\uC5D0 "
-    - "\uB9CC\uD07C\uC758 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+    - 'Gets '
+    - Armour when turn ends.
   - effectClass: 92
     effectSprite: {fileID: 21300000, guid: 49619b6d93bfe4041974bddfd3e4241a, type: 3}
-    name: "\uC5F4\uC815"
+    name: Passion
     description:
-    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C\uC5D0 "
-    - "\uB9CC\uD07C\uC758 \uD798\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+    - 'Gets '
+    - strength on start of turn.
   - effectClass: 102
     effectSprite: {fileID: 21300000, guid: 285c40d2757e5fb4f8951df1e5e87dfc, type: 3}
-    name: "\uC7AC\uC0DD"
+    name: Regen
     description:
-    - "\uB9E4 \uD134\uC774 \uC2DC\uC791\uD560 \uB54C "
-    - "\uB9CC\uD07C\uC758 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    - 'Gets '
+    - heal on start of turn.
   - effectClass: 112
     effectSprite: {fileID: 21300000, guid: 83644e68e2bb6bd4d934753dcae088a3, type: 3}
-    name: "\uB3C4\uBC1C"
+    name: Taunt
     description:
-    - "\uACF5\uACA9 \uB300\uC0C1\uC744 \uC6B0\uC120\uC801\uC73C\uB85C \uC790\uC2E0\uC5D0\uAC8C
-      \uC720\uB3C4\uD569\uB2C8\uB2E4."
+    - 'Makes Target Attack to self for '
+    - turns.
   - effectClass: 122
     effectSprite: {fileID: 21300000, guid: a17dd2e020cda444ba8aaa32409eed00, type: 3}
-    name: "\uAC00\uC2DC \uAC11\uC637"
+    name: Thorn
     description:
-    - "\uD53C\uD574\uB97C \uC785\uC744 \uB54C \uB9C8\uB2E4 \uACF5\uACA9 \uB300\uC0C1\uC5D0\uAC8C "
-    - "\uB9CC\uD07C\uC758 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+    - 'Gives '
+    - Damage when attacked.
   - effectClass: 132
     effectSprite: {fileID: 21300000, guid: 52a8f9197ed082a4ca6d20fa70915c56, type: 3}
-    name: "\uBD80\uD328"
+    name: Wither
     description:
-    - "\uBC1B\uB294 \uACF5\uACA9 \uB370\uBBF8\uC9C0\uAC00 50% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - Damage getting is 50% increased.
   - effectClass: 142
     effectSprite: {fileID: 21300000, guid: c41e64471d3616b4cba49fff4febe04f, type: 3}
-    name: "\uBA74\uC5ED"
+    name: Immune
     description:
-    - "\uBD80\uC815\uC801\uC778 \uD6A8\uACFC\uB97C "
-    - "\uBC88 \uBB34\uC2DC\uD569\uB2C8\uB2E4."
+    - 'Ignores CC Effects for '
+    - times.

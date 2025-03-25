@@ -23,6 +23,14 @@ public enum BattleType
     Stage3Normal = 30,
     Stage3Elite = 31,
     Stage3Boss = 32,
+
+    Stage4Normal = 40,
+    Stage4Elite = 41,
+    Stage4Boss = 42,
+
+    Stage5Normal = 50,
+    Stage5Elite = 51,
+    Stage5Boss = 52,
 }
 
 [CreateAssetMenu(fileName = "EnemyHordeDataSO", menuName = "Scriptable Objects/EnemyHordeDataSO")]

@@ -1942,11 +1942,15 @@ MonoBehaviour:
   lootingCards:
   - {fileID: 11400000, guid: b6f95d7937f8b5e4c93191457d9785f5, type: 2}
   - {fileID: 11400000, guid: f874e1a10a8ab87428a6963c67ce368d, type: 2}
-  - {fileID: 11400000, guid: f6489bc5f6fc69448aae49ea414721d4, type: 2}
+  - {fileID: 11400000, guid: ae434cc6041d3044ea40d1f17be60458, type: 2}
+  - {fileID: 11400000, guid: 7732a9d204265304ebbf2c7beaabc6f3, type: 2}
+  - {fileID: 11400000, guid: ec135ed21612b664a9e358db8425ee05, type: 2}
   lootingPotions:
   - {fileID: 11400000, guid: d6f249048705e6f4a90e65944b6812dc, type: 2}
   - {fileID: 11400000, guid: 22145caa0a4655c42a3732767e1e5b0a, type: 2}
-  - {fileID: 11400000, guid: 7f5cdbac266073e4d9b40d7b17a5c401, type: 2}
+  - {fileID: 11400000, guid: 1d7afbd1f70b436478f9e04e16c64974, type: 2}
+  - {fileID: 11400000, guid: a537e13e2dfc46b4bb9755c9453dcd28, type: 2}
+  - {fileID: 11400000, guid: a2c3cad8e774d7246995bfca30e8241b, type: 2}
   lootingGolds: {fileID: 11400000, guid: 0d83a74a4da9add438e6908c6e5487b7, type: 2}
   LootingDataBase:
     NormalBattleLoot:
@@ -7280,7 +7284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2143726309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7462,10 +7466,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 63064072210991193, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
-      propertyPath: effectDataList.Array.data[6].effectClass
-      value: 72
-      objectReference: {fileID: 0}
     - target: {fileID: 2307813014361009070, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7510,18 +7510,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Datas
       objectReference: {fileID: 0}
-    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
-      propertyPath: _allHordeData.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
-      propertyPath: '_allHordeData.Array.data[6]'
-      value: 
-      objectReference: {fileID: 11400000, guid: b62c3cade9a3c0f43824b7365d857fd5, type: 2}
-    - target: {fileID: 6340483552442626659, guid: 329f02b6053b76649b76b564b1f8b175, type: 3}
-      propertyPath: '_allHordeData.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e03fecbf4265ee4ea79d56b47350a0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
