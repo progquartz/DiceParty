@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]

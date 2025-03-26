@@ -10,7 +10,7 @@ public class EnemyAttackNodeSO : ScriptableObject
 
     // 설명하기 모르겠다면...
     [Header("공격 시 하게 되는 행동")]
-    [TextArea] public string attackText;
+    public string attackText;
 
     [Header("스킬로 사용될 되는 이펙트")]
     public List<SkillEffectData> attackEffects;

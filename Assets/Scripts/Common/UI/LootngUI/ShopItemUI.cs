@@ -1,7 +1,5 @@
 using System;
 using TMPro;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ShopItemUI : MonoBehaviour

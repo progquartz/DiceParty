@@ -16,8 +16,8 @@ MonoBehaviour:
   enemyLore: PoisonSlime
   enemytempSprite: {fileID: 21300000, guid: 32d8998d1a5ad484c932c90221f19b75, type: 3}
   stat:
-    Hp: 15
-    maxHp: 15
+    Hp: 10
+    maxHp: 10
     ArmourStack: 0
     isDead: 0
   enemyAttackPattern: {fileID: 11400000, guid: 2822e219b0b50f44e97be47bd14aafdb, type: 2}

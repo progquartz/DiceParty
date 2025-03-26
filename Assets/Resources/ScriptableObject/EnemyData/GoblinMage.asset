@@ -16,8 +16,8 @@ MonoBehaviour:
   enemyLore: Goblin Mage
   enemytempSprite: {fileID: 21300000, guid: 021eea8ca7e911f4e8a5369e52f03c79, type: 3}
   stat:
-    Hp: 20
-    maxHp: 20
+    Hp: 12
+    maxHp: 12
     ArmourStack: 0
     isDead: 0
   enemyAttackPattern: {fileID: 11400000, guid: 2f4b8e2a598a7bc4caa9f8806b3341c5, type: 2}
